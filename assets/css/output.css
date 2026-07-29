@@ -302,6 +302,9 @@
   .h-screen {
     height: 100vh;
   }
+  .min-h-4 {
+    min-height: calc(var(--spacing) * 4);
+  }
   .min-h-\[16px\] {
     min-height: 16px;
   }
@@ -332,14 +335,20 @@
   .min-w-0 {
     min-width: 0px;
   }
+  .min-w-4 {
+    min-width: calc(var(--spacing) * 4);
+  }
+  .min-w-32\.5 {
+    min-width: calc(var(--spacing) * 32.5);
+  }
+  .min-w-35 {
+    min-width: calc(var(--spacing) * 35);
+  }
   .min-w-\[16px\] {
     min-width: 16px;
   }
   .min-w-\[130px\] {
     min-width: 130px;
-  }
-  .min-w-\[140px\] {
-    min-width: 140px;
   }
   .flex-1 {
     flex: 1;
