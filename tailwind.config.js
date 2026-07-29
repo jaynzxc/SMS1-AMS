@@ -1,37 +1,28 @@
-// tailwind.config.js
 module.exports = {
-    content: [
-        "./src/**/*.{html,js}",
-        "./src/**/*.js"
-    ],
-    theme: {
-        extend: {
-            width: {
-                '4.5': '1.125rem', // 18px
-            },
-            height: {
-                '4.5': '1.125rem', // 18px
-            },
-            minWidth: {
-                '18px': '18px',
-            },
-            minHeight: {
-                '18px': '18px',
-            },
-            // Additional custom colors (optional)
-            colors: {
-                'orange-50': '#fff7ed',
-                'orange-100': '#ffedd5',
-                'orange-200': '#fed7aa',
-                'orange-300': '#fdba74',
-                'orange-400': '#fb923c',
-                'orange-500': '#f97316',
-                'orange-600': '#ea580c',
-                'orange-700': '#c2410c',
-                'orange-800': '#9a3412',
-                'orange-900': '#7c2d12',
-            }
-        },
+  content: [
+    "./admin/**/*.html",
+    "./*.html"
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#0030c2',
+        'primary-light': '#e7edff',
+        'primary-dark': '#002699',
+        background: '#f8fafc',
+        'card-bg': '#ffffff',
+        'text-primary': '#111827',
+        'text-secondary': '#6b7280',
+        border: '#e5e7eb',
+        success: '#10b981',
+        warning: '#f59e0b',
+        error: '#ef4444',
+        info: '#3b82f6',
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
-    plugins: [],
+  },
+  plugins: [],
 }
