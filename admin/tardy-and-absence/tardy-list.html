@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendance System · QR Code Management</title>
+  <title>Attendance System · Tardy List</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -51,26 +51,26 @@
 
       <!-- RFID/QR MANAGEMENT with Dropdown -->
       <div class="relative">
-        <button onclick="toggleDropdown()" class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] text-sm font-medium transition-colors">
+        <button onclick="toggleDropdown()" class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <div class="flex items-center gap-2.5">
             <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
             </svg>
             RFID/QR Management
           </div>
-          <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 rotate-90 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </button>
 
-        <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2">
-          <a href="rfid-registry.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+        <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+          <a href="../rfid-and-qr/rfid-registry.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
             RFID Registry
           </a>
-          <a href="qr-management.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+          <a href="../rfid-and-qr/qr-management.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
             QR Code Management
           </a>
-          <a href="scan-logs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+          <a href="../rfid-and-qr/scan-logs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
             Scan Logs
           </a>
         </div>
@@ -78,29 +78,32 @@
 
       <!-- TARDY & ABSENCE LOGS with Dropdown -->
       <div class="relative">
-        <button onclick="toggleTardyDropdown()" class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-          <div class="flex items-center gap-2.5">
-            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
-            </svg>
-            Tardy &amp; Absence Logs
-          </div>
-          <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </button>
+          <button onclick="toggleTardyDropdown()" class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+              <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
+                  </svg>
+                  Tardy &amp; Absence Logs
+              </div>
+              <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+          </button>
 
-        <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
-          <a href="../tardy-and-absence/tardy-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-            Tardy List
-          </a>
-          <a href="../tardy-and-absence/absence-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-            Absence List
-          </a>
-          <a href="../tardy-and-absence/habitual-offender.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-            Habitual Offender
-          </a>
-        </div>
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+              <!-- Tardy List -->
+              <a href="tardy-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+                  Tardy List
+              </a>
+              <!-- Absence List -->
+              <a href="absence-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+                  Absence List
+              </a>
+              <!-- Habitual Offender -->
+              <a href="habitual-offender.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+                  Habitual Offender
+              </a>
+          </div>
       </div>
 
       <!-- Teacher Attendance -->
@@ -188,7 +191,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </button>
-        <h1 class="text-base font-bold text-[#111827]">QR Code Management</h1>
+        <h1 class="text-base font-bold text-[#111827]">Tardy List</h1>
       </div>
 
       <div class="flex items-center gap-4">
@@ -222,8 +225,8 @@
       <!-- Page Header -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h2 class="text-2xl font-bold text-[#111827]">QR Code Management</h2>
-          <p class="text-sm text-[#6b7280]">Manage QR codes for all students.</p>
+          <h2 class="text-2xl font-bold text-[#111827]">Tardy List</h2>
+          <p class="text-sm text-[#6b7280]">Students with recorded late arrivals.</p>
         </div>
         <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
           <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -237,47 +240,17 @@
       <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
           <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-[#e7edff] flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-xs text-[#6b7280]">Total QR Codes</p>
-              <p class="text-xl font-bold text-[#111827]">4,825</p>
-            </div>
-          </div>
-          <p class="text-[10px] text-[#6b7280] mt-1.5">All registered QR codes</p>
-        </div>
-
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-xs text-[#6b7280]">Active QR</p>
-              <p class="text-xl font-bold text-green-600">4,760</p>
-            </div>
-          </div>
-          <p class="text-[10px] text-green-600 font-medium mt-1.5">98.65% of total</p>
-        </div>
-
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
             <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
               <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Inactive QR</p>
-              <p class="text-xl font-bold text-amber-500">45</p>
+              <p class="text-xs text-[#6b7280]">Total Tardy</p>
+              <p class="text-xl font-bold text-[#111827]">87</p>
             </div>
           </div>
-          <p class="text-[10px] text-amber-600 font-medium mt-1.5">0.93% of total</p>
+          <p class="text-[10px] text-amber-600 font-medium mt-1.5">Today's tardy records</p>
         </div>
 
         <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
@@ -288,19 +261,48 @@
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Expired QR</p>
-              <p class="text-xl font-bold text-red-500">20</p>
+              <p class="text-xs text-[#6b7280]">≥ 3 Tardies</p>
+              <p class="text-xl font-bold text-red-500">45</p>
             </div>
           </div>
-          <p class="text-[10px] text-red-500 font-medium mt-1.5">0.42% of total</p>
+          <p class="text-[10px] text-red-500 font-medium mt-1.5">Needs monitoring</p>
+        </div>
+
+        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-[#e7edff] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-[#6b7280]">Avg Minutes Late</p>
+              <p class="text-xl font-bold text-[#111827]">12</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-[#6b7280] mt-1.5">Average tardiness</p>
+        </div>
+
+        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-[#6b7280]">On Time</p>
+              <p class="text-xl font-bold text-green-600">1,065</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-green-600 font-medium mt-1.5">86.59% of total</p>
         </div>
       </div>
 
-      <!-- Filters -->
+      <!-- Search and Filter Bar -->
       <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
         <div class="flex flex-wrap items-end gap-3">
-          <!-- Search -->
-          <div class="flex-1 min-w-35">
+          <div class="flex-1 min-w-32.5">
             <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Student</label>
             <div class="relative">
               <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -310,42 +312,38 @@
             </div>
           </div>
 
-          <!-- Filter by Course -->
           <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Course</label>
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Section</label>
             <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Courses</option>
-              <option>BSIT</option>
-              <option>BSCS</option>
-              <option>BSIS</option>
-              <option>BMMA</option>
+              <option>All Sections</option>
+              <option>Grade 10 - A</option>
+              <option>Grade 10 - B</option>
             </select>
           </div>
 
-          <!-- Filter by Year -->
           <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Year</label>
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Adviser</label>
             <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Years</option>
-              <option>1st Year</option>
-              <option>2nd Year</option>
-              <option>3rd Year</option>
-              <option>4th Year</option>
+              <option>All Advisers</option>
+              <option>Mr. Juan Dela Cruz</option>
+              <option>Ms. Ana Reyes</option>
+              <option>Mr. Pedro Cruz</option>
+              <option>Ms. Lisa Santos</option>
             </select>
           </div>
 
-          <!-- QR Status -->
           <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">QR Status</label>
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Min Tardies</label>
             <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Status</option>
-              <option>Active</option>
-              <option>Inactive</option>
-              <option>Expired</option>
+              <option>Any</option>
+              <option>≥ 1</option>
+              <option>≥ 2</option>
+              <option>≥ 3</option>
+              <option>≥ 5</option>
+              <option>≥ 10</option>
             </select>
           </div>
 
-          <!-- Buttons -->
           <div class="flex items-center gap-2 shrink-0">
             <label class="block text-xs font-medium text-[#6b7280] mb-1 invisible">Actions</label>
             <div class="flex gap-2">
@@ -360,25 +358,23 @@
         </div>
       </div>
 
-      <!-- QR Code Management Table -->
+      <!-- Tardy List Table -->
       <div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <!-- Table Header with Actions -->
-        <div class="px-4 py-3 border-b border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h2 class="text-base font-semibold text-[#111827]">QR Code Management</h2>
-          </div>
+        <div class="flex flex-wrap items-center justify-between px-4 py-3 border-b border-[#e5e7eb] bg-gray-50/50">
+          <h3 class="font-semibold text-[#111827] text-base">Tardy List</h3>
           <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              Generate QR
+            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+                Export
             </button>
-            <button class="px-4 py-2 bg-white hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap border border-[#0030c2]">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              View Scan History
+            <!-- Reset Count (Authorized) Button -->
+            <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+                Reset Count (Authorized)
             </button>
           </div>
         </div>
@@ -387,137 +383,130 @@
           <table class="w-full text-sm">
             <thead>
               <tr class="bg-gray-50 border-b border-[#e5e7eb]">
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student ID</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student Name</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">QR Status</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Last Generated</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Section</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Total Late</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Last Late</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Adviser</th>
                 <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-[#e5e7eb]">
-              <!-- Active Status Row -->
               <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1001</td>
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
+                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fee2e2; color:#991b1b;">5</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (7:35 AM)</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Juan Dela Cruz</td>
                 <td class="px-3 py-2.5">
                   <div class="flex items-center justify-center gap-2">
+                    <!-- Eye Icon (View) -->
                     <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
+                    <!-- Reset Icon -->
+                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Reset Count">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                      </svg>
-                    </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Active Status Row -->
               <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1002</td>
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Juan</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 23, 2026</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
+                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fef3c7; color:#b45309;">4</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (7:28 AM)</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Ms. Ana Reyes</td>
                 <td class="px-3 py-2.5">
                   <div class="flex items-center justify-center gap-2">
+                    <!-- Eye Icon (View) -->
                     <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
+                    <!-- Reset Icon -->
+                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Reset Count">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                      </svg>
-                    </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Inactive Status Row - Only View and Regenerate -->
               <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1003</td>
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Anna</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Inactive</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 10, 2026</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - B</td>
+                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fef3c7; color:#b45309;">3</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 24, 2026 (7:32 AM)</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Pedro Cruz</td>
                 <td class="px-3 py-2.5">
                   <div class="flex items-center justify-center gap-2">
+                    <!-- Eye Icon (View) -->
                     <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-24 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-medium rounded-lg transition-colors flex items-center justify-center border border-blue-300">
-                      Regenerate
+                    <!-- Reset Icon -->
+                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Reset Count">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Active Status Row -->
               <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1004</td>
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, John</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 24, 2026</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
+                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#dcfce7; color:#166534;">2</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 23, 2026 (7:31 AM)</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Juan Dela Cruz</td>
                 <td class="px-3 py-2.5">
                   <div class="flex items-center justify-center gap-2">
+                    <!-- Eye Icon (View) -->
                     <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
+                    <!-- Reset Icon -->
+                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Reset Count">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                      </svg>
-                    </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Active Status Row -->
               <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1005</td>
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Rivera, Luis</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 22, 2026</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - B</td>
+                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#dcfce7; color:#166534;">2</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 22, 2026 (7:29 AM)</td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Ms. Lisa Santos</td>
                 <td class="px-3 py-2.5">
                   <div class="flex items-center justify-center gap-2">
+                    <!-- Eye Icon (View) -->
                     <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
+                    <!-- Reset Icon -->
+                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Reset Count">
                       <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                      </svg>
-                    </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                       </svg>
                     </button>
                   </div>
@@ -530,7 +519,7 @@
         <!-- Table Footer -->
         <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <p class="text-sm text-[#6b7280]">
-            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">5</span> of <span class="font-medium text-[#111827]">4,825</span> records
+            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">5</span> of <span class="font-medium text-[#111827]">245</span> records
           </p>
           <div class="flex items-center gap-1">
             <button class="pagination-btn text-sm px-2 py-1" disabled>
@@ -542,7 +531,7 @@
             <button class="pagination-btn text-sm px-2.5 py-1">2</button>
             <button class="pagination-btn text-sm px-2.5 py-1">3</button>
             <span class="px-0.5 text-[#6b7280] text-sm">...</span>
-            <button class="pagination-btn text-sm px-2.5 py-1">10</button>
+            <button class="pagination-btn text-sm px-2.5 py-1">49</button>
             <button class="pagination-btn text-sm px-2 py-1">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -559,5 +548,6 @@
 <!-- JavaScript -->
 <script src="../../assets/js/sidebar.js"></script>
 <script src="../../assets/js/main.js"></script>
+
 </body>
 </html>
