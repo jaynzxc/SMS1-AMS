@@ -385,17 +385,20 @@
               <tr class="bg-gray-50 border-b border-[#e5e7eb]">
                 <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student</th>
                 <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Section</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Total Late</th>
+                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Total Late</th>
                 <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Last Late</th>
                 <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Adviser</th>
                 <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-[#e5e7eb]">
+              <!-- Row 1: 5 tardies = RED -->
               <tr class="hover:bg-gray-50">
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fee2e2; color:#991b1b;">5</span></td>
+                <td class="px-3 py-2.5 text-center">
+                  <span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fee2e2; color:#991b1b;">5</span>
+                </td>
                 <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (7:35 AM)</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Mr. Juan Dela Cruz</td>
                 <td class="px-3 py-2.5">
@@ -416,10 +419,14 @@
                   </div>
                 </td>
               </tr>
+
+              <!-- Row 2: 4 tardies = ORANGE -->
               <tr class="hover:bg-gray-50">
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Juan</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fef3c7; color:#b45309;">4</span></td>
+                <td class="px-3 py-2.5 text-center">
+                  <span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fef3c7; color:#b45309;">4</span>
+                </td>
                 <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (7:28 AM)</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Ms. Ana Reyes</td>
                 <td class="px-3 py-2.5">
@@ -440,10 +447,14 @@
                   </div>
                 </td>
               </tr>
+
+              <!-- Row 3: 3 tardies = ORANGE -->
               <tr class="hover:bg-gray-50">
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Anna</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - B</td>
-                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fef3c7; color:#b45309;">3</span></td>
+                <td class="px-3 py-2.5 text-center">
+                  <span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#fef3c7; color:#b45309;">3</span>
+                </td>
                 <td class="px-3 py-2.5 text-[#6b7280]">July 24, 2026 (7:32 AM)</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Mr. Pedro Cruz</td>
                 <td class="px-3 py-2.5">
@@ -464,10 +475,14 @@
                   </div>
                 </td>
               </tr>
+
+              <!-- Row 4: 2 tardies = GREEN -->
               <tr class="hover:bg-gray-50">
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, John</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#dcfce7; color:#166534;">2</span></td>
+                <td class="px-3 py-2.5 text-center">
+                  <span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#dcfce7; color:#166534;">2</span>
+                </td>
                 <td class="px-3 py-2.5 text-[#6b7280]">July 23, 2026 (7:31 AM)</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Mr. Juan Dela Cruz</td>
                 <td class="px-3 py-2.5">
@@ -488,10 +503,14 @@
                   </div>
                 </td>
               </tr>
+
+              <!-- Row 5: 2 tardies = GREEN -->
               <tr class="hover:bg-gray-50">
                 <td class="px-3 py-2.5 font-medium text-[#111827]">Rivera, Luis</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - B</td>
-                <td class="px-3 py-2.5"><span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#dcfce7; color:#166534;">2</span></td>
+                <td class="px-3 py-2.5 text-center">
+                  <span class="inline-flex items-center justify-center w-11 h-9 rounded-lg font-bold text-sm" style="background:#dcfce7; color:#166534;">2</span>
+                </td>
                 <td class="px-3 py-2.5 text-[#6b7280]">July 22, 2026 (7:29 AM)</td>
                 <td class="px-3 py-2.5 text-[#6b7280]">Ms. Lisa Santos</td>
                 <td class="px-3 py-2.5">
