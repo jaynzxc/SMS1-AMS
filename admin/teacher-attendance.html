@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Teacher Attendance</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-[#f8fafc] text-[#111827]">
+
+<div class="flex h-screen overflow-hidden">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+      <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight">ATTENDANCE MONITORING</p>
+        <p class="text-[10px] text-[#6b7280]">Administrator Panel</p>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+      <!-- Dashboard -->
+      <a href="dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+        </svg>
+        Dashboard
+      </a>
+
+      <!-- Attendance Monitoring -->
+      <a href="attendance.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l2.25 2.25L15 12M8.25 21h7.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-1.5v.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-.75h-1.5A2.25 2.25 0 006 6.75v12A2.25 2.25 0 008.25 21z" />
+        </svg>
+        Attendance Monitoring
+      </a>
+
+      <!-- RFID/QR MANAGEMENT with Dropdown -->
+      <div class="relative">
+        <button onclick="toggleDropdown()" class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+            </svg>
+            RFID/QR Management
+          </div>
+          <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
+        <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+          <a href="rfid-and-qr/rfid-registry.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            RFID Registry
+          </a>
+          <a href="rfid-and-qr/qr-management.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            QR Code Management
+          </a>
+          <a href="rfid-and-qr/scan-logs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Scan Logs
+          </a>
+        </div>
+      </div>
+
+      <!-- TARDY & ABSENCE LOGS with Dropdown -->
+      <div class="relative">
+        <button onclick="toggleTardyDropdown()" class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
+            </svg>
+            Tardy &amp; Absence Logs
+          </div>
+          <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
+        <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+          <a href="tardy-and-absence/tardy-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Tardy List
+          </a>
+          <a href="tardy-and-absence/absence-list.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Absence List
+          </a>
+          <a href="tardy-and-absence/habitual-offender.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Habitual Offender
+          </a>
+        </div>
+      </div>
+
+      <!-- Teacher Attendance -->
+      <a href="teacher-attendance.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+        Teacher Attendance
+      </a>
+
+      <!-- Excuse Slip Management -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+        </svg>
+        Excuse Slip Management
+      </a>
+
+      <!-- Attendance Calendar -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+        </svg>
+        Attendance Calendar
+      </a>
+
+      <!-- Parent Alerts -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+        </svg>
+        Parent Alerts
+      </a>
+
+      <!-- Performance Analytics -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+        </svg>
+        Performance Analytics
+      </a>
+
+      <!-- Perfect Attendance Award -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+        </svg>
+        Perfect Attendance Award
+      </a>
+
+      <!-- Reports & Export -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+        </svg>
+        Reports &amp; Export
+      </a>
+
+      <!-- User Management -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        User Management
+      </a>
+
+      <!-- Academic Management -->
+      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+        </svg>
+        Academic Management
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+    <!-- Topbar -->
+    <header class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+      <div class="flex items-center gap-3">
+        <button class="text-[#6b7280] hover:text-[#111827]">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+        <h1 class="text-base font-bold text-[#111827]">Teacher Attendance</h1>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button class="relative text-[#6b7280] hover:text-[#111827]">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+        </button>
+
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+            </svg>
+          </div>
+          <div class="hidden sm:block">
+            <p class="text-xs font-bold text-[#111827] leading-tight">Admin User</p>
+            <p class="text-[10px] text-[#6b7280] leading-tight">System Administrator</p>
+          </div>
+          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== PAGE CONTENT ===== -->
+    <main class="flex-1 p-4 space-y-4">
+
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h2 class="text-2xl font-bold text-[#111827]">👨‍🏫 Teacher Attendance Monitoring</h2>
+          <p class="text-sm text-[#6b7280]">Monitor and manage teacher attendance records.</p>
+        </div>
+        <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          July 25, 2026
+        </button>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-[#6b7280]">Monthly Attendance</p>
+              <p class="text-xl font-bold text-green-600">92.45%</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-green-600 font-medium mt-1.5">↑ 4.32% from last month</p>
+        </div>
+
+        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-[#6b7280]">Total Late</p>
+              <p class="text-xl font-bold text-amber-500">18</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-amber-600 font-medium mt-1.5">↑ 3 from last month</p>
+        </div>
+
+        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-[#6b7280]">Total Absent</p>
+              <p class="text-xl font-bold text-red-500">6</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-green-600 font-medium mt-1.5">↓ 2 from last month</p>
+        </div>
+
+        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-[#e7edff] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-[#6b7280]">Total Teachers</p>
+              <p class="text-xl font-bold text-[#111827]">85</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-[#6b7280] mt-1.5">Active faculty members</p>
+        </div>
+      </div>
+
+      <!-- Line Graph -->
+      <div class="bg-white rounded-lg border border-[#e5e7eb] p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-[#111827] text-base">Monthly Attendance Overview</h3>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#0030c2]"></span>
+              Attendance Rate (%)
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              Late Count
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+              Absent Count
+            </span>
+          </div>
+        </div>
+        
+        <svg viewBox="0 0 700 200" class="w-full h-56">
+          <g stroke="#eef2f7" stroke-width="1">
+            <line x1="45" y1="15" x2="680" y2="15"/>
+            <line x1="45" y1="50" x2="680" y2="50"/>
+            <line x1="45" y1="85" x2="680" y2="85"/>
+            <line x1="45" y1="120" x2="680" y2="120"/>
+            <line x1="45" y1="155" x2="680" y2="155"/>
+          </g>
+          <g font-size="10" fill="#9ca3af">
+            <text x="12" y="18">100%</text>
+            <text x="12" y="53">90%</text>
+            <text x="12" y="88">80%</text>
+            <text x="12" y="123">70%</text>
+            <text x="12" y="158">60%</text>
+          </g>
+          <!-- Attendance Rate Line -->
+          <polyline fill="none" stroke="#0030c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            points="75,60 170,55 265,42 360,50 455,38 550,48 645,35" />
+          <g fill="#0030c2">
+            <circle cx="75" cy="60" r="4"/>
+            <circle cx="170" cy="55" r="4"/>
+            <circle cx="265" cy="42" r="4"/>
+            <circle cx="360" cy="50" r="4"/>
+            <circle cx="455" cy="38" r="4"/>
+            <circle cx="550" cy="48" r="4"/>
+            <circle cx="645" cy="35" r="4"/>
+          </g>
+          <!-- Late Count Bars -->
+          <rect x="75" y="110" width="8" height="45" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <rect x="170" y="120" width="8" height="35" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <rect x="265" y="130" width="8" height="25" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <rect x="360" y="115" width="8" height="40" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <rect x="455" y="125" width="8" height="30" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <rect x="550" y="118" width="8" height="37" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <rect x="645" y="108" width="8" height="47" fill="#f59e0b" rx="2" opacity="0.8"/>
+          <!-- Absent Count Bars -->
+          <rect x="83" y="140" width="8" height="15" fill="#ef4444" rx="2" opacity="0.8"/>
+          <rect x="178" y="145" width="8" height="10" fill="#ef4444" rx="2" opacity="0.8"/>
+          <rect x="273" y="135" width="8" height="20" fill="#ef4444" rx="2" opacity="0.8"/>
+          <rect x="368" y="142" width="8" height="13" fill="#ef4444" rx="2" opacity="0.8"/>
+          <rect x="463" y="138" width="8" height="17" fill="#ef4444" rx="2" opacity="0.8"/>
+          <rect x="558" y="143" width="8" height="12" fill="#ef4444" rx="2" opacity="0.8"/>
+          <rect x="653" y="132" width="8" height="23" fill="#ef4444" rx="2" opacity="0.8"/>
+          <g font-size="10" fill="#9ca3af" text-anchor="middle">
+            <text x="75" y="175">Jan</text>
+            <text x="170" y="175">Feb</text>
+            <text x="265" y="175">Mar</text>
+            <text x="360" y="175">Apr</text>
+            <text x="455" y="175">May</text>
+            <text x="550" y="175">Jun</text>
+            <text x="645" y="175">Jul</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Search and Filter Bar -->
+      <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
+        <div class="flex flex-wrap items-end gap-3">
+          <div class="flex-1 min-w-32.5">
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Teacher</label>
+            <div class="relative">
+              <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+              <input type="text" placeholder="Search by name or ID..." class="w-full pl-9 pr-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
+            </div>
+          </div>
+
+          <div class="flex-1 min-w-32.5">
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Department</label>
+            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
+              <option>All Departments</option>
+              <option>Information Technology</option>
+              <option>Business Administration</option>
+              <option>Education</option>
+              <option>Engineering</option>
+              <option>Humanities</option>
+              <option>Sciences</option>
+            </select>
+          </div>
+
+          <div class="flex-1 min-w-32.5">
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Status</label>
+            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
+              <option>All Status</option>
+              <option>Present</option>
+              <option>Late</option>
+              <option>Absent</option>
+            </select>
+          </div>
+
+          <div class="flex-1 min-w-48">
+            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Date Range</label>
+            <div class="flex items-center gap-2">
+              <input type="date" value="2026-07-01" class="flex-1 px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
+              <span class="text-[#6b7280] text-xs">to</span>
+              <input type="date" value="2026-07-31" class="flex-1 px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <label class="block text-xs font-medium text-[#6b7280] mb-1 invisible">Actions</label>
+            <div class="flex gap-2">
+              <button class="px-6 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
+                Apply Filters
+              </button>
+              <button class="px-6 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher Attendance Table -->
+      <div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between px-4 py-3 border-b border-[#e5e7eb] bg-gray-50/50">
+          <h3 class="font-semibold text-[#111827] text-base">Teacher Attendance Records</h3>
+          <div class="flex items-center gap-2">
+            <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+              </svg>
+              View Attendance History
+            </button>
+            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              Manual Correction
+            </button>
+            <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+              </svg>
+              Export
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-[#e5e7eb]">
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Teacher</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Department</th>
+                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Time In</th>
+                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Time Out</th>
+                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Status</th>
+                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Date</th>
+                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#e5e7eb]">
+              <tr class="hover:bg-gray-50">
+                <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, Juan <span class="text-[#6b7280] text-xs font-normal">TCH-1001</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Information Technology</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:32 AM</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:35 PM</td>
+                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex items-center justify-center gap-2">
+                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Ana <span class="text-[#6b7280] text-xs font-normal">TCH-1002</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Business Administration</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:18 AM</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:20 PM</td>
+                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-late">Late</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex items-center justify-center gap-2">
+                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria <span class="text-[#6b7280] text-xs font-normal">TCH-1003</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Education</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:45 AM</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:42 PM</td>
+                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex items-center justify-center gap-2">
+                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Pedro <span class="text-[#6b7280] text-xs font-normal">TCH-1004</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Engineering</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">–</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">–</td>
+                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-absent">Absent</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex items-center justify-center gap-2">
+                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-3 py-2.5 font-medium text-[#111827]">Lim, Cristina <span class="text-[#6b7280] text-xs font-normal">TCH-1005</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">Humanities</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:29 AM</td>
+                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:31 PM</td>
+                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
+                <td class="px-3 py-2.5">
+                  <div class="flex items-center justify-center gap-2">
+                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
+                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer -->
+        <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <p class="text-sm text-[#6b7280]">
+            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">10</span> of <span class="font-medium text-[#111827]">85</span> records
+          </p>
+          <div class="flex items-center gap-1">
+            <button class="pagination-btn text-sm px-2 py-1" disabled>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button class="pagination-btn pagination-btn-active text-sm px-2.5 py-1">1</button>
+            <button class="pagination-btn text-sm px-2.5 py-1">2</button>
+            <button class="pagination-btn text-sm px-2.5 py-1">3</button>
+            <span class="px-0.5 text-[#6b7280] text-sm">...</span>
+            <button class="pagination-btn text-sm px-2.5 py-1">9</button>
+            <button class="pagination-btn text-sm px-2 py-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script src="../assets/js/sidebar.js"></script>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>
