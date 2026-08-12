@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // =============================================================
-// SET ACTIVE NAV ITEM BASED ON CURRENT URL
+// SET ACTIVE NAV ITEM BASED ON CURRENT URL - FIXED
 // =============================================================
 
 function setActiveNavItem() {
@@ -87,12 +87,13 @@ function setActiveNavItem() {
     });
     
     // =============================================================
-    // 1. CHECK MAIN NAV LINKS (Dashboard, Attendance Monitoring, etc.)
+    // 1. CHECK MAIN NAV LINKS - EXACT MATCH ONLY
     // =============================================================
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && href !== '#') {
-            if (currentPath.includes(href) || currentFile === href) {
+            // Exact match - hindi na gumagamit ng includes()
+            if (currentFile === href) {
                 link.classList.add('nav-active');
                 link.classList.remove('text-[#6b7280]');
             }
@@ -104,7 +105,8 @@ function setActiveNavItem() {
     // =============================================================
     dropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (href && (currentPath.includes(href) || currentFile === href)) {
+        const hrefFile = href ? href.split('/').pop() : '';
+        if (href && currentFile === hrefFile) {
             link.classList.add('nav-active');
             link.classList.remove('text-[#6b7280]');
             // Activate parent toggle
@@ -120,23 +122,15 @@ function setActiveNavItem() {
     });
 
     // =============================================================
-    // 3. CHECK TARDY DROPDOWN LINKS - FIXED: Only one sub-menu active
+    // 3. CHECK TARDY DROPDOWN LINKS
     // =============================================================
-    // First, remove any active state from all tardy dropdown items
-    tardyDropdownLinks.forEach(link => {
-        link.classList.remove('bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
-        link.classList.add('text-[#6b7280]');
-    });
-
-    // Then activate only the matching one
     tardyDropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (href && (currentPath.includes(href) || currentFile === href)) {
-            // Activate this sub-menu item
+        const hrefFile = href ? href.split('/').pop() : '';
+        if (href && currentFile === hrefFile) {
             link.classList.add('nav-active');
             link.classList.remove('text-[#6b7280]');
-            
-            // Activate parent toggle (Tardy & Absence Logs)
+            // Activate parent toggle
             const parent = link.closest('.relative');
             if (parent) {
                 const toggleBtn = parent.querySelector('.tardy-dropdown-toggle');
@@ -225,44 +219,6 @@ document.addEventListener('keydown', function(e) {
             const arrow = document.querySelector('.tardy-dropdown-arrow');
             if (arrow) arrow.classList.remove('rotate-90');
         }
-    }
-});
-
-// =============================================================
-// KEYBOARD SHORTCUT: Ctrl + B to toggle sidebar collapse
-// =============================================================
-
-let isSidebarCollapsed = false;
-
-function toggleSidebarCollapse() {
-    const sidebar = document.querySelector('aside');
-    if (!sidebar) return;
-    
-    isSidebarCollapsed = !isSidebarCollapsed;
-    
-    if (isSidebarCollapsed) {
-        sidebar.style.width = '64px';
-        sidebar.querySelectorAll('.sidebar-brand p, .sidebar-brand span, nav a span, nav button span, .dropdown-btn span:not(.arrow)').forEach(el => {
-            el.style.display = 'none';
-        });
-        sidebar.querySelectorAll('.dropdown-btn .arrow').forEach(el => {
-            el.style.display = 'none';
-        });
-    } else {
-        sidebar.style.width = '256px';
-        sidebar.querySelectorAll('.sidebar-brand p, .sidebar-brand span, nav a span, nav button span, .dropdown-btn span:not(.arrow)').forEach(el => {
-            el.style.display = '';
-        });
-        sidebar.querySelectorAll('.dropdown-btn .arrow').forEach(el => {
-            el.style.display = '';
-        });
-    }
-}
-
-document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.key === 'b') {
-        e.preventDefault();
-        toggleSidebarCollapse();
     }
 });
 
