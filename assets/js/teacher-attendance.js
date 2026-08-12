@@ -236,3 +236,52 @@ document.addEventListener('DOMContentLoaded', function() {
     initDatePicker();
     console.log('✅ Teacher Attendance graph initialized');
 });
+
+// Date Range Picker Functions
+function toggleDatePicker() {
+  const popup = document.getElementById('datePickerPopup');
+  popup.classList.toggle('hidden');
+}
+
+function closeDatePicker() {
+  document.getElementById('datePickerPopup').classList.add('hidden');
+}
+
+function updateDateRange() {
+  const from = document.getElementById('dateFrom');
+  const to = document.getElementById('dateTo');
+  const display = document.getElementById('dateRangeText');
+  
+  // Format dates to MM/DD/YYYY
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    return `${parts[1]}/${parts[2]}/${parts[0]}`;
+  };
+  
+  const fromFormatted = formatDate(from.value);
+  const toFormatted = formatDate(to.value);
+  
+  if (from.value && to.value) {
+    display.value = `${fromFormatted} - ${toFormatted}`;
+  } else if (from.value) {
+    display.value = `${fromFormatted} - `;
+  } else if (to.value) {
+    display.value = ` - ${toFormatted}`;
+  }
+}
+
+// Close popup when clicking outside
+document.addEventListener('click', function(event) {
+  const container = document.getElementById('dateRangeContainer');
+  const popup = document.getElementById('datePickerPopup');
+  
+  if (!container.contains(event.target) && !popup.classList.contains('hidden')) {
+    popup.classList.add('hidden');
+  }
+});
+
+// Initialize with default values
+document.addEventListener('DOMContentLoaded', function() {
+  updateDateRange();
+});
