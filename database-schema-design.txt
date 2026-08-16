@@ -1,0 +1,31 @@
+final table list
+
+01. roles
+02. profiles
+
+03. school_years
+04. semesters
+05. courses
+06. year_levels
+07. sections
+08. subjects
+09. rooms
+
+10. students
+11. teachers
+
+12. teaching_assignments
+13. class_schedules
+14. adviser_assignments
+
+15. rfid_cards
+16. qr_codes
+17. scanner_devices
+18. scan_logs
+
+19. attendance_sessions
+20. attendance_records
+21. teacher_attendance_records
+
+22. notifications
+23. audit_logs
