@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             e.stopPropagation();
 
-            console.log('👁️ Toggle button clicked!');
+            console.log('Toggle button clicked!');
 
             // Clear timer
             if (timer) {

@@ -222,4 +222,4 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-console.log('✅ Sidebar.js loaded successfully');
+console.log('Sidebar.js loaded successfully');

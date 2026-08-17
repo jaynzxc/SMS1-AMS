@@ -234,7 +234,7 @@ function initDatePicker() {
 
 document.addEventListener('DOMContentLoaded', function() {
     initDatePicker();
-    console.log('✅ Teacher Attendance graph initialized');
+    console.log('Teacher Attendance graph initialized');
 });
 
 // Date Range Picker Functions

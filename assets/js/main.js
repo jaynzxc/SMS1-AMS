@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (notificationBtn) {
         notificationBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            alert('📬 You have 3 unread notifications');
+            alert('You have 3 unread notifications');
         });
     }
 
@@ -42,5 +42,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    console.log('✅ Main.js loaded successfully');
+    console.log('Main.js loaded successfully');
 });
