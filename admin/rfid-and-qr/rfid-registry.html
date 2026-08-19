@@ -236,369 +236,718 @@
     </header>
 
     <!-- ===== PAGE CONTENT ===== -->
-    <main class="flex-1 p-4 space-y-4">
+    <main class="flex-1 p-5 space-y-5">
 
       <!-- Page Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 class="text-2xl font-bold text-[#111827]">RFID Registry</h2>
-          <p class="text-sm text-[#6b7280]">Manage RFID cards for all students.</p>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">RFID Registry</h2>
+          <p class="text-sm text-[#6b7280]">Manage student RFID credentials, card statuses, and issuance records.</p>
         </div>
-        <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
-          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 01 twenty-one 11. twenty-five v7. fifty" />
+        <button class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+          <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
           </svg>
-          July 25, 2026
+          July 25, 2026 (Friday)
         </button>
       </div>
 
-      <!-- Statistics Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-[#e7edff] flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+      <!-- Statistics Cards (4 Cards Grid) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Total Registered RFID -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+              <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Total Registered RFID</p>
-              <p class="text-xl font-bold text-[#111827]">4,825</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Total Registered RFID</p>
+              <p class="text-2xl font-extrabold text-[#111827]">4,825</p>
             </div>
           </div>
-          <p class="text-[10px] text-[#6b7280] mt-1.5">All registered cards</p>
+          <p class="text-[11px] text-[#6b7280] font-medium mt-2">All registered cards</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Active RFID -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
+              <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Active RFID</p>
-              <p class="text-xl font-bold text-green-600">4,760</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Active RFID</p>
+              <p class="text-2xl font-extrabold text-[#16a34a]">4,760</p>
             </div>
           </div>
-          <p class="text-[10px] text-green-600 font-medium mt-1.5">98.65% of total</p>
+          <p class="text-[11px] text-[#16a34a] font-medium mt-2">98.65% of total</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Inactive RFID -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+              <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Inactive RFID</p>
-              <p class="text-xl font-bold text-amber-500">45</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Inactive RFID</p>
+              <p class="text-2xl font-extrabold text-[#f97316]">45</p>
             </div>
           </div>
-          <p class="text-[10px] text-amber-600 font-medium mt-1.5">0.93% of total</p>
+          <p class="text-[11px] text-[#f97316] font-medium mt-2">0.93% of total</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Expired RFID -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
+              <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Expired RFID</p>
-              <p class="text-xl font-bold text-red-500">20</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Expired RFID</p>
+              <p class="text-2xl font-extrabold text-[#dc2626]">20</p>
             </div>
           </div>
-          <p class="text-[10px] text-red-500 font-medium mt-1.5">0.42% of total</p>
+          <p class="text-[11px] text-[#dc2626] font-medium mt-2">0.42% of total</p>
         </div>
       </div>
 
-      <!-- Filters -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
-        <div class="flex flex-wrap items-end gap-3">
-          <!-- Search -->
-          <div class="flex-1 min-w-35">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Student</label>
-            <div class="relative">
-              <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <!-- ===== RFID REGISTRY TABLE CARD ===== -->
+      <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+        
+        <!-- Table Header Controls Bar -->
+        <div class="p-4 border-b border-[#e5e7eb] flex flex-col xl:flex-row xl:items-center justify-between gap-3 bg-white">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-base font-bold text-[#111827]">RFID Registry</h3>
+            <span id="rfidRecordCount" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">4,825 Cards</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Search -->
+            <div class="relative min-w-[220px] flex-1 sm:flex-initial">
+              <input type="text" id="rfidSearch" placeholder="Search by Name, ID, RFID..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+              <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
-              <input type="text" placeholder="Search by Name/ID" class="w-full pl-9 pr-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
             </div>
-          </div>
 
-          <!-- Filter by Course -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Course</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Courses</option>
-              <option>BSIT</option>
-              <option>BSCS</option>
-              <option>BSIS</option>
-              <option>BMMA</option>
-            </select>
-          </div>
+            <!-- Filter Button -->
+            <button onclick="openFilterModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              </svg>
+              Filter
+            </button>
 
-          <!-- Filter by Year -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Year</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Years</option>
-              <option>1st Year</option>
-              <option>2nd Year</option>
-              <option>3rd Year</option>
-              <option>4th Year</option>
-            </select>
-          </div>
+            <!-- Replace Lost RFID Button -->
+            <button onclick="openReplaceModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+              Replace Lost RFID
+            </button>
 
-          <!-- RFID Status -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">RFID Status</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Status</option>
-              <option>Active</option>
-              <option>Inactive</option>
-              <option>Expired</option>
-            </select>
-          </div>
+            <!-- View Scan History Button -->
+            <a href="scan-logs.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              View Scan History
+            </a>
 
-          <!-- Buttons -->
-          <div class="flex items-center gap-2 shrink-0">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1 invisible">Actions</label>
-            <div class="flex gap-2">
-              <button class="px-6 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Apply Filters
-              </button>
-              <button class="px-6 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Reset
-              </button>
-            </div>
+            <!-- Register RFID Button -->
+            <button onclick="openRegisterModal()" class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Register RFID
+            </button>
           </div>
         </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table id="rfidTable" class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <th class="py-3 px-4">Student</th>
+                <th class="py-3 px-4">Course &amp; Year</th>
+                <th class="py-3 px-4">RFID Number</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Date Registered</th>
+                <th class="py-3 px-4 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#f3f4f6] text-xs">
+              <!-- Row 1 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Santos, Maria</p>
+                      <p class="text-[11px] text-[#6b7280]">2026-1001</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSIT - 3rd Year">BSIT - 3rd Year</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 font-mono font-semibold px-2 py-0.5 rounded bg-gray-100 text-[#374151] border border-gray-200">
+                    <svg class="w-3 h-3 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+                    </svg>
+                    RFID-000123
+                  </span>
+                </td>
+                <td class="py-3.5 px-4" data-status="Inactive">
+                  <span class="status-badge status-badge-absent">Inactive</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 20, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewModal({student: 'Santos, Maria', id: '2026-1001', courseYear: 'BSIT - 3rd Year', rfid: 'RFID-000123', status: 'Inactive', dateRegistered: 'July 20, 2026', lastScan: 'July 24, 2026 (Gate 2)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Card Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="openReplaceModal('Santos, Maria', '2026-1001', 'RFID-000123')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Replace RFID">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                    </button>
+                    <button onclick="toggleCardStatus('Santos, Maria', 'Inactive')" class="px-2.5 py-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-md transition-colors" title="Activate RFID">
+                      Activate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Garcia, Juan</p>
+                      <p class="text-[11px] text-[#6b7280]">2026-1002</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSCS - 2nd Year">BSCS - 2nd Year</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 font-mono font-semibold px-2 py-0.5 rounded bg-gray-100 text-[#374151] border border-gray-200">
+                    <svg class="w-3 h-3 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+                    </svg>
+                    RFID-000124
+                  </span>
+                </td>
+                <td class="py-3.5 px-4" data-status="Inactive">
+                  <span class="status-badge status-badge-absent">Inactive</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 21, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewModal({student: 'Garcia, Juan', id: '2026-1002', courseYear: 'BSCS - 2nd Year', rfid: 'RFID-000124', status: 'Inactive', dateRegistered: 'July 21, 2026', lastScan: 'July 23, 2026 (Gate 1)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Card Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="openReplaceModal('Garcia, Juan', '2026-1002', 'RFID-000124')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Replace RFID">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                    </button>
+                    <button onclick="toggleCardStatus('Garcia, Juan', 'Inactive')" class="px-2.5 py-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-md transition-colors" title="Activate RFID">
+                      Activate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 3 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Reyes, Anna</p>
+                      <p class="text-[11px] text-[#6b7280]">2026-1003</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSIS - 1st Year">BSIS - 1st Year</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 font-mono font-semibold px-2 py-0.5 rounded bg-gray-100 text-[#374151] border border-gray-200">
+                    <svg class="w-3 h-3 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+                    </svg>
+                    RFID-000125
+                  </span>
+                </td>
+                <td class="py-3.5 px-4" data-status="Inactive">
+                  <span class="status-badge status-badge-absent">Inactive</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 18, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewModal({student: 'Reyes, Anna', id: '2026-1003', courseYear: 'BSIS - 1st Year', rfid: 'RFID-000125', status: 'Inactive', dateRegistered: 'July 18, 2026', lastScan: 'July 22, 2026 (Gate 2)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Card Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="openReplaceModal('Reyes, Anna', '2026-1003', 'RFID-000125')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Replace RFID">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                    </button>
+                    <button onclick="toggleCardStatus('Reyes, Anna', 'Inactive')" class="px-2.5 py-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-md transition-colors" title="Activate RFID">
+                      Activate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Dela Cruz, John</p>
+                      <p class="text-[11px] text-[#6b7280]">2026-1004</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSIT - 4th Year">BSIT - 4th Year</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 font-mono font-semibold px-2 py-0.5 rounded bg-gray-100 text-[#374151] border border-gray-200">
+                    <svg class="w-3 h-3 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+                    </svg>
+                    RFID-000126
+                  </span>
+                </td>
+                <td class="py-3.5 px-4" data-status="Active">
+                  <span class="status-badge status-badge-present">Active</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 19, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewModal({student: 'Dela Cruz, John', id: '2026-1004', courseYear: 'BSIT - 4th Year', rfid: 'RFID-000126', status: 'Active', dateRegistered: 'July 19, 2026', lastScan: 'Today, 7:35 AM (Gate 1)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Card Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="openReplaceModal('Dela Cruz, John', '2026-1004', 'RFID-000126')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Replace RFID">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                    </button>
+                    <button onclick="toggleCardStatus('Dela Cruz, John', 'Active')" class="px-2.5 py-1 text-[11px] font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-md transition-colors" title="Deactivate RFID">
+                      Deactivate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 5 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Rivera, Luis</p>
+                      <p class="text-[11px] text-[#6b7280]">2026-1005</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BMMA - 2nd Year">BMMA - 2nd Year</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 font-mono font-semibold px-2 py-0.5 rounded bg-gray-100 text-[#374151] border border-gray-200">
+                    <svg class="w-3 h-3 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+                    </svg>
+                    RFID-000127
+                  </span>
+                </td>
+                <td class="py-3.5 px-4" data-status="Active">
+                  <span class="status-badge status-badge-present">Active</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 22, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewModal({student: 'Rivera, Luis', id: '2026-1005', courseYear: 'BMMA - 2nd Year', rfid: 'RFID-000127', status: 'Active', dateRegistered: 'July 22, 2026', lastScan: 'Today, 8:02 AM (Gate 3)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Card Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="openReplaceModal('Rivera, Luis', '2026-1005', 'RFID-000127')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Replace RFID">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                    </button>
+                    <button onclick="toggleCardStatus('Rivera, Luis', 'Active')" class="px-2.5 py-1 text-[11px] font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-md transition-colors" title="Deactivate RFID">
+                      Deactivate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Pagination -->
+        <div class="px-4 py-3 border-t border-[#e5e7eb] flex items-center justify-between bg-white text-xs text-[#6b7280]">
+          <p>Showing <span class="font-semibold text-[#111827]">1</span> to <span class="font-semibold text-[#111827]">5</span> of <span class="font-semibold text-[#111827]">4,825</span> records</p>
+          <div class="flex items-center gap-1">
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#9ca3af] hover:bg-gray-50 transition-colors disabled:opacity-50" disabled>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button class="w-7 h-7 flex items-center justify-center rounded bg-[#0030c2] text-white font-bold text-xs">1</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">2</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">3</button>
+            <span class="px-1 text-[#9ca3af]">..</span>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">965</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
       </div>
-
-<!-- RFID Registry Table -->
-<div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-  <!-- Table Header with Title and Buttons -->
-  <div class="flex flex-wrap items-center justify-between px-4 py-3 border-b border-[#e5e7eb] bg-gray-50/50">
-    <h3 class="font-semibold text-[#111827] text-base">RFID Registry</h3>
-    <div class="flex items-center gap-2">
-      <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-        Register RFID
-      </button>
-      <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-        </svg>
-        Replace Lost RFID
-      </button>
-      <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        View Scan History
-      </button>
-    </div>
-  </div>
-
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm">
-      <thead>
-        <tr class="bg-gray-50 border-b border-[#e5e7eb]">
-          <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student ID</th>
-          <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student Name</th>
-          <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">RFID Number</th>
-          <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Status</th>
-          <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Date Registered</th>
-          <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-[#e5e7eb]">
-        <!-- Inactive Status Row -->
-        <tr class="hover:bg-gray-50">
-          <td class="px-3 py-2.5 text-[#6b7280]">2026-1001</td>
-          <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria</td>
-          <td class="px-3 py-2.5 text-[#6b7280]">RFID-000123</td>
-          <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Inactive</span></td>
-          <td class="px-3 py-2.5 text-[#6b7280]">July 20, 2026</td>
-          <td class="px-3 py-2.5">
-            <div class="flex items-center justify-center gap-2">
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-              </button>
-              <button class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                </svg>
-                Inactive
-              </button>
-            </div>
-          </td>
-        </tr>
-        <!-- Inactive Status Row -->
-        <tr class="hover:bg-gray-50">
-          <td class="px-3 py-2.5 text-[#6b7280]">2026-1002</td>
-          <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Juan</td>
-          <td class="px-3 py-2.5 text-[#6b7280]">RFID-000124</td>
-          <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Inactive</span></td>
-          <td class="px-3 py-2.5 text-[#6b7280]">July 21, 2026</td>
-          <td class="px-3 py-2.5">
-            <div class="flex items-center justify-center gap-2">
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-              </button>
-              <button class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                </svg>
-                Inactive
-              </button>
-            </div>
-          </td>
-        </tr>
-        <!-- Inactive Status Row -->
-        <tr class="hover:bg-gray-50">
-          <td class="px-3 py-2.5 text-[#6b7280]">2026-1003</td>
-          <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Anna</td>
-          <td class="px-3 py-2.5 text-[#6b7280]">RFID-000125</td>
-          <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Inactive</span></td>
-          <td class="px-3 py-2.5 text-[#6b7280]">July 18, 2026</td>
-          <td class="px-3 py-2.5">
-            <div class="flex items-center justify-center gap-2">
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-              </button>
-              <button class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                </svg>
-                Inactive
-              </button>
-            </div>
-          </td>
-        </tr>
-        <!-- Active Status Row -->
-        <tr class="hover:bg-gray-50">
-          <td class="px-3 py-2.5 text-[#6b7280]">2026-1004</td>
-          <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, John</td>
-          <td class="px-3 py-2.5 text-[#6b7280]">RFID-000126</td>
-          <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-          <td class="px-3 py-2.5 text-[#6b7280]">July 19, 2026</td>
-          <td class="px-3 py-2.5">
-            <div class="flex items-center justify-center gap-2">
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-              </button>
-              <button class="px-3 py-1.5 bg-green-50 hover:bg-green-100 text-green-600 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Active
-              </button>
-            </div>
-          </td>
-        </tr>
-        <!-- Active Status Row -->
-        <tr class="hover:bg-gray-50">
-          <td class="px-3 py-2.5 text-[#6b7280]">2026-1005</td>
-          <td class="px-3 py-2.5 font-medium text-[#111827]">Rivera, Luis</td>
-          <td class="px-3 py-2.5 text-[#6b7280]">RFID-000127</td>
-          <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-          <td class="px-3 py-2.5 text-[#6b7280]">July 22, 2026</td>
-          <td class="px-3 py-2.5">
-            <div class="flex items-center justify-center gap-2">
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-              <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-              </button>
-              <button class="px-3 py-1.5 bg-green-50 hover:bg-green-100 text-green-600 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Active
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Table Footer -->
-  <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-    <p class="text-sm text-[#6b7280]">
-      Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">5</span> of <span class="font-medium text-[#111827]">4,825</span> records
-    </p>
-    <div class="flex items-center gap-1">
-      <button class="pagination-btn text-sm px-2 py-1" disabled>
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-      </button>
-      <button class="pagination-btn pagination-btn-active text-sm px-2.5 py-1">1</button>
-      <button class="pagination-btn text-sm px-2.5 py-1">2</button>
-      <button class="pagination-btn text-sm px-2.5 py-1">3</button>
-      <span class="px-0.5 text-[#6b7280] text-sm">...</span>
-      <button class="pagination-btn text-sm px-2.5 py-1">10</button>
-      <button class="pagination-btn text-sm px-2 py-1">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-        </svg>
-      </button>
-    </div>
-  </div>
-</div>
 
     </main>
   </div>
 </div>
 
+<!-- ===== MODAL: FILTER POPUP ===== -->
+<div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Filter RFID Records</h3>
+      </div>
+      <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="p-5 space-y-3.5 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Course</label>
+        <select id="filterCourseSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Courses</option>
+          <option value="BSIT">BSIT - Information Technology</option>
+          <option value="BSCS">BSCS - Computer Science</option>
+          <option value="BSIS">BSIS - Information Systems</option>
+          <option value="BMMA">BMMA - Multimedia Arts</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Year Level</label>
+        <select id="filterYearSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Years</option>
+          <option value="1st Year">1st Year</option>
+          <option value="2nd Year">2nd Year</option>
+          <option value="3rd Year">3rd Year</option>
+          <option value="4th Year">4th Year</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">RFID Status</label>
+        <select id="filterStatusSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Expired">Expired</option>
+        </select>
+      </div>
+    </div>
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+      <button onclick="resetFilters()" class="text-xs font-semibold text-[#6b7280] hover:text-[#111827]">Reset All</button>
+      <div class="flex items-center gap-2">
+        <button onclick="closeFilterModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Cancel</button>
+        <button onclick="applyFilters()" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: REGISTER NEW RFID ===== -->
+<div id="registerModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Register New RFID Card</h3>
+          <p class="text-[11px] text-[#6b7280]">Link a new contactless card to a student</p>
+        </div>
+      </div>
+      <button onclick="closeRegisterModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleRegisterRfid(event)" class="p-5 overflow-y-auto space-y-3.5 text-xs">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Student ID <span class="text-red-500">*</span></label>
+          <input type="text" id="regStudentId" required placeholder="e.g. 2026-1008" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Student Full Name <span class="text-red-500">*</span></label>
+          <input type="text" id="regStudentName" required placeholder="e.g. Mendoza, Carlos" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Course <span class="text-red-500">*</span></label>
+          <select id="regCourse" required class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="BSIT">BSIT</option>
+            <option value="BSCS">BSCS</option>
+            <option value="BSIS">BSIS</option>
+            <option value="BMMA">BMMA</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Year Level <span class="text-red-500">*</span></label>
+          <select id="regYear" required class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">RFID UID / Card Number <span class="text-red-500">*</span></label>
+        <div class="relative">
+          <input type="text" id="regRfidUid" required placeholder="e.g. RFID-000128 or tap reader..." class="w-full pl-9 pr-3 py-2 border border-[#e5e7eb] rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+          </svg>
+        </div>
+        <p class="text-[10px] text-[#6b7280] mt-1">Tap a card on the USB RFID scanner to auto-fill UID.</p>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Remarks / Note</label>
+        <textarea id="regRemarks" rows="2" placeholder="Optional notes regarding this card issuance..." class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]"></textarea>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeRegisterModal()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Complete Registration</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: REPLACE LOST RFID ===== -->
+<div id="replaceModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-[#f97316]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Replace Lost / Damaged RFID</h3>
+          <p class="text-[11px] text-[#6b7280]">Deactivate old card &amp; link replacement</p>
+        </div>
+      </div>
+      <button onclick="closeReplaceModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleReplaceRfid(event)" class="p-5 overflow-y-auto space-y-3.5 text-xs">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Student ID <span class="text-red-500">*</span></label>
+          <input type="text" id="replaceStudentId" required placeholder="e.g. 2026-1001" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Student Name</label>
+          <input type="text" id="replaceStudentName" placeholder="e.g. Santos, Maria" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Old RFID Card (To be Deactivated)</label>
+        <input type="text" id="replaceOldRfid" placeholder="e.g. RFID-000123" class="w-full px-3 py-2 border border-red-200 bg-red-50/50 text-red-700 font-mono rounded-lg focus:outline-none">
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">New RFID Card Number <span class="text-red-500">*</span></label>
+        <div class="relative">
+          <input type="text" id="replaceNewRfid" required placeholder="e.g. RFID-000999 or tap reader..." class="w-full pl-9 pr-3 py-2 border border-emerald-200 bg-emerald-50/30 text-emerald-800 font-mono rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500">
+          <svg class="w-4 h-4 text-emerald-600 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+          </svg>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Reason for Replacement <span class="text-red-500">*</span></label>
+        <select id="replaceReason" required class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="Lost Card">Lost Card / Missing</option>
+          <option value="Damaged Chip">Damaged Chip / Defective</option>
+          <option value="Physical Wear">Physical Wear / Broken</option>
+          <option value="Card Upgrade">System Card Upgrade</option>
+        </select>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeReplaceModal()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#f97316] hover:bg-[#ea580c] rounded-lg shadow-sm transition-colors">Issue Replacement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: VIEW RFID DETAILS ===== -->
+<div id="viewRfidModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">RFID Card Credentials</h3>
+          <p class="text-[11px] text-[#6b7280]">Registered Student Smart Card Profile</p>
+        </div>
+      </div>
+      <button onclick="closeViewModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 overflow-y-auto space-y-4 text-xs">
+      <!-- Digital RFID Card Mockup -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0030c2] to-[#1e40af] text-white p-5 shadow-lg">
+        <div class="absolute right-4 top-4 opacity-20">
+          <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+          </svg>
+        </div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875h4.5M3.75 15.375h4.5" />
+              </svg>
+            </div>
+            <span class="text-[11px] font-extrabold tracking-wider uppercase opacity-90">STUDENT RFID PASS</span>
+          </div>
+          <!-- Chip Icon -->
+          <div class="w-8 h-6 rounded bg-amber-300 border border-amber-400 flex items-center justify-center shadow-inner">
+            <div class="w-5 h-3 border border-amber-600 rounded-sm opacity-60"></div>
+          </div>
+        </div>
+
+        <div class="space-y-1 my-4">
+          <p id="viewStudentName" class="text-lg font-extrabold tracking-tight">Santos, Maria</p>
+          <p id="viewStudentId" class="text-xs font-medium text-white/80">ID: 2026-1001</p>
+        </div>
+
+        <div class="flex items-end justify-between pt-2 border-t border-white/20 text-[11px]">
+          <div>
+            <span class="text-white/60 block text-[9px] uppercase font-bold">Course / Year</span>
+            <span id="viewCourseYear" class="font-semibold text-white">BSIT - 3rd Year</span>
+          </div>
+          <div class="text-right">
+            <span class="text-white/60 block text-[9px] uppercase font-bold">UID Number</span>
+            <span id="viewRfidNumber" class="font-mono font-bold text-amber-200">RFID-000123</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Details Information -->
+      <div class="grid grid-cols-2 gap-3 bg-[#f8fafc] p-3.5 rounded-xl border border-[#e5e7eb]">
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Status</span>
+          <span id="viewStatusBadge" class="status-badge status-badge-present mt-0.5">Active</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Date Registered</span>
+          <span id="viewDateRegistered" class="font-semibold text-[#111827]">July 20, 2026</span>
+        </div>
+        <div class="col-span-2">
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Latest Log Activity</span>
+          <span id="viewLastScan" class="font-semibold text-[#111827]">Today, 7:45 AM (Gate 1 - Time In)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+      <a href="scan-logs.html" class="text-xs font-semibold text-[#0030c2] hover:underline flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        View Full Scan Logs
+      </a>
+      <button onclick="closeViewModal()" class="px-4 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- JavaScript -->
-<script src="../../assets/js/sidebar.js"></script>
 <script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/sidebar.js"></script>
+<script src="../../assets/js/rfid-registry.js"></script>
 </body>
 </html>
