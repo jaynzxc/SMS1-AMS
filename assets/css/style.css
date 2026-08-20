@@ -100,3 +100,30 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     opacity: 0;
     transform: translateX(20px);
 }
+
+/* =============================================================
+   STATUS BADGE LOW-OPACITY BORDERS
+   ============================================================= */
+.status-badge-exceeds-both {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.status-badge-exceeds-absences {
+  background-color: #eff6ff;
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.status-badge-exceeds-late {
+  background-color: #fff7ed;
+  color: #ea580c;
+  border: 1px solid rgba(234, 88, 12, 0.25);
+}
+
+.status-badge-at-risk {
+  background-color: #fffbeb;
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+}
