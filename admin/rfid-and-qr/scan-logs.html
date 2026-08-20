@@ -70,7 +70,7 @@
           <a href="qr-management.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
             QR Code Management
           </a>
-          <a href="scan-logs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+          <a href="scan-logs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] font-semibold text-sm pl-9 transition-colors">
             Scan Logs
           </a>
         </div>
@@ -196,7 +196,7 @@
     </nav>
   </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
+  <!-- ===== MAIN CONTENT AREA ===== -->
   <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
 
     <!-- Topbar -->
@@ -235,203 +235,779 @@
       </div>
     </header>
 
-    <!-- ===== PAGE CONTENT ===== -->
-    <main class="flex-1 p-4 space-y-4">
+    <!-- ===== MAIN PAGE BODY ===== -->
+    <main class="flex-1 p-5 space-y-5">
 
-      <!-- Page Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <!-- Page Header & Current Date Button -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 class="text-2xl font-bold text-[#111827]">Scan Logs</h2>
-          <p class="text-sm text-[#6b7280]">View and monitor all RFID and QR scan activities.</p>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Scan Logs</h2>
+          <p class="text-sm text-[#6b7280]">View, filter, and monitor real-time RFID tap and QR scan logs across campus checkpoints</p>
         </div>
-        <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
-          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <button class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+          <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
           </svg>
-          July 25, 2026
+          July 25, 2026 (Friday)
         </button>
       </div>
 
-      <!-- Search and Filter Bar - ONE ROW -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
-        <div class="flex flex-wrap items-end gap-3">
-          <!-- Search -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Student</label>
-            <div class="relative">
-              <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+      <!-- ===== 4 STATISTICS CARDS ===== -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Total Scans Today -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+              <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
               </svg>
-              <input type="text" placeholder="Search by Name/ID" class="w-full pl-9 pr-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-[#6b7280]">Total Scans Today</p>
+              <p class="text-2xl font-extrabold text-[#111827]">4,825</p>
             </div>
           </div>
+          <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"/></svg>
+            +12.4% vs previous school day
+          </p>
+        </div>
 
-          <!-- Date -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Date</label>
-            <input type="date" value="2026-07-25" class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-          </div>
-
-          <!-- Scan Type -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Scan Type</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Scan Types</option>
-              <option>RFID</option>
-              <option>QR</option>
-            </select>
-          </div>
-
-          <!-- Result -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Result</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Results</option>
-              <option>Success</option>
-              <option>Failed</option>
-            </select>
-          </div>
-
-          <!-- Device-->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Device</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Devices</option>
-              <option>RFID Scanner</option>
-              <option>QR Scanner</option>
-            </select>
-          </div>
-
-          <!-- Buttons -->
-          <div class="flex items-center gap-2 shrink-0">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1 invisible">Actions</label>
-            <div class="flex gap-2">
-              <button class="px-6 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Apply Filters
-              </button>
-              <button class="px-6 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Reset
-              </button>
+        <!-- RFID Scans -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+              <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-[#6b7280]">RFID Taps</p>
+              <p class="text-2xl font-extrabold text-[#f97316]">3,620</p>
             </div>
           </div>
+          <p class="text-[11px] text-[#f97316] font-medium mt-2">75.02% of total entry logs</p>
+        </div>
+
+        <!-- QR Code Scans -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#2563eb]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+              <svg class="w-6 h-6 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-[#6b7280]">QR Code Scans</p>
+              <p class="text-2xl font-extrabold text-[#2563eb]">1,185</p>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#2563eb] font-medium mt-2">24.56% of total entry logs</p>
+        </div>
+
+        <!-- Failed / Flagged Scans -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
+              <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-[#6b7280]">Failed / Invalid</p>
+              <p class="text-2xl font-extrabold text-[#dc2626]">20</p>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#dc2626] font-medium mt-2">0.41% error / unverified rate</p>
         </div>
       </div>
 
-      <!-- Scan Logs Table -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <!-- Table Header with Title and Buttons -->
-        <div class="flex flex-wrap items-center justify-between px-4 py-3 border-b border-[#e5e7eb] bg-gray-50/50">
-          <h3 class="font-semibold text-[#111827] text-base">Scan Logs</h3>
-          <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <!-- ===== SCAN LOGS TABLE CARD ===== -->
+      <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+        
+        <!-- Table Header Controls Bar -->
+        <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-base font-bold text-[#111827]">Real-Time Scan Logs</h3>
+            <span id="scanRecordCount" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">4,825 Logs</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Search -->
+            <div class="relative min-w-[220px]">
+              <input type="text" id="scanSearch" placeholder="Search student, ID, or gate..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+              <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </div>
+
+            <!-- Filter Button -->
+            <button onclick="openFilterModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              </svg>
+              Filter
+            </button>
+
+            <!-- Export Button -->
+            <button onclick="openExportModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
-              Export
+              Export Logs
             </button>
-            <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+            <!-- Refresh Logs Button -->
+            <button onclick="refreshScanLogs()" class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
+              <svg id="refreshIcon" class="w-3.5 h-3.5 text-white transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
               </svg>
-              Refresh Logs
+              Refresh
             </button>
           </div>
         </div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table id="scanLogsTable" class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-gray-50 border-b border-[#e5e7eb]">
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student Name</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Date</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Time</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Scan Type</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Result</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Device Used</th>
+              <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <th class="py-3 px-4">Student</th>
+                <th class="py-3 px-4">Date &amp; Time</th>
+                <th class="py-3 px-4">Scan Type</th>
+                <th class="py-3 px-4">Result</th>
+                <th class="py-3 px-4">Checkpoint / Reader</th>
+                <th class="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-[#e5e7eb]">
-              <!-- Row 1 - Success -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:20 AM</td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span></td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Success</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">RFID Scanner</td>
+            <tbody class="divide-y divide-[#f3f4f6] text-xs">
+
+              <!-- Row 1: Maria Santos (RFID - Success) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIT" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Santos, Maria</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1001 · BSIT - 3rd Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-[#6b7280]">07:20:15 AM</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-present">Success</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Gate 1 - Main Entrance <span class="text-[10px] text-[#6b7280] block font-mono">Kiosk RFID-01</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Santos, Maria', id: '2026-1001', courseYear: 'BSIT - 3rd Year', scanType: 'RFID Tap', uid: 'RFID-000123', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 07:20:15 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 917 555 0192) at 07:20 AM'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Santos, Maria', '2026-1001')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               </tr>
-              <!-- Row 2 - Success -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Juan</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:24 AM</td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-qr">QR</span></td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Success</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">QR Scanner</td>
+
+              <!-- Row 2: Juan Garcia (QR - Success) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="QR" data-result="Success" data-checkpoint="Gate 2 - North Entrance" data-course="BSCS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Garcia, Juan</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1002 · BSCS - 2nd Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-[#6b7280]">07:24:40 AM</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-qr">QR</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-present">Success</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Gate 2 - North Entrance <span class="text-[10px] text-[#6b7280] block font-mono">QR Scanner 02</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Garcia, Juan', id: '2026-1002', courseYear: 'BSCS - 2nd Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1002', checkpoint: 'Gate 2 - North Entrance (QR Reader 02)', timestamp: 'July 25, 2026 · 07:24:40 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 918 555 4910) at 07:24 AM'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Garcia, Juan', '2026-1002')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               </tr>
-              <!-- Row 3 - Failed -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Anna</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:35 AM</td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span></td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Failed</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">RFID Scanner</td>
+
+              <!-- Row 3: Anna Reyes (RFID - Failed / Inactive Card) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Failed" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#fee2e2] text-red-600 font-bold flex items-center justify-center shrink-0">
+                      R
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Reyes, Anna</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1003 · BSIS - 1st Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-red-600 font-medium">07:35:12 AM</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-absent">Failed</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Gate 1 - Main Entrance <span class="text-[10px] text-red-600 block font-mono">Card Inactive / Flagged</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Reyes, Anna', id: '2026-1003', courseYear: 'BSIS - 1st Year', scanType: 'RFID Tap', uid: 'RFID-000456', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 07:35:12 AM', logType: 'Time-In (Rejected)', result: 'Failed', smsStatus: 'Security Flag Dispatched (Inactive RFID Token)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Reyes, Anna', '2026-1003')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               </tr>
-              <!-- Row 4 - Success -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, John</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:41 AM</td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-qr">QR</span></td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Success</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">QR Scanner</td>
+
+              <!-- Row 4: John Dela Cruz (QR - Success) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="QR" data-result="Success" data-checkpoint="Gate 3 - Gym & Quadrangle" data-course="BSIT" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Dela Cruz, John</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1004 · BSIT - 4th Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-[#6b7280]">07:41:08 AM</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-qr">QR</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-present">Success</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Gate 3 - Gym &amp; Quadrangle <span class="text-[10px] text-[#6b7280] block font-mono">QR Kiosk 03</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Dela Cruz, John', id: '2026-1004', courseYear: 'BSIT - 4th Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1004', checkpoint: 'Gate 3 - Gym & Quadrangle', timestamp: 'July 25, 2026 · 07:41:08 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 920 555 8312) at 07:41 AM'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Dela Cruz, John', '2026-1004')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               </tr>
-              <!-- Row 5 - Success -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Rivera, Luis</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:48 AM</td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span></td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Success</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">RFID Scanner</td>
+
+              <!-- Row 5: Luis Rivera (RFID - Success) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BMMA" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Rivera, Luis</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1005 · BMMA - 2nd Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-[#6b7280]">07:48:33 AM</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-present">Success</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Gate 1 - Main Entrance <span class="text-[10px] text-[#6b7280] block font-mono">Kiosk RFID-01</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Rivera, Luis', id: '2026-1005', courseYear: 'BMMA - 2nd Year', scanType: 'RFID Tap', uid: 'RFID-000789', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 07:48:33 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 922 555 1904) at 07:48 AM'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Rivera, Luis', '2026-1005')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
               </tr>
+
+              <!-- Row 6: Chloe Bautista (RFID - Late / Tardy) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Late" data-checkpoint="Gate 1 - Main Entrance" data-course="BSCS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#fef3c7] text-amber-700 font-bold flex items-center justify-center shrink-0">
+                      B
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Bautista, Chloe</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1006 · BSCS - 3rd Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-amber-700 font-medium">08:14:02 AM (Tardy)</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe; border-color: #7c3aed;">RFID</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-late">Late</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Gate 1 - Main Entrance <span class="text-[10px] text-[#6b7280] block font-mono">Kiosk RFID-01</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Bautista, Chloe', id: '2026-1006', courseYear: 'BSCS - 3rd Year', scanType: 'RFID Tap', uid: 'RFID-000892', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 08:14:02 AM', logType: 'Time-In (Flagged Late)', result: 'Late', smsStatus: 'Tardy Advisory Dispatched to Guardian (+63 927 555 9931)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Bautista, Chloe', '2026-1006')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 7: David Tan (QR - Success) -->
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="QR" data-result="Success" data-checkpoint="Library Kiosk" data-course="BSIS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827]">Tan, David</p>
+                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1007 · BSIS - 2nd Year</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#6b7280]">
+                  <div class="font-medium text-[#111827]">July 25, 2026</div>
+                  <div class="text-[11px] text-[#6b7280]">08:22:50 AM</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="method-badge method-badge-qr">QR</span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="status-badge status-badge-present">Success</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]">
+                  Library Terminal <span class="text-[10px] text-[#6b7280] block font-mono">QR Kiosk LIB-01</span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewScanModal({student: 'Tan, David', id: '2026-1007', courseYear: 'BSIS - 2nd Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1007', checkpoint: 'Library Terminal (LIB-01)', timestamp: 'July 25, 2026 · 08:22:50 AM', logType: 'Building Entry', result: 'Success', smsStatus: 'Logged to Student Portal & SMS Hub'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <button onclick="handleReverify('Tan, David', '2026-1007')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Re-Verify Authentication">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
 
-        <!-- Table Footer -->
-        <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <p class="text-sm text-[#6b7280]">
-            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">5</span> of <span class="font-medium text-[#111827]">4,825</span> records
-          </p>
+        <!-- Table Footer Pagination -->
+        <div class="px-4 py-3 border-t border-[#e5e7eb] flex items-center justify-between bg-white text-xs text-[#6b7280]">
+          <p>Showing <span class="font-semibold text-[#111827]">1</span> to <span class="font-semibold text-[#111827]">7</span> of <span class="font-semibold text-[#111827]">4,825</span> records</p>
           <div class="flex items-center gap-1">
-            <button class="pagination-btn text-sm px-2 py-1" disabled>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#9ca3af] hover:bg-gray-50 transition-colors disabled:opacity-50" disabled>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button class="pagination-btn pagination-btn-active text-sm px-2.5 py-1">1</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">2</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">3</button>
-            <span class="px-0.5 text-[#6b7280] text-sm">...</span>
-            <button class="pagination-btn text-sm px-2.5 py-1">965</button>
-            <button class="pagination-btn text-sm px-2 py-1">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="w-7 h-7 flex items-center justify-center rounded bg-[#0030c2] text-white font-bold text-xs">1</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">2</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">3</button>
+            <span class="px-1 text-[#9ca3af]">..</span>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">690</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </button>
           </div>
         </div>
+
       </div>
 
     </main>
   </div>
 </div>
 
+<!-- ===== MODAL 1: ADVANCED FILTER POPUP ===== -->
+<div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Filter Scan Logs</h3>
+      </div>
+      <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    
+    <div class="p-5 space-y-3.5 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Date</label>
+        <input type="date" id="filterDateInput" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Scan Type</label>
+        <select id="filterScanTypeSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Scan Types</option>
+          <option value="RFID">RFID Card Tap</option>
+          <option value="QR">QR Code Scan</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Scan Result</label>
+        <select id="filterResultSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Results</option>
+          <option value="Success">Success / Verified</option>
+          <option value="Late">Late / Tardy</option>
+          <option value="Failed">Failed / Flagged</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Checkpoint / Gate</label>
+        <select id="filterCheckpointSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Checkpoints</option>
+          <option value="Gate 1">Gate 1 - Main Entrance</option>
+          <option value="Gate 2">Gate 2 - North Entrance</option>
+          <option value="Gate 3">Gate 3 - Gym & Quadrangle</option>
+          <option value="Library">Library Terminal</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Student Department / Course</label>
+        <select id="filterCourseSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Courses</option>
+          <option value="BSIT">BSIT - Information Technology</option>
+          <option value="BSCS">BSCS - Computer Science</option>
+          <option value="BSIS">BSIS - Information Systems</option>
+          <option value="BMMA">BMMA - Multimedia Arts</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+      <button onclick="resetFilters()" class="text-xs font-semibold text-[#6b7280] hover:text-[#111827]">Reset All</button>
+      <div class="flex items-center gap-2">
+        <button onclick="closeFilterModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Cancel</button>
+        <button onclick="applyFilters()" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Apply Filters</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 2: VIEW SCAN DETAILS ===== -->
+<div id="viewScanModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Scan Event Details</h3>
+          <p class="text-[11px] text-[#6b7280]">Verification timestamp &amp; terminal metadata</p>
+        </div>
+      </div>
+      <button onclick="closeViewScanModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 overflow-y-auto space-y-4 text-xs">
+      <!-- Student Card Header -->
+      <div class="bg-[#f8fafc] border border-[#e5e7eb] p-3.5 rounded-xl flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#0030c2] text-white font-bold text-sm flex items-center justify-center">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+            </svg>
+          </div>
+          <div>
+            <h4 id="modalStudentName" class="font-extrabold text-[#111827] text-sm">Santos, Maria</h4>
+            <p id="modalStudentId" class="text-xs text-[#6b7280] font-mono">ID: 2026-1001</p>
+            <p id="modalCourseYear" class="text-[11px] text-[#0030c2] font-semibold">BSIT - 3rd Year</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <span id="modalResultBadge" class="status-badge status-badge-present">Success</span>
+        </div>
+      </div>
+
+      <!-- Scan Event Breakdown -->
+      <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-xl border border-[#e5e7eb]">
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Method</span>
+          <div id="modalTypePill" class="mt-1">
+            <span class="method-badge method-badge-rfid" style="color: #7c3aed; background-color: #ede9fe;">RFID</span>
+          </div>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Card / Barcode UID</span>
+          <p id="modalDeviceUid" class="font-semibold text-[#111827] font-mono mt-1">RFID-000123</p>
+        </div>
+        <div class="col-span-2">
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Checkpoint Terminal</span>
+          <p id="modalCheckpoint" class="font-semibold text-[#111827] mt-0.5">Gate 1 - Main Entrance (Kiosk 01)</p>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Exact Timestamp</span>
+          <p id="modalTimestamp" class="font-semibold text-[#111827] mt-0.5">July 25, 2026 · 07:20:15 AM</p>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Attendance Event</span>
+          <p id="modalLogType" class="font-semibold text-[#111827] mt-0.5">Time-In (Morning Entry)</p>
+        </div>
+      </div>
+
+      <!-- Parent SMS Notification Tracker -->
+      <div class="bg-[#eff6ff] border border-[#bfdbfe] p-3.5 rounded-xl space-y-1">
+        <div class="flex items-center gap-1.5 text-[#0030c2] font-bold text-xs">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v5.018z" />
+          </svg>
+          Guardian SMS Notification Status
+        </div>
+        <p id="modalSmsStatus" class="text-[11px] text-[#1e40af] font-medium">Delivered to Guardian (+63 917 555 0192) at 07:20 AM</p>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-end gap-2">
+      <button onclick="closeViewScanModal()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 3: EXPORT LOGS MODAL ===== -->
+<div id="exportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Export Attendance Scan Logs</h3>
+      </div>
+      <button onclick="closeExportModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleExport(event)" class="p-5 space-y-4 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-2">Export File Format</label>
+        <div class="grid grid-cols-2 gap-2.5">
+          <label class="flex flex-col items-center justify-center p-3 border border-[#0030c2] bg-[#eff6ff] rounded-xl cursor-pointer transition-colors export-format-option">
+            <input type="radio" name="exportFormat" value="CSV" checked class="hidden" onchange="updateExportFormatSelection(this)">
+            <span class="font-bold text-[#0030c2]">CSV</span>
+            <span class="text-[10px] text-[#6b7280]">Spreadsheet format (.csv)</span>
+          </label>
+          <label class="flex flex-col items-center justify-center p-3 border border-[#e5e7eb] hover:bg-gray-50 rounded-xl cursor-pointer transition-colors export-format-option">
+            <input type="radio" name="exportFormat" value="Excel" class="hidden" onchange="updateExportFormatSelection(this)">
+            <span class="font-bold text-[#374151]">Excel</span>
+            <span class="text-[10px] text-[#6b7280]">Workbook format (.xlsx)</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Select Specific Date</label>
+        <input type="date" id="exportDate" value="2026-07-25" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeExportModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          Download Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL 4: SIMULATE SCAN / TEST TAP ===== -->
+<div id="simulateScanModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#eff6ff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Simulate Live Terminal Tap</h3>
+          <p class="text-[11px] text-[#6b7280]">Test real-time scanner reader input and parent alert pipeline</p>
+        </div>
+      </div>
+      <button onclick="closeSimulateScanModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleSimulateScan(event)" class="p-5 overflow-y-auto space-y-3.5 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Select Student <span class="text-red-500">*</span></label>
+        <select id="simStudentSelect" required class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="1" data-name="Santos, Maria" data-id="2026-1001" data-course-year="BSIT - 3rd Year">Santos, Maria (2026-1001) - BSIT 3rd Year</option>
+          <option value="2" data-name="Garcia, Juan" data-id="2026-1002" data-course-year="BSCS - 2nd Year">Garcia, Juan (2026-1002) - BSCS 2nd Year</option>
+          <option value="3" data-name="Reyes, Anna" data-id="2026-1003" data-course-year="BSIS - 1st Year">Reyes, Anna (2026-1003) - BSIS 1st Year</option>
+          <option value="4" data-name="Dela Cruz, John" data-id="2026-1004" data-course-year="BSIT - 4th Year">Dela Cruz, John (2026-1004) - BSIT 4th Year</option>
+          <option value="5" data-name="Rivera, Luis" data-id="2026-1005" data-course-year="BMMA - 2nd Year">Rivera, Luis (2026-1005) - BMMA 2nd Year</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Scan Mechanism <span class="text-red-500">*</span></label>
+          <select id="simScanType" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="RFID">RFID Card Tap</option>
+            <option value="QR">QR Code Barcode Scan</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Checkpoint Gate <span class="text-red-500">*</span></label>
+          <select id="simCheckpoint" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="Gate 1 - Main Entrance">Gate 1 - Main Entrance</option>
+            <option value="Gate 2 - North Entrance">Gate 2 - North Entrance</option>
+            <option value="Gate 3 - Gym & Quadrangle">Gate 3 - Gym &amp; Quadrangle</option>
+            <option value="Library Terminal">Library Terminal</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Simulated Result Status</label>
+        <select id="simResult" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="Success">Success (Present - Verified)</option>
+          <option value="Late">Late (Tardy Entry)</option>
+          <option value="Failed">Failed (Invalid / Card Error)</option>
+        </select>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeSimulateScanModal()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          </svg>
+          Inject Live Scan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- JavaScript -->
-<script src="../../assets/js/sidebar.js"></script>
 <script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/sidebar.js"></script>
+<script src="../../assets/js/scan-logs.js"></script>
 </body>
 </html>

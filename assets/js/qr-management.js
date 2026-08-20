@@ -1,11 +1,11 @@
-// assets/js/rfid-registry.js
-// RFID Registry Interactive Functionality
+// assets/js/qr-management.js
+// QR Code Management Interactive Functionality
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('RFID Registry module initialized');
+  console.log('QR Code Management module initialized');
 
   // Initialize Search
-  initRfidSearch();
+  initQrSearch();
 
   // Backdrop click and ESC key listeners for all modals
   initModalListeners();
@@ -56,21 +56,21 @@ function showToast(message, type = 'success') {
 // =============================================================
 // SEARCH & UNIFIED FILTERING
 // =============================================================
-function initRfidSearch() {
-  const searchInput = document.getElementById('rfidSearch');
+function initQrSearch() {
+  const searchInput = document.getElementById('qrSearch');
   if (!searchInput) return;
 
   searchInput.addEventListener('input', function() {
-    executeRfidFiltering();
+    executeQrFiltering();
   });
 }
 
-function executeRfidFiltering() {
-  const searchInput = document.getElementById('rfidSearch');
+function executeQrFiltering() {
+  const searchInput = document.getElementById('qrSearch');
   const courseFilter = document.getElementById('filterCourseSelect');
   const yearFilter = document.getElementById('filterYearSelect');
   const statusFilter = document.getElementById('filterStatusSelect');
-  const table = document.getElementById('rfidTable');
+  const table = document.getElementById('qrTable');
 
   if (!table) return;
 
@@ -101,11 +101,11 @@ function executeRfidFiltering() {
   });
 
   // Update visible count in table header badge if present
-  const countBadge = document.getElementById('rfidRecordCount');
+  const countBadge = document.getElementById('qrRecordCount');
   if (countBadge) {
     countBadge.textContent = searchTerm || selectedCourse || selectedYear || selectedStatus 
       ? `${visibleCount} Found` 
-      : `4,825 Cards`;
+      : `4,825 Codes`;
   }
 }
 
@@ -130,7 +130,7 @@ function closeFilterModal() {
 
 function applyFilters() {
   closeFilterModal();
-  executeRfidFiltering();
+  executeQrFiltering();
   showToast('Filters applied successfully!', 'info');
 }
 
@@ -138,91 +138,52 @@ function resetFilters() {
   if (document.getElementById('filterCourseSelect')) document.getElementById('filterCourseSelect').value = '';
   if (document.getElementById('filterYearSelect')) document.getElementById('filterYearSelect').value = '';
   if (document.getElementById('filterStatusSelect')) document.getElementById('filterStatusSelect').value = '';
-  if (document.getElementById('rfidSearch')) document.getElementById('rfidSearch').value = '';
+  if (document.getElementById('qrSearch')) document.getElementById('qrSearch').value = '';
 
   closeFilterModal();
-  executeRfidFiltering();
+  executeQrFiltering();
   showToast('Filters reset to default.', 'info');
 }
 
 // =============================================================
-// REGISTER RFID MODAL CONTROLS
+// GENERATE QR MODAL CONTROLS
 // =============================================================
-function openRegisterModal() {
-  const modal = document.getElementById('registerModal');
+function openGenerateQrModal() {
+  const modal = document.getElementById('generateQrModal');
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
   }
 }
 
-function closeRegisterModal() {
-  const modal = document.getElementById('registerModal');
+function closeGenerateQrModal() {
+  const modal = document.getElementById('generateQrModal');
   if (modal) {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
   }
 }
 
-function handleRegisterRfid(event) {
+function handleGenerateQr(event) {
   if (event) event.preventDefault();
-  const studentName = document.getElementById('regStudentName')?.value || 'Student';
-  const rfidUid = document.getElementById('regRfidUid')?.value || 'RFID-000000';
+  const studentName = document.getElementById('genStudentName')?.value || 'Student';
+  const studentId = document.getElementById('genStudentId')?.value || '2026-0000';
 
-  closeRegisterModal();
-  showToast(`RFID card ${rfidUid} registered for ${studentName}!`, 'success');
+  closeGenerateQrModal();
+  showToast(`QR Code generated for ${studentName} (${studentId})!`, 'success');
 }
 
 // =============================================================
-// REPLACE LOST RFID MODAL CONTROLS
+// VIEW QR CODE MODAL CONTROLS
 // =============================================================
-function openReplaceModal(studentName = '', studentId = '', oldRfid = '') {
-  const modal = document.getElementById('replaceModal');
-  if (!modal) return;
-
-  if (document.getElementById('replaceStudentName') && studentName) {
-    document.getElementById('replaceStudentName').value = studentName;
-  }
-  if (document.getElementById('replaceStudentId') && studentId) {
-    document.getElementById('replaceStudentId').value = studentId;
-  }
-  if (document.getElementById('replaceOldRfid') && oldRfid) {
-    document.getElementById('replaceOldRfid').value = oldRfid;
-  }
-
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
-}
-
-function closeReplaceModal() {
-  const modal = document.getElementById('replaceModal');
-  if (modal) {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
-}
-
-function handleReplaceRfid(event) {
-  if (event) event.preventDefault();
-  const oldRfid = document.getElementById('replaceOldRfid')?.value || 'Old RFID';
-  const newRfid = document.getElementById('replaceNewRfid')?.value || 'New RFID';
-
-  closeReplaceModal();
-  showToast(`RFID replaced successfully: ${oldRfid} deactivated, ${newRfid} activated.`, 'success');
-}
-
-// =============================================================
-// VIEW RFID DETAILS MODAL CONTROLS
-// =============================================================
-function openViewModal(data) {
-  const modal = document.getElementById('viewRfidModal');
+function openViewQrModal(data) {
+  const modal = document.getElementById('viewQrModal');
   if (!modal) return;
 
   if (document.getElementById('viewStudentName')) document.getElementById('viewStudentName').textContent = data.student || 'Santos, Maria';
   if (document.getElementById('viewStudentId')) document.getElementById('viewStudentId').textContent = 'ID: ' + (data.id || '2026-1001');
   if (document.getElementById('viewCourseYear')) document.getElementById('viewCourseYear').textContent = data.courseYear || 'BSIT - 3rd Year';
-  if (document.getElementById('viewRfidNumber')) document.getElementById('viewRfidNumber').textContent = data.rfid || 'RFID-000123';
-  if (document.getElementById('viewDateRegistered')) document.getElementById('viewDateRegistered').textContent = data.dateRegistered || 'July 20, 2026';
+  if (document.getElementById('viewDateGenerated')) document.getElementById('viewDateGenerated').textContent = data.dateGenerated || 'July 25, 2026';
   if (document.getElementById('viewLastScan')) document.getElementById('viewLastScan').textContent = data.lastScan || 'Today, 7:45 AM (Gate 1)';
 
   const statusEl = document.getElementById('viewStatusBadge');
@@ -239,8 +200,8 @@ function openViewModal(data) {
   modal.classList.add('flex');
 }
 
-function closeViewModal() {
-  const modal = document.getElementById('viewRfidModal');
+function closeViewQrModal() {
+  const modal = document.getElementById('viewQrModal');
   if (modal) {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
@@ -248,47 +209,21 @@ function closeViewModal() {
 }
 
 // =============================================================
-// EDIT RFID MODAL CONTROLS
+// REGENERATE QR ACTION
 // =============================================================
-function openEditModal(data) {
-  const modal = document.getElementById('editModal');
-  if (!modal) return;
-
-  if (document.getElementById('editStudentId')) document.getElementById('editStudentId').value = data.id || '';
-  if (document.getElementById('editStudentName')) document.getElementById('editStudentName').value = data.student || '';
-  if (document.getElementById('editCourse')) document.getElementById('editCourse').value = data.course || 'BSIT';
-  if (document.getElementById('editYear')) document.getElementById('editYear').value = data.year || '1st Year';
-  if (document.getElementById('editRfidUid')) document.getElementById('editRfidUid').value = data.rfid || '';
-  if (document.getElementById('editStatus')) document.getElementById('editStatus').value = data.status || 'Active';
-
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
-}
-
-function closeEditModal() {
-  const modal = document.getElementById('editModal');
-  if (modal) {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
-}
-
-function handleEditRfid(event) {
-  if (event) event.preventDefault();
-  const studentName = document.getElementById('editStudentName')?.value || 'Student';
-  const rfidUid = document.getElementById('editRfidUid')?.value || 'RFID-000000';
-
-  closeEditModal();
-  showToast(`RFID record for ${studentName} (${rfidUid}) updated successfully!`, 'success');
+function handleRegenerateQr(studentName, studentId) {
+  showToast(`QR Code for ${studentName} (${studentId}) has been regenerated and activated!`, 'success');
 }
 
 // =============================================================
-// TOGGLE / STATUS CHANGE ACTION
+// DOWNLOAD & PRINT QR ACTIONS
 // =============================================================
-function toggleCardStatus(studentName, currentStatus) {
-  const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
-  const actionText = newStatus === 'Active' ? 'activated' : 'deactivated';
-  showToast(`RFID card for ${studentName} has been ${actionText}.`, newStatus === 'Active' ? 'success' : 'error');
+function handleDownloadQr(studentName) {
+  showToast(`Downloading QR Code image for ${studentName}...`, 'info');
+}
+
+function handlePrintQr(studentName) {
+  showToast(`Preparing print layout for ${studentName}'s QR Pass...`, 'info');
 }
 
 // =============================================================
@@ -299,15 +234,13 @@ function initModalListeners() {
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeFilterModal();
-      closeRegisterModal();
-      closeEditModal();
-      closeReplaceModal();
-      closeViewModal();
+      closeGenerateQrModal();
+      closeViewQrModal();
     }
   });
 
   // Backdrop click closes modal
-  const modals = ['filterModal', 'registerModal', 'editModal', 'replaceModal', 'viewRfidModal'];
+  const modals = ['filterModal', 'generateQrModal', 'viewQrModal'];
   modals.forEach(modalId => {
     const modal = document.getElementById(modalId);
     if (modal) {
