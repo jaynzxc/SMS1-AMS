@@ -372,7 +372,8 @@
           <table id="scanLogsTable" class="w-full text-left border-collapse">
             <thead>
               <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
-                <th class="py-3 px-4">Student</th>
+                <th class="py-3 px-4">Student ID</th>
+                <th class="py-3 px-4">Student Name</th>
                 <th class="py-3 px-4">Date &amp; Time</th>
                 <th class="py-3 px-4">Scan Type</th>
                 <th class="py-3 px-4">Result</th>
@@ -383,8 +384,9 @@
             <tbody class="divide-y divide-[#f3f4f6] text-xs">
 
               <!-- Row 1: Maria Santos (RFID - Success) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIT" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1001" data-scan-type="RFID" data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIT" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1001</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
                       <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
@@ -393,7 +395,7 @@
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Santos, Maria</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1001 · BSIT - 3rd Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BSIT - 3rd Year</p>
                     </div>
                   </div>
                 </td>
@@ -428,8 +430,9 @@
               </tr>
 
               <!-- Row 2: Juan Garcia (QR - Success) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="QR" data-result="Success" data-checkpoint="Gate 2 - North Entrance" data-course="BSCS" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1002" data-scan-type="QR" data-result="Success" data-checkpoint="Gate 2 - North Entrance" data-course="BSCS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1002</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
                       <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
@@ -438,7 +441,7 @@
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Garcia, Juan</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1002 · BSCS - 2nd Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BSCS - 2nd Year</p>
                     </div>
                   </div>
                 </td>
@@ -473,15 +476,16 @@
               </tr>
 
               <!-- Row 3: Anna Reyes (RFID - Failed / Inactive Card) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Failed" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIS" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1003" data-scan-type="RFID" data-result="Failed" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1003</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#fee2e2] text-red-600 font-bold flex items-center justify-center shrink-0">
                       R
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Reyes, Anna</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1003 · BSIS - 1st Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BSIS - 1st Year</p>
                     </div>
                   </div>
                 </td>
@@ -516,8 +520,9 @@
               </tr>
 
               <!-- Row 4: John Dela Cruz (QR - Success) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="QR" data-result="Success" data-checkpoint="Gate 3 - Gym & Quadrangle" data-course="BSIT" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1004" data-scan-type="QR" data-result="Success" data-checkpoint="Gate 3 - Gym & Quadrangle" data-course="BSIT" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1004</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
                       <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
@@ -526,7 +531,7 @@
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Dela Cruz, John</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1004 · BSIT - 4th Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BSIT - 4th Year</p>
                     </div>
                   </div>
                 </td>
@@ -561,8 +566,9 @@
               </tr>
 
               <!-- Row 5: Luis Rivera (RFID - Success) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BMMA" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1005" data-scan-type="RFID" data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BMMA" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1005</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
                       <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
@@ -571,7 +577,7 @@
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Rivera, Luis</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1005 · BMMA - 2nd Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BMMA - 2nd Year</p>
                     </div>
                   </div>
                 </td>
@@ -606,15 +612,16 @@
               </tr>
 
               <!-- Row 6: Chloe Bautista (RFID - Late / Tardy) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="RFID" data-result="Late" data-checkpoint="Gate 1 - Main Entrance" data-course="BSCS" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1006" data-scan-type="RFID" data-result="Late" data-checkpoint="Gate 1 - Main Entrance" data-course="BSCS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1006</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#fef3c7] text-amber-700 font-bold flex items-center justify-center shrink-0">
                       B
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Bautista, Chloe</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1006 · BSCS - 3rd Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BSCS - 3rd Year</p>
                     </div>
                   </div>
                 </td>
@@ -649,8 +656,9 @@
               </tr>
 
               <!-- Row 7: David Tan (QR - Success) -->
-              <tr class="hover:bg-[#f9fafb] transition-colors" data-scan-type="QR" data-result="Success" data-checkpoint="Library Kiosk" data-course="BSIS" data-date="July 25, 2026">
-                <td class="py-3.5 px-4">
+              <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1007" data-scan-type="QR" data-result="Success" data-checkpoint="Library Kiosk" data-course="BSIS" data-date="July 25, 2026">
+                <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1007</td>
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
                   <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
                       <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
@@ -659,7 +667,7 @@
                     </div>
                     <div>
                       <p class="font-bold text-[#111827]">Tan, David</p>
-                      <p class="text-[11px] text-[#6b7280] font-mono">2026-1007 · BSIS - 2nd Year</p>
+                      <p class="text-[11px] text-[#6b7280]">BSIS - 2nd Year</p>
                     </div>
                   </div>
                 </td>

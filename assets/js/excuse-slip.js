@@ -9,10 +9,78 @@ document.addEventListener('DOMContentLoaded', function() {
   initTableSearch('approvedSearch', 'approvedTable');
   initTableSearch('rejectedSearch', 'rejectedTable');
   initTableSearch('historySearch', 'historyTable');
-
-  // Initialize Export Dropdowns
-  initExportDropdowns();
 });
+
+// Export Modal Controls (Matching tardy-list.html standard)
+function openExportModal() {
+  const modal = document.getElementById('exportModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeExportModal() {
+  const modal = document.getElementById('exportModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function updateExportFormatSelection(radioInput) {
+  const allOptions = document.querySelectorAll('.export-format-option');
+  allOptions.forEach(opt => {
+    opt.classList.remove('border-[#0030c2]', 'bg-[#eff6ff]');
+    opt.classList.add('border-[#e5e7eb]');
+    const span = opt.querySelector('span.font-bold');
+    if (span) {
+      span.classList.remove('text-[#0030c2]');
+      span.classList.add('text-[#374151]');
+    }
+  });
+
+  const parentLabel = radioInput.closest('.export-format-option');
+  if (parentLabel) {
+    parentLabel.classList.remove('border-[#e5e7eb]');
+    parentLabel.classList.add('border-[#0030c2]', 'bg-[#eff6ff]');
+    const span = parentLabel.querySelector('span.font-bold');
+    if (span) {
+      span.classList.remove('text-[#374151]');
+      span.classList.add('text-[#0030c2]');
+    }
+  }
+}
+
+function handleExport(event) {
+  if (event) event.preventDefault();
+  const format = document.querySelector('input[name="exportFormat"]:checked')?.value || 'CSV';
+  const specificDate = document.getElementById('exportDate')?.value || '2026-07-25';
+
+  // Determine prefix based on current page filename or title
+  let filename = 'Excuse_Slip_Report';
+  const path = window.location.pathname;
+  if (path.includes('pending-requests')) filename = 'Pending_Requests';
+  else if (path.includes('approved-requests')) filename = 'Approved_Requests';
+  else if (path.includes('rejected-requests')) filename = 'Rejected_Requests';
+  else if (path.includes('excuse-history')) filename = 'Excuse_History';
+
+  closeExportModal();
+  showToast(`Generating ${format} export for (${specificDate})... Download will start shortly.`, 'info');
+
+  const fileExt = format.toLowerCase() === 'excel' ? 'xlsx' : 'csv';
+  setTimeout(() => {
+    showToast(`${filename}_${specificDate}.${fileExt} downloaded successfully!`, 'success');
+  }, 1200);
+}
+
+// Fallback helper for direct programmatic export triggers
+function triggerExport(format, title = 'Excuse_Slip_Report') {
+  showToast(`Exporting ${title} as ${format.toUpperCase()}...`, 'info');
+  setTimeout(() => {
+    showToast(`${title}.${format.toLowerCase() === 'excel' ? 'xlsx' : format.toLowerCase()} downloaded successfully!`, 'success');
+  }, 800);
+}
 
 // Toast notification helper
 function showToast(message, type = 'success') {
@@ -185,29 +253,4 @@ function closeFilterModal() {
 function applyFilters() {
   closeFilterModal();
   showToast('Filters applied successfully!', 'info');
-}
-
-// Export Dropdown
-function initExportDropdowns() {
-  document.querySelectorAll('.export-btn-group').forEach(group => {
-    const btn = group.querySelector('.export-btn');
-    const menu = group.querySelector('.export-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        menu.classList.toggle('hidden');
-      });
-    }
-  });
-
-  document.addEventListener('click', function() {
-    document.querySelectorAll('.export-menu').forEach(m => m.classList.add('hidden'));
-  });
-}
-
-function triggerExport(format, title = 'Excuse_Slip_Report') {
-  showToast(`Exporting ${title} as ${format.toUpperCase()}...`, 'info');
-  setTimeout(() => {
-    showToast(`${title}.${format.toLowerCase()} downloaded successfully!`, 'success');
-  }, 800);
 }

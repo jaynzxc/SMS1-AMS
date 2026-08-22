@@ -334,6 +334,7 @@ function handleSimulateScan(event) {
     if (tbody) {
       const tr = document.createElement('tr');
       tr.className = 'hover:bg-[#f9fafb] transition-colors bg-blue-50/40 animate-pulse';
+      tr.setAttribute('data-student-id', studentId);
       tr.setAttribute('data-scan-type', scanType);
       tr.setAttribute('data-result', result);
       tr.setAttribute('data-checkpoint', checkpoint);
@@ -352,14 +353,15 @@ function handleSimulateScan(event) {
         : `<span class="status-badge status-badge-absent">Failed</span>`;
 
       tr.innerHTML = `
-        <td class="py-3.5 px-4">
+        <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">${studentId}</td>
+        <td class="py-3.5 px-4 font-medium text-[#111827]">
           <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-full bg-[#0030c2]/10 text-[#0030c2] font-bold text-xs flex items-center justify-center shrink-0">
               ${studentName.charAt(0)}
             </div>
             <div>
               <p class="font-bold text-[#111827]">${studentName}</p>
-              <p class="text-[11px] text-[#6b7280] font-mono">${studentId} · ${courseYear}</p>
+              <p class="text-[11px] text-[#6b7280]">${courseYear}</p>
             </div>
           </div>
         </td>
