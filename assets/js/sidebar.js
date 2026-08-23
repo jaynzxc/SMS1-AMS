@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function setActiveNavItem() {
     const currentPath = window.location.pathname;
-    const currentFile = currentPath.split('/').pop();
+    const currentFile = currentPath.split('/').pop().toLowerCase();
     
     // Get all nav links (excluding dropdown items)
     const navLinks = document.querySelectorAll('nav a:not(.dropdown-menu a):not(.tardy-dropdown-menu a):not(.excuse-dropdown-menu a)');
@@ -106,7 +106,7 @@ function setActiveNavItem() {
     const tardyDropdownLinks = document.querySelectorAll('.tardy-dropdown-menu a');
     const excuseDropdownLinks = document.querySelectorAll('.excuse-dropdown-menu a');
     
-    // Remove all active states first - RESET LAHAT
+    // Remove all active states first
     document.querySelectorAll('.nav-active').forEach(el => {
         el.classList.remove('nav-active');
         el.classList.remove('bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
@@ -114,14 +114,14 @@ function setActiveNavItem() {
     });
     
     // =============================================================
-    // 1. CHECK MAIN NAV LINKS - EXACT MATCH ONLY
+    // 1. CHECK MAIN NAV LINKS
     // =============================================================
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && href !== '#') {
-            // Exact match - hindi na gumagamit ng includes()
-            if (currentFile === href) {
-                link.classList.add('nav-active');
+            const hrefFile = href.split('/').pop().toLowerCase();
+            if (currentFile === hrefFile) {
+                link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
                 link.classList.remove('text-[#6b7280]');
             }
         }
@@ -132,17 +132,19 @@ function setActiveNavItem() {
     // =============================================================
     dropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
-        const hrefFile = href ? href.split('/').pop() : '';
-        if (href && currentFile === hrefFile) {
-            link.classList.add('nav-active');
-            link.classList.remove('text-[#6b7280]');
-            // Activate parent toggle
-            const parent = link.closest('.relative');
-            if (parent) {
-                const toggleBtn = parent.querySelector('.dropdown-toggle');
-                if (toggleBtn) {
-                    toggleBtn.classList.add('nav-active');
-                    toggleBtn.classList.remove('text-[#6b7280]');
+        if (href && href !== '#') {
+            const hrefFile = href.split('/').pop().toLowerCase();
+            if (currentFile === hrefFile) {
+                link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
+                link.classList.remove('text-[#6b7280]');
+                // Activate parent toggle
+                const parent = link.closest('.relative');
+                if (parent) {
+                    const toggleBtn = parent.querySelector('.dropdown-toggle');
+                    if (toggleBtn) {
+                        toggleBtn.classList.add('text-[#0030c2]', 'font-semibold');
+                        toggleBtn.classList.remove('text-[#6b7280]');
+                    }
                 }
             }
         }
@@ -153,17 +155,19 @@ function setActiveNavItem() {
     // =============================================================
     tardyDropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
-        const hrefFile = href ? href.split('/').pop() : '';
-        if (href && currentFile === hrefFile) {
-            link.classList.add('nav-active');
-            link.classList.remove('text-[#6b7280]');
-            // Activate parent toggle
-            const parent = link.closest('.relative');
-            if (parent) {
-                const toggleBtn = parent.querySelector('.tardy-dropdown-toggle');
-                if (toggleBtn) {
-                    toggleBtn.classList.add('nav-active');
-                    toggleBtn.classList.remove('text-[#6b7280]');
+        if (href && href !== '#') {
+            const hrefFile = href.split('/').pop().toLowerCase();
+            if (currentFile === hrefFile) {
+                link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
+                link.classList.remove('text-[#6b7280]');
+                // Activate parent toggle
+                const parent = link.closest('.relative');
+                if (parent) {
+                    const toggleBtn = parent.querySelector('.tardy-dropdown-toggle');
+                    if (toggleBtn) {
+                        toggleBtn.classList.add('text-[#0030c2]', 'font-semibold');
+                        toggleBtn.classList.remove('text-[#6b7280]');
+                    }
                 }
             }
         }
@@ -174,17 +178,19 @@ function setActiveNavItem() {
     // =============================================================
     excuseDropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
-        const hrefFile = href ? href.split('/').pop() : '';
-        if (href && currentFile === hrefFile) {
-            link.classList.add('nav-active');
-            link.classList.remove('text-[#6b7280]');
-            // Activate parent toggle
-            const parent = link.closest('.relative');
-            if (parent) {
-                const toggleBtn = parent.querySelector('.excuse-dropdown-toggle');
-                if (toggleBtn) {
-                    toggleBtn.classList.add('nav-active');
-                    toggleBtn.classList.remove('text-[#6b7280]');
+        if (href && href !== '#') {
+            const hrefFile = href.split('/').pop().toLowerCase();
+            if (currentFile === hrefFile) {
+                link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
+                link.classList.remove('text-[#6b7280]');
+                // Activate parent toggle
+                const parent = link.closest('.relative');
+                if (parent) {
+                    const toggleBtn = parent.querySelector('.excuse-dropdown-toggle');
+                    if (toggleBtn) {
+                        toggleBtn.classList.add('text-[#0030c2]', 'font-semibold');
+                        toggleBtn.classList.remove('text-[#6b7280]');
+                    }
                 }
             }
         }

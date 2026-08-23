@@ -127,3 +127,39 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   color: #d97706;
   border: 1px solid rgba(217, 119, 6, 0.25);
 }
+
+/* =============================================================
+   ATTENDANCE CALENDAR CUSTOM UTILITIES
+   ============================================================= */
+.grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .lg\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+  .lg\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+}
+
+.calendar-day {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.calendar-day:hover {
+  transform: translateY(-1px);
+}
+
+.calendar-day:active {
+  transform: scale(0.97);
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
