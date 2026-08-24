@@ -15,6 +15,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Modal listeners (backdrop click and ESC key)
     initModalListeners();
+
+    // Read and apply URL query parameters (date)
+    const urlParams = new URLSearchParams(window.location.search);
+    const dateParam = urlParams.get('date');
+    if (dateParam) {
+        const dateFromInput = document.getElementById('filterDateFrom');
+        const dateToInput = document.getElementById('filterDateTo');
+        if (dateFromInput) dateFromInput.value = dateParam;
+        if (dateToInput) dateToInput.value = dateParam;
+    }
 });
 
 // =============================================================

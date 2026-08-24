@@ -9,6 +9,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize Modal Listeners (ESC and backdrop click)
   initModalListeners();
+
+  // Read and apply URL query parameters (date and status)
+  const urlParams = new URLSearchParams(window.location.search);
+  const dateParam = urlParams.get('date');
+  const statusParam = urlParams.get('status');
+
+  const dateInput = document.getElementById('filterDateInput');
+  const searchInput = document.getElementById('studentSearchInput');
+
+  let shouldFilter = false;
+
+  if (dateParam && dateInput) {
+    dateInput.value = dateParam;
+    shouldFilter = true;
+  }
+  if (statusParam && searchInput) {
+    searchInput.value = statusParam;
+    shouldFilter = true;
+  }
+
+  if (shouldFilter) {
+    executeFiltering();
+  }
 });
 
 // Toast notification helper
