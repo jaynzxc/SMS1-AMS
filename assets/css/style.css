@@ -6,10 +6,12 @@
 .sidebar-fixed::-webkit-scrollbar {
   width: 4px;
 }
+
 .sidebar-fixed::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 8px;
 }
+
 .sidebar-fixed::-webkit-scrollbar-track {
   background: #f3f4f6;
 }
@@ -18,10 +20,12 @@
 .main-scroll::-webkit-scrollbar {
   width: 4px;
 }
+
 .main-scroll::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 8px;
 }
+
 .main-scroll::-webkit-scrollbar-track {
   background: #f3f4f6;
 }
@@ -30,10 +34,12 @@
 .overflow-x-auto::-webkit-scrollbar {
   height: 4px;
 }
+
 .overflow-x-auto::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 8px;
 }
+
 .overflow-x-auto::-webkit-scrollbar-track {
   background: #f3f4f6;
 }
@@ -47,10 +53,12 @@ table tbody tr {
 input[type="date"] {
   min-height: 40px;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0.5;
   padding: 4px;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
@@ -61,44 +69,46 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 /* Login Card Animation */
 .login-page .bg-white {
-    animation: fadeInUp 0.5s ease-out;
+  animation: fadeInUp 0.5s ease-out;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Input Focus */
 .login-page input:focus {
-    box-shadow: 0 0 0 3px rgba(0, 48, 194, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 48, 194, 0.1);
 }
 
 /* Toast Notification */
 .custom-toast {
-    animation: slideInRight 0.3s ease-out;
+  animation: slideInRight 0.3s ease-out;
 }
 
 @keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .custom-toast.opacity-0 {
-    opacity: 0;
-    transform: translateX(20px);
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 /* =============================================================
@@ -139,9 +149,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   .lg\:grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
+
   .lg\:col-span-5 {
     grid-column: span 5 / span 5;
   }
+
   .lg\:col-span-7 {
     grid-column: span 7 / span 7;
   }
@@ -185,4 +197,35 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 .donut-chart-circle {
   transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;
-}
+}
+
+.calendar-day:active {
+  transform: scale(0.97);
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* =============================================================
+   PARENT ALERTS CUSTOM UTILITIES
+   ============================================================= */
+.bg-purple-primary {
+  background-color: #5b4dfb;
+}
+
+.bg-purple-primary:hover {
+  background-color: #4a3cf5;
+}
+
+.text-purple-primary {
+  color: #5b4dfb;
+}
+
+.border-purple-primary {
+  border-color: #5b4dfb;
+}
+
+.donut-chart-circle {
+  transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;
+}

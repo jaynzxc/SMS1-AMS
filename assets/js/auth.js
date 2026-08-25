@@ -185,17 +185,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Enter key support
-    if (passwordInput) {
-        passwordInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                loginForm.dispatchEvent(new Event('submit'));
-            }
-        });
-    }
-
     if (usernameInput) {
         usernameInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
+                e.preventDefault();
                 passwordInput.focus();
             }
         });

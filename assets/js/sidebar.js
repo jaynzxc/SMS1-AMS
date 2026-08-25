@@ -8,6 +8,18 @@
 function toggleDropdown() {
     const dropdown = document.querySelector('.dropdown-menu');
     const arrow = document.querySelector('.dropdown-arrow');
+    
+    // Close other dropdowns
+    const tardyDropdown = document.querySelector('.tardy-dropdown-menu');
+    const tardyArrow = document.querySelector('.tardy-dropdown-arrow');
+    if (tardyDropdown) tardyDropdown.classList.add('hidden');
+    if (tardyArrow) tardyArrow.classList.remove('rotate-90');
+    
+    const excuseDropdown = document.querySelector('.excuse-dropdown-menu');
+    const excuseArrow = document.querySelector('.excuse-dropdown-arrow');
+    if (excuseDropdown) excuseDropdown.classList.add('hidden');
+    if (excuseArrow) excuseArrow.classList.remove('rotate-90');
+
     if (dropdown) {
         dropdown.classList.toggle('hidden');
     }
@@ -20,6 +32,18 @@ function toggleDropdown() {
 function toggleTardyDropdown() {
     const dropdown = document.querySelector('.tardy-dropdown-menu');
     const arrow = document.querySelector('.tardy-dropdown-arrow');
+    
+    // Close other dropdowns
+    const rfidDropdown = document.querySelector('.dropdown-menu');
+    const rfidArrow = document.querySelector('.dropdown-arrow');
+    if (rfidDropdown) rfidDropdown.classList.add('hidden');
+    if (rfidArrow) rfidArrow.classList.remove('rotate-90');
+    
+    const excuseDropdown = document.querySelector('.excuse-dropdown-menu');
+    const excuseArrow = document.querySelector('.excuse-dropdown-arrow');
+    if (excuseDropdown) excuseDropdown.classList.add('hidden');
+    if (excuseArrow) excuseArrow.classList.remove('rotate-90');
+
     if (dropdown) {
         dropdown.classList.toggle('hidden');
     }
@@ -32,6 +56,18 @@ function toggleTardyDropdown() {
 function toggleExcuseDropdown() {
     const dropdown = document.querySelector('.excuse-dropdown-menu');
     const arrow = document.querySelector('.excuse-dropdown-arrow');
+    
+    // Close other dropdowns
+    const rfidDropdown = document.querySelector('.dropdown-menu');
+    const rfidArrow = document.querySelector('.dropdown-arrow');
+    if (rfidDropdown) rfidDropdown.classList.add('hidden');
+    if (rfidArrow) rfidArrow.classList.remove('rotate-90');
+    
+    const tardyDropdown = document.querySelector('.tardy-dropdown-menu');
+    const tardyArrow = document.querySelector('.tardy-dropdown-arrow');
+    if (tardyDropdown) tardyDropdown.classList.add('hidden');
+    if (tardyArrow) tardyArrow.classList.remove('rotate-90');
+
     if (dropdown) {
         dropdown.classList.toggle('hidden');
     }
