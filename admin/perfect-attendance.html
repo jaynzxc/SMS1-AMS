@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Perfect Attendance Award Tool</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280]">Administrator Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+        <!-- Dashboard -->
+        <a href="dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+          </svg>
+          Dashboard
+        </a>
+
+        <!-- Attendance Records with Dropdown -->
+        <a href="attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 14.25l2.25 2.25L15 12M8.25 21h7.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-1.5v.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-.75h-1.5A2.25 2.25 0 006 6.75v12A2.25 2.25 0 008.25 21z" />
+          </svg>
+          Attendance Monitoring
+        </a>
+
+        <!-- RFID/QR MANAGEMENT with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              </svg>
+              RFID/QR Management
+            </div>
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="rfid-and-qr/rfid-registry.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              RFID Registry
+            </a>
+            <a href="rfid-and-qr/qr-management.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              QR Code Management
+            </a>
+            <a href="rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Scan Logs
+            </a>
+          </div>
+        </div>
+
+        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
+              </svg>
+              Tardy &amp; Absence Logs
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="tardy-and-absence/tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Tardy List
+            </a>
+            <a href="tardy-and-absence/absence-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Absence List
+            </a>
+            <a href="tardy-and-absence/habitual-offender.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Habitual Offender
+            </a>
+          </div>
+        </div>
+
+        <!-- Teacher Attendance -->
+        <a href="teacher-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span>Teacher Attendance</span>
+        </a>
+
+        <!-- Excuse Slip Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.688-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              Excuse Management
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Pending Requests
+            </a>
+            <a href="excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Approved Requests
+            </a>
+            <a href="excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Rejected Requests
+            </a>
+            <a href="excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Excuse Slip History
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          Attendance Calendar
+        </a>
+
+        <!-- Parent Alerts -->
+        <a href="parent-alerts.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          Parent Alerts Monitoring
+        </a>
+
+        <!-- Performance Analytics -->
+        <a href="performance-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          Performance Analytics
+        </a>
+
+        <!-- Perfect Attendance Award (Active) -->
+        <a href="perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          Perfect Attendance Award
+        </a>
+
+        <!-- Reports & Export -->
+        <a href="#"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          Reports &amp; Export
+        </a>
+
+        <!-- User Management -->
+        <a href="#"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          User Management
+        </a>
+
+        <!-- Academic Management -->
+        <a href="#"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+          Academic Management
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar -->
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3">
+          <button class="text-[#6b7280] hover:text-[#111827]">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827]">Perfect Attendance Award Tool</h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Notification Bell -->
+          <button class="relative text-[#6b7280] hover:text-[#111827]">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Admin Profile -->
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+              </svg>
+            </div>
+            <div class="hidden sm:block">
+              <p class="text-xs font-bold text-[#111827] leading-tight">Admin User</p>
+              <p class="text-[10px] text-[#6b7280] leading-tight">System Administrator</p>
+            </div>
+            <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE CONTENT ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Perfect Attendance Award Tool</h2>
+            <p class="text-sm text-[#6b7280]">Manage and recognize students with perfect attendance.</p>
+          </div>
+          <button
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+            <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            July 25, 2026 (Friday)
+          </button>
+        </div>
+
+        <!-- ===== SECTION 1: SETTINGS CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+          <h2 class="text-base font-bold text-[#111827] mb-4">Settings</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 items-end">
+            <!-- Attendance Requirement (%) -->
+            <div>
+              <label for="inputAttendanceReq" class="block text-xs font-semibold text-[#374151] mb-1.5">
+                Attendance Requirement (%)
+              </label>
+              <div class="relative flex rounded-lg shadow-xs">
+                <input type="number" id="inputAttendanceReq" min="1" max="100" value="100"
+                  class="block w-full rounded-l-lg border border-r-0 border-[#d1d5db] px-3 py-2 text-xs text-[#111827] focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2] focus:outline-none" />
+                <span
+                  class="inline-flex items-center px-3 rounded-r-lg border border-l-0 border-[#d1d5db] bg-[#f9fafb] text-[#6b7280] text-xs font-semibold">
+                  %
+                </span>
+              </div>
+              <p class="text-[11px] text-[#6b7280] mt-1">Minimum attendance percentage required</p>
+            </div>
+
+            <!-- Maximum Allowed Late -->
+            <div>
+              <label for="inputMaxLate" class="block text-xs font-semibold text-[#374151] mb-1.5">
+                Maximum Allowed Late
+              </label>
+              <input type="number" id="inputMaxLate" min="0" value="0"
+                class="block w-full rounded-lg border border-[#d1d5db] px-3 py-2 text-xs text-[#111827] focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2] focus:outline-none shadow-xs" />
+              <p class="text-[11px] text-[#6b7280] mt-1">Maximum number of late allowed</p>
+            </div>
+
+            <!-- Excused Allowed -->
+            <div>
+              <label for="inputExcusedAllowed" class="block text-xs font-semibold text-[#374151] mb-1.5">
+                Excused Allowed
+              </label>
+              <input type="number" id="inputExcusedAllowed" min="0" value="0"
+                class="block w-full rounded-lg border border-[#d1d5db] px-3 py-2 text-xs text-[#111827] focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2] focus:outline-none shadow-xs" />
+              <p class="text-[11px] text-[#6b7280] mt-1">Maximum number of excused absences allowed</p>
+            </div>
+
+            <!-- Save Settings Button -->
+            <div class="flex justify-start lg:justify-end">
+              <button id="btnSaveSettings"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0030c2] hover:bg-[#002594] text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0030c2]/30">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                </svg>
+                Save Settings
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SECTION 2: GENERATE AWARDEES CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <h2 class="text-base font-bold text-[#111827]">Generate Awardees</h2>
+
+            <!-- Action Buttons Toolbar -->
+            <div class="flex flex-wrap items-center gap-2.5">
+              <!-- Generate List Button -->
+              <button id="btnGenerateList"
+                class="inline-flex items-center gap-2 bg-[#0030c2] hover:bg-[#002594] text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm focus:outline-none">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+                Generate List
+              </button>
+
+              <!-- Approve Button -->
+              <button id="btnApprove"
+                class="inline-flex items-center gap-1.5 bg-[#f0fdf4] hover:bg-[#dcfce7] text-[#16a34a] border border-[#bbf7d0] px-3.5 py-2 rounded-lg text-xs font-bold transition-colors shadow-2xs focus:outline-none">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                Approve
+              </button>
+
+              <!-- Remove Student Button -->
+              <button id="btnRemove"
+                class="inline-flex items-center gap-1.5 bg-[#fef2f2] hover:bg-[#fee2e2] text-[#dc2626] border border-[#fecaca] px-3.5 py-2 rounded-lg text-xs font-bold transition-colors shadow-2xs focus:outline-none">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                </svg>
+                Remove Student
+              </button>
+
+              <!-- Export Button (Matching tardy-list.html) -->
+              <button onclick="openExportModal()"
+                class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-2xs transition-colors focus:outline-none">
+                <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+                Export
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Awardees Table -->
+          <div class="overflow-x-auto border border-[#e5e7eb] rounded-lg">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#f8fafc] border-b border-[#e5e7eb] text-[#6b7280] font-semibold">
+                <tr>
+                  <th class="py-3 px-3 w-10 text-center">
+                    <input type="checkbox" id="selectAllAwardees"
+                      class="w-4 h-4 rounded border-[#d1d5db] text-[#0030c2] focus:ring-[#0030c2] cursor-pointer">
+                  </th>
+                  <th class="py-3 px-2 w-12">#</th>
+                  <th class="py-3 px-3">Student</th>
+                  <th class="py-3 px-3">Section</th>
+                  <th class="py-3 px-3">Attendance %</th>
+                  <th class="py-3 px-3">Late Counts</th>
+                  <th class="py-3 px-3">Absences</th>
+                  <th class="py-3 px-4 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="awardeesTableBody" class="divide-y divide-[#f1f5f9] text-[#111827]">
+                <!-- Populated via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Awardees Table Pagination Footer -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4 pt-2">
+            <p id="awardeesFooterText" class="text-xs text-[#6b7280]">Showing 1 to 5 of 25 entries</p>
+            <div class="flex items-center gap-1">
+              <button id="btnPrevPage"
+                class="px-2.5 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#6b7280] hover:bg-gray-50 transition-colors">
+                &lt;
+              </button>
+              <button class="px-3 py-1.5 rounded bg-[#0030c2] text-white text-xs font-bold">1</button>
+              <button
+                class="px-3 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#374151] hover:bg-gray-50 transition-colors">2</button>
+              <button
+                class="px-3 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#374151] hover:bg-gray-50 transition-colors">3</button>
+              <span class="px-1.5 text-xs text-[#6b7280]">...</span>
+              <button
+                class="px-3 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#374151] hover:bg-gray-50 transition-colors">5</button>
+              <button id="btnNextPage"
+                class="px-2.5 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#6b7280] hover:bg-gray-50 transition-colors">
+                &gt;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SECTION 3: HISTORY CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+          <div class="mb-4">
+            <h2 class="text-base font-bold text-[#111827]">History</h2>
+            <p class="text-xs text-[#6b7280]">Previous award recipients.</p>
+          </div>
+
+          <!-- History Table -->
+          <div class="overflow-x-auto border border-[#e5e7eb] rounded-lg">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#f8fafc] border-b border-[#e5e7eb] text-[#6b7280] font-semibold">
+                <tr>
+                  <th class="py-3 px-4">School Year</th>
+                  <th class="py-3 px-4">Semester</th>
+                  <th class="py-3 px-4">Date Generated</th>
+                  <th class="py-3 px-4">Total Awardees</th>
+                  <th class="py-3 px-4">Generated By</th>
+                  <th class="py-3 px-4 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody" class="divide-y divide-[#f1f5f9] text-[#111827]">
+                <!-- Populated via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- History Pagination Footer -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4 pt-2">
+            <p id="historyFooterText" class="text-xs text-[#6b7280]">Showing 1 to 4 of 4 entries</p>
+            <div class="flex items-center gap-1">
+              <button
+                class="px-2.5 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#9ca3af] cursor-not-allowed">
+                &lt;
+              </button>
+              <button class="px-3 py-1.5 rounded bg-[#0030c2] text-white text-xs font-bold">1</button>
+              <button
+                class="px-2.5 py-1.5 rounded border border-[#e5e7eb] text-xs font-medium text-[#9ca3af] cursor-not-allowed">
+                &gt;
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- Certificate Print Preview Modal -->
+  <div id="certificateModal"
+    class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-[#e5e7eb] bg-[#f8fafc]">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Certificates of Recognition</h3>
+            <p class="text-xs text-[#6b7280]">Preview generated awards before printing</p>
+          </div>
+        </div>
+        <button onclick="window.closeCertificateModal()" class="text-[#6b7280] hover:text-[#111827] text-lg font-bold">
+          &times;
+        </button>
+      </div>
+
+      <div id="certificateListContainer" class="flex-1 overflow-y-auto p-6 bg-[#f1f5f9]">
+        <!-- Populated via JS -->
+      </div>
+
+      <div class="flex items-center justify-between px-6 py-3.5 border-t border-[#e5e7eb] bg-white">
+        <button onclick="window.closeCertificateModal()"
+          class="px-4 py-2 rounded-lg border border-[#e5e7eb] text-xs font-semibold text-[#4b5563] hover:bg-gray-50 transition-colors">
+          Close
+        </button>
+        <button onclick="window.printCertificates()"
+          class="inline-flex items-center gap-2 bg-[#0030c2] hover:bg-[#002594] text-white px-5 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+          </svg>
+          Print Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Archive Details Modal -->
+  <div id="historyDetailsModal"
+    class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-[#e5e7eb] bg-[#f8fafc]">
+        <h3 id="historyDetailsTitle" class="text-sm font-bold text-[#111827]">Awardees Details</h3>
+        <button onclick="window.closeHistoryModal()" class="text-[#6b7280] hover:text-[#111827] text-lg font-bold">
+          &times;
+        </button>
+      </div>
+
+      <div id="historyDetailsContent" class="flex-1 overflow-y-auto p-5">
+        <!-- Populated via JS -->
+      </div>
+
+      <div class="flex justify-end px-5 py-3 border-t border-[#e5e7eb] bg-white">
+        <button onclick="window.closeHistoryModal()"
+          class="px-4 py-1.5 rounded-lg border border-[#e5e7eb] text-xs font-semibold text-[#4b5563] hover:bg-gray-50 transition-colors">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: SEND CERTIFICATE VIA GMAIL MODAL ===== -->
+  <div id="sendCertificateModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Header -->
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] flex items-center justify-center text-[#0030c2]">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Send Certificate via Gmail</h3>
+            <p class="text-[11px] text-[#6b7280]">Review student details and email parameters</p>
+          </div>
+        </div>
+        <button onclick="closeSendCertificateModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Form Body -->
+      <form onsubmit="handleSendCertificateSubmit(event)" class="p-5 space-y-4 text-xs overflow-y-auto">
+        <input type="hidden" id="sendCertStudentId" value="">
+
+        <!-- Student Information Card -->
+        <div class="bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+            </div>
+            <div>
+              <p id="sendCertStudentName" class="font-bold text-[#111827] text-sm leading-tight">Student Name</p>
+              <p id="sendCertStudentSection" class="text-[11px] text-[#6b7280]">Grade 10 - Diamond</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+            100% Attendance
+          </span>
+        </div>
+
+        <!-- Recipient Gmail Input -->
+        <div>
+          <label for="sendCertRecipientEmail" class="font-bold text-[#374151] block mb-1">Recipient Gmail Address</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
+            </div>
+            <input type="email" id="sendCertRecipientEmail" required placeholder="student@gmail.com"
+              class="w-full pl-9 pr-3 py-2 border border-[#e5e7eb] rounded-lg bg-white text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          </div>
+        </div>
+
+        <!-- Subject Input -->
+        <div>
+          <label for="sendCertSubject" class="font-bold text-[#374151] block mb-1">Email Subject</label>
+          <input type="text" id="sendCertSubject" required
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]"
+            value="Certificate of Recognition - Perfect Attendance Award (S.Y. 2025-2026)">
+        </div>
+
+        <!-- Attached PDF File Banner -->
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Attachment</label>
+          <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-lg shadow-2xs">
+            <div class="flex items-center gap-2.5 min-w-0 flex-1 mr-2">
+              <div class="w-8 h-8 rounded bg-red-50 text-red-600 flex items-center justify-center font-bold text-[10px] shrink-0">
+                PDF
+              </div>
+              <div class="min-w-0 flex-1">
+                <p id="sendCertFileName" class="font-semibold text-[#111827] text-xs truncate">Certificate_Recognition.pdf</p>
+                <p class="text-[10px] text-[#6b7280]">245 KB &bull; High Resolution Document</p>
+              </div>
+            </div>
+            <div class="w-5 h-5 rounded-full bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0] flex items-center justify-center shrink-0" title="Ready to send">
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message Body Textarea -->
+        <div>
+          <label for="sendCertMessage" class="font-bold text-[#374151] block mb-1">Message Body</label>
+          <textarea id="sendCertMessage" rows="3"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-xs resize-none"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+          <button type="button" onclick="closeSendCertificateModal()" class="px-3.5 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+            </svg>
+            Send Certificate PDF
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== EXPORT MODAL (Matching tardy-list.html) ===== -->
+  <div id="exportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] flex items-center justify-center text-[#0030c2]">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-[#111827]">Export Awardees Report</h3>
+        </div>
+        <button onclick="closeExportModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleExport(event)" class="p-5 space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-[#374151] block mb-2">Export File Format</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <label class="flex flex-col items-center justify-center p-3 border border-[#0030c2] bg-[#eff6ff] rounded-xl cursor-pointer transition-colors export-format-option">
+              <input type="radio" name="exportFormat" value="CSV" checked class="hidden" onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#0030c2]">CSV</span>
+              <span class="text-[10px] text-[#6b7280]">Spreadsheet format (.csv)</span>
+            </label>
+            <label class="flex flex-col items-center justify-center p-3 border border-[#e5e7eb] hover:bg-gray-50 rounded-xl cursor-pointer transition-colors export-format-option">
+              <input type="radio" name="exportFormat" value="Excel" class="hidden" onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#374151]">Excel</span>
+              <span class="text-[10px] text-[#6b7280]">Workbook format (.xlsx)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+          <button type="button" onclick="closeExportModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            Download Report
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JavaScript Scripts -->
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/perfect-attendance.js"></script>
+</body>
+
+</html>
