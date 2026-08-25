@@ -319,8 +319,8 @@ function renderAlertsTable(data) {
 
         // Status badge styling
         let statusBadgeClass = item.status === "Sent" 
-            ? "bg-emerald-50 text-emerald-600 border border-emerald-200/50"
-            : "bg-red-50 text-red-600 border border-red-200/50";
+            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+            : "bg-red-50 text-red-700 border border-red-200";
 
         return `
             <tr class="hover:bg-[#f9fafb] transition-colors border-b border-[#f3f4f6] text-xs">
@@ -428,7 +428,7 @@ function openViewAlertModal(alertId) {
     const statusBadge = document.getElementById('detailStatusBadge');
     statusBadge.textContent = alert.status;
     statusBadge.className = "px-2.5 py-1 rounded text-xs font-bold " + 
-        (alert.status === "Sent" ? "bg-green-50 text-green-600 border border-green-200" : "bg-red-50 text-red-600 border border-red-200");
+        (alert.status === "Sent" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-red-50 text-red-700 border border-red-200");
 
     // Failure box if failed
     const failContainer = document.getElementById('detailFailureContainer');
@@ -588,10 +588,10 @@ function updateExportFormatSelection(radio) {
 function handleExportAlerts(event) {
     event.preventDefault();
     const format = document.querySelector('input[name="exportFormat"]:checked')?.value || 'CSV';
-    const dateRange = document.getElementById('exportDateRange')?.value || 'July 2026';
+    const specificDate = document.getElementById('exportDate')?.value || '2026-07-25';
 
     closeExportModal();
-    showToast('Exporting Records...', `Generating ${format} report for ${dateRange}`, 'info');
+    showToast('Exporting Records...', `Generating ${format} report for ${specificDate}`, 'info');
 
     setTimeout(() => {
         if (format === 'CSV') {
@@ -615,7 +615,7 @@ function handleExportAlerts(event) {
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Parent_Alerts_Report_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Parent_Alerts_Report_${specificDate}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
