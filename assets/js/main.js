@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (notificationBtn) {
         notificationBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            alert('📬 You have 3 unread notifications');
+            alert('You have 3 unread notifications');
         });
     }
 
@@ -42,5 +42,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    console.log('✅ Main.js loaded successfully');
+    window.toggleExcuseDropdown = function() {
+        const dropdown = document.querySelector('.excuse-dropdown-menu');
+        const arrow = document.querySelector('.excuse-dropdown-arrow');
+        if (dropdown) {
+            dropdown.classList.toggle('hidden');
+        }
+        if (arrow) {
+            arrow.classList.toggle('rotate-90');
+        }
+    };
+
+    console.log('Main.js loaded successfully');
 });

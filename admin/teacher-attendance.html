@@ -111,16 +111,38 @@
         <span>Teacher Attendance</span>
       </a>
 
-      <!-- Excuse Slip Management -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-        </svg>
-        Excuse Slip Management
-      </a>
+      <!-- Excuse Slip Management with Dropdown -->
+      <div class="relative">
+        <button onclick="toggleExcuseDropdown()" class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+            Excuse Slip Management
+          </div>
+          <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
+        <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+          <a href="excuse-slip/pending-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Pending Requests
+          </a>
+          <a href="excuse-slip/approved-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Approved Requests
+          </a>
+          <a href="excuse-slip/rejected-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Rejected Requests
+          </a>
+          <a href="excuse-slip/excuse-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Excuse Slip History
+          </a>
+        </div>
+      </div>
 
       <!-- Attendance Calendar -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <a href="attendance-calendar.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
         </svg>
@@ -128,11 +150,11 @@
       </a>
 
       <!-- Parent Alerts -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <a href="parent-alerts.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
         </svg>
-        Parent Alerts
+        Parent Alerts Monitoring
       </a>
 
       <!-- Performance Analytics -->
@@ -215,308 +237,270 @@
         </div>
       </div>
     </header>
-
-    <!-- ===== PAGE CONTENT ===== -->
-    <main class="flex-1 p-4 space-y-4">
+    <!-- ===== PAGE CONTENT ===== -->
+    <main class="flex-1 p-5 space-y-5">
 
       <!-- Page Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 class="text-2xl font-bold text-[#111827]">Teacher Attendance Monitoring</h2>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Teacher Attendance Monitoring</h2>
           <p class="text-sm text-[#6b7280]">Monitor and manage teacher attendance records.</p>
         </div>
-        <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
-          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <button class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+          <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
           </svg>
-          July 25, 2026
+          July 25, 2026 (Friday)
         </button>
       </div>
-
-      <!-- Summary Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <!-- Monthly Attendance -->
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#16a34a" stroke-width="2.5">
+      <!-- Statistics Cards (4 Cards Grid) - Linked to specific modules -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Monthly Attendance -> attendance.html -->
+        <a href="attendance.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all block group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Monthly Attendance</p>
-              <p class="text-xl font-bold text-green-600">92.45%</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Monthly Attendance</p>
+              <p id="statMonthlyRate" class="text-2xl font-extrabold text-[#111827] text-green-600">92.45%</p>
             </div>
           </div>
-          <p class="text-[10px] text-green-600 font-medium mt-1.5">↑ 4.32% from last month</p>
-        </div>
+          <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+            </svg>
+            +4.32% vs last month
+          </p>
+        </a>
 
-        <!-- Total Late -->
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#d97706" stroke-width="2.5">
+        <!-- Total Late -> tardy-list.html -->
+        <a href="tardy-and-absence/tardy-list.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all block group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Total Late</p>
-              <p class="text-xl font-bold text-amber-500">18</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Total Late</p>
+              <p id="statTotalLate" class="text-2xl font-extrabold text-[#111827] text-amber-500">18</p>
             </div>
           </div>
-          <p class="text-[10px] text-amber-600 font-medium mt-1.5">↑ 3 from last month</p>
-        </div>
+          <p class="text-[11px] text-[#f97316] font-medium mt-2 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+            </svg>
+            +3 from last month
+          </p>
+        </a>
 
-        <!-- Total Absent -->
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#dc2626" stroke-width="2.5">
+        <!-- Total Absent -> absence-list.html -->
+        <a href="tardy-and-absence/absence-list.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all block group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Total Absent</p>
-              <p class="text-xl font-bold text-red-500">6</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Total Absent</p>
+              <p id="statTotalAbsent" class="text-2xl font-extrabold text-[#111827] text-red-500">6</p>
             </div>
           </div>
-          <p class="text-[10px] text-green-600 font-medium mt-1.5">↓ 2 from last month</p>
-        </div>
+          <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+            </svg>
+            -2 from last month
+          </p>
+        </a>
 
-        <!-- Total Teachers -->
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-[#e7edff] flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#0030c2" stroke-width="2.5">
+        <!-- Total Teachers -> teacher-attendance.html -->
+        <a href="teacher-attendance.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all block group">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Total Teachers</p>
-              <p class="text-xl font-bold text-[#111827]">85</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Total Teachers</p>
+              <p id="statTotalTeachers" class="text-2xl font-extrabold text-[#111827]">85</p>
             </div>
           </div>
-          <p class="text-[10px] text-[#6b7280] mt-1.5">Active faculty members</p>
-        </div>
+          <p class="text-[11px] text-[#6b7280] font-medium mt-2">Active faculty members</p>
+        </a>
       </div>
 
-      <!-- Line Graph -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-[#111827] text-base">Monthly Attendance Overview</h3>
-          <div class="flex items-center gap-2">
-            <input type="month" id="attendanceMonth" value="2026-07" 
-                  class="px-3 py-1.5 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white cursor-pointer">
+      <!-- Monthly Attendance Graph Card -->
+      <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 md:p-6 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-base font-bold text-[#111827]">Monthly Attendance Overview</h3>
+            <p class="text-xs text-[#6b7280] mt-0.5">Faculty daily attendance rate trend</p>
           </div>
-        </div>
-
-        <div class="flex items-center gap-4 text-xs mb-3">
-          <span class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-full bg-[#0030c2] inline-block"></span>
-            Attendance Rate (%)
-          </span>
-          <span class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
-            Late Count
-          </span>
-          <span class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
-            Absent Count
-          </span>
-        </div>
-
-        <div class="relative">
-          <!-- Graph Container -->
-          <div id="attendanceGraphContainer">
-            <svg viewBox="0 0 800 300" class="w-full h-72" id="attendanceGraph">
-              <!-- Grid Lines -->
-              <g stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4">
-                <line x1="60" y1="30" x2="760" y2="30"/>
-                <line x1="60" y1="80" x2="760" y2="80"/>
-                <line x1="60" y1="130" x2="760" y2="130"/>
-                <line x1="60" y1="180" x2="760" y2="180"/>
-                <line x1="60" y1="230" x2="760" y2="230"/>
-              </g>
-
-              <!-- Y-Axis Labels (Left - Attendance Rate) -->
-              <g font-size="10" fill="#6b7280">
-                <text x="50" y="34" text-anchor="end">100%</text>
-                <text x="50" y="84" text-anchor="end">80%</text>
-                <text x="50" y="134" text-anchor="end">60%</text>
-                <text x="50" y="184" text-anchor="end">40%</text>
-                <text x="50" y="234" text-anchor="end">20%</text>
-                <text x="50" y="260" text-anchor="end">0%</text>
-              </g>
-
-              <!-- Y-Axis Labels (Right - Count) -->
-              <g font-size="10" fill="#6b7280">
-                <text x="770" y="34" text-anchor="start">25</text>
-                <text x="770" y="84" text-anchor="start">20</text>
-                <text x="770" y="134" text-anchor="start">15</text>
-                <text x="770" y="184" text-anchor="start">10</text>
-                <text x="770" y="234" text-anchor="start">5</text>
-                <text x="770" y="260" text-anchor="start">0</text>
-              </g>
-
-              <!-- X-Axis Labels (Dynamic) -->
-              <g font-size="10" fill="#6b7280" text-anchor="middle" id="xAxisLabels">
-                <text x="110" y="275">Jul 1</text>
-                <text x="210" y="275">Jul 5</text>
-                <text x="310" y="275">Jul 10</text>
-                <text x="410" y="275">Jul 15</text>
-                <text x="510" y="275">Jul 20</text>
-                <text x="610" y="275">Jul 25</text>
-                <text x="710" y="275">Jul 31</text>
-              </g>
-
-              <!-- Attendance Rate Line -->
-              <polyline fill="none" stroke="#0030c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" id="rateLine"
-                points="110,57.6 210,62.2 310,51.6 410,57 510,49.3 610,59.9 710,53.9" />
-              
-              <!-- Attendance Rate Dots -->
-              <g fill="#0030c2" id="rateDots">
-                <circle cx="110" cy="57.6" r="5"/>
-                <circle cx="210" cy="62.2" r="5"/>
-                <circle cx="310" cy="51.6" r="5"/>
-                <circle cx="410" cy="57" r="5"/>
-                <circle cx="510" cy="49.3" r="5"/>
-                <circle cx="610" cy="59.9" r="5"/>
-                <circle cx="710" cy="53.9" r="5"/>
-              </g>
-
-              <!-- Attendance Rate Labels -->
-              <g font-size="10" font-weight="700" fill="#0030c2" text-anchor="middle" id="rateLabels">
-                <text x="110" y="50">88%</text>
-                <text x="210" y="54">86%</text>
-                <text x="310" y="44">92%</text>
-                <text x="410" y="49">90%</text>
-                <text x="510" y="42">91%</text>
-                <text x="610" y="52">87%</text>
-                <text x="710" y="46">89.6%</text>
-              </g>
-
-              <!-- Late Count Bars -->
-              <g id="lateBars">
-                <rect x="100" y="121.9" width="12" height="138.1" fill="#f59e0b" rx="2" opacity="0.8"/>
-                <rect x="200" y="152.6" width="12" height="107.4" fill="#f59e0b" rx="2" opacity="0.8"/>
-                <rect x="300" y="183.3" width="12" height="76.7" fill="#f59e0b" rx="2" opacity="0.8"/>
-                <rect x="400" y="137.3" width="12" height="122.7" fill="#f59e0b" rx="2" opacity="0.8"/>
-                <rect x="500" y="168" width="12" height="92" fill="#f59e0b" rx="2" opacity="0.8"/>
-                <rect x="600" y="145" width="12" height="115" fill="#f59e0b" rx="2" opacity="0.8"/>
-                <rect x="700" y="114.3" width="12" height="145.7" fill="#f59e0b" rx="2" opacity="0.8"/>
-              </g>
-
-              <!-- Absent Count Bars -->
-              <g id="absentBars">
-                <rect x="112" y="214" width="12" height="46" fill="#ef4444" rx="2" opacity="0.8"/>
-                <rect x="212" y="229.3" width="12" height="30.7" fill="#ef4444" rx="2" opacity="0.8"/>
-                <rect x="312" y="198.6" width="12" height="61.4" fill="#ef4444" rx="2" opacity="0.8"/>
-                <rect x="412" y="221.7" width="12" height="38.3" fill="#ef4444" rx="2" opacity="0.8"/>
-                <rect x="512" y="206.3" width="12" height="53.7" fill="#ef4444" rx="2" opacity="0.8"/>
-                <rect x="612" y="221.7" width="12" height="38.3" fill="#ef4444" rx="2" opacity="0.8"/>
-                <rect x="712" y="191" width="12" height="69" fill="#ef4444" rx="2" opacity="0.8"/>
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- Search and Filter Bar -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
-        <div class="flex flex-wrap items-end gap-3">
-          <!-- Search Teacher -->
-          <div class="w-45 flex-1 min-w-35">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Teacher</label>
-            <div class="relative">
-              <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-              </svg>
-              <input type="text" placeholder="Search by Name/ID" class="w-full pl-9 pr-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-            </div>
-          </div>
-
-          <!-- Filter by Department -->
-          <div class="w-37.5 flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Department</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Departments</option>
-              <option>Information Technology</option>
-              <option>Business Administration</option>
-              <option>Education</option>
-              <option>Engineering</option>
-              <option>Humanities</option>
-              <option>Sciences</option>
-            </select>
-          </div>
-
-          <!-- Filter by Status -->
-          <div class="w-25 flex-1 min-w-27.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Status</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Status</option>
-              <option>Present</option>
-              <option>Late</option>
-              <option>Absent</option>
-            </select>
-          </div>
-
-          <!-- Filter by Date Range - COMBINED with hidden inputs -->
-          <div class="flex-1 min-w-50 relative" id="dateRangeContainer">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Date Range</label>
-            
-            <!-- Display Field (clickable) -->
-            <div class="relative cursor-pointer" id="dateRangeDisplay" onclick="toggleDatePicker()">
-              <input type="text" id="dateRangeText" value="07/01/2026 - 07/31/2026" 
-                    class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white cursor-pointer"
-                    readonly>
-              <svg class="w-4 h-4 text-[#6b7280] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          
+          <!-- Month & Year Picker Popover -->
+          <div class="relative" id="monthDropdownContainer">
+            <button type="button" id="monthDropdownBtn" onclick="toggleMonthDropdown()" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
               </svg>
-            </div>
+              <span id="selectedMonthText">July 2026</span>
+              <svg class="w-3.5 h-3.5 text-[#6b7280] transition-transform duration-200" id="monthDropdownArrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
 
-            <!-- Hidden Date Inputs (popup) -->
-            <div id="datePickerPopup" class="hidden absolute top-full left-0 mt-1 bg-white border border-[#e5e7eb] rounded-lg shadow-lg p-4 z-20 min-w-70">
-              <div class="flex items-center gap-2">
-                <div class="flex-1">
-                  <label class="block text-xs font-medium text-[#6b7280] mb-1">From</label>
-                  <input type="date" id="dateFrom" value="2026-07-01" 
-                        class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white"
-                        onchange="updateDateRange()">
+            <!-- Month & Year Picker Card (Ultra-Clean & Compact) -->
+            <div id="monthDropdownMenu" class="hidden absolute right-0 top-full mt-1.5 w-56 bg-white border border-[#e5e7eb] rounded-xl shadow-xl overflow-hidden z-30 text-xs text-[#374151]">
+              <!-- Compact Header -->
+              <div class="flex items-center justify-between px-2.5 py-1.5 border-b border-[#e5e7eb] bg-gray-50/70">
+                <button type="button" onclick="changeGraphYear(-1)" class="w-6 h-6 flex items-center justify-center rounded text-gray-500 hover:text-[#0030c2] hover:bg-gray-200 transition-colors" title="Previous Year">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                </button>
+                <div class="font-bold text-xs text-[#111827]">
+                  <span id="graphSelectedYear">2026</span>
                 </div>
-                <div class="flex-1">
-                  <label class="block text-xs font-medium text-[#6b7280] mb-1">To</label>
-                  <input type="date" id="dateTo" value="2026-07-31" 
-                        class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white"
-                        onchange="updateDateRange()">
-                </div>
+                <button type="button" onclick="changeGraphYear(1)" class="w-6 h-6 flex items-center justify-center rounded text-gray-500 hover:text-[#0030c2] hover:bg-gray-200 transition-colors" title="Next Year">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
               </div>
-              <div class="flex justify-end mt-3 gap-2">
-                <button onclick="closeDatePicker()" class="px-4 py-1.5 text-sm text-[#6b7280] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
-                <button onclick="closeDatePicker()" class="px-4 py-1.5 text-sm bg-[#0030c2] text-white rounded-lg hover:bg-[#002699] transition-colors">Apply</button>
+
+              <!-- 12-Month Interactive Grid (4 Columns x 3 Rows, Compact Height) -->
+              <div class="p-1.5 grid grid-cols-4 gap-1 font-medium" id="monthGridContainer">
+                <button type="button" data-month="01" onclick="selectPickerMonth('01', 'January')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Jan</button>
+                <button type="button" data-month="02" onclick="selectPickerMonth('02', 'February')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Feb</button>
+                <button type="button" data-month="03" onclick="selectPickerMonth('03', 'March')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Mar</button>
+                <button type="button" data-month="04" onclick="selectPickerMonth('04', 'April')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Apr</button>
+                <button type="button" data-month="05" onclick="selectPickerMonth('05', 'May')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">May</button>
+                <button type="button" data-month="06" onclick="selectPickerMonth('06', 'June')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Jun</button>
+                <button type="button" data-month="07" onclick="selectPickerMonth('07', 'July')" class="month-grid-btn py-1 rounded text-center bg-[#0030c2] text-white font-bold text-xs shadow-xs">Jul</button>
+                <button type="button" data-month="08" onclick="selectPickerMonth('08', 'August')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Aug</button>
+                <button type="button" data-month="09" onclick="selectPickerMonth('09', 'September')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Sep</button>
+                <button type="button" data-month="10" onclick="selectPickerMonth('10', 'October')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Oct</button>
+                <button type="button" data-month="11" onclick="selectPickerMonth('11', 'November')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Nov</button>
+                <button type="button" data-month="12" onclick="selectPickerMonth('12', 'December')" class="month-grid-btn py-1 rounded text-center hover:bg-[#eff6ff] hover:text-[#0030c2] text-xs font-semibold text-[#4b5563] transition-colors">Dec</button>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Buttons -->
-          <div class="flex items-center gap-2">
-            <button class="px-6 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-              Apply
-            </button>
-            <button class="px-6 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-              Reset
-            </button>
-          </div>
+        <div class="mt-4">
+          <svg viewBox="0 0 700 280" class="w-full h-72" id="attendanceGraph">
+            <defs>
+              <linearGradient id="attendanceAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0030c2" stop-opacity="0.16"/>
+                <stop offset="100%" stop-color="#0030c2" stop-opacity="0.0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Grid Lines -->
+            <g stroke="#f1f5f9" stroke-width="1">
+              <line x1="45" y1="20" x2="680" y2="20"/>
+              <line x1="45" y1="59" x2="680" y2="59"/>
+              <line x1="45" y1="98" x2="680" y2="98"/>
+              <line x1="45" y1="137" x2="680" y2="137"/>
+              <line x1="45" y1="176" x2="680" y2="176"/>
+              <line x1="45" y1="215" x2="680" y2="215"/>
+            </g>
+
+            <!-- Y-Axis Labels -->
+            <g font-size="10" fill="#9ca3af" font-weight="500">
+              <text x="12" y="24">100%</text>
+              <text x="12" y="63">90%</text>
+              <text x="12" y="102">80%</text>
+              <text x="12" y="141">70%</text>
+              <text x="12" y="180">60%</text>
+              <text x="12" y="219">50%</text>
+            </g>
+
+            <!-- Gradient Area Under Curve -->
+            <polygon id="rateArea" fill="url(#attendanceAreaGradient)" 
+              points="75,215 75,66.8 170,74.6 265,51.2 360,59.0 455,55.1 550,70.7 645,60.6 645,215" />
+
+            <!-- Polyline Line -->
+            <polyline id="rateLine" fill="none" stroke="#0030c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              points="75,66.8 170,74.6 265,51.2 360,59.0 455,55.1 550,70.7 645,60.6" />
+
+            <!-- Data Points with Ring -->
+            <g fill="#0030c2" id="rateDots">
+              <circle cx="75" cy="66.8" r="5" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="170" cy="74.6" r="5" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="265" cy="51.2" r="5" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="360" cy="59.0" r="5" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="455" cy="55.1" r="5" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="550" cy="70.7" r="5" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="645" cy="60.6" r="5" stroke="#ffffff" stroke-width="2"/>
+            </g>
+
+            <!-- Values on Points -->
+            <g font-size="12" font-weight="700" fill="#111827" text-anchor="middle" id="rateLabels">
+              <text x="75" y="54">88%</text>
+              <text x="170" y="62">86%</text>
+              <text x="265" y="38">92%</text>
+              <text x="360" y="46">90%</text>
+              <text x="455" y="42">91%</text>
+              <text x="550" y="58">87%</text>
+              <text x="645" y="48">89.6%</text>
+            </g>
+
+            <!-- X-Axis Labels -->
+            <g font-size="11" fill="#6b7280" font-weight="500" text-anchor="middle" id="xAxisLabels">
+              <text x="75" y="248">Jul 1</text>
+              <text x="170" y="248">Jul 5</text>
+              <text x="265" y="248">Jul 10</text>
+              <text x="360" y="248">Jul 15</text>
+              <text x="455" y="248">Jul 20</text>
+              <text x="550" y="248">Jul 25</text>
+              <text x="645" y="248">Jul 31</text>
+            </g>
+          </svg>
+        </div>
+        
+        <div class="flex items-center justify-center gap-2 text-xs text-[#6b7280] mt-2 font-medium">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#0030c2] inline-block"></span>
+          Attendance Rate (%)
         </div>
       </div>
 
-      <!-- Teacher Attendance Table -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <div class="flex flex-wrap items-center justify-between px-4 py-3 border-b border-[#e5e7eb] bg-gray-50/50">
-          <h3 class="font-semibold text-[#111827] text-base">Teacher Attendance Records</h3>
-          <div class="flex items-center gap-2">
-            <!-- Export - Blue bg (solid) -->
-            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <!-- ===== TEACHER ATTENDANCE TABLE CARD ===== -->
+      <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+        
+        <!-- Table Header Controls Bar (Aligned Title, Search Bar, Filter Button, Export Button) -->
+        <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-base font-bold text-[#111827]">Teacher Attendance Records</h3>
+            <span id="teacherRecordCount" class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">85 Records</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Search Input -->
+            <div class="relative min-w-[220px]">
+              <input type="text" id="teacherSearch" placeholder="Search teacher ID, name, or dept..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+              <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </div>
+
+            <!-- Filter Button (Opens Filter Modal) -->
+            <button onclick="openFilterModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              </svg>
+              Filter
+            </button>
+
+            <!-- Export Button (References tardy-list.html / opens modal) -->
+            <button onclick="openExportModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
               Export
@@ -525,129 +509,197 @@
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table id="teacherAttendanceTable" class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-gray-50 border-b border-[#e5e7eb]">
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Teacher</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Department</th>
-                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Time In</th>
-                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Time Out</th>
-                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Status</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Date</th>
-                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
+              <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <th class="py-3 px-4">Teacher</th>
+                <th class="py-3 px-4">Department</th>
+                <th class="py-3 px-4 text-center">Time In</th>
+                <th class="py-3 px-4 text-center">Time Out</th>
+                <th class="py-3 px-4 text-center">Status</th>
+                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-[#e5e7eb]">
-              <!-- Table rows here - same as before -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, Juan <span class="text-[#6b7280] text-xs font-normal">TCH-1001</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Information Technology</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:32 AM</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:35 PM</td>
-                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-present">Present</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <tbody class="divide-y divide-[#e5e7eb] text-xs">
+              <!-- Row 1: Dela Cruz, Juan -->
+              <tr class="hover:bg-[#f8fafc] transition-colors teacher-row" data-teacher-id="TCH-1001" data-teacher-name="Dela Cruz, Juan" data-department="Information Technology" data-status="Present" data-date="2026-07-25">
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827] text-xs">Dela Cruz, Juan</p>
+                      <span class="font-mono text-[11px] text-[#6b7280] bg-gray-100 px-1.5 py-0.5 rounded font-medium">TCH-1001</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#4b5563] text-xs font-medium">Information Technology</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">7:32 AM</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">4:35 PM</td>
+                <td class="py-3.5 px-4 text-center"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="py-3.5 px-4 text-[#6b7280] text-xs">July 25, 2026 (Friday)</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewTeacherModal({id: 'TCH-1001', name: 'Dela Cruz, Juan', dept: 'Information Technology', timeIn: '7:32 AM', timeOut: '4:35 PM', status: 'Present', date: 'July 25, 2026 (Friday)', email: 'juan.delacruz@school.edu.ph', contact: '+63 917 111 2233'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                    <button onclick="openEditTeacherModal({id: 'TCH-1001', name: 'Dela Cruz, Juan', dept: 'Information Technology', timeIn: '07:32', timeOut: '16:35', status: 'Present', date: '2026-07-25'})" class="p-1.5 text-[#d97706] hover:bg-amber-50 rounded-lg transition-colors inline-flex items-center justify-center" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Ana <span class="text-[#6b7280] text-xs font-normal">TCH-1002</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Business Administration</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:18 AM</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:20 PM</td>
-                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-late">Late</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 2: Reyes, Ana -->
+              <tr class="hover:bg-[#f8fafc] transition-colors teacher-row" data-teacher-id="TCH-1002" data-teacher-name="Reyes, Ana" data-department="Business Administration" data-status="Late" data-date="2026-07-25">
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827] text-xs">Reyes, Ana</p>
+                      <span class="font-mono text-[11px] text-[#6b7280] bg-gray-100 px-1.5 py-0.5 rounded font-medium">TCH-1002</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#4b5563] text-xs font-medium">Business Administration</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">7:18 AM</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">4:20 PM</td>
+                <td class="py-3.5 px-4 text-center"><span class="status-badge status-badge-late">Late</span></td>
+                <td class="py-3.5 px-4 text-[#6b7280] text-xs">July 25, 2026 (Friday)</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewTeacherModal({id: 'TCH-1002', name: 'Reyes, Ana', dept: 'Business Administration', timeIn: '7:18 AM', timeOut: '4:20 PM', status: 'Late', date: 'July 25, 2026 (Friday)', email: 'ana.reyes@school.edu.ph', contact: '+63 918 222 3344'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                    <button onclick="openEditTeacherModal({id: 'TCH-1002', name: 'Reyes, Ana', dept: 'Business Administration', timeIn: '07:18', timeOut: '16:20', status: 'Late', date: '2026-07-25'})" class="p-1.5 text-[#d97706] hover:bg-amber-50 rounded-lg transition-colors inline-flex items-center justify-center" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria <span class="text-[#6b7280] text-xs font-normal">TCH-1003</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Education</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:45 AM</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:42 PM</td>
-                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-present">Present</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 3: Santos, Maria -->
+              <tr class="hover:bg-[#f8fafc] transition-colors teacher-row" data-teacher-id="TCH-1003" data-teacher-name="Santos, Maria" data-department="Education" data-status="Present" data-date="2026-07-25">
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827] text-xs">Santos, Maria</p>
+                      <span class="font-mono text-[11px] text-[#6b7280] bg-gray-100 px-1.5 py-0.5 rounded font-medium">TCH-1003</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#4b5563] text-xs font-medium">Education</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">7:45 AM</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">4:42 PM</td>
+                <td class="py-3.5 px-4 text-center"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="py-3.5 px-4 text-[#6b7280] text-xs">July 25, 2026 (Friday)</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewTeacherModal({id: 'TCH-1003', name: 'Santos, Maria', dept: 'Education', timeIn: '7:45 AM', timeOut: '4:42 PM', status: 'Present', date: 'July 25, 2026 (Friday)', email: 'maria.santos@school.edu.ph', contact: '+63 919 333 4455'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                    <button onclick="openEditTeacherModal({id: 'TCH-1003', name: 'Santos, Maria', dept: 'Education', timeIn: '07:45', timeOut: '16:42', status: 'Present', date: '2026-07-25'})" class="p-1.5 text-[#d97706] hover:bg-amber-50 rounded-lg transition-colors inline-flex items-center justify-center" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Pedro <span class="text-[#6b7280] text-xs font-normal">TCH-1004</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Engineering</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">–</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">–</td>
-                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-absent">Absent</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 4: Garcia, Pedro -->
+              <tr class="hover:bg-[#f8fafc] transition-colors teacher-row" data-teacher-id="TCH-1004" data-teacher-name="Garcia, Pedro" data-department="Engineering" data-status="Absent" data-date="2026-07-25">
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827] text-xs">Garcia, Pedro</p>
+                      <span class="font-mono text-[11px] text-[#6b7280] bg-gray-100 px-1.5 py-0.5 rounded font-medium">TCH-1004</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#4b5563] text-xs font-medium">Engineering</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">—</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">—</td>
+                <td class="py-3.5 px-4 text-center"><span class="status-badge status-badge-absent">Absent</span></td>
+                <td class="py-3.5 px-4 text-[#6b7280] text-xs">July 25, 2026 (Friday)</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewTeacherModal({id: 'TCH-1004', name: 'Garcia, Pedro', dept: 'Engineering', timeIn: '—', timeOut: '—', status: 'Absent', date: 'July 25, 2026 (Friday)', email: 'pedro.garcia@school.edu.ph', contact: '+63 920 444 5566'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                    <button onclick="openEditTeacherModal({id: 'TCH-1004', name: 'Garcia, Pedro', dept: 'Engineering', timeIn: '', timeOut: '', status: 'Absent', date: '2026-07-25'})" class="p-1.5 text-[#d97706] hover:bg-amber-50 rounded-lg transition-colors inline-flex items-center justify-center" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Lim, Cristina <span class="text-[#6b7280] text-xs font-normal">TCH-1005</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Humanities</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">7:29 AM</td>
-                <td class="px-3 py-2.5 text-center text-[#6b7280]">4:31 PM</td>
-                <td class="px-3 py-2.5 text-center"><span class="status-badge status-badge-present">Present</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026 (Friday)</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 5: Lim, Cristina -->
+              <tr class="hover:bg-[#f8fafc] transition-colors teacher-row" data-teacher-id="TCH-1005" data-teacher-name="Lim, Cristina" data-department="Humanities" data-status="Present" data-date="2026-07-25">
+                <td class="py-3.5 px-4 font-medium text-[#111827]">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-bold text-[#111827] text-xs">Lim, Cristina</p>
+                      <span class="font-mono text-[11px] text-[#6b7280] bg-gray-100 px-1.5 py-0.5 rounded font-medium">TCH-1005</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-[#4b5563] text-xs font-medium">Humanities</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">7:29 AM</td>
+                <td class="py-3.5 px-4 text-center font-mono text-xs text-[#6b7280]">4:31 PM</td>
+                <td class="py-3.5 px-4 text-center"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="py-3.5 px-4 text-[#6b7280] text-xs">July 25, 2026 (Friday)</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openViewTeacherModal({id: 'TCH-1005', name: 'Lim, Cristina', dept: 'Humanities', timeIn: '7:29 AM', timeOut: '4:31 PM', status: 'Present', date: 'July 25, 2026 (Friday)', email: 'cristina.lim@school.edu.ph', contact: '+63 921 555 6677'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="#ca8a04" stroke-width="2">
+                    <button onclick="openEditTeacherModal({id: 'TCH-1005', name: 'Lim, Cristina', dept: 'Humanities', timeIn: '07:29', timeOut: '16:31', status: 'Present', date: '2026-07-25'})" class="p-1.5 text-[#d97706] hover:bg-amber-50 rounded-lg transition-colors inline-flex items-center justify-center" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
@@ -658,24 +710,24 @@
           </table>
         </div>
 
-        <!-- Table Footer -->
-        <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <p class="text-sm text-[#6b7280]">
-            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">10</span> of <span class="font-medium text-[#111827]">85</span> records
+        <!-- Table Footer / Pagination -->
+        <div class="px-4 py-3 border-t border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-white text-xs text-[#6b7280]">
+          <p>
+            Showing <span id="showingStartCount" class="font-medium text-[#111827]">1</span> to <span id="showingEndCount" class="font-medium text-[#111827]">5</span> of <span id="showingTotalCount" class="font-medium text-[#111827]">85</span> records
           </p>
-          <div class="flex items-center gap-1">
-            <button class="pagination-btn text-sm px-2 py-1" disabled>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <div class="flex items-center gap-1" id="paginationContainer">
+            <button onclick="changePage(currentPage - 1)" id="prevPageBtn" class="pagination-btn text-xs px-2 py-1" disabled>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button class="pagination-btn pagination-btn-active text-sm px-2.5 py-1">1</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">2</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">3</button>
-            <span class="px-0.5 text-[#6b7280] text-sm">...</span>
-            <button class="pagination-btn text-sm px-2.5 py-1">9</button>
-            <button class="pagination-btn text-sm px-2 py-1">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button onclick="changePage(1)" class="pagination-btn pagination-btn-active text-xs px-2.5 py-1">1</button>
+            <button onclick="changePage(2)" class="pagination-btn text-xs px-2.5 py-1">2</button>
+            <button onclick="changePage(3)" class="pagination-btn text-xs px-2.5 py-1">3</button>
+            <span class="px-1 text-[#6b7280]">...</span>
+            <button onclick="changePage(9)" class="pagination-btn text-xs px-2.5 py-1">9</button>
+            <button onclick="changePage(currentPage + 1)" id="nextPageBtn" class="pagination-btn text-xs px-2 py-1">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </button>
@@ -684,6 +736,249 @@
       </div>
 
     </main>
+  </div>
+</div>
+
+<!-- ===== MODAL 1: ADVANCED FILTER MODAL ===== -->
+<div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Filter Teacher Records</h3>
+      </div>
+      <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 space-y-3.5 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Department</label>
+        <select id="filterDepartmentSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Departments</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Business Administration">Business Administration</option>
+          <option value="Education">Education</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Humanities">Humanities</option>
+          <option value="Sciences">Sciences</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Status</label>
+        <select id="filterStatusSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Status</option>
+          <option value="Present">Present</option>
+          <option value="Late">Late</option>
+          <option value="Absent">Absent</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Date Range</label>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <span class="text-[10px] text-[#6b7280] block mb-0.5">From</span>
+            <input type="date" id="filterDateFrom" value="2026-07-01" class="w-full px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          </div>
+          <div>
+            <span class="text-[10px] text-[#6b7280] block mb-0.5">To</span>
+            <input type="date" id="filterDateTo" value="2026-07-31" class="w-full px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+      <button onclick="resetTeacherFilters()" class="text-xs font-semibold text-[#6b7280] hover:text-[#111827]">Reset All</button>
+      <div class="flex items-center gap-2">
+        <button onclick="closeFilterModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Cancel</button>
+        <button onclick="applyTeacherFilters()" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Apply Filters</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 2: EXPORT MODAL ===== -->
+<div id="exportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Export Attendance Records</h3>
+      </div>
+      <button onclick="closeExportModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleExport(event)" class="p-5 space-y-4 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-2">Export File Format</label>
+        <div class="grid grid-cols-2 gap-2.5">
+          <label class="flex flex-col items-center justify-center p-3 border border-[#0030c2] bg-[#eff6ff] rounded-xl cursor-pointer transition-colors export-format-option">
+            <input type="radio" name="exportFormat" value="CSV" checked class="hidden" onchange="updateExportFormatSelection(this)">
+            <span class="font-bold text-[#0030c2]">CSV</span>
+            <span class="text-[10px] text-[#6b7280]">Spreadsheet format (.csv)</span>
+          </label>
+          <label class="flex flex-col items-center justify-center p-3 border border-[#e5e7eb] hover:bg-gray-50 rounded-xl cursor-pointer transition-colors export-format-option">
+            <input type="radio" name="exportFormat" value="Excel" class="hidden" onchange="updateExportFormatSelection(this)">
+            <span class="font-bold text-[#374151]">Excel</span>
+            <span class="text-[10px] text-[#6b7280]">Workbook format (.xlsx)</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Select Specific Date</label>
+        <input type="date" id="exportDate" value="2026-07-25" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeExportModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          Download Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL 3: VIEW TEACHER ATTENDANCE DETAILS MODAL ===== -->
+<div id="viewTeacherModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#eff6ff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Faculty Attendance Details</h3>
+          <p class="text-[11px] text-[#6b7280]">Daily attendance log &amp; profile overview</p>
+        </div>
+      </div>
+      <button onclick="closeViewTeacherModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 overflow-y-auto space-y-3.5 text-xs">
+      <!-- Teacher Card Header -->
+      <div class="bg-[#f8fafc] border border-[#e5e7eb] p-3.5 rounded-xl flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#0030c2] text-white font-bold text-sm flex items-center justify-center">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 id="viewTeacherName" class="font-extrabold text-[#111827] text-sm">Dela Cruz, Juan</h4>
+              <span id="viewTeacherId" class="font-mono text-[11px] text-[#6b7280] bg-gray-100 px-1.5 py-0.5 rounded font-medium">TCH-1001</span>
+            </div>
+            <p id="viewTeacherDept" class="text-xs text-[#0030c2] font-semibold mt-0.5">Information Technology</p>
+          </div>
+        </div>
+        <div>
+          <span id="viewTeacherStatus" class="status-badge status-badge-present">Present</span>
+        </div>
+      </div>
+
+      <!-- Attendance Breakdown -->
+      <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-xl border border-[#e5e7eb]">
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Date Recorded</span>
+          <p id="viewTeacherDate" class="font-semibold text-[#111827] mt-0.5">July 25, 2026</p>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Role</span>
+          <p id="viewTeacherRole" class="font-semibold text-[#111827] mt-0.5">Faculty Member</p>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Time In</span>
+          <p id="viewTeacherTimeIn" class="font-mono font-bold text-[#111827] mt-0.5">7:32 AM</p>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Time Out</span>
+          <p id="viewTeacherTimeOut" class="font-mono font-bold text-[#111827] mt-0.5">4:35 PM</p>
+        </div>
+      </div>
+
+      <!-- Contact Information Card -->
+      <div class="bg-[#eff6ff] border border-[#bfdbfe] p-3 rounded-xl space-y-1 text-[11px]">
+        <p><span class="font-bold text-[#1e40af]">Email:</span> <span id="viewTeacherEmail" class="text-[#1e3a8a]">juan.delacruz@school.edu.ph</span></p>
+        <p><span class="font-bold text-[#1e40af]">Contact:</span> <span id="viewTeacherContact" class="text-[#1e3a8a]">+63 917 111 2233</span></p>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-end">
+      <button onclick="closeViewTeacherModal()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 4: EDIT TEACHER ATTENDANCE RECORD MODAL ===== -->
+<div id="editTeacherModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Edit Attendance Record</h3>
+      </div>
+      <button onclick="closeEditTeacherModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="saveTeacherEdit(event)" class="p-5 space-y-3.5 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Faculty Member</label>
+        <input type="text" id="editTeacherName" readonly class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-gray-100 font-medium text-[#111827]">
+        <input type="hidden" id="editTeacherId">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2.5">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Time In</label>
+          <input type="time" id="editTimeIn" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Time Out</label>
+          <input type="time" id="editTimeOut" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Status</label>
+        <select id="editStatus" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="Present">Present</option>
+          <option value="Late">Late</option>
+          <option value="Absent">Absent</option>
+        </select>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeEditTeacherModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Save Changes</button>
+      </div>
+    </form>
   </div>
 </div>
 

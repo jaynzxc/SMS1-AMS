@@ -41,8 +41,8 @@
         Dashboard
       </a>
 
-      <!-- Attendance Monitoring -->
-      <a href="attendance.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <!-- Attendance Monitoring (Active) -->
+      <a href="attendance.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l2.25 2.25L15 12M8.25 21h7.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-1.5v.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-.75h-1.5A2.25 2.25 0 006 6.75v12A2.25 2.25 0 008.25 21z" />
         </svg>
@@ -111,16 +111,38 @@
         <span>Teacher Attendance</span>
       </a>
 
-      <!-- Excuse Slip Management -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-        </svg>
-        Excuse Slip Management
-      </a>
+      <!-- Excuse Slip Management with Dropdown -->
+      <div class="relative">
+        <button onclick="toggleExcuseDropdown()" class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+            Excuse Slip Management
+          </div>
+          <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
+        <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+          <a href="excuse-slip/pending-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Pending Requests
+          </a>
+          <a href="excuse-slip/approved-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Approved Requests
+          </a>
+          <a href="excuse-slip/rejected-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Rejected Requests
+          </a>
+          <a href="excuse-slip/excuse-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Excuse Slip History
+          </a>
+        </div>
+      </div>
 
       <!-- Attendance Calendar -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <a href="attendance-calendar.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
         </svg>
@@ -128,11 +150,11 @@
       </a>
 
       <!-- Parent Alerts -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <a href="parent-alerts.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
         </svg>
-        Parent Alerts
+        Parent Alerts Monitoring
       </a>
 
       <!-- Performance Analytics -->
@@ -200,8 +222,8 @@
         </button>
 
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
             </svg>
           </div>
@@ -217,191 +239,134 @@
     </header>
 
     <!-- ===== PAGE CONTENT ===== -->
-    <main class="flex-1 p-4 space-y-4">
+    <main class="flex-1 p-5 space-y-5">
 
       <!-- Page Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 class="text-2xl font-bold text-[#111827]">Daily Attendance Monitoring</h2>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Daily Attendance Monitoring</h2>
           <p class="text-sm text-[#6b7280]">Monitor and manage daily attendance records in real-time.</p>
         </div>
-        <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
-          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <button class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+          <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
           </svg>
-          July 25, 2026
+          July 25, 2026 (Friday)
         </button>
       </div>
 
-      <!-- Statistics Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+      <!-- Statistics Cards (5 Cards Grid) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <!-- Total Records Today -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#2563eb]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+              <svg class="w-6 h-6 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Total Records Today</p>
-              <p class="text-xl font-bold text-[#111827]">1,230</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Total Records Today</p>
+              <p class="text-2xl font-extrabold text-[#111827]">1,230</p>
             </div>
           </div>
-          <p class="text-[10px] text-[#6b7280] mt-1.5">All attendance records</p>
+          <p class="text-[11px] text-[#6b7280] font-medium mt-2">All attendance records</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Present -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
+              <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Present</p>
-              <p class="text-xl font-bold text-green-600">1,065</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Present</p>
+              <p class="text-2xl font-extrabold text-[#111827]">1,065</p>
             </div>
           </div>
-          <p class="text-[10px] text-green-600 font-medium mt-1.5">86.59%</p>
+          <p class="text-[11px] text-[#16a34a] font-medium mt-2">86.59% of total</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Late (Links to Tardy List) -->
+        <a href="tardy-and-absence/tardy-list.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm block hover:border-[#f97316]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+              <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Late</p>
-              <p class="text-xl font-bold text-amber-500">87</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Late</p>
+              <p class="text-2xl font-extrabold text-[#111827]">87</p>
             </div>
           </div>
-          <p class="text-[10px] text-amber-600 font-medium mt-1.5">7.07%</p>
-        </div>
+          <p class="text-[11px] text-[#f97316] font-medium mt-2">7.07% of total</p>
+        </a>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Absent (Links to Absence List) -->
+        <a href="tardy-and-absence/absence-list.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm block hover:border-[#dc2626]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
+              <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Absent</p>
-              <p class="text-xl font-bold text-red-500">58</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Absent</p>
+              <p class="text-2xl font-extrabold text-[#111827]">58</p>
             </div>
           </div>
-          <p class="text-[10px] text-red-500 font-medium mt-1.5">4.72%</p>
-        </div>
+          <p class="text-[11px] text-[#dc2626] font-medium mt-2">4.72% of total</p>
+        </a>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Excused (Links to Approved Excuse Requests) -->
+        <a href="excuse-slip/approved-requests.html" class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm block hover:border-[#0030c2]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+              <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Excused</p>
-              <p class="text-xl font-bold text-blue-500">20</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Excused</p>
+              <p class="text-2xl font-extrabold text-[#111827]">20</p>
             </div>
           </div>
-          <p class="text-[10px] text-blue-500 font-medium mt-1.5">1.63%</p>
-        </div>
+          <p class="text-[11px] text-[#0030c2] font-medium mt-2">1.63% of total</p>
+        </a>
       </div>
 
-      <!-- Search and Filter Bar - ONE ROW -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
-        <div class="flex flex-wrap items-end gap-3">
-          <!-- Search -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Student</label>
-            <div class="relative">
-              <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <!-- Attendance Records Table Card -->
+      <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+        <!-- Table Header Controls -->
+        <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-base font-bold text-[#111827]">Attendance Records Table</h3>
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">1,230 Logs</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Search -->
+            <div class="relative min-w-[220px]">
+              <input type="text" id="studentSearchInput" placeholder="Search by Name or ID..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+              <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
-              <input type="text" placeholder="Search by Name/ID" class="w-full pl-9 pr-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
             </div>
-          </div>
 
-          <!-- Date -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Date</label>
-            <input type="date" value="2026-07-25" class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-          </div>
-
-          <!-- Section -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Section</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Sections</option>
-              <option>Grade 7 - A</option>
-              <option>Grade 7 - B</option>
-              <option>Grade 8 - A</option>
-              <option>Grade 8 - B</option>
-              <option>Grade 9 - A</option>
-              <option>Grade 9 - B</option>
-              <option>Grade 10 - A</option>
-              <option>Grade 10 - B</option>
-            </select>
-          </div>
-
-          <!-- Teacher -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Teacher</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Teachers</option>
-              <option>Mr. Juan Dela Cruz</option>
-              <option>Ms. Ana Reyes</option>
-              <option>Mr. Pedro Cruz</option>
-              <option>Ms. Liza Santos</option>
-            </select>
-          </div>
-
-          <!-- Subject -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Subject</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Subjects</option>
-              <option>Math 101</option>
-              <option>English 10</option>
-              <option>Science 10</option>
-              <option>Filipino 10</option>
-              <option>Social Studies</option>
-              <option>MAPEH</option>
-            </select>
-          </div>
-
-          <!-- Buttons -->
-          <div class="flex items-center gap-2 shrink-0">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1 invisible">Actions</label>
-            <div class="flex gap-2">
-              <button class="px-6 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Apply Filters
-              </button>
-              <button class="px-6 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Attendance Records Table -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <!-- Table Header -->
-        <div class="flex flex-wrap items-center justify-between px-4 py-3 border-b border-[#e5e7eb] bg-gray-50/50">
-          <h3 class="font-semibold text-[#111827] text-base">Attendance Records Table</h3>
-          <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-white border border-[#0030c2] hover:bg-[#0030c2] hover:text-white text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <!-- Filter Button -->
+            <button onclick="openFilterModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
               </svg>
-              Attendance History
+              Filter
             </button>
-            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+            <!-- Export Button -->
+            <button onclick="openExportModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
               Export
@@ -409,234 +374,314 @@
           </div>
         </div>
 
+        <!-- Table -->
         <div class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table id="attendanceTable" class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-gray-50 border-b border-[#e5e7eb]">
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Date</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Subject</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Section</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Teacher</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student Name</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Time In</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Status</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Method</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Remarks</th>
-                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
+              <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4">Subject</th>
+                <th class="py-3 px-4">Section</th>
+                <th class="py-3 px-4">Teacher</th>
+                <th class="py-3 px-4">Student Name</th>
+                <th class="py-3 px-4">Time In</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Method</th>
+                <th class="py-3 px-4">Remarks</th>
+                <th class="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-[#e5e7eb]">
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Math 101</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Juan Dela Cruz</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:28 AM</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Present</span></td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-rfid">RFID</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <tbody class="divide-y divide-[#f3f4f6] text-xs">
+              <!-- Row 1 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">Math 101</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Mr. Juan Dela Cruz</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Santos, Maria</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280] font-mono">7:28 AM</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="py-3 px-4"><span class="method-badge method-badge-rfid">RFID</span></td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <!-- View -->
+                    <button onclick="openAttendanceDetailsModal({student: 'Santos, Maria', date: 'July 25, 2026', subject: 'Math 101', section: 'Grade 10 - A', teacher: 'Mr. Juan Dela Cruz', timeIn: '7:28 AM', status: 'Present', method: 'RFID', remarks: '-'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Edit -->
+                    <button onclick="openEditRecordModal('Santos, Maria', 'Math 101', 'Present', '-')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Delete -->
+                    <button onclick="openDeleteConfirmModal('Santos, Maria')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">English 10</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Ms. Ana Reyes</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Juan</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:35 AM</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-late">Late</span></td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-qr">QR</span></td>
-                <td class="px-3 py-2.5 text-amber-600 text-xs">Late: 7 mins</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+              <!-- Row 2 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">English 10</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Ms. Ana Reyes</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Garcia, Juan</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280] font-mono">7:35 AM</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-late">Late</span></td>
+                <td class="py-3 px-4"><span class="method-badge method-badge-qr">QR</span></td>
+                <td class="py-3 px-4 text-[#b45309] font-medium">Late: 7 mins</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openAttendanceDetailsModal({student: 'Garcia, Juan', date: 'July 25, 2026', subject: 'English 10', section: 'Grade 10 - A', teacher: 'Ms. Ana Reyes', timeIn: '7:35 AM', status: 'Late', method: 'QR', remarks: 'Late: 7 mins'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openEditRecordModal('Garcia, Juan', 'English 10', 'Late', 'Late: 7 mins')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openDeleteConfirmModal('Garcia, Juan')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Science 10</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Pedro Cruz</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, John</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Absent</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+              <!-- Row 3 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">Science 10</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Mr. Pedro Cruz</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Dela Cruz, John</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-absent">Absent</span></td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openAttendanceDetailsModal({student: 'Dela Cruz, John', date: 'July 25, 2026', subject: 'Science 10', section: 'Grade 10 - A', teacher: 'Mr. Pedro Cruz', timeIn: '-', status: 'Absent', method: '-', remarks: '-'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openEditRecordModal('Dela Cruz, John', 'Science 10', 'Absent', '-')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openDeleteConfirmModal('Dela Cruz, John')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Filipino 10</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Ms. Liza Santos</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Anna</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:24 AM</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Present</span></td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-rfid">RFID</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+              <!-- Row 4 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">Filipino 10</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Ms. Liza Santos</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Reyes, Anna</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280] font-mono">7:24 AM</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="py-3 px-4"><span class="method-badge method-badge-rfid">RFID</span></td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openAttendanceDetailsModal({student: 'Reyes, Anna', date: 'July 25, 2026', subject: 'Filipino 10', section: 'Grade 10 - A', teacher: 'Ms. Liza Santos', timeIn: '7:24 AM', status: 'Present', method: 'RFID', remarks: '-'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openEditRecordModal('Reyes, Anna', 'Filipino 10', 'Present', '-')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openDeleteConfirmModal('Reyes, Anna')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Math 101</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Juan Dela Cruz</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Rivera, Luis</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:40 AM</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-late">Late</span></td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-rfid">RFID</span></td>
-                <td class="px-3 py-2.5 text-amber-600 text-xs">Late: 10 mins</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+              <!-- Row 5 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">Math 101</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Mr. Juan Dela Cruz</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Rivera, Luis</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280] font-mono">7:40 AM</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-late">Late</span></td>
+                <td class="py-3 px-4"><span class="method-badge method-badge-rfid">RFID</span></td>
+                <td class="py-3 px-4 text-[#b45309] font-medium">Late: 10 mins</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openAttendanceDetailsModal({student: 'Rivera, Luis', date: 'July 25, 2026', subject: 'Math 101', section: 'Grade 10 - A', teacher: 'Mr. Juan Dela Cruz', timeIn: '7:40 AM', status: 'Late', method: 'RFID', remarks: 'Late: 10 mins'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openEditRecordModal('Rivera, Luis', 'Math 101', 'Late', 'Late: 10 mins')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openDeleteConfirmModal('Rivera, Luis')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">English 10</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Ms. Ana Reyes</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Solomon, Carla</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">7:22 AM</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Present</span></td>
-                <td class="px-3 py-2.5"><span class="method-badge method-badge-qr">QR</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+              <!-- Row 6 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">English 10</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Ms. Ana Reyes</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Solomon, Carla</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280] font-mono">7:22 AM</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-present">Present</span></td>
+                <td class="py-3 px-4"><span class="method-badge method-badge-qr">QR</span></td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openAttendanceDetailsModal({student: 'Solomon, Carla', date: 'July 25, 2026', subject: 'English 10', section: 'Grade 10 - A', teacher: 'Ms. Ana Reyes', timeIn: '7:22 AM', status: 'Present', method: 'QR', remarks: '-'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openEditRecordModal('Solomon, Carla', 'English 10', 'Present', '-')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openDeleteConfirmModal('Solomon, Carla')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280] whitespace-nowrap">July 25, 2026</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Science 10</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Grade 10 - A</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">Mr. Pedro Cruz</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Salazar, Miguel</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Absent</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-[#6b7280]">-</td>
-                <td class="px-3 py-2.5 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View Details">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+              <!-- Row 7 -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3 px-4 text-[#6b7280] whitespace-nowrap font-medium">July 25, 2026</td>
+                <td class="py-3 px-4 font-semibold text-[#111827]">Science 10</td>
+                <td class="py-3 px-4 text-[#4b5563]">Grade 10 - A</td>
+                <td class="py-3 px-4 text-[#4b5563]">Mr. Pedro Cruz</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <span class="font-bold text-[#111827]">Salazar, Miguel</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4"><span class="status-badge status-badge-absent">Absent</span></td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-[#6b7280]">-</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="openAttendanceDetailsModal({student: 'Salazar, Miguel', date: 'July 25, 2026', subject: 'Science 10', section: 'Grade 10 - A', teacher: 'Mr. Pedro Cruz', timeIn: '-', status: 'Absent', method: '-', remarks: '-'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors" title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Edit">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openEditRecordModal('Salazar, Miguel', 'Science 10', 'Absent', '-')" class="p-1.5 text-[#0030c2] hover:bg-indigo-50 rounded-lg transition-colors" title="Edit Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors flex items-center justify-center" title="Delete">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button onclick="openDeleteConfirmModal('Salazar, Miguel')" class="p-1.5 text-[#dc2626] hover:bg-red-50 rounded-lg transition-colors" title="Delete Record">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                       </svg>
                     </button>
@@ -647,24 +692,22 @@
           </table>
         </div>
 
-        <!-- Table Footer -->
-        <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <p class="text-sm text-[#6b7280]">
-            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">7</span> of <span class="font-medium text-[#111827]">1,230</span> records
-          </p>
+        <!-- Table Footer Pagination -->
+        <div class="px-4 py-3 border-t border-[#e5e7eb] flex items-center justify-between bg-white text-xs text-[#6b7280]">
+          <p>Showing <span class="font-semibold text-[#111827]">1</span> to <span class="font-semibold text-[#111827]">7</span> of <span class="font-semibold text-[#111827]">1,230</span> records</p>
           <div class="flex items-center gap-1">
-            <button class="pagination-btn text-sm px-2 py-1" disabled>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#9ca3af] hover:bg-gray-50 transition-colors disabled:opacity-50" disabled>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button class="pagination-btn pagination-btn-active text-sm px-2.5 py-1">1</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">2</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">3</button>
-            <span class="px-0.5 text-[#6b7280] text-sm">...</span>
-            <button class="pagination-btn text-sm px-2.5 py-1">10</button>
-            <button class="pagination-btn text-sm px-2 py-1">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="w-7 h-7 flex items-center justify-center rounded bg-[#0030c2] text-white font-bold text-xs">1</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">2</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">3</button>
+            <span class="px-1 text-[#9ca3af]">...</span>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">10</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </button>
@@ -676,9 +719,304 @@
   </div>
 </div>
 
+<!-- ===== MODAL 1: VIEW ATTENDANCE RECORD DETAILS ===== -->
+<div id="viewDetailsModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <!-- Modal Header -->
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l2.25 2.25L15 12M8.25 21h7.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-1.5v.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-.75h-1.5A2.25 2.25 0 006 6.75v12A2.25 2.25 0 008.25 21z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Attendance Log Details</h3>
+          <p class="text-[11px] text-[#6b7280]">Official Student Attendance Verification</p>
+        </div>
+      </div>
+      <button onclick="closeAttendanceDetailsModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-5 overflow-y-auto space-y-4 text-xs">
+      <!-- Info Grid -->
+      <div class="grid grid-cols-2 gap-3 bg-[#f8fafc] p-4 rounded-xl border border-[#e5e7eb]">
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Student Name</span>
+          <span id="modalDetailName" class="font-bold text-[#111827] text-sm">Santos, Maria</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Section</span>
+          <span id="modalDetailSection" class="font-semibold text-[#111827]">Grade 10 - A</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Subject</span>
+          <span id="modalDetailSubject" class="font-semibold text-[#111827]">Math 101</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Assigned Teacher</span>
+          <span id="modalDetailTeacher" class="font-semibold text-[#111827]">Mr. Juan Dela Cruz</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Date</span>
+          <span id="modalDetailDate" class="font-semibold text-[#111827]">July 25, 2026</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Recorded Time</span>
+          <span id="modalDetailTimeIn" class="font-semibold text-[#111827]">7:28 AM</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Status</span>
+          <span id="modalDetailStatus" class="status-badge status-badge-present mt-1">Present</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Scan Method</span>
+          <span id="modalDetailMethod" class="method-badge method-badge-rfid mt-1">RFID</span>
+        </div>
+        <div class="col-span-2">
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Remarks / Notes</span>
+          <p id="modalDetailRemarks" class="font-medium text-[#374151] mt-1 bg-white p-2.5 rounded-lg border border-[#e5e7eb]">None</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-end gap-2">
+      <button onclick="closeAttendanceDetailsModal()" class="px-4 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-100 rounded-lg text-xs font-semibold text-[#374151] transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 2: EDIT ATTENDANCE RECORD ===== -->
+<div id="editRecordModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col">
+    <!-- Modal Header -->
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Edit Attendance Record</h3>
+          <p class="text-[11px] text-[#6b7280]">Update status or remarks</p>
+        </div>
+      </div>
+      <button onclick="closeEditRecordModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-5 space-y-3.5 text-xs">
+      <div class="bg-[#f8fafc] p-3 rounded-xl border border-[#e5e7eb]">
+        <p class="text-[11px] text-[#6b7280]">Student: <strong id="editStudentName" class="text-[#111827]">Santos, Maria</strong></p>
+        <p class="text-[11px] text-[#6b7280] mt-0.5">Subject: <span id="editSubjectName" class="font-medium text-[#111827]">Math 101</span></p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#374151] mb-1">Attendance Status</label>
+        <select id="editStatusSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          <option value="Present">Present</option>
+          <option value="Late">Late</option>
+          <option value="Absent">Absent</option>
+          <option value="Excused">Excused</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#374151] mb-1">Remarks / Justification</label>
+        <input type="text" id="editRemarksInput" placeholder="Enter remarks (e.g. Late: 7 mins)..." class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-end gap-2">
+      <button onclick="closeEditRecordModal()" class="px-4 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-100 rounded-lg text-xs font-semibold text-[#374151] transition-colors">
+        Cancel
+      </button>
+      <button onclick="saveEditRecord()" class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white rounded-lg text-xs font-semibold shadow-sm transition-colors">
+        Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 3: DELETE CONFIRMATION ===== -->
+<div id="deleteConfirmModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden p-5 text-center">
+    <div class="w-12 h-12 rounded-full bg-red-100 text-[#dc2626] flex items-center justify-center mx-auto mb-3">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      </svg>
+    </div>
+    <h3 class="text-base font-bold text-[#111827]">Delete Attendance Record?</h3>
+    <p class="text-xs text-[#6b7280] mt-1.5 leading-relaxed">
+      Are you sure you want to remove the attendance log for <strong id="deleteStudentName" class="text-[#111827]">Santos, Maria</strong>? This action cannot be undone.
+    </p>
+    <div class="flex items-center justify-center gap-2.5 mt-5">
+      <button onclick="closeDeleteConfirmModal()" class="w-full px-4 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-100 rounded-lg text-xs font-semibold text-[#374151] transition-colors">
+        Cancel
+      </button>
+      <button onclick="confirmDeleteRecord()" class="w-full px-4 py-2 bg-[#dc2626] hover:bg-[#b91c1c] text-white rounded-lg text-xs font-semibold shadow-sm transition-colors">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 4: FILTER ATTENDANCE RECORDS ===== -->
+<div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col">
+    <!-- Header -->
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Filter Attendance Records</h3>
+      </div>
+      <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Form Body -->
+    <div class="p-5 space-y-3.5 text-xs">
+      <!-- Date -->
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Date</label>
+        <input type="date" id="filterDateInput" value="2026-07-25" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+      </div>
+
+      <!-- Section -->
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Section</label>
+        <select id="filterSectionSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          <option value="">All Sections</option>
+          <option value="Grade 7 - A">Grade 7 - A</option>
+          <option value="Grade 7 - B">Grade 7 - B</option>
+          <option value="Grade 8 - A">Grade 8 - A</option>
+          <option value="Grade 8 - B">Grade 8 - B</option>
+          <option value="Grade 9 - A">Grade 9 - A</option>
+          <option value="Grade 9 - B">Grade 9 - B</option>
+          <option value="Grade 10 - A">Grade 10 - A</option>
+          <option value="Grade 10 - B">Grade 10 - B</option>
+        </select>
+      </div>
+
+      <!-- Teacher -->
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Teacher</label>
+        <select id="filterTeacherSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          <option value="">All Teachers</option>
+          <option value="Mr. Juan Dela Cruz">Mr. Juan Dela Cruz</option>
+          <option value="Ms. Ana Reyes">Ms. Ana Reyes</option>
+          <option value="Mr. Pedro Cruz">Mr. Pedro Cruz</option>
+          <option value="Ms. Liza Santos">Ms. Liza Santos</option>
+        </select>
+      </div>
+
+      <!-- Subject -->
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Subject</label>
+        <select id="filterSubjectSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          <option value="">All Subjects</option>
+          <option value="Math 101">Math 101</option>
+          <option value="English 10">English 10</option>
+          <option value="Science 10">Science 10</option>
+          <option value="Filipino 10">Filipino 10</option>
+          <option value="Social Studies">Social Studies</option>
+          <option value="MAPEH">MAPEH</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between gap-2">
+      <button onclick="resetAttendanceFilters()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:text-[#111827] transition-colors">
+        Reset
+      </button>
+      <div class="flex items-center gap-2">
+        <button onclick="closeFilterModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">
+          Cancel
+        </button>
+        <button onclick="applyAttendanceFilters()" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
+          Apply Filters
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL 5: EXPORT ATTENDANCE RECORDS ===== -->
+<div id="exportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Export Attendance Records</h3>
+      </div>
+      <button onclick="closeExportModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleExport(event)" class="p-5 space-y-4 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-2">Export File Format</label>
+        <div class="grid grid-cols-2 gap-2.5">
+          <label class="flex flex-col items-center justify-center p-3 border border-[#0030c2] bg-[#eff6ff] rounded-xl cursor-pointer transition-colors export-format-option">
+            <input type="radio" name="exportFormat" value="CSV" checked class="hidden" onchange="updateExportFormatSelection(this)">
+            <span class="font-bold text-[#0030c2]">CSV</span>
+            <span class="text-[10px] text-[#6b7280]">Spreadsheet format (.csv)</span>
+          </label>
+          <label class="flex flex-col items-center justify-center p-3 border border-[#e5e7eb] hover:bg-gray-50 rounded-xl cursor-pointer transition-colors export-format-option">
+            <input type="radio" name="exportFormat" value="Excel" class="hidden" onchange="updateExportFormatSelection(this)">
+            <span class="font-bold text-[#374151]">Excel</span>
+            <span class="text-[10px] text-[#6b7280]">Workbook format (.xlsx)</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Select Specific Date</label>
+        <input type="date" id="exportDate" value="2026-07-25" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeExportModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          Download Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- JavaScript -->
 <script src="../assets/js/sidebar.js"></script>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/attendance.js"></script>
 
 </body>
 </html>

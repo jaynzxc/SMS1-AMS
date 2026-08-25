@@ -111,16 +111,38 @@
         <span>Teacher Attendance</span>
       </a>
 
-      <!-- Excuse Slip Management -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-        </svg>
-        Excuse Slip Management
-      </a>
+      <!-- Excuse Slip Management with Dropdown -->
+      <div class="relative">
+        <button onclick="toggleExcuseDropdown()" class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+            Excuse Slip Management
+          </div>
+          <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
+        <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+          <a href="../excuse-slip/pending-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Pending Requests
+          </a>
+          <a href="../excuse-slip/approved-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Approved Requests
+          </a>
+          <a href="../excuse-slip/rejected-requests.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Rejected Requests
+          </a>
+          <a href="../excuse-slip/excuse-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+            Excuse Slip History
+          </a>
+        </div>
+      </div>
 
       <!-- Attendance Calendar -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <a href="../attendance-calendar.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
         </svg>
@@ -128,11 +150,11 @@
       </a>
 
       <!-- Parent Alerts -->
-      <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+      <a href="../parent-alerts.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
         <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
         </svg>
-        Parent Alerts
+        Parent Alerts Monitoring
       </a>
 
       <!-- Performance Analytics -->
@@ -216,307 +238,349 @@
       </div>
     </header>
 
-    <!-- ===== PAGE CONTENT ===== -->
-    <main class="flex-1 p-4 space-y-4">
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="flex-1 p-5 space-y-5">
 
       <!-- Page Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 class="text-2xl font-bold text-[#111827]">QR Code Management</h2>
-          <p class="text-sm text-[#6b7280]">Manage QR codes for all students.</p>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">QR Code Management</h2>
+          <p class="text-sm text-[#6b7280]">Manage, generate, and print contactless digital QR codes for registered students</p>
         </div>
-        <button class="flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-lg px-3 py-1.5 text-xs font-medium text-[#6b7280] shadow-sm hover:bg-gray-50 whitespace-nowrap">
-          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <button class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+          <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
           </svg>
-          July 25, 2026
+          July 25, 2026 (Friday)
         </button>
       </div>
 
-      <!-- Statistics Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-[#e7edff] flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+      <!-- ===== STATISTICS CARDS ===== -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Total QR Codes -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+              <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Total QR Codes</p>
-              <p class="text-xl font-bold text-[#111827]">4,825</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Total QR Codes</p>
+              <p class="text-2xl font-extrabold text-[#111827]">4,825</p>
             </div>
           </div>
-          <p class="text-[10px] text-[#6b7280] mt-1.5">All registered QR codes</p>
+          <p class="text-[11px] text-[#6b7280] font-medium mt-2">All registered QR codes</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Active QR -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
+              <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Active QR</p>
-              <p class="text-xl font-bold text-green-600">4,760</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Active QR</p>
+              <p class="text-2xl font-extrabold text-[#16a34a]">4,760</p>
             </div>
           </div>
-          <p class="text-[10px] text-green-600 font-medium mt-1.5">98.65% of total</p>
+          <p class="text-[11px] text-[#16a34a] font-medium mt-2">98.65% of total</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Inactive QR -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+              <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Inactive QR</p>
-              <p class="text-xl font-bold text-amber-500">45</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Inactive QR</p>
+              <p class="text-2xl font-extrabold text-[#f97316]">45</p>
             </div>
           </div>
-          <p class="text-[10px] text-amber-600 font-medium mt-1.5">0.93% of total</p>
+          <p class="text-[11px] text-[#f97316] font-medium mt-2">0.93% of total</p>
         </div>
 
-        <div class="stat-card bg-white rounded-lg border border-[#e5e7eb] p-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <!-- Expired QR -->
+        <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
+              <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <p class="text-xs text-[#6b7280]">Expired QR</p>
-              <p class="text-xl font-bold text-red-500">20</p>
+              <p class="text-xs font-semibold text-[#6b7280]">Expired QR</p>
+              <p class="text-2xl font-extrabold text-[#dc2626]">20</p>
             </div>
           </div>
-          <p class="text-[10px] text-red-500 font-medium mt-1.5">0.42% of total</p>
+          <p class="text-[11px] text-[#dc2626] font-medium mt-2">0.42% of total</p>
         </div>
       </div>
 
-      <!-- Filters -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] p-4">
-        <div class="flex flex-wrap items-end gap-3">
-          <!-- Search -->
-          <div class="flex-1 min-w-35">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Search Student</label>
-            <div class="relative">
-              <svg class="w-4 h-4 text-[#6b7280] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <!-- ===== QR CODE MANAGEMENT TABLE CARD ===== -->
+      <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+        
+        <!-- Table Header Controls Bar -->
+        <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-base font-bold text-[#111827]">QR Code Management</h3>
+            <span id="qrRecordCount" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">4,825 Codes</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Search -->
+            <div class="relative min-w-[200px]">
+              <input type="text" id="qrSearch" placeholder="Search student or ID..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+              <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
-              <input type="text" placeholder="Search by Name/ID" class="w-full pl-9 pr-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
             </div>
-          </div>
 
-          <!-- Filter by Course -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Course</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Courses</option>
-              <option>BSIT</option>
-              <option>BSCS</option>
-              <option>BSIS</option>
-              <option>BMMA</option>
-            </select>
-          </div>
+            <!-- Filter Button -->
+            <button onclick="openFilterModal()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              </svg>
+              Filter
+            </button>
 
-          <!-- Filter by Year -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">Filter by Year</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Years</option>
-              <option>1st Year</option>
-              <option>2nd Year</option>
-              <option>3rd Year</option>
-              <option>4th Year</option>
-            </select>
-          </div>
+            <!-- View Scan History Button -->
+            <a href="scan-logs.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              View Scan History
+            </a>
 
-          <!-- QR Status -->
-          <div class="flex-1 min-w-32.5">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1">QR Status</label>
-            <select class="w-full px-3 py-2 text-sm border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2] focus:border-transparent bg-white">
-              <option>All Status</option>
-              <option>Active</option>
-              <option>Inactive</option>
-              <option>Expired</option>
-            </select>
-          </div>
-
-          <!-- Buttons -->
-          <div class="flex items-center gap-2 shrink-0">
-            <label class="block text-xs font-medium text-[#6b7280] mb-1 invisible">Actions</label>
-            <div class="flex gap-2">
-              <button class="px-6 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Apply Filters
-              </button>
-              <button class="px-6 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- QR Code Management Table -->
-      <div class="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
-        <!-- Table Header with Actions -->
-        <div class="px-4 py-3 border-b border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h2 class="text-base font-semibold text-[#111827]">QR Code Management</h2>
-          </div>
-          <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-[#0030c2] hover:bg-[#002699] text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <!-- Generate QR Button -->
+            <button onclick="openGenerateQrModal()" class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
+              <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
               Generate QR
             </button>
-            <button class="px-4 py-2 bg-white hover:bg-[#e7edff] text-[#0030c2] text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap border border-[#0030c2]">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              View Scan History
-            </button>
           </div>
         </div>
 
+        <!-- Table -->
         <div class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table id="qrTable" class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-gray-50 border-b border-[#e5e7eb]">
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student ID</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Student Name</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">QR Status</th>
-                <th class="text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Last Generated</th>
-                <th class="text-center text-xs font-semibold text-[#6b7280] uppercase tracking-wider px-3 py-2">Actions</th>
+              <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <th class="py-3 px-4">Student ID</th>
+                <th class="py-3 px-4">Student Name</th>
+                <th class="py-3 px-4">Course &amp; Year</th>
+                <th class="py-3 px-4">QR Status</th>
+                <th class="py-3 px-4">Last Generated</th>
+                <th class="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-[#e5e7eb]">
-              <!-- Active Status Row -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1001</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Santos, Maria</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 25, 2026</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <tbody class="divide-y divide-[#f3f4f6] text-xs">
+              <!-- Row 1: Active -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4 font-semibold text-[#6b7280] font-mono text-xs">2026-1001</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <p class="font-bold text-[#111827]">Santos, Maria</p>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSIT - 3rd Year">BSIT - 3rd Year</td>
+                <td class="py-3.5 px-4" data-status="Active">
+                  <span class="status-badge status-badge-present">Active</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 25, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <!-- View Card Details -->
+                    <button onclick="openViewQrModal({student: 'Santos, Maria', id: '2026-1001', courseYear: 'BSIT - 3rd Year', status: 'Active', dateGenerated: 'July 25, 2026', lastScan: 'Today, 7:45 AM (Gate 1)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View QR Pass">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Download QR -->
+                    <button onclick="handleDownloadQr('Santos, Maria')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Download QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Print QR -->
+                    <button onclick="handlePrintQr('Santos, Maria')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Print QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Active Status Row -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1002</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Garcia, Juan</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 23, 2026</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 2: Active -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4 font-semibold text-[#6b7280] font-mono text-xs">2026-1002</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <p class="font-bold text-[#111827]">Garcia, Juan</p>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSCS - 2nd Year">BSCS - 2nd Year</td>
+                <td class="py-3.5 px-4" data-status="Active">
+                  <span class="status-badge status-badge-present">Active</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 23, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <!-- View Card Details -->
+                    <button onclick="openViewQrModal({student: 'Garcia, Juan', id: '2026-1002', courseYear: 'BSCS - 2nd Year', status: 'Active', dateGenerated: 'July 23, 2026', lastScan: 'July 23, 2026 (Gate 1)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View QR Pass">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Download QR -->
+                    <button onclick="handleDownloadQr('Garcia, Juan')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Download QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Print QR -->
+                    <button onclick="handlePrintQr('Garcia, Juan')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Print QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Inactive Status Row - Only View and Regenerate -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1003</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Reyes, Anna</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-absent">Inactive</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 10, 2026</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 3: Inactive -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4 font-semibold text-[#6b7280] font-mono text-xs">2026-1003</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <p class="font-bold text-[#111827]">Reyes, Anna</p>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSIS - 1st Year">BSIS - 1st Year</td>
+                <td class="py-3.5 px-4" data-status="Inactive">
+                  <span class="status-badge status-badge-absent">Inactive</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 10, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <!-- View Card Details -->
+                    <button onclick="openViewQrModal({student: 'Reyes, Anna', id: '2026-1003', courseYear: 'BSIS - 1st Year', status: 'Inactive', dateGenerated: 'July 10, 2026', lastScan: 'July 22, 2026 (Gate 2)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View QR Pass">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-24 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-medium rounded-lg transition-colors flex items-center justify-center border border-blue-300">
+                    <!-- Regenerate Button -->
+                    <button onclick="handleRegenerateQr('Reyes, Anna', '2026-1003')" class="px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors inline-flex items-center gap-1" title="Regenerate &amp; Activate QR Code">
                       Regenerate
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Active Status Row -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1004</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Dela Cruz, John</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 24, 2026</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 4: Active -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4 font-semibold text-[#6b7280] font-mono text-xs">2026-1004</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <p class="font-bold text-[#111827]">Dela Cruz, John</p>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BSIT - 4th Year">BSIT - 4th Year</td>
+                <td class="py-3.5 px-4" data-status="Active">
+                  <span class="status-badge status-badge-present">Active</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 24, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <!-- View Card Details -->
+                    <button onclick="openViewQrModal({student: 'Dela Cruz, John', id: '2026-1004', courseYear: 'BSIT - 4th Year', status: 'Active', dateGenerated: 'July 24, 2026', lastScan: 'Today, 7:35 AM (Gate 1)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View QR Pass">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Download QR -->
+                    <button onclick="handleDownloadQr('Dela Cruz, John')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Download QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Print QR -->
+                    <button onclick="handlePrintQr('Dela Cruz, John')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Print QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
                       </svg>
                     </button>
                   </div>
                 </td>
               </tr>
-              <!-- Active Status Row -->
-              <tr class="hover:bg-gray-50">
-                <td class="px-3 py-2.5 text-[#6b7280]">2026-1005</td>
-                <td class="px-3 py-2.5 font-medium text-[#111827]">Rivera, Luis</td>
-                <td class="px-3 py-2.5"><span class="status-badge status-badge-present">Active</span></td>
-                <td class="px-3 py-2.5 text-[#6b7280]">July 22, 2026</td>
-                <td class="px-3 py-2.5">
-                  <div class="flex items-center justify-center gap-2">
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="View">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+
+              <!-- Row 5: Active -->
+              <tr class="hover:bg-[#f9fafb] transition-colors">
+                <td class="py-3.5 px-4 font-semibold text-[#6b7280] font-mono text-xs">2026-1005</td>
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                      </svg>
+                    </div>
+                    <p class="font-bold text-[#111827]">Rivera, Luis</p>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#374151]" data-course-year="BMMA - 2nd Year">BMMA - 2nd Year</td>
+                <td class="py-3.5 px-4" data-status="Active">
+                  <span class="status-badge status-badge-present">Active</span>
+                </td>
+                <td class="py-3.5 px-4 font-medium text-[#6b7280]">July 22, 2026</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center gap-1.5">
+                    <!-- View Card Details -->
+                    <button onclick="openViewQrModal({student: 'Rivera, Luis', id: '2026-1005', courseYear: 'BMMA - 2nd Year', status: 'Active', dateGenerated: 'July 22, 2026', lastScan: 'Today, 8:02 AM (Gate 3)'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View QR Pass">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Download">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Download QR -->
+                    <button onclick="handleDownloadQr('Rivera, Luis')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Download QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                       </svg>
                     </button>
-                    <button class="w-11 h-9 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors flex items-center justify-center" title="Print">
-                      <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <!-- Print QR -->
+                    <button onclick="handlePrintQr('Rivera, Luis')" class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-gray-100 rounded-lg transition-colors inline-flex items-center justify-center" title="Print QR Code">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
                       </svg>
                     </button>
@@ -527,37 +591,276 @@
           </table>
         </div>
 
-        <!-- Table Footer -->
-        <div class="border-t border-[#e5e7eb] px-3 py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <p class="text-sm text-[#6b7280]">
-            Showing <span class="font-medium text-[#111827]">1</span> to <span class="font-medium text-[#111827]">5</span> of <span class="font-medium text-[#111827]">4,825</span> records
-          </p>
+        <!-- Footer Pagination -->
+        <div class="px-4 py-3 border-t border-[#e5e7eb] flex items-center justify-between bg-white text-xs text-[#6b7280]">
+          <p>Showing <span class="font-semibold text-[#111827]">1</span> to <span class="font-semibold text-[#111827]">5</span> of <span class="font-semibold text-[#111827]">4,825</span> records</p>
           <div class="flex items-center gap-1">
-            <button class="pagination-btn text-sm px-2 py-1" disabled>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#9ca3af] hover:bg-gray-50 transition-colors disabled:opacity-50" disabled>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
             </button>
-            <button class="pagination-btn pagination-btn-active text-sm px-2.5 py-1">1</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">2</button>
-            <button class="pagination-btn text-sm px-2.5 py-1">3</button>
-            <span class="px-0.5 text-[#6b7280] text-sm">...</span>
-            <button class="pagination-btn text-sm px-2.5 py-1">10</button>
-            <button class="pagination-btn text-sm px-2 py-1">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button class="w-7 h-7 flex items-center justify-center rounded bg-[#0030c2] text-white font-bold text-xs">1</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">2</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">3</button>
+            <span class="px-1 text-[#9ca3af]">..</span>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">965</button>
+            <button class="w-7 h-7 flex items-center justify-center rounded border border-[#e5e7eb] text-[#374151] hover:bg-gray-50 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </button>
           </div>
         </div>
+
       </div>
 
     </main>
   </div>
 </div>
 
+<!-- ===== MODAL: FILTER POPUP ===== -->
+<div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-bold text-[#111827]">Filter QR Code Records</h3>
+      </div>
+      <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="p-5 space-y-3.5 text-xs">
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Course</label>
+        <select id="filterCourseSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Courses</option>
+          <option value="BSIT">BSIT - Information Technology</option>
+          <option value="BSCS">BSCS - Computer Science</option>
+          <option value="BSIS">BSIS - Information Systems</option>
+          <option value="BMMA">BMMA - Multimedia Arts</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">Filter by Year Level</label>
+        <select id="filterYearSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Years</option>
+          <option value="1st Year">1st Year</option>
+          <option value="2nd Year">2nd Year</option>
+          <option value="3rd Year">3rd Year</option>
+          <option value="4th Year">4th Year</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">QR Status</label>
+        <select id="filterStatusSelect" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Expired">Expired</option>
+        </select>
+      </div>
+    </div>
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+      <button onclick="resetFilters()" class="text-xs font-semibold text-[#6b7280] hover:text-[#111827]">Reset All</button>
+      <div class="flex items-center gap-2">
+        <button onclick="closeFilterModal()" class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Cancel</button>
+        <button onclick="applyFilters()" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: GENERATE NEW QR ===== -->
+<div id="generateQrModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Generate Student QR Code</h3>
+          <p class="text-[11px] text-[#6b7280]">Issue a new unique digital attendance barcode</p>
+        </div>
+      </div>
+      <button onclick="closeGenerateQrModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <form onsubmit="handleGenerateQr(event)" class="p-5 overflow-y-auto space-y-3.5 text-xs">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Student ID <span class="text-red-500">*</span></label>
+          <input type="text" id="genStudentId" required placeholder="e.g. 2026-1008" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Student Full Name <span class="text-red-500">*</span></label>
+          <input type="text" id="genStudentName" required placeholder="e.g. Mendoza, Carlos" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Course <span class="text-red-500">*</span></label>
+          <select id="genCourse" required class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="BSIT">BSIT</option>
+            <option value="BSCS">BSCS</option>
+            <option value="BSIS">BSIS</option>
+            <option value="BMMA">BMMA</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Year Level <span class="text-red-500">*</span></label>
+          <select id="genYear" required class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold text-[#374151] block mb-1">QR Validity Period</label>
+        <select id="genValidity" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+          <option value="1 Academic Year">1 Academic Year (2026-2027)</option>
+          <option value="1 Semester">1 Semester (5 Months)</option>
+          <option value="Permanent">Permanent (Until Graduation)</option>
+        </select>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+        <button type="button" onclick="closeGenerateQrModal()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+        <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">Generate &amp; Save QR</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: VIEW QR PASS DETAILS ===== -->
+<div id="viewQrModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-[#111827]">Student QR Attendance Pass</h3>
+          <p class="text-[11px] text-[#6b7280]">Official Contactless Barcode</p>
+        </div>
+      </div>
+      <button onclick="closeViewQrModal()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="p-5 overflow-y-auto space-y-4 text-xs">
+      <!-- QR Code Pass Card -->
+      <div class="bg-gradient-to-br from-[#0030c2] to-[#1e40af] text-white p-5 rounded-2xl text-center shadow-lg relative overflow-hidden">
+        <div class="space-y-0.5 mb-3">
+          <p class="text-[10px] font-extrabold tracking-widest uppercase opacity-80">STUDENT ATTENDANCE QR</p>
+          <h4 id="viewStudentName" class="text-base font-extrabold tracking-tight">Santos, Maria</h4>
+          <p id="viewStudentId" class="text-xs text-white/80 font-mono">ID: 2026-1001</p>
+          <p id="viewCourseYear" class="text-[11px] text-white/70">BSIT - 3rd Year</p>
+        </div>
+
+        <!-- Rendered QR Box -->
+        <div class="bg-white p-3.5 rounded-xl inline-block shadow-md mx-auto my-2">
+          <!-- Vector QR Code Graphic -->
+          <svg class="w-36 h-36 text-gray-900" viewBox="0 0 100 100" fill="currentColor">
+            <!-- Corner Finder 1 -->
+            <rect x="5" y="5" width="26" height="26" rx="4" fill="currentColor" />
+            <rect x="9" y="9" width="18" height="18" rx="2" fill="white" />
+            <rect x="13" y="13" width="10" height="10" rx="1" fill="currentColor" />
+            <!-- Corner Finder 2 -->
+            <rect x="69" y="5" width="26" height="26" rx="4" fill="currentColor" />
+            <rect x="73" y="9" width="18" height="18" rx="2" fill="white" />
+            <rect x="77" y="13" width="10" height="10" rx="1" fill="currentColor" />
+            <!-- Corner Finder 3 -->
+            <rect x="5" y="69" width="26" height="26" rx="4" fill="currentColor" />
+            <rect x="9" y="73" width="18" height="18" rx="2" fill="white" />
+            <rect x="13" y="77" width="10" height="10" rx="1" fill="currentColor" />
+            <!-- Simulated QR Data Pattern -->
+            <rect x="36" y="8" width="6" height="6" fill="currentColor" />
+            <rect x="46" y="8" width="6" height="6" fill="currentColor" />
+            <rect x="56" y="8" width="6" height="6" fill="currentColor" />
+            <rect x="36" y="18" width="6" height="6" fill="currentColor" />
+            <rect x="50" y="18" width="12" height="6" fill="currentColor" />
+            <rect x="8" y="36" width="6" height="6" fill="currentColor" />
+            <rect x="18" y="36" width="12" height="6" fill="currentColor" />
+            <rect x="36" y="36" width="12" height="12" fill="currentColor" />
+            <rect x="54" y="36" width="10" height="6" fill="currentColor" />
+            <rect x="70" y="36" width="6" height="12" fill="currentColor" />
+            <rect x="82" y="36" width="12" height="6" fill="currentColor" />
+            <rect x="8" y="48" width="12" height="6" fill="currentColor" />
+            <rect x="26" y="48" width="6" height="12" fill="currentColor" />
+            <rect x="52" y="48" width="12" height="12" fill="currentColor" />
+            <rect x="70" y="52" width="24" height="6" fill="currentColor" />
+            <rect x="36" y="54" width="10" height="6" fill="currentColor" />
+            <rect x="36" y="68" width="6" height="12" fill="currentColor" />
+            <rect x="48" y="68" width="12" height="6" fill="currentColor" />
+            <rect x="66" y="68" width="12" height="12" fill="currentColor" />
+            <rect x="84" y="68" width="10" height="6" fill="currentColor" />
+            <rect x="36" y="86" width="18" height="6" fill="currentColor" />
+            <rect x="60" y="86" width="6" height="6" fill="currentColor" />
+            <rect x="72" y="86" width="22" height="6" fill="currentColor" />
+          </svg>
+        </div>
+        <p class="text-[10px] text-white/70 mt-1">Scan at entrance scanner kiosk</p>
+      </div>
+
+      <!-- Information Details -->
+      <div class="grid grid-cols-2 gap-3 bg-[#f8fafc] p-3 rounded-xl border border-[#e5e7eb]">
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Status</span>
+          <span id="viewStatusBadge" class="status-badge status-badge-present mt-0.5">Active</span>
+        </div>
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Generated Date</span>
+          <span id="viewDateGenerated" class="font-semibold text-[#111827]">July 25, 2026</span>
+        </div>
+        <div class="col-span-2">
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Latest Log Activity</span>
+          <span id="viewLastScan" class="font-semibold text-[#111827]">Today, 7:45 AM (Gate 1 - Time In)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+      <button onclick="handleDownloadQr('Current Student')" class="px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        Download
+      </button>
+      <div class="flex items-center gap-2">
+        <button onclick="handlePrintQr('Current Student')" class="px-3 py-1.5 text-xs font-semibold text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-100 rounded-lg transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+          </svg>
+          Print
+        </button>
+        <button onclick="closeViewQrModal()" class="px-3.5 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- JavaScript -->
-<script src="../../assets/js/sidebar.js"></script>
 <script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/sidebar.js"></script>
+<script src="../../assets/js/qr-management.js"></script>
 </body>
 </html>
