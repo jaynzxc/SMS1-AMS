@@ -84,23 +84,77 @@ document.addEventListener('DOMContentLoaded', function() {
     // TOAST NOTIFICATION
     // =============================================================
 
-    function showToast(message, type) {
-        const existing = document.querySelector('.custom-toast');
-        if (existing) existing.remove();
+    function showToast(titleOrMessage, messageOrType, type = 'success') {
+        let title = titleOrMessage;
+        let message = messageOrType;
+        let toastType = type;
+
+        // Check if it's called as showToast(message, type)
+        if (messageOrType === undefined) {
+            message = titleOrMessage;
+            toastType = 'success';
+            title = 'Success';
+        } else if (messageOrType === 'success' || messageOrType === 'info' || messageOrType === 'error' || messageOrType === 'danger') {
+            message = titleOrMessage;
+            toastType = messageOrType === 'danger' ? 'error' : messageOrType;
+            title = toastType === 'success' ? 'Success' : toastType === 'info' ? 'Info' : 'Error';
+        }
+
+        let toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toastContainer';
+            toastContainer.className = 'fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none';
+            document.body.appendChild(toastContainer);
+        }
 
         const toast = document.createElement('div');
-        toast.className = `custom-toast fixed top-5 right-5 z-50 px-6 py-3 rounded-xl shadow-lg text-white text-sm font-medium transition-all duration-300 ${
-            type === 'success' ? 'bg-green-600' :
-            type === 'error' ? 'bg-red-600' :
-            'bg-blue-600'
-        }`;
-        toast.textContent = message;
-        document.body.appendChild(toast);
+        toast.className = 'custom-toast pointer-events-auto bg-white border border-[#e5e7eb] shadow-xl rounded-xl p-3.5 flex items-start gap-3 min-w-[280px] max-w-sm transition-all duration-300 transform translate-x-0';
+
+        let iconSvg = '';
+        if (toastType === 'success') {
+            iconSvg = `
+                <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
+            `;
+        } else if (toastType === 'info') {
+            iconSvg = `
+                <div class="w-8 h-8 rounded-full bg-blue-50 text-[#0030c2] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                    </svg>
+                </div>
+            `;
+        } else {
+            iconSvg = `
+                <div class="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                </div>
+            `;
+        }
+
+        toast.innerHTML = `
+            ${iconSvg}
+            <div class="flex-1">
+                <p class="text-xs font-bold text-[#111827]">${title}</p>
+                <p class="text-[11px] text-[#6b7280] mt-0.5 leading-tight">${message}</p>
+            </div>
+            <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 p-1">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        `;
+
+        toastContainer.appendChild(toast);
 
         setTimeout(() => {
-            toast.classList.add('opacity-0');
+            toast.classList.add('opacity-0', 'translate-x-full');
             setTimeout(() => toast.remove(), 300);
-        }, 3000);
+        }, 4000);
     }
 
     // =============================================================

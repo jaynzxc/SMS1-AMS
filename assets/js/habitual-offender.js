@@ -14,7 +14,22 @@ document.addEventListener('DOMContentLoaded', function() {
 // =============================================================
 // TOAST NOTIFICATIONS HELPER
 // =============================================================
-function showToast(message, type = 'success') {
+function showToast(titleOrMessage, messageOrType, type = 'success') {
+  let title = titleOrMessage;
+  let message = messageOrType;
+  let toastType = type;
+
+  // Check if it's called as showToast(message, type)
+  if (messageOrType === undefined) {
+    message = titleOrMessage;
+    toastType = 'success';
+    title = 'Success';
+  } else if (messageOrType === 'success' || messageOrType === 'info' || messageOrType === 'error' || messageOrType === 'danger') {
+    message = titleOrMessage;
+    toastType = messageOrType === 'danger' ? 'error' : messageOrType;
+    title = toastType === 'success' ? 'Success' : toastType === 'info' ? 'Info' : 'Error';
+  }
+
   let toastContainer = document.getElementById('toastContainer');
   if (!toastContainer) {
     toastContainer = document.createElement('div');
@@ -24,33 +39,52 @@ function showToast(message, type = 'success') {
   }
 
   const toast = document.createElement('div');
-  const bgColor = type === 'success' ? 'bg-emerald-600' : type === 'error' ? 'bg-rose-600' : 'bg-[#0030c2]';
-  const iconSvg = type === 'success' 
-    ? `<svg class="w-5 h-5 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
-    : type === 'error'
-    ? `<svg class="w-5 h-5 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`
-    : `<svg class="w-5 h-5 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+  toast.className = 'custom-toast pointer-events-auto bg-white border border-[#e5e7eb] shadow-xl rounded-xl p-3.5 flex items-start gap-3 min-w-[280px] max-w-sm transition-all duration-300 transform translate-x-0';
 
-  toast.className = `flex items-center gap-2.5 px-4 py-3 text-white text-xs font-semibold rounded-xl shadow-xl ${bgColor} transform transition-all duration-300 translate-y-2 opacity-0 pointer-events-auto border border-white/10`;
+  let iconSvg = '';
+  if (toastType === 'success') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+    `;
+  } else if (toastType === 'info') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-full bg-blue-50 text-[#0030c2] flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+        </svg>
+      </div>
+    `;
+  } else {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+        </svg>
+      </div>
+    `;
+  }
+
   toast.innerHTML = `
     ${iconSvg}
-    <span>${message}</span>
+    <div class="flex-1">
+      <p class="text-xs font-bold text-[#111827]">${title}</p>
+      <p class="text-[11px] text-[#6b7280] mt-0.5 leading-tight">${message}</p>
+    </div>
+    <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 p-1">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
   `;
 
   toastContainer.appendChild(toast);
 
-  // Trigger animation
   setTimeout(() => {
-    toast.classList.remove('translate-y-2', 'opacity-0');
-  }, 10);
-
-  // Remove toast after 3.5s
-  setTimeout(() => {
-    toast.classList.add('translate-y-2', 'opacity-0');
-    setTimeout(() => {
-      toast.remove();
-    }, 300);
-  }, 3500);
+    toast.classList.add('opacity-0', 'translate-x-full');
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
 }
 
 // =============================================================
@@ -208,12 +242,49 @@ function handleExport(event) {
   const specificDate = document.getElementById('exportDate')?.value || '2026-07-25';
 
   closeExportModal();
-  showToast(`Generating ${format} export for Habitual Offenders (${specificDate})... Download will start shortly.`, 'info');
+  showToast('Exporting Records...', `Generating ${format} report for ${specificDate}`, 'info');
 
-  const fileExt = format.toLowerCase() === 'excel' ? 'xlsx' : 'csv';
   setTimeout(() => {
-    showToast(`Habitual_Offenders_${specificDate}.${fileExt} downloaded successfully!`, 'success');
-  }, 1200);
+    if (format === 'CSV') {
+      const table = document.getElementById('offenderTable');
+      if (table) {
+        const visibleRows = Array.from(table.querySelectorAll('tbody tr')).filter(row => row.style.display !== 'none');
+        const csvRows = [
+          ["Student ID", "Student Name", "Section", "Late Count", "Absence Count", "Status"]
+        ];
+
+        visibleRows.forEach(row => {
+          const id = row.getAttribute('data-student-id') || '';
+          const name = row.getAttribute('data-student-name') || '';
+          const section = row.getAttribute('data-section') || '';
+          const late = row.getAttribute('data-late') || '0';
+          const absent = row.getAttribute('data-absent') || '0';
+          
+          const cells = row.querySelectorAll('td');
+          const status = cells[5]?.textContent.trim() || '';
+          
+          csvRows.push([
+            `"${id}"`,
+            `"${name}"`,
+            `"${section}"`,
+            `"${late}"`,
+            `"${absent}"`,
+            `"${status}"`
+          ]);
+        });
+
+        const csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.join(",")).join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Habitual_Offenders_${specificDate}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+    showToast('Download Ready', `Habitual offenders report exported successfully (${format})`, 'success');
+  }, 800);
 }
 
 // =============================================================

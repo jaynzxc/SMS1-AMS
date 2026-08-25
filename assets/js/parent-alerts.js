@@ -663,7 +663,22 @@ function closeDetailedReportModal() {
 // =============================================================
 // TOAST NOTIFICATION UTILITY
 // =============================================================
-function showToast(title, message, type = 'success') {
+function showToast(titleOrMessage, messageOrType, type = 'success') {
+    let title = titleOrMessage;
+    let message = messageOrType;
+    let toastType = type;
+
+    // Check if it's called as showToast(message, type)
+    if (messageOrType === undefined) {
+        message = titleOrMessage;
+        toastType = 'success';
+        title = 'Success';
+    } else if (messageOrType === 'success' || messageOrType === 'info' || messageOrType === 'error' || messageOrType === 'danger') {
+        message = titleOrMessage;
+        toastType = messageOrType === 'danger' ? 'error' : messageOrType;
+        title = toastType === 'success' ? 'Success' : toastType === 'info' ? 'Info' : 'Error';
+    }
+
     let toastContainer = document.getElementById('toastContainer');
     if (!toastContainer) {
         toastContainer = document.createElement('div');
@@ -676,7 +691,7 @@ function showToast(title, message, type = 'success') {
     toast.className = 'custom-toast pointer-events-auto bg-white border border-[#e5e7eb] shadow-xl rounded-xl p-3.5 flex items-start gap-3 min-w-[280px] max-w-sm transition-all duration-300 transform translate-x-0';
 
     let iconSvg = '';
-    if (type === 'success') {
+    if (toastType === 'success') {
         iconSvg = `
             <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -684,7 +699,7 @@ function showToast(title, message, type = 'success') {
                 </svg>
             </div>
         `;
-    } else if (type === 'info') {
+    } else if (toastType === 'info') {
         iconSvg = `
             <div class="w-8 h-8 rounded-full bg-blue-50 text-[#0030c2] flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
