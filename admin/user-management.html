@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · User Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280]">Administrator Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+        <!-- Dashboard -->
+        <a href="dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+          </svg>
+          Dashboard
+        </a>
+
+        <!-- Attendance Monitoring -->
+        <a href="attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 14.25l2.25 2.25L15 12M8.25 21h7.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-1.5v.75a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-.75h-1.5A2.25 2.25 0 006 6.75v12A2.25 2.25 0 008.25 21z" />
+          </svg>
+          Attendance Monitoring
+        </a>
+
+        <!-- RFID/QR MANAGEMENT with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              </svg>
+              RFID/QR Management
+            </div>
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="rfid-and-qr/rfid-registry.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              RFID Registry
+            </a>
+            <a href="rfid-and-qr/qr-management.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              QR Code Management
+            </a>
+            <a href="rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Scan Logs
+            </a>
+          </div>
+        </div>
+
+        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
+              </svg>
+              Tardy &amp; Absence Logs
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="tardy-and-absence/tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Tardy List
+            </a>
+            <a href="tardy-and-absence/absence-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Absence List
+            </a>
+            <a href="tardy-and-absence/habitual-offender.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Habitual Offender
+            </a>
+          </div>
+        </div>
+
+        <!-- Teacher Attendance -->
+        <a href="teacher-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span>Teacher Attendance</span>
+        </a>
+
+        <!-- Excuse Slip Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              Excuse Management
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Pending Requests
+            </a>
+            <a href="excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Approved Requests
+            </a>
+            <a href="excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Rejected Requests
+            </a>
+            <a href="excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Excuse Slip History
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          Attendance Calendar
+        </a>
+
+        <!-- Parent Alerts -->
+        <a href="parent-alerts.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          Parent Alerts Monitoring
+        </a>
+
+        <!-- Performance Analytics -->
+        <a href="performance-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          Performance Analytics
+        </a>
+
+        <!-- Perfect Attendance Award -->
+        <a href="perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          Perfect Attendance Award
+        </a>
+
+        <!-- Reports & Export -->
+        <a href="reports-export.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          Reports &amp; Export
+        </a>
+
+        <!-- User Management (Active) -->
+        <a href="user-management.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          User Management
+        </a>
+
+        <!-- Academic Management -->
+        <a href="#"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+          Academic Management
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar -->
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3">
+          <button class="text-[#6b7280] hover:text-[#111827] focus:outline-none">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827]">User Management</h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Notification Bell with Blue Badge -->
+          <button class="relative text-[#6b7280] hover:text-[#111827]">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Admin Profile -->
+          <div class="flex items-center gap-2.5 cursor-pointer">
+            <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+              </svg>
+            </div>
+            <div class="hidden sm:block">
+              <p class="text-xs font-bold text-[#111827] leading-tight">Admin User</p>
+              <p class="text-[10px] text-[#6b7280] leading-tight">System Administrator</p>
+            </div>
+            <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE CONTENT ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">User Management</h2>
+            <p class="text-sm text-[#6b7280]">Manage students, teachers, and administrator accounts.</p>
+          </div>
+          <button
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+            <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span id="currentDateLabel">July 25, 2026 (Friday)</span>
+          </button>
+        </div>
+
+        <!-- Top Navigation Tabs (Students, Teachers, Admins) -->
+        <div class="flex items-center gap-4 border-b border-[#e5e7eb]">
+          <!-- Students Tab -->
+          <button id="tabStudents" onclick="switchTab('students')"
+            class="flex items-center gap-2 pb-3 px-3 text-sm font-bold border-b-2 border-[#0030c2] text-[#0030c2] transition-all cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+            </svg>
+            <span>Students</span>
+          </button>
+
+          <!-- Teachers Tab -->
+          <button id="tabTeachers" onclick="switchTab('teachers')"
+            class="flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 border-transparent text-[#6b7280] hover:text-[#0030c2] transition-all cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+            </svg>
+            <span>Teachers</span>
+          </button>
+
+          <!-- Admins Tab -->
+          <button id="tabAdmins" onclick="switchTab('admins')"
+            class="flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 border-transparent text-[#6b7280] hover:text-[#0030c2] transition-all cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            <span>Admins</span>
+          </button>
+        </div>
+
+        <!-- 2-COLUMN MAIN CONTENT LAYOUT (Table Left, Widgets Right) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+          <!-- LEFT COLUMN: Table Card + Legends (lg:col-span-8 or 9) -->
+          <div class="lg:col-span-8 xl:col-span-9 space-y-4">
+
+            <!-- Table Card Container -->
+            <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-6 space-y-5">
+
+              <!-- Card Header Row (Title & "+ Add User" Button) -->
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <h2 id="cardTitle" class="text-xl font-bold text-[#111827] tracking-tight">Students (125)</h2>
+                  <p id="cardSubtitle" class="text-xs text-[#6b7280] mt-0.5">Manage student accounts and information.
+                  </p>
+                </div>
+                <button onclick="openAddModal()"
+                  class="flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl shadow-sm transition-colors whitespace-nowrap">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                  <span id="addBtnText">Add Student</span>
+                </button>
+              </div>
+
+              <!-- Table Element -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="border-b border-[#e5e7eb] text-[11px] font-bold text-[#6b7280] tracking-wider">
+                      <th id="tableHeaderId" class="py-3 px-4">Student ID</th>
+                      <th class="py-3 px-4">Name</th>
+                      <th id="tableHeaderCourse" class="py-3 px-4">Course &amp; Section</th>
+                      <th class="py-3 px-4">Status</th>
+                      <th class="py-3 px-4 text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="userTableBody" class="divide-y divide-[#f3f4f6]">
+                    <!-- Populated dynamically via assets/js/user-management.js -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination Row (Showing X of Y & Page Controls) -->
+              <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2 border-t border-[#f3f4f6]">
+                <p id="paginationInfo" class="text-xs text-[#6b7280] font-medium">Showing 1 to 10 of 125 entries</p>
+                <div id="paginationControls" class="flex items-center gap-1">
+                  <!-- Generated dynamically -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Legends (RFID & QR Explanations) -->
+            <div class="space-y-2 pt-2 px-1 text-xs text-[#4b5563]">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-[#4b5563] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6-10.5h16.5a1.5 1.5 0 011.5 1.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V7.5a1.5 1.5 0 011.5-1.5z" />
+                </svg>
+                <p><span class="font-bold text-[#111827]">RFID:</span> Register or update the student's RFID card.</p>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-[#4b5563] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+                </svg>
+                <p><span class="font-bold text-[#111827]">QR Code:</span> Generate a unique QR code for student
+                  attendance scanning.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Search Card & Quick Actions Card (lg:col-span-4 or 3) -->
+          <div class="lg:col-span-4 xl:col-span-3 space-y-6">
+
+            <!-- Search Card -->
+            <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-5 space-y-4">
+              <div>
+                <h3 class="text-base font-bold text-[#111827]">Search</h3>
+                <p class="text-xs text-[#6b7280]">Find users quickly.</p>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <label class="text-xs font-semibold text-[#374151] block mb-1.5">Search by</label>
+                  <select id="searchBySelect"
+                    class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-xl text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+                    <option value="id">Student ID</option>
+                    <option value="name">Name</option>
+                    <option value="course">Course &amp; Section</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <input type="text" id="userSearchInput" placeholder="Enter Student ID"
+                    class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-xl text-[#111827] placeholder-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+                  <button id="userSearchBtn"
+                    class="p-2 bg-[#0030c2] hover:bg-[#002699] text-white rounded-xl shrink-0 transition-colors shadow-sm"
+                    title="Search">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions Card -->
+            <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-5 space-y-4">
+              <div>
+                <h3 class="text-base font-bold text-[#111827]">Quick Actions</h3>
+              </div>
+
+              <div class="space-y-3.5">
+                <!-- 1. Add Student -->
+                <button onclick="openAddModal()"
+                  class="flex items-start gap-3 w-full text-left p-1.5 rounded-xl hover:bg-gray-50 transition-colors group">
+                  <div
+                    class="w-8 h-8 rounded-lg bg-[#e7edff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p id="qaAddTitle" class="text-xs font-bold text-[#111827]">Add Student</p>
+                    <p id="qaAddDesc" class="text-[11px] text-[#6b7280]">Create a new student account.</p>
+                  </div>
+                </button>
+
+                <!-- 2. Edit Student -->
+                <button onclick="openEditModal('2024-1001')"
+                  class="flex items-start gap-3 w-full text-left p-1.5 rounded-xl hover:bg-gray-50 transition-colors group">
+                  <div
+                    class="w-8 h-8 rounded-lg bg-[#e7edff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p id="qaEditTitle" class="text-xs font-bold text-[#111827]">Edit Student</p>
+                    <p id="qaEditDesc" class="text-[11px] text-[#6b7280]">Update student information.</p>
+                  </div>
+                </button>
+
+                <!-- 3. Archive Student -->
+                <button onclick="openArchiveModal('2024-1004')"
+                  class="flex items-start gap-3 w-full text-left p-1.5 rounded-xl hover:bg-gray-50 transition-colors group">
+                  <div
+                    class="w-8 h-8 rounded-lg bg-[#fef2f2] text-[#ef4444] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p id="qaArchiveTitle" class="text-xs font-bold text-[#111827]">Archive Student</p>
+                    <p id="qaArchiveDesc" class="text-[11px] text-[#6b7280]">Deactivate student account.</p>
+                  </div>
+                </button>
+
+                <!-- 4. Reset Password -->
+                <button onclick="openResetPasswordModal('2024-1001')"
+                  class="flex items-start gap-3 w-full text-left p-1.5 rounded-xl hover:bg-gray-50 transition-colors group">
+                  <div
+                    class="w-8 h-8 rounded-lg bg-[#e7edff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p id="qaResetTitle" class="text-xs font-bold text-[#111827]">Reset Password</p>
+                    <p id="qaResetDesc" class="text-[11px] text-[#6b7280]">Reset student portal password.</p>
+                  </div>
+                </button>
+
+                <!-- 5. Register RFID -->
+                <button onclick="openRfidModal('2024-1001')"
+                  class="flex items-start gap-3 w-full text-left p-1.5 rounded-xl hover:bg-gray-50 transition-colors group">
+                  <div
+                    class="w-8 h-8 rounded-lg bg-[#e7edff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6-10.5h16.5a1.5 1.5 0 011.5 1.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V7.5a1.5 1.5 0 011.5-1.5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p id="qaRfidTitle" class="text-xs font-bold text-[#111827]">Register RFID</p>
+                    <p id="qaRfidDesc" class="text-[11px] text-[#6b7280]">Register or update RFID card.</p>
+                  </div>
+                </button>
+
+                <!-- 6. Generate QR -->
+                <button onclick="openQrModal('2024-1001')"
+                  class="flex items-start gap-3 w-full text-left p-1.5 rounded-xl hover:bg-gray-50 transition-colors group">
+                  <div
+                    class="w-8 h-8 rounded-lg bg-[#e7edff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p id="qaQrTitle" class="text-xs font-bold text-[#111827]">Generate QR</p>
+                    <p id="qaQrDesc" class="text-[11px] text-[#6b7280]">Generate QR code for attendance.</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- MODALS -->
+  <!-- ============================================================= -->
+
+  <!-- 1. ADD / EDIT USER MODAL -->
+  <div id="userModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+        <h3 id="userModalTitle" class="text-base font-bold text-[#111827]">Add New User</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600 p-1">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="userForm" onsubmit="handleSaveUser(event)" class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="formIsEditing" value="false">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="font-bold text-[#374151] block mb-1">ID Number <span class="text-red-500">*</span></label>
+            <input type="text" id="formUserId" required
+              class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          </div>
+          <div>
+            <label class="font-bold text-[#374151] block mb-1">Status</label>
+            <select id="formUserStatus"
+              class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Full Name (Last, First Middle) <span
+              class="text-red-500">*</span></label>
+          <input type="text" id="formUserName" required placeholder="e.g. Dela Cruz, Juan Paolo"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Course &amp; Section / Department <span
+              class="text-red-500">*</span></label>
+          <input type="text" id="formUserCourse" required placeholder="e.g. BSIT 2A"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="font-bold text-[#374151] block mb-1">Email Address</label>
+            <input type="email" id="formUserEmail" placeholder="user@school.edu.ph"
+              class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          </div>
+          <div>
+            <label class="font-bold text-[#374151] block mb-1">Contact Number</label>
+            <input type="text" id="formUserContact" placeholder="0917-000-0000"
+              class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeAllModals()"
+            class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-xl transition-colors">Cancel</button>
+          <button type="submit"
+            class="px-5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl shadow-sm transition-colors">Save
+            Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. REGISTER RFID MODAL -->
+  <div id="rfidModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+        <h3 class="text-base font-bold text-[#111827]">Register RFID Card</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600 p-1">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveRfid(event)" class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="rfidHiddenId">
+
+        <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-3.5 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-[#0030c2] text-white flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6-10.5h16.5a1.5 1.5 0 011.5 1.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V7.5a1.5 1.5 0 011.5-1.5z" />
+            </svg>
+          </div>
+          <div>
+            <p id="rfidUserName" class="text-xs font-bold text-[#111827]">Student Name</p>
+            <p id="rfidUserId" class="text-[11px] text-[#6b7280]">2024-1001</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">RFID Card UID / Serial Number</label>
+          <div class="flex items-center gap-2">
+            <input type="text" id="rfidUidInput" required placeholder="e.g. E20000192803001"
+              class="w-full font-mono px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+            <button type="button" onclick="simulateRfidTap()"
+              class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-[#374151] rounded-xl font-semibold whitespace-nowrap transition-colors"
+              title="Simulate Hardware Tap">
+              Tap Scan
+            </button>
+          </div>
+          <p class="text-[10px] text-[#6b7280] mt-1.5">Tap the card onto the physical scanner or type the hex UID
+            manually.</p>
+        </div>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeAllModals()"
+            class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-xl transition-colors">Cancel</button>
+          <button type="submit"
+            class="px-5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl shadow-sm transition-colors">Save
+            RFID Card</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. GENERATE / VIEW QR MODAL -->
+  <div id="qrModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in duration-200 text-center">
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between text-left">
+        <h3 class="text-base font-bold text-[#111827]">Attendance QR Badge</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600 p-1">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <!-- Visual QR Box -->
+        <div class="p-4 bg-[#f8fafc] border border-[#e5e7eb] rounded-2xl inline-block shadow-inner">
+          <div
+            class="w-48 h-48 bg-white p-3 rounded-xl border border-gray-200 flex flex-col items-center justify-center gap-1 shadow-sm">
+            <svg class="w-36 h-36 text-[#111827]" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14-2h4v4h-4v-4zm-4 4h4v4h-4v-4zm4 4h4v4h-4v-4zm-4-8h4v4h-4v-4zm-2-2h2v2h-2v-2zm-4 0h2v2H8v-2zm0-4h2v2H8V6zm4 0h2v2h-2V6zm2 4h2v2h-2v-2z" />
+            </svg>
+            <span id="qrCodeText" class="font-mono text-[10px] text-gray-500 tracking-wider">QR-STU-2024-1001</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 id="qrUserName" class="text-sm font-bold text-[#111827]">Dela Cruz, Juan Paolo</h4>
+          <p id="qrUserId" class="text-xs text-[#0030c2] font-semibold">2024-1001</p>
+          <p id="qrUserCourse" class="text-xs text-[#6b7280]">BSIT 2A</p>
+        </div>
+
+        <div class="pt-2 flex items-center justify-center gap-2">
+          <button onclick="downloadQrCard()"
+            class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-xl transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            Download
+          </button>
+          <button onclick="printQrCard()"
+            class="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl transition-colors shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.72 13.829c-.24-1.076-.64-2.115-1.18-3.085M6.72 13.829L9 15m-2.28-1.171L4.5 12m0 0l2.22-1.171M4.5 12h15m0 0l-2.22 1.171M19.5 12l2.28 1.171M19.5 12l-2.22-1.171m0 0A12.012 12.012 0 0016.1 7.66M12 3v3m0 12v3" />
+            </svg>
+            Print Badge
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RESET PASSWORD MODAL -->
+  <div id="resetPasswordModal"
+    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+        <h3 class="text-base font-bold text-[#111827]">Reset Portal Password</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600 p-1">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="resetHiddenId">
+
+        <div>
+          <p class="text-[#4b5563]">Generate a temporary one-time password for:</p>
+          <p id="resetUserName" class="text-sm font-bold text-[#111827] mt-1">Student Name</p>
+          <p id="resetUserId" class="text-xs text-[#6b7280]">2024-1001</p>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Temporary Generated Password</label>
+          <div class="flex items-center gap-2">
+            <input type="text" id="resetTempPassword" readonly
+              class="w-full font-mono font-bold px-3 py-2 border border-[#e5e7eb] rounded-xl bg-gray-50 text-[#0030c2] text-sm select-all">
+            <button type="button" onclick="copyTempPassword()"
+              class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-[#374151] rounded-xl font-semibold shrink-0 transition-colors"
+              title="Copy Password">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-[#6b7280]">The user will be prompted to create a new password upon their next login
+          attempt.</p>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeAllModals()"
+            class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-xl transition-colors">Cancel</button>
+          <button type="button" onclick="handleConfirmPasswordReset()"
+            class="px-5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl shadow-sm transition-colors">Confirm
+            Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ARCHIVE / DEACTIVATE MODAL -->
+  <div id="archiveModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+        <h3 class="text-base font-bold text-[#111827]">Account Status Confirmation</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600 p-1">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="archiveHiddenId">
+
+        <div class="flex items-start gap-3.5">
+          <div
+            class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-100">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          </div>
+          <div>
+            <h4 id="archiveUserName" class="text-sm font-bold text-[#111827]">User Name</h4>
+            <p id="archiveUserId" class="text-xs text-[#6b7280]">2024-1001</p>
+            <p id="archiveActionText" class="text-xs text-[#4b5563] mt-2">Are you sure you want to change the status of
+              this account?</p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeAllModals()"
+            class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-xl transition-colors">Cancel</button>
+          <button type="button" id="archiveConfirmBtn" onclick="handleConfirmArchive()"
+            class="px-4 py-2 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-sm transition-colors">Deactivate
+            Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/user-management.js"></script>
+
+</body>
+
+</html>
