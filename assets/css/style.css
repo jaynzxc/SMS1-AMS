@@ -229,3 +229,45 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 .donut-chart-circle {
   transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;
 }
+
+/* =============================================================
+   MICRO-ANIMATIONS & USER MANAGEMENT UTILITIES
+   ============================================================= */
+
+/* Row Slide-out Animation for Deletion / Removal */
+.tr-removing {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform: translateX(-30px);
+  opacity: 0 !important;
+  background-color: #fef2f2 !important;
+}
+
+/* Micro-interaction for buttons */
+.btn-press {
+  transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Floating Bulk Action Bar Animation */
+@keyframes slideUpFloating {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.bulk-toolbar-active {
+  animation: slideUpFloating 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Row select highlight */
+tr.row-selected {
+  background-color: #eff6ff !important;
+}

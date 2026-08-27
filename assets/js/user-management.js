@@ -6,6 +6,8 @@ let currentPage = 1;
 const itemsPerPage = 10;
 let searchQuery = '';
 let searchField = 'id';
+let selectedUserIds = new Set();
+
 
 // =============================================================
 // MOCK DATASETS
@@ -78,29 +80,6 @@ for (let i = 9; i <= 48; i++) {
   });
 }
 
-const adminsData = [
-  { id: 'ADM-2024-001', name: 'Admin User (System Administrator)', courseSection: 'IT Systems & Security', email: 'admin.system@school.edu.ph', contact: '0917-999-0001', status: 'Active', rfidUid: 'E20000193000001', qrCode: 'QR-ADM-001' },
-  { id: 'ADM-2024-002', name: 'Bautista, Catherine', courseSection: 'Registrar Office', email: 'catherine.bautista@school.edu.ph', contact: '0917-999-0002', status: 'Active', rfidUid: 'E20000193000002', qrCode: 'QR-ADM-002' },
-  { id: 'ADM-2024-003', name: 'Villanueva, Greg', courseSection: 'Dean of Student Affairs', email: 'greg.villanueva@school.edu.ph', contact: '0917-999-0003', status: 'Active', rfidUid: 'E20000193000003', qrCode: 'QR-ADM-003' },
-  { id: 'ADM-2024-004', name: 'Soriano, Jonathan', courseSection: 'Attendance Operations', email: 'jonathan.soriano@school.edu.ph', contact: '0917-999-0004', status: 'Active', rfidUid: 'E20000193000004', qrCode: 'QR-ADM-004' },
-  { id: 'ADM-2024-005', name: 'Salazar, Teresa', courseSection: 'Finance & Accounting', email: 'teresa.salazar@school.edu.ph', contact: '0917-999-0005', status: 'Active', rfidUid: 'E20000193000005', qrCode: 'QR-ADM-005' },
-  { id: 'ADM-2024-006', name: 'Del Rosario, Marcus', courseSection: 'IT Infrastructure', email: 'marcus.delrosario@school.edu.ph', contact: '0917-999-0006', status: 'Inactive', rfidUid: 'E20000193000006', qrCode: 'QR-ADM-006' }
-];
-
-for (let i = 7; i <= 12; i++) {
-  const paddedId = 'ADM-2024-' + i.toString().padStart(3, '0');
-  adminsData.push({
-    id: paddedId,
-    name: `Administrator Staff ${i}`,
-    courseSection: 'Administrative Services',
-    email: `admin.${i}@school.edu.ph`,
-    contact: `0917-999-${1000 + i}`,
-    status: 'Active',
-    rfidUid: `E200001930000${i.toString().padStart(2, '0')}`,
-    qrCode: `QR-ADM-${paddedId}`
-  });
-}
-
 // =============================================================
 // INITIALIZATION
 // =============================================================
@@ -117,6 +96,8 @@ function switchTab(tab) {
   currentTab = tab;
   currentPage = 1;
   searchQuery = '';
+  selectedUserIds.clear();
+  updateBulkToolbar();
 
   const searchInput = document.getElementById('userSearchInput');
   if (searchInput) searchInput.value = '';
@@ -124,138 +105,46 @@ function switchTab(tab) {
   // Update Tab Styling
   const tabStudents = document.getElementById('tabStudents');
   const tabTeachers = document.getElementById('tabTeachers');
-  const tabAdmins = document.getElementById('tabAdmins');
 
   const inactiveClass = 'text-[#6b7280] hover:text-[#0030c2] border-transparent';
   const activeClass = 'text-[#0030c2] font-bold border-[#0030c2]';
 
-  [tabStudents, tabTeachers, tabAdmins].forEach(t => {
+  [tabStudents, tabTeachers].forEach(t => {
     if (t) {
-      t.className = `flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${inactiveClass}`;
+      t.className = `btn-press flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${inactiveClass}`;
     }
   });
 
-  if (tab === 'students' && tabStudents) tabStudents.className = `flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${activeClass}`;
-  if (tab === 'teachers' && tabTeachers) tabTeachers.className = `flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${activeClass}`;
-  if (tab === 'admins' && tabAdmins) tabAdmins.className = `flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${activeClass}`;
+  if (tab === 'students' && tabStudents) tabStudents.className = `btn-press flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${activeClass}`;
+  if (tab === 'teachers' && tabTeachers) tabTeachers.className = `btn-press flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${activeClass}`;
 
-  // Update Dynamic Text in Header, Button, Quick Actions, Search Dropdown
+  // Update Dynamic Text in Header, Button, Search Dropdown
   updateTabContextUI();
   renderTable();
 }
 
 function updateTabContextUI() {
   const cardTitle = document.getElementById('cardTitle');
-  const cardSubtitle = document.getElementById('cardSubtitle');
+  const cardRecordCount = document.getElementById('cardRecordCount');
   const addBtnText = document.getElementById('addBtnText');
   const tableHeaderId = document.getElementById('tableHeaderId');
   const tableHeaderCourse = document.getElementById('tableHeaderCourse');
-  const searchBySelect = document.getElementById('searchBySelect');
   const searchInput = document.getElementById('userSearchInput');
 
-  // Quick Action Labels
-  const qaAddTitle = document.getElementById('qaAddTitle');
-  const qaAddDesc = document.getElementById('qaAddDesc');
-  const qaEditTitle = document.getElementById('qaEditTitle');
-  const qaEditDesc = document.getElementById('qaEditDesc');
-  const qaArchiveTitle = document.getElementById('qaArchiveTitle');
-  const qaArchiveDesc = document.getElementById('qaArchiveDesc');
-  const qaResetTitle = document.getElementById('qaResetTitle');
-  const qaResetDesc = document.getElementById('qaResetDesc');
-  const qaRfidTitle = document.getElementById('qaRfidTitle');
-  const qaRfidDesc = document.getElementById('qaRfidDesc');
-  const qaQrTitle = document.getElementById('qaQrTitle');
-  const qaQrDesc = document.getElementById('qaQrDesc');
-
   if (currentTab === 'students') {
-    if (cardTitle) cardTitle.textContent = `Students (${studentsData.length})`;
-    if (cardSubtitle) cardSubtitle.textContent = 'Manage student accounts and information.';
+    if (cardTitle) cardTitle.textContent = 'Students';
+    if (cardRecordCount) cardRecordCount.textContent = `${studentsData.length} Records`;
     if (addBtnText) addBtnText.textContent = 'Add Student';
     if (tableHeaderId) tableHeaderId.textContent = 'Student ID';
     if (tableHeaderCourse) tableHeaderCourse.textContent = 'Course & Section';
-    if (searchInput) searchInput.placeholder = 'Enter Student ID';
-
-    if (searchBySelect) {
-      searchBySelect.innerHTML = `
-        <option value="id">Student ID</option>
-        <option value="name">Name</option>
-        <option value="course">Course & Section</option>
-        <option value="status">Status</option>
-      `;
-    }
-
-    if (qaAddTitle) qaAddTitle.textContent = 'Add Student';
-    if (qaAddDesc) qaAddDesc.textContent = 'Create a new student account.';
-    if (qaEditTitle) qaEditTitle.textContent = 'Edit Student';
-    if (qaEditDesc) qaEditDesc.textContent = 'Update student information.';
-    if (qaArchiveTitle) qaArchiveTitle.textContent = 'Archive Student';
-    if (qaArchiveDesc) qaArchiveDesc.textContent = 'Deactivate student account.';
-    if (qaResetTitle) qaResetTitle.textContent = 'Reset Password';
-    if (qaResetDesc) qaResetDesc.textContent = 'Reset student portal password.';
-    if (qaRfidTitle) qaRfidTitle.textContent = 'Register RFID';
-    if (qaRfidDesc) qaRfidDesc.textContent = 'Register or update RFID card.';
-    if (qaQrTitle) qaQrTitle.textContent = 'Generate QR';
-    if (qaQrDesc) qaQrDesc.textContent = 'Generate QR code for attendance.';
-
-  } else if (currentTab === 'teachers') {
-    if (cardTitle) cardTitle.textContent = `Teachers (${teachersData.length})`;
-    if (cardSubtitle) cardSubtitle.textContent = 'Manage faculty members and teaching staff accounts.';
+    if (searchInput) searchInput.placeholder = 'Search student ID, name, or course...';
+  } else {
+    if (cardTitle) cardTitle.textContent = 'Teachers';
+    if (cardRecordCount) cardRecordCount.textContent = `${teachersData.length} Records`;
     if (addBtnText) addBtnText.textContent = 'Add Teacher';
     if (tableHeaderId) tableHeaderId.textContent = 'Employee ID';
     if (tableHeaderCourse) tableHeaderCourse.textContent = 'Department / College';
-    if (searchInput) searchInput.placeholder = 'Enter Employee ID';
-
-    if (searchBySelect) {
-      searchBySelect.innerHTML = `
-        <option value="id">Employee ID</option>
-        <option value="name">Name</option>
-        <option value="course">Department</option>
-        <option value="status">Status</option>
-      `;
-    }
-
-    if (qaAddTitle) qaAddTitle.textContent = 'Add Teacher';
-    if (qaAddDesc) qaAddDesc.textContent = 'Create a new teacher account.';
-    if (qaEditTitle) qaEditTitle.textContent = 'Edit Teacher';
-    if (qaEditDesc) qaEditDesc.textContent = 'Update teacher profile details.';
-    if (qaArchiveTitle) qaArchiveTitle.textContent = 'Archive Teacher';
-    if (qaArchiveDesc) qaArchiveDesc.textContent = 'Deactivate teacher account.';
-    if (qaResetTitle) qaResetTitle.textContent = 'Reset Password';
-    if (qaResetDesc) qaResetDesc.textContent = 'Reset faculty portal password.';
-    if (qaRfidTitle) qaRfidTitle.textContent = 'Register RFID';
-    if (qaRfidDesc) qaRfidDesc.textContent = 'Register faculty RFID badge.';
-    if (qaQrTitle) qaQrTitle.textContent = 'Generate QR';
-    if (qaQrDesc) qaQrDesc.textContent = 'Generate faculty attendance QR.';
-
-  } else {
-    if (cardTitle) cardTitle.textContent = `Admins (${adminsData.length})`;
-    if (cardSubtitle) cardSubtitle.textContent = 'Manage system administrators and administrative roles.';
-    if (addBtnText) addBtnText.textContent = 'Add Admin';
-    if (tableHeaderId) tableHeaderId.textContent = 'Admin ID';
-    if (tableHeaderCourse) tableHeaderCourse.textContent = 'Role / Office';
-    if (searchInput) searchInput.placeholder = 'Enter Admin ID';
-
-    if (searchBySelect) {
-      searchBySelect.innerHTML = `
-        <option value="id">Admin ID</option>
-        <option value="name">Name</option>
-        <option value="course">Role / Office</option>
-        <option value="status">Status</option>
-      `;
-    }
-
-    if (qaAddTitle) qaAddTitle.textContent = 'Add Admin';
-    if (qaAddDesc) qaAddDesc.textContent = 'Create a new administrator.';
-    if (qaEditTitle) qaEditTitle.textContent = 'Edit Admin';
-    if (qaEditDesc) qaEditDesc.textContent = 'Update administrator privileges.';
-    if (qaArchiveTitle) qaArchiveTitle.textContent = 'Archive Admin';
-    if (qaArchiveDesc) qaArchiveDesc.textContent = 'Deactivate administrator access.';
-    if (qaResetTitle) qaResetTitle.textContent = 'Reset Password';
-    if (qaResetDesc) qaResetDesc.textContent = 'Reset admin account password.';
-    if (qaRfidTitle) qaRfidTitle.textContent = 'Register RFID';
-    if (qaRfidDesc) qaRfidDesc.textContent = 'Register administrator RFID key.';
-    if (qaQrTitle) qaQrTitle.textContent = 'Generate QR';
-    if (qaQrDesc) qaQrDesc.textContent = 'Generate administrator QR badge.';
+    if (searchInput) searchInput.placeholder = 'Search employee ID, name, or department...';
   }
 }
 
@@ -264,8 +153,7 @@ function updateTabContextUI() {
 // =============================================================
 function getCurrentDataset() {
   if (currentTab === 'students') return studentsData;
-  if (currentTab === 'teachers') return teachersData;
-  return adminsData;
+  return teachersData;
 }
 
 function getFilteredData() {
@@ -274,13 +162,10 @@ function getFilteredData() {
 
   const query = searchQuery.toLowerCase().trim();
   return dataset.filter(item => {
-    if (searchField === 'id') return item.id.toLowerCase().includes(query);
-    if (searchField === 'name') return item.name.toLowerCase().includes(query);
-    if (searchField === 'course') return item.courseSection.toLowerCase().includes(query);
-    if (searchField === 'status') return item.status.toLowerCase().includes(query);
-    return item.id.toLowerCase().includes(query) ||
-      item.name.toLowerCase().includes(query) ||
-      item.courseSection.toLowerCase().includes(query);
+    return (item.id && item.id.toLowerCase().includes(query)) ||
+      (item.name && item.name.toLowerCase().includes(query)) ||
+      (item.courseSection && item.courseSection.toLowerCase().includes(query)) ||
+      (item.status && item.status.toLowerCase().includes(query));
   });
 }
 
@@ -295,6 +180,12 @@ function renderTable() {
   const totalItems = filtered.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
+  // Sync count badge in top bar
+  const cardRecordCount = document.getElementById('cardRecordCount');
+  if (cardRecordCount) {
+    cardRecordCount.textContent = `${totalItems} Records`;
+  }
+
   if (currentPage > totalPages) currentPage = totalPages;
   if (currentPage < 1) currentPage = 1;
 
@@ -305,7 +196,7 @@ function renderTable() {
   if (pageData.length === 0) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="5" class="py-12 text-center text-gray-500">
+        <td colspan="6" class="py-12 text-center text-gray-500">
           <div class="flex flex-col items-center justify-center gap-2">
             <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -318,73 +209,70 @@ function renderTable() {
     `;
   } else {
     tableBody.innerHTML = pageData.map(user => {
+      const isSelected = selectedUserIds.has(user.id);
       const isActive = user.status.toLowerCase() === 'active';
       const statusBadge = isActive
         ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#ecfdf5] text-[#10b981] border border-[#a7f3d0]">Active</span>`
         : `<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#f1f5f9] text-[#64748b] border border-[#e2e8f0]">Inactive</span>`;
 
       return `
-        <tr class="hover:bg-[#f8fafc] transition-colors border-b border-[#f1f5f9]">
-          <td class="py-3.5 px-4 font-mono font-medium text-[#111827] whitespace-nowrap text-xs">${user.id}</td>
-          <td class="py-3.5 px-4 font-medium text-[#111827] text-xs">${user.name}</td>
-          <td class="py-3.5 px-4 text-[#4b5563] text-xs">${user.courseSection}</td>
+        <tr id="row-${user.id}" class="hover:bg-[#f8fafc] transition-colors border-b border-[#f1f5f9] ${isSelected ? 'row-selected' : ''}">
+          <!-- Checkbox Column -->
+          <td class="py-3.5 px-3.5 text-center">
+            <input type="checkbox" onchange="onUserSelect('${user.id}', this)"
+              class="row-checkbox w-4 h-4 rounded border-[#d1d5db] text-[#0030c2] focus:ring-[#0030c2] cursor-pointer"
+              ${isSelected ? 'checked' : ''}
+              title="Select ${user.name}">
+          </td>
+          <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280] whitespace-nowrap text-xs">${user.id}</td>
+          <td class="py-3.5 px-4 font-medium text-[#111827] text-xs">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z"/>
+                </svg>
+              </div>
+              <p class="font-bold text-[#111827]">${user.name}</p>
+            </div>
+          </td>
+          <td class="py-3.5 px-4 text-[#4b5563] text-xs font-medium">${user.courseSection}</td>
           <td class="py-3.5 px-4">${statusBadge}</td>
           <td class="py-3.5 px-4 text-center whitespace-nowrap">
             <div class="flex items-center justify-center gap-1">
-              <!-- Edit Button -->
-              <button onclick="openEditModal('${user.id}')" title="Edit ${user.name}" class="p-1.5 text-[#4b5563] hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors">
+              <!-- 1. Edit Button -->
+              <button onclick="openEditModal('${user.id}')" title="Edit ${user.name}" class="btn-press p-1.5 text-[#4b5563] hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
                 </svg>
               </button>
 
-              <!-- RFID Button -->
-              <button onclick="openRfidModal('${user.id}')" title="Register / Update RFID" class="p-1.5 text-[#4b5563] hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors">
+              <!-- 2. Archive / Deactivate Button -->
+              <button onclick="openArchiveModal('${user.id}')" title="${isActive ? 'Archive / Deactivate' : 'Reactivate'} ${user.name}" class="btn-press p-1.5 ${isActive ? 'text-[#4b5563] hover:text-amber-600 hover:bg-amber-50' : 'text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50'} rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6-10.5h16.5a1.5 1.5 0 011.5 1.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V7.5a1.5 1.5 0 011.5-1.5z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                 </svg>
               </button>
 
-              <!-- QR Code Button -->
-              <button onclick="openQrModal('${user.id}')" title="Generate / View QR Code" class="p-1.5 text-[#4b5563] hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
-                </svg>
-              </button>
-
-              <!-- Reset Password / Key Button -->
-              <button onclick="openResetPasswordModal('${user.id}')" title="Reset Password" class="p-1.5 text-[#4b5563] hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-                </svg>
-              </button>
-
-              <!-- More Options (Dropdown) -->
+              <!-- 3. 3-Dot More Menu Button (RFID Setup, View QR Code, Reset Password) -->
               <div class="relative inline-block text-left">
-                <button onclick="toggleMoreMenu('${user.id}', event)" class="p-1.5 text-[#4b5563] hover:text-[#111827] hover:bg-gray-100 rounded-lg transition-colors">
+                <button onclick="toggleMoreMenu('${user.id}', event)" title="More options" class="btn-press p-1.5 text-[#4b5563] hover:text-[#111827] hover:bg-gray-100 rounded-lg transition-colors">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                   </svg>
                 </button>
                 <div id="moreMenu-${user.id}" class="hidden absolute right-0 mt-1 w-44 bg-white rounded-xl shadow-lg border border-[#e5e7eb] py-1 z-30 text-left text-xs divide-y divide-gray-100">
                   <div class="py-1">
-                    <button onclick="openEditModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-[#374151] hover:bg-gray-50 hover:text-[#0030c2]">
-                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" /></svg>
-                      Edit Details
-                    </button>
-                    <button onclick="openRfidModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-[#374151] hover:bg-gray-50 hover:text-[#0030c2]">
+                    <button onclick="openRfidModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-[#374151] hover:bg-gray-50 hover:text-[#0030c2] transition-colors">
                       <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6-10.5h16.5a1.5 1.5 0 011.5 1.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V7.5a1.5 1.5 0 011.5-1.5z" /></svg>
                       RFID Setup
                     </button>
-                    <button onclick="openQrModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-[#374151] hover:bg-gray-50 hover:text-[#0030c2]">
-                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" /></svg>
+                    <button onclick="openQrModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-[#374151] hover:bg-gray-50 hover:text-[#0030c2] transition-colors">
+                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" /></svg>
                       View QR Code
                     </button>
-                  </div>
-                  <div class="py-1">
-                    <button onclick="openArchiveModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-red-600 hover:bg-red-50">
-                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
-                      ${isActive ? 'Deactivate / Archive' : 'Reactivate Account'}
+                    <button onclick="openResetPasswordModal('${user.id}')" class="flex items-center gap-2 w-full px-3 py-1.5 text-[#374151] hover:bg-gray-50 hover:text-[#0030c2] transition-colors">
+                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
+                      Reset Password
                     </button>
                   </div>
                 </div>
@@ -396,8 +284,201 @@ function renderTable() {
     }).join('');
   }
 
+  // Update Master Checkbox sync
+  syncMasterCheckbox(pageData);
+
   // Update Pagination UI
   renderPagination(totalItems, totalPages);
+}
+
+// =============================================================
+// SELECTION & BULK ACTIONS
+// =============================================================
+function onUserSelect(userId, checkbox) {
+  const row = document.getElementById(`row-${userId}`);
+  if (checkbox.checked) {
+    selectedUserIds.add(userId);
+    if (row) row.classList.add('row-selected');
+  } else {
+    selectedUserIds.delete(userId);
+    if (row) row.classList.remove('row-selected');
+  }
+  updateBulkToolbar();
+
+  const filtered = getFilteredData();
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const pageData = filtered.slice(startIndex, startIndex + itemsPerPage);
+  syncMasterCheckbox(pageData);
+}
+
+function toggleSelectAll(masterCheckbox) {
+  const filtered = getFilteredData();
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const pageData = filtered.slice(startIndex, startIndex + itemsPerPage);
+  if (!pageData || pageData.length === 0) return;
+
+  const selectedOnPage = pageData.filter(u => selectedUserIds.has(u.id)).length;
+
+  if (selectedOnPage > 0) {
+    // If some or all rows on current page are selected (including minus/indeterminate state), CLEAR ALL
+    pageData.forEach(u => selectedUserIds.delete(u.id));
+    if (masterCheckbox) {
+      masterCheckbox.checked = false;
+      masterCheckbox.indeterminate = false;
+    }
+  } else {
+    // If 0 rows are selected (empty box), SELECT ALL on current page
+    pageData.forEach(u => selectedUserIds.add(u.id));
+    if (masterCheckbox) {
+      masterCheckbox.checked = true;
+      masterCheckbox.indeterminate = false;
+    }
+  }
+
+  updateBulkToolbar();
+  renderTable();
+}
+
+function syncMasterCheckbox(pageData) {
+  const master = document.getElementById('selectAllCheckbox');
+  if (!master) return;
+
+  if (!pageData || pageData.length === 0) {
+    master.checked = false;
+    master.indeterminate = false;
+    return;
+  }
+
+  const selectedOnPage = pageData.filter(u => selectedUserIds.has(u.id)).length;
+  if (selectedOnPage === pageData.length) {
+    master.checked = true;
+    master.indeterminate = false;
+  } else if (selectedOnPage > 0) {
+    master.checked = false;
+    master.indeterminate = true;
+  } else {
+    master.checked = false;
+    master.indeterminate = false;
+  }
+}
+
+function updateBulkToolbar() {
+  const toolbar = document.getElementById('bulkToolbar');
+  const countEl = document.getElementById('bulkSelectedCount');
+  const count = selectedUserIds.size;
+
+  if (!toolbar) return;
+
+  if (count > 0) {
+    toolbar.classList.remove('hidden');
+    toolbar.classList.add('flex', 'bulk-toolbar-active');
+    if (countEl) countEl.textContent = `${count} ${count === 1 ? 'account' : 'accounts'} selected`;
+  } else {
+    toolbar.classList.add('hidden');
+    toolbar.classList.remove('flex', 'bulk-toolbar-active');
+  }
+}
+
+function clearBulkSelection() {
+  selectedUserIds.clear();
+  updateBulkToolbar();
+  renderTable();
+}
+
+function openBulkDeleteModal() {
+  if (selectedUserIds.size === 0) return;
+  const modal = document.getElementById('bulkDeleteModal');
+  const desc = document.getElementById('bulkDeleteDesc');
+  if (desc) {
+    desc.textContent = `Are you sure you want to permanently delete the ${selectedUserIds.size} selected ${currentTab} account(s)? This action cannot be undone.`;
+  }
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function handleConfirmBulkDelete() {
+  const count = selectedUserIds.size;
+  if (count === 0) return;
+
+  // Apply row slide-out animation to selected visible rows
+  selectedUserIds.forEach(id => {
+    const row = document.getElementById(`row-${id}`);
+    if (row) row.classList.add('tr-removing');
+  });
+
+  // Delay splice slightly to show the smooth micro-animation
+  setTimeout(() => {
+    if (currentTab === 'students') {
+      const remaining = studentsData.filter(u => !selectedUserIds.has(u.id));
+      studentsData.length = 0;
+      studentsData.push(...remaining);
+    } else {
+      const remaining = teachersData.filter(u => !selectedUserIds.has(u.id));
+      teachersData.length = 0;
+      teachersData.push(...remaining);
+    }
+
+    selectedUserIds.clear();
+    closeAllModals();
+    updateBulkToolbar();
+    updateTabContextUI();
+    renderTable();
+    showToast(`Successfully deleted ${count} account(s)!`, 'success');
+  }, 280);
+}
+
+function handleBulkToggleStatus() {
+  if (selectedUserIds.size === 0) return;
+
+  const dataset = getCurrentDataset();
+  let updatedCount = 0;
+
+  selectedUserIds.forEach(id => {
+    const user = dataset.find(u => u.id === id);
+    if (user) {
+      user.status = (user.status.toLowerCase() === 'active') ? 'Inactive' : 'Active';
+      updatedCount++;
+    }
+  });
+
+  renderTable();
+  showToast(`Updated status for ${updatedCount} account(s)!`, 'success');
+}
+
+function handleBulkExport() {
+  if (selectedUserIds.size === 0) return;
+
+  const dataset = getCurrentDataset();
+  const selectedRecords = dataset.filter(u => selectedUserIds.has(u.id));
+
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "ID,Name,Course_or_Department,Email,Contact,Status,RFID_UID,QR_Code\r\n";
+
+  selectedRecords.forEach(u => {
+    const row = [
+      `"${u.id}"`,
+      `"${u.name}"`,
+      `"${u.courseSection}"`,
+      `"${u.email || ''}"`,
+      `"${u.contact || ''}"`,
+      `"${u.status}"`,
+      `"${u.rfidUid || ''}"`,
+      `"${u.qrCode || ''}"`
+    ].join(",");
+    csvContent += row + "\r\n";
+  });
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `${currentTab}_export_${new Date().toISOString().slice(0, 10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  showToast(`Exported ${selectedRecords.length} records to CSV!`, 'success');
 }
 
 function renderPagination(totalItems, totalPages) {
@@ -469,8 +550,6 @@ function goToPage(page) {
 // =============================================================
 function initSearch() {
   const searchInput = document.getElementById('userSearchInput');
-  const searchBySelect = document.getElementById('searchBySelect');
-  const searchBtn = document.getElementById('userSearchBtn');
 
   if (searchInput) {
     searchInput.addEventListener('input', function () {
@@ -478,31 +557,9 @@ function initSearch() {
       currentPage = 1;
       renderTable();
     });
-    searchInput.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        searchQuery = this.value;
-        currentPage = 1;
-        renderTable();
-      }
-    });
-  }
-
-  if (searchBySelect) {
-    searchBySelect.addEventListener('change', function () {
-      searchField = this.value;
-      currentPage = 1;
-      renderTable();
-    });
-  }
-
-  if (searchBtn && searchInput) {
-    searchBtn.addEventListener('click', function () {
-      searchQuery = searchInput.value;
-      currentPage = 1;
-      renderTable();
-    });
   }
 }
+
 
 // =============================================================
 // DROPDOWN MENU HANDLER
@@ -526,6 +583,8 @@ window.addEventListener('click', function () {
 // =============================================================
 // MODAL CONTROLS & FORM ACTIONS
 // =============================================================
+const ALL_MODAL_IDS = ['userModal', 'rfidModal', 'qrModal', 'resetPasswordModal', 'archiveModal', 'bulkDeleteModal'];
+
 function initModalListeners() {
   // ESC key closes modals
   document.addEventListener('keydown', function (e) {
@@ -535,8 +594,7 @@ function initModalListeners() {
   });
 
   // Modal backdrop click closes modals
-  const modals = ['userModal', 'rfidModal', 'qrModal', 'resetPasswordModal', 'archiveModal'];
-  modals.forEach(mId => {
+  ALL_MODAL_IDS.forEach(mId => {
     const modal = document.getElementById(mId);
     if (modal) {
       modal.addEventListener('click', function (e) {
@@ -547,7 +605,7 @@ function initModalListeners() {
 }
 
 function closeAllModals() {
-  ['userModal', 'rfidModal', 'qrModal', 'resetPasswordModal', 'archiveModal'].forEach(mId => {
+  ALL_MODAL_IDS.forEach(mId => {
     const el = document.getElementById(mId);
     if (el) {
       el.classList.add('hidden');
@@ -569,7 +627,7 @@ function openAddModal() {
   if (form) form.reset();
   if (isEditingInput) isEditingInput.value = 'false';
 
-  const typeName = currentTab === 'students' ? 'Student' : currentTab === 'teachers' ? 'Teacher' : 'Administrator';
+  const typeName = currentTab === 'students' ? 'Student' : 'Teacher';
   if (modalTitle) modalTitle.textContent = `Add New ${typeName}`;
 
   // Generate next available ID
@@ -577,10 +635,8 @@ function openAddModal() {
     const dataset = getCurrentDataset();
     if (currentTab === 'students') {
       idInput.value = `2024-${1000 + dataset.length + 1}`;
-    } else if (currentTab === 'teachers') {
-      idInput.value = `TCH-2024-${(dataset.length + 1).toString().padStart(3, '0')}`;
     } else {
-      idInput.value = `ADM-2024-${(dataset.length + 1).toString().padStart(3, '0')}`;
+      idInput.value = `TCH-2024-${(dataset.length + 1).toString().padStart(3, '0')}`;
     }
   }
 
@@ -604,7 +660,7 @@ function openEditModal(userId) {
   if (!user || !modal) return;
 
   if (isEditingInput) isEditingInput.value = 'true';
-  const typeName = currentTab === 'students' ? 'Student' : currentTab === 'teachers' ? 'Teacher' : 'Administrator';
+  const typeName = currentTab === 'students' ? 'Student' : 'Teacher';
   if (modalTitle) modalTitle.textContent = `Edit ${typeName} Information`;
 
   if (idInput) idInput.value = user.id;
