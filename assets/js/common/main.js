@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // =============================================================
     // NOTIFICATION BADGE
     // =============================================================
-    const notificationBtn = document.querySelector('.relative.text-[#6b7280]');
+    const notificationBtn = document.querySelector('header button.relative') || document.querySelector('.notification-btn');
     if (notificationBtn) {
         notificationBtn.addEventListener('click', function(e) {
             e.preventDefault();

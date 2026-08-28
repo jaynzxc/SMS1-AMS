@@ -1,4 +1,15 @@
+# Dependencies
 node_modules/
+
+# Environment files
 .env
-*.log
+.env.*
 assets/.env.local
+
+# Database Configuration (Keeps your Supabase keys private)
+assets/js/config/config.js
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
