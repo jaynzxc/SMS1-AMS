@@ -324,10 +324,12 @@
           </div>
 
           <!-- Active Filter Chips Summary (Dynamic) -->
-          <div id="activeFiltersSummaryBar" class="hidden flex-wrap items-center gap-2 mb-4 p-2.5 bg-[#f8fafc] border border-[#e5e7eb] rounded-lg text-[11px]">
+          <div id="activeFiltersSummaryBar"
+            class="hidden flex-wrap items-center gap-2 mb-4 p-2.5 bg-[#f8fafc] border border-[#e5e7eb] rounded-lg text-[11px]">
             <span class="font-bold text-[#374151]">Active Filter:</span>
             <div id="activeFilterChipsContainer" class="flex flex-wrap items-center gap-1.5"></div>
-            <button onclick="handleResetFilters()" class="ml-auto text-[11px] font-semibold text-[#dc2626] hover:underline">
+            <button onclick="handleResetFilters()"
+              class="ml-auto text-[11px] font-semibold text-[#dc2626] hover:underline">
               Clear All
             </button>
           </div>
@@ -581,7 +583,8 @@
             </button>
             <button id="btnClearSelection" type="button" onclick="clearReportSelections()"
               class="inline-flex items-center gap-1.5 bg-white border border-[#e5e7eb] hover:bg-gray-50 text-[#374151] px-4 py-2.5 rounded-lg text-xs font-semibold transition-colors shadow-2xs focus:outline-none">
-              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
               Clear Selection
@@ -594,9 +597,9 @@
   </div>
 
   <!-- ===== MODAL: FILTER REPORT CRITERIA (Vertical Look) ===== -->
-  <div id="filterModal"
-    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+  <div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
       <!-- Header -->
       <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
         <div class="flex items-center gap-2">
@@ -752,10 +755,12 @@
         </div>
 
         <!-- Filter Criteria Chips inside Preview Modal -->
-        <div id="previewFilterCriteriaContainer" class="flex flex-wrap items-center gap-2 text-[11px] text-[#4b5563] bg-[#eff6ff]/60 border border-[#dbeafe] px-3.5 py-2 rounded-lg">
+        <div id="previewFilterCriteriaContainer"
+          class="flex flex-wrap items-center gap-2 text-[11px] text-[#4b5563] bg-[#eff6ff]/60 border border-[#dbeafe] px-3.5 py-2 rounded-lg">
           <span class="font-bold text-[#0030c2] flex items-center gap-1">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
             </svg>
             Applied Filter Criteria:
           </span>
@@ -809,9 +814,10 @@
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- JavaScript Scripts -->
-  <script src="../assets/js/sidebar.js"></script>
-  <script src="../assets/js/main.js"></script>
-  <script src="../assets/js/reports-export.js"></script>
+  <script src="../assets/js/common/sidebar.js"></script>
+  <script src="../assets/js/common/main.js"></script>
+  <script src="../assets/js/admin/attendance.js"></script>
+
 </body>
 
 </html>
