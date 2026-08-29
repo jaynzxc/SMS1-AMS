@@ -1,6 +1,8 @@
 module.exports = {
   content: [
     "./admin/**/*.html",
+    "./teacher/**/*.html",
+    "./student/**/*.html",
     "./*.html"
   ],
   theme: {
