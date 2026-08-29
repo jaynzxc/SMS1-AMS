@@ -1,10 +1,10 @@
-#Student role Sidebar Menu Modules and Contents
+# Student role Sidebar Menu Modules and Contents
 
-##Student Dashboard
+## Student Dashboard
 
 Purpose: Provide a quick overview of the student's attendance status.
 
-Contents:
+### Contents:
 
     Summary Cards
     - Attendance Rate (%)
@@ -30,11 +30,11 @@ Contents:
     - Submit Excuse Slip
     - View Attendance Calendar
 
-#My Attendance
+## My Attendance
 
 Purpose: View personal attendance records.
 
-Contents:
+### Contents:
 
     Attendance Records
 
@@ -62,11 +62,11 @@ Contents:
         - Total Excused
         - Attendance Percentage
 
-#RFID/QR Code
+## RFID/QR Code
 
 Purpose: Manage the student's RFID card and QR code.
 
-Contents:
+### Contents:
 
     RFID Information
 
@@ -90,11 +90,11 @@ Contents:
 
     Note: Students should only view their QR code. RFID registration or replacement is handled by the Admin.
 
-#Attendance Calendar
+## Attendance Calendar
 
 Purpose: View attendance history in calendar format.
 
-Contents:
+### Contents:
 
     Calendar
 
@@ -115,11 +115,11 @@ Contents:
     - Month
     - Semester
 
-#Excuse Slip Submission
+## Excuse Slip Submission
 
 Purpose: Submit excuses for absences or tardiness.
 
-Contents:
+### Contents:
 
     Submit Excuse Slip
 
@@ -144,11 +144,11 @@ Contents:
         - Status
         - Teacher Remarks
 
-##Notifications
+## Notifications
 
 Purpose: View attendance-related notifications.
 
-Contents:
+### Contents:
 
     Notification List
         
@@ -177,11 +177,11 @@ Contents:
         - Teacher Remarks
         - Approval Date
 
-#Notifications
+## Notifications
 
 Purpose: Inform students about attendance-related updates.
 
-Contents:
+### Contents:
 
     Notification List
 
@@ -198,11 +198,11 @@ Contents:
     - Delete Notification
     - View Details
 
-#Attendance Analytics
+## Attendance Analytics
 
 Purpose: Allow students to monitor their own attendance performance.
 
-Contents:
+### Contents:
 
     Summary Cards
     - Attendance Percentage
@@ -225,11 +225,11 @@ Contents:
         - Subject with highest absences
         - Subject with most tardiness
 
-#Perfect Attendance Status
+## Perfect Attendance Status
 
 Purpose: Let students monitor their eligibility for attendance awards.
 
-Contents:
+### Contents:
 
     Displays
     - Eligibility Status
@@ -242,9 +242,9 @@ Contents:
     - View Qualification Details
     - View Previous Awards (if applicable)
 
-#Profile
+## Profile
 
-Contents:
+### Contents:
 
     Personal Information
     - Student ID

@@ -60,4 +60,4 @@ Functions
 - Submit Attendance
 - View Attendance Summary
 
-that's all the information. Generate an image.
+that's all the information. Generate an image. 

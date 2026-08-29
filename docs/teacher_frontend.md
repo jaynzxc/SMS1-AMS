@@ -1,12 +1,12 @@
-#Teacher role Sidebar Menu Modules and Contents
+# Teacher role Sidebar Menu Modules and Contents
 
-##Teacher Dashboard
+## Teacher Dashboard
 
 Purpose: Overview of the teacher's assigned classes and today's attendance.
 
-Contents:
+### Contents:
 
-    Summary Cards
+     Summary Cards
     - Classes Today
     - Total Students
     - Attendance Submitted Today
@@ -33,11 +33,11 @@ Contents:
     - View attendance History
     - View Excuse Slips
 
-##Daily Attendance
+## Daily Attendance
 
 Purpose: Record and manage attendance for assigned classes.
 
-Contents:
+### Contents:
 
     Class Selection
     - Subject
@@ -77,11 +77,11 @@ Contents:
         - Submit Attendance
         - View Attendance Summary
 
-##RFID/QR Scanning
+## RFID/QR Scanning
 
 Purpose: Record attendance through RFID cards or QR codes.
 
-Contents:
+### Contents:
 
     Live Scanner
         
@@ -108,11 +108,11 @@ Contents:
     - Rescan Student
     - Search Scan History
 
-##Tardy & Absence Logs
+## Tardy & Absence Logs
 
 Purpose: Monitor attendance issues within the teacher's assigned classes.
 
-Contents:
+### Contents:
 
     Tardy list
         
@@ -147,11 +147,11 @@ Contents:
     - Attendance Percentage
     - Attendance Trend
 
-##Teacher Attendance
+## Teacher Attendance
 
 Purpose: Allow teachers to view their own attendance records.
 
-Contents:
+### Contents:
 
     - Time In
     - Time Out
@@ -167,11 +167,11 @@ Contents:
     - View History
     - Download Personal Attendance
 
-##Excuse Slip Management
+## Excuse Slip Management
 
 Purpose: Review and process excuse slips submitted by students.
 
-Contents:
+### Contents:
 
     Pending Requests
 
@@ -203,11 +203,11 @@ Contents:
     History
     All processed excuse slips.
 
-##Attendance Calendar
+## Attendance Calendar
 
 Purpose: View attendance records by class and date.
 
-Contents:
+### Contents:
 
     Calendar
 
@@ -227,11 +227,11 @@ Contents:
     - Print Attendance Sheet
     - Export Attendance
 
-##Parent Alerts
+## Parent Alerts
 
 Purpose: Monitor notifications generated for students in the teacher's classes.
 
-Contents:
+### Contents:
 
     Notification History
 
@@ -253,11 +253,11 @@ Contents:
     - Search
     - Filter
 
-##Class Analytics Dashboard
+## Class Analytics Dashboard
 
 Purpose: Analyze attendance performance for the teacher's own classes.
 
-Contents:
+### Contents:
 
     Summary Cards
     - Attendance Rate
@@ -293,11 +293,11 @@ Contents:
     - Excel
     - CSV
 
-##Perfect Attendance Award
+## Perfect Attendance Award
 
 Purpose: Identify students in the teacher's classes who qualify for attendance awards.
 
-Contents:
+### Contents:
 
     Candidate List
 
@@ -314,11 +314,11 @@ Contents:
     - Print Candidate List
     - Export List
 
-##Reports & Export
+## Reports & Export
 
 Purpose:Generate attendance reports for the teacher's assigned classes.
 
-Contents:
+### Contents:
 
     Available Reports
     - Daily Attendance
@@ -341,9 +341,9 @@ Contents:
     - Date
     - Student
 
-#Profile
+## Profile
 
-    Contents:
+### Contents:
 
         Personal Information
         - Teacher ID
