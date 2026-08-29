@@ -1,7 +1,7 @@
 ---
 
 name: planning
-description: Create structured implementation plans, module workflows, feature breakdowns, and development roadmaps for the Bestlink College Attendance Monitoring System. Use when planning a new module, page, feature, or enhancement before coding.
+description: Create structured implementation plans, module workflows, feature breakdowns, and development roadmaps for the Bestlink College of the Philippines Attendance Monitoring System. Use when planning a new module, page, feature, or enhancement before coding.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Planning Skill

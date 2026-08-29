@@ -1,7 +1,7 @@
 ---
 
 name: documentation
-description: Write academic technical documentation for the Bestlink College Attendance Monitoring System including module descriptions, workflows, system architecture, methodology, and implementation documentation. Use for capstone documentation and technical writing.
+description: Write academic technical documentation for the Bestlink College of the Philippines Attendance Monitoring System including module descriptions, workflows, system architecture, methodology, and implementation documentation. Use for capstone documentation and technical writing.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Documentation Skill
