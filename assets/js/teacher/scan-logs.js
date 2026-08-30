@@ -233,6 +233,16 @@ window.resetModalFilters = function() {
 window.openExportModal = function() {
   const modal = document.getElementById('exportModal');
   if (modal) {
+    // Reset selection so nothing is picked by default
+    const radios = modal.querySelectorAll('input[name="exportFormat"]');
+    radios.forEach(r => r.checked = false);
+
+    const allOptions = modal.querySelectorAll('.export-format-option');
+    allOptions.forEach(opt => {
+      opt.classList.remove('border-[#0030c2]', 'bg-[#eff6ff]');
+      opt.classList.add('border-[#e5e7eb]', 'bg-white');
+    });
+
     modal.classList.remove('hidden');
     modal.classList.add('flex');
   }
@@ -246,9 +256,32 @@ window.closeExportModal = function() {
   }
 };
 
+window.updateExportFormatSelection = function(radioInput) {
+  const modal = document.getElementById('exportModal');
+  if (!modal) return;
+
+  const allOptions = modal.querySelectorAll('.export-format-option');
+  allOptions.forEach(opt => {
+    opt.classList.remove('border-[#0030c2]', 'bg-[#eff6ff]');
+    opt.classList.add('border-[#e5e7eb]', 'bg-white');
+  });
+
+  const parentLabel = radioInput.closest('.export-format-option');
+  if (parentLabel && radioInput.checked) {
+    parentLabel.classList.remove('border-[#e5e7eb]', 'bg-white');
+    parentLabel.classList.add('border-[#0030c2]', 'bg-[#eff6ff]');
+  }
+};
+
 window.handleExport = function() {
+  const selectedRadio = document.querySelector('input[name="exportFormat"]:checked');
+  if (!selectedRadio) {
+    showToast('Please select an export format (CSV or Excel) first.', 'info');
+    return;
+  }
+  const format = selectedRadio.value;
   closeExportModal();
-  showToast('Classroom scan logs downloaded successfully!', 'success');
+  showToast(`Classroom scan logs exported as ${format} successfully!`, 'success');
 };
 
 /**

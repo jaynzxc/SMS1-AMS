@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendance System · Scan Logs</title>
+  <title>Attendance System · Tardy List</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,10 +59,10 @@
           <span>Daily Attendance</span>
         </a>
 
-        <!-- RFID/QR SCANNING with Dropdown (Active Menu) -->
+        <!-- RFID/QR SCANNING with Dropdown -->
         <div class="relative">
-          <button onclick="toggleScannerDropdown()" id="scannerDropdownBtn"
-            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] text-sm font-medium transition-colors">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
             <div class="flex items-center gap-2.5">
               <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -70,29 +70,28 @@
               </svg>
               <span>RFID/QR Scanning</span>
             </div>
-            <svg id="scannerDropdownArrow"
-              class="w-3.5 h-3.5 transition-transform duration-200 rotate-90 text-[#0030c2]" fill="none"
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </button>
 
-          <div id="scannerDropdownMenu" class="dropdown-menu mt-0.5 space-y-0.5 pl-2">
-            <a href="live-scanner.html"
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="../rfid-and-qr/live-scanner.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Live Scanner
             </a>
-            <a href="scan-logs.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] font-semibold text-sm pl-9 transition-colors">
+            <a href="../rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Scan Logs
             </a>
           </div>
         </div>
 
-        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <!-- TARDY & ABSENCE LOGS with Dropdown (Active Menu) -->
         <div class="relative">
           <button onclick="toggleTardyDropdown()"
-            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] text-sm font-medium transition-colors">
             <div class="flex items-center gap-2.5">
               <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -100,22 +99,22 @@
               </svg>
               <span>Tardy &amp; Absence Logs</span>
             </div>
-            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 rotate-90 text-[#0030c2]"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </button>
 
-          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
-            <a href="../tardy-and-absence/tardy-list.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2">
+            <a href="tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] font-semibold text-sm pl-9 transition-colors">
               Tardy List
             </a>
-            <a href="../tardy-and-absence/absence-list.html"
+            <a href="absence-list.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Absence List
             </a>
-            <a href="../tardy-and-absence/student-attendance-history.html"
+            <a href="student-attendance-history.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Attendance History
             </a>
@@ -205,7 +204,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          <h1 class="text-base font-bold text-[#111827]">Scan Logs</h1>
+          <h1 class="text-base font-bold text-[#111827]">Tardy List</h1>
         </div>
 
         <div class="flex items-center gap-4">
@@ -237,14 +236,14 @@
         </div>
       </header>
 
-      <!-- ===== PAGE MAIN CONTENT ===== -->
+      <!-- ===== PAGE CONTENT ===== -->
       <main class="flex-1 p-5 space-y-5">
 
         <!-- Page Header -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Classroom Scan Logs</h2>
-            <p class="text-sm text-[#6b7280]">View, audit and verify real-time RFID taps and QR code attendance scans for your classes</p>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Classroom Tardy List</h2>
+            <p class="text-sm text-[#6b7280]">Monitor and manage student late arrivals and habitual punctuality patterns</p>
           </div>
           <div class="flex items-center gap-2">
             <button id="currentDateDisplay"
@@ -258,94 +257,89 @@
           </div>
         </div>
 
-        <!-- ===== 4 KPI STATISTICS CARDS ===== -->
+        <!-- ===== 4 STATISTICS CARDS (ALIGNED WITH admin/tardy-and-absence/tardy-list.html) ===== -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <!-- Total Scans Today -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
+          <!-- Total Tardy Today -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all block group">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
-                <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-xs font-semibold text-[#6b7280]">Total Scans Recorded</p>
-                <p id="kpiTotalScans" class="text-2xl font-extrabold text-[#111827]">12</p>
-              </div>
-            </div>
-            <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
-              </svg>
-              <span>+100% active roster accounted for</span>
-            </p>
-          </div>
-
-          <!-- RFID Taps -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
-            <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+              <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <p class="text-xs font-semibold text-[#6b7280]">RFID Card Taps</p>
-                <p id="kpiRfidScans" class="text-2xl font-extrabold text-[#f97316]">8</p>
+                <p class="text-xs font-semibold text-[#6b7280]">Total Tardy Today</p>
+                <p id="kpiTotalTardy" class="text-2xl font-extrabold text-[#111827]">3</p>
               </div>
             </div>
-            <p class="text-[11px] text-[#f97316] font-medium mt-2">66.7% tap rate</p>
+            <p class="text-[11px] text-[#f97316] font-medium mt-2">Recorded late entries today</p>
           </div>
 
-          <!-- QR Code Scans -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#2563eb]/50 transition-all">
+          <!-- ≥ 3 Tardies (Frequent) -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all block group">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
-                <svg class="w-6 h-6 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5z" />
+              <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <p class="text-xs font-semibold text-[#6b7280]">QR Code Scans</p>
-                <p id="kpiQrScans" class="text-2xl font-extrabold text-[#2563eb]">3</p>
+                <p class="text-xs font-semibold text-[#6b7280]">≥ 3 Tardies (Frequent)</p>
+                <p id="kpiFrequentTardy" class="text-2xl font-extrabold text-[#dc2626]">2</p>
               </div>
             </div>
-            <p class="text-[11px] text-[#2563eb] font-medium mt-2">25.0% mobile scans</p>
+            <p class="text-[11px] text-[#dc2626] font-medium mt-2">Needs guidance &amp; follow-up</p>
           </div>
 
-          <!-- Manual Overrides -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#7c3aed]/50 transition-all">
+          <!-- Avg Minutes Late -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all block group">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#faf5ff] flex items-center justify-center shrink-0 border border-[#e9d5ff]/50">
-                <svg class="w-6 h-6 text-[#7c3aed]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
                 </svg>
               </div>
               <div>
-                <p class="text-xs font-semibold text-[#6b7280]">Manual Overrides</p>
-                <p id="kpiManualScans" class="text-2xl font-extrabold text-[#7c3aed]">1</p>
+                <p class="text-xs font-semibold text-[#6b7280]">Avg Minutes Late</p>
+                <p id="kpiAvgLateMinutes" class="text-2xl font-extrabold text-[#0030c2]">11 mins</p>
               </div>
             </div>
-            <p class="text-[11px] text-[#7c3aed] font-medium mt-2">8.3% teacher verified</p>
+            <p class="text-[11px] text-[#6b7280] font-medium mt-2">Average duration of delay</p>
+          </div>
+
+          <!-- On Time Attendance -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all block group">
+            <div class="flex items-center gap-3.5">
+              <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">On-Time Students</p>
+                <p id="kpiOnTimeCount" class="text-2xl font-extrabold text-[#16a34a]">9</p>
+              </div>
+            </div>
+            <p id="kpiOnTimeRate" class="text-[11px] text-[#16a34a] font-medium mt-2">75.0% punctuality rate</p>
           </div>
         </div>
 
-        <!-- ===== SCAN LOGS TABLE CARD (MATCHING rfid-registry.html) ===== -->
+        <!-- ===== TARDY LIST TABLE CARD ===== -->
         <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
           
           <!-- Table Header Controls Bar -->
           <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
             <div class="flex items-center gap-2.5">
-              <h3 class="text-base font-bold text-[#111827]">Scan Logs History</h3>
-              <span id="logsRecordCountBadge" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">
-                12 Records
+              <h3 class="text-base font-bold text-[#111827]">Tardy Students</h3>
+              <span id="tardyRecordCountBadge" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">
+                6 Records
               </span>
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5">
-              <!-- Search -->
+              <!-- Search Input -->
               <div class="relative min-w-[220px]">
-                <input type="text" id="logSearchInput" placeholder="Search student name, ID, or method..."
+                <input type="text" id="tardySearchInput" placeholder="Search student ID, name, or remark..."
                   class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
                 <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -353,6 +347,13 @@
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
               </div>
+
+              <!-- Select Subject & Section Dropdown (no label) -->
+              <select id="tardyClassSelect" class="px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] min-w-[220px]">
+                <option value="BSIT 3-A">Web Development — BSIT 3-A</option>
+                <option value="BSIT 3-B">Database Systems — BSIT 3-B</option>
+                <option value="BSIT 2-A">Data Structures — BSIT 2-A</option>
+              </select>
 
               <!-- Filter Button -->
               <button onclick="openFilterModal()"
@@ -373,42 +374,33 @@
                 </svg>
                 <span>Export</span>
               </button>
-
-              <!-- Back to Live Scanner -->
-              <a href="live-scanner.html"
-                class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
-                <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                <span>Open Live Scanner</span>
-              </a>
             </div>
           </div>
 
-          <!-- Table Body -->
+          <!-- Table (Student ID first before Student Name) -->
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
               <thead>
                 <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
                   <th class="py-3 px-4">Student ID</th>
                   <th class="py-3 px-4">Student Name</th>
-                  <th class="py-3 px-4">Date &amp; Time</th>
-                  <th class="py-3 px-4">Status</th>
-                  <th class="py-3 px-4">Scan Method</th>
-                  <th class="py-3 px-4">Verification Result</th>
+                  <th class="py-3 px-4">Section</th>
+                  <th class="py-3 px-4 text-center">Total Late</th>
+                  <th class="py-3 px-4">Latest Date</th>
+                  <th class="py-3 px-4">Late Duration</th>
                   <th class="py-3 px-4 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody id="scanLogsTableBody" class="divide-y divide-[#f3f4f6] text-xs">
-                <!-- Injected via scan-logs.js -->
+              <tbody id="tardyTableBody" class="divide-y divide-[#f3f4f6] text-xs">
+                <!-- Injected via tardy-list.js -->
               </tbody>
             </table>
           </div>
 
-          <!-- Table Pagination Footer -->
+          <!-- Pagination Footer -->
           <div class="p-4 border-t border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white text-xs text-[#6b7280]">
             <div>
-              Showing <span id="pageShowingCount" class="font-bold text-[#111827]">12</span> of <span id="pageTotalCount" class="font-bold text-[#111827]">12</span> records
+              Showing <span id="pageShowingCount" class="font-bold text-[#111827]">6</span> of <span id="pageTotalCount" class="font-bold text-[#111827]">6</span> records
             </div>
             <div class="flex items-center gap-1">
               <button class="px-2.5 py-1 rounded border border-[#e5e7eb] hover:bg-gray-50 text-[#6b7280] disabled:opacity-50" disabled>Previous</button>
@@ -425,6 +417,131 @@
 
   </div>
 
+  <!-- ===== VIEW STUDENT TARDY HISTORY MODAL ===== -->
+  <div id="tardyHistoryModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#e5e7eb] transform transition-all max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-[#111827]">Student Tardy Log History</h3>
+        </div>
+        <button onclick="closeTardyHistoryModal()" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Student Banner -->
+      <div class="mt-4 p-3 bg-gray-50 rounded-xl border border-[#e5e7eb] flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-full bg-[#e5e7eb] flex items-center justify-center font-bold text-gray-600">
+            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+            </svg>
+          </div>
+          <div>
+            <p id="historyModalStudentName" class="font-bold text-sm text-[#111827]">Castro, Daniel</p>
+            <p id="historyModalStudentId" class="text-xs font-mono text-[#6b7280]">2026-1007 • BSIT 3-A</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <span id="historyModalTotalBadge" class="inline-flex items-center justify-center px-2.5 py-1 rounded-lg text-xs font-bold bg-red-100 text-red-600">
+            4 Late Entries
+          </span>
+        </div>
+      </div>
+
+      <!-- History List -->
+      <div class="mt-4 space-y-2.5">
+        <h4 class="text-xs font-bold text-[#6b7280] uppercase tracking-wider">Recorded Late Occurrences</h4>
+        <div id="tardyHistoryLogsList" class="space-y-2 text-xs divide-y divide-gray-100">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-[#e5e7eb] flex items-center justify-between">
+        <a id="historyViewFullProfileLink" href="student-attendance-history.html" class="text-xs font-semibold text-[#0030c2] hover:underline flex items-center gap-1">
+          <span>View Complete Attendance History</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </a>
+        <button onclick="closeTardyHistoryModal()" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EDIT TARDY COUNT MODAL ===== -->
+  <div id="editTardyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#e5e7eb] transform transition-all">
+      <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-[#111827]">Edit Total Tardy Count</h3>
+        </div>
+        <button onclick="closeEditTardyModal()" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="editTardyForm" onsubmit="handleEditTardySubmit(event)" class="mt-4 space-y-4">
+        <!-- Student Info Header -->
+        <div class="p-3 bg-gray-50 rounded-xl border border-[#e5e7eb] flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-[#e5e7eb] flex items-center justify-center font-bold text-gray-600">
+            <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+            </svg>
+          </div>
+          <div>
+            <p id="editModalStudentName" class="font-bold text-xs text-[#111827]">Castro, Daniel</p>
+            <p id="editModalStudentId" class="text-[11px] font-mono text-[#6b7280]">2026-1007 • BSIT 3-A</p>
+          </div>
+        </div>
+
+        <input type="hidden" id="editStudentId" value="">
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Total Late Occurrences</label>
+          <input type="number" id="editTotalLateInput" min="0" max="99" required
+            class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] font-semibold">
+          <p class="text-[10px] text-[#6b7280] mt-1">Adjust total recorded late count for this student.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Reason for Adjustment</label>
+          <select id="editReasonSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+            <option value="Manual Attendance Correction">Manual Attendance Correction</option>
+            <option value="Scanner Error / Late Rectification">Scanner Error / Late Rectification</option>
+            <option value="Valid Excuse Granted by Instructor">Valid Excuse Granted by Instructor</option>
+            <option value="Other Discrepancy">Other Discrepancy</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#e5e7eb]">
+          <button type="button" onclick="closeEditTardyModal()" class="px-4 py-2 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ===== FILTER MODAL ===== -->
   <div id="filterModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#e5e7eb] transform transition-all">
@@ -435,7 +552,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
             </svg>
           </div>
-          <h3 class="text-base font-bold text-[#111827]">Filter Scan Records</h3>
+          <h3 class="text-base font-bold text-[#111827]">Filter Tardy Records</h3>
         </div>
         <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -446,22 +563,20 @@
 
       <div class="mt-4 space-y-3.5">
         <div>
-          <label class="block text-xs font-bold text-[#374151] mb-1">Attendance Status</label>
-          <select id="filterStatusSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
-            <option value="">All Statuses</option>
-            <option value="Present">Present</option>
-            <option value="Late">Late</option>
-            <option value="Absent">Absent</option>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Tardiness Frequency</label>
+          <select id="filterFrequencySelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+            <option value="">All Frequencies</option>
+            <option value="frequent">Frequent Late (≥ 3 Tardies)</option>
+            <option value="occasional">Occasional Late (1–2 Tardies)</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-[#374151] mb-1">Scanning Method</label>
-          <select id="filterMethodSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
-            <option value="">All Methods</option>
-            <option value="RFID">RFID Tap</option>
-            <option value="QR Code">QR Code Scan</option>
-            <option value="Manual">Manual Override</option>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Late Duration Threshold</label>
+          <select id="filterDurationSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+            <option value="">Any Duration</option>
+            <option value="15plus">More than 15 minutes</option>
+            <option value="under15">15 minutes or less</option>
           </select>
         </div>
 
@@ -492,7 +607,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
           </div>
-          <h3 class="text-base font-bold text-[#111827]">Export Classroom Scan Logs</h3>
+          <h3 class="text-base font-bold text-[#111827]">Export Class Tardy List</h3>
         </div>
         <button onclick="closeExportModal()" class="text-gray-400 hover:text-gray-600">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -509,7 +624,7 @@
               <input type="radio" name="exportFormat" value="CSV" class="text-[#0030c2]" onchange="updateExportFormatSelection(this)">
               <div>
                 <p class="text-xs font-bold text-[#111827]">CSV Document</p>
-                <p class="text-[10px] text-[#6b7280]">For Excel &amp; Sheets</p>
+                <p class="text-[10px] text-[#6b7280]">Raw data (.csv)</p>
               </div>
             </label>
             <label class="export-format-option flex items-center gap-2 p-3 border border-[#e5e7eb] bg-white hover:bg-gray-50 rounded-xl cursor-pointer transition-all">
@@ -534,81 +649,10 @@
     </div>
   </div>
 
-  <!-- ===== VIEW SCAN DETAILS MODAL ===== -->
-  <div id="viewScanModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#e5e7eb] transform transition-all">
-      <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full bg-blue-50 text-[#0030c2] flex items-center justify-center">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
-            </svg>
-          </div>
-          <h3 class="text-base font-bold text-[#111827]">Scan Audit Record</h3>
-        </div>
-        <button onclick="closeViewScanModal()" class="text-gray-400 hover:text-gray-600">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div class="mt-4 space-y-3">
-        <!-- Student Header Profile -->
-        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-[#e5e7eb]">
-          <div class="w-10 h-10 rounded-full bg-[#e5e7eb] flex items-center justify-center font-bold text-gray-600">
-            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
-            </svg>
-          </div>
-          <div>
-            <p id="viewModalStudentName" class="font-bold text-sm text-[#111827]">Santos, Maria</p>
-            <p id="viewModalStudentId" class="text-xs font-mono text-[#6b7280]">2026-1001</p>
-          </div>
-        </div>
-
-        <div class="space-y-2 text-xs divide-y divide-gray-100">
-          <div class="flex justify-between py-1.5">
-            <span class="text-[#6b7280]">Class / Section:</span>
-            <span id="viewModalSection" class="font-semibold text-[#111827]">Web Development (BSIT 3-A)</span>
-          </div>
-          <div class="flex justify-between py-1.5">
-            <span class="text-[#6b7280]">Date &amp; Time In:</span>
-            <span id="viewModalTimeIn" class="font-mono font-semibold text-[#111827]">07:38:12 AM</span>
-          </div>
-          <div class="flex justify-between py-1.5">
-            <span class="text-[#6b7280]">Scan Type:</span>
-            <span id="viewModalMethod" class="font-semibold text-[#111827]">RFID Card Tap</span>
-          </div>
-          <div class="flex justify-between py-1.5">
-            <span class="text-[#6b7280]">Attendance Status:</span>
-            <span id="viewModalStatus" class="status-badge status-badge-present">Present</span>
-          </div>
-          <div class="flex justify-between py-1.5">
-            <span class="text-[#6b7280]">Verification Remarks:</span>
-            <span id="viewModalRemarks" class="font-semibold text-[#111827]">On-Time Tap Verified</span>
-          </div>
-          <div class="flex justify-between py-1.5">
-            <span class="text-[#6b7280]">Guardian Notification:</span>
-            <span class="text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-              SMS Delivered
-            </span>
-          </div>
-        </div>
-
-        <div class="pt-3 border-t border-[#e5e7eb] flex justify-end">
-          <button onclick="closeViewScanModal()" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="../../assets/js/common/sidebar.js"></script>
   <script src="../../assets/js/common/main.js"></script>
-  <script src="../../assets/js/teacher/scan-logs.js"></script>
+  <script src="../../assets/js/teacher/tardy-list.js"></script>
 
 </body>
 
