@@ -38,11 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
  * Sidebar and Dropdown navigation
  */
 function initSidebar() {
-  const toggleBtn = document.getElementById('sidebarToggleBtn');
-  const sidebar = document.getElementById('mainSidebar');
+  const burgerBtn = document.querySelector('.burger-btn') || document.getElementById('sidebarToggleBtn');
+  const sidebar = document.getElementById('mainSidebar') || document.querySelector('aside');
 
-  if (toggleBtn && sidebar) {
-    toggleBtn.addEventListener('click', () => {
+  if (burgerBtn && sidebar && !burgerBtn.getAttribute('onclick')) {
+    burgerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       sidebar.classList.toggle('sidebar-collapsed');
     });
   }
