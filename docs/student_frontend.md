@@ -144,26 +144,6 @@ Purpose: Submit excuses for absences or tardiness.
         - Status
         - Teacher Remarks
 
-## Notifications
-
-Purpose: View attendance-related notifications.
-
-### Contents:
-
-    Notification List
-        
-        Columns
-        - Date
-        - Type
-        - Message
-        - Status
-
-    Notification Types
-        - Attendance Marked
-        - Late Notification
-        - Absence Notification
-        - Excuse Slip Status
-
         Status
         - Pending
         - Approved
