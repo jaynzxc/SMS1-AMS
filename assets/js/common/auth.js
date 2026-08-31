@@ -1,10 +1,38 @@
-// =============================================================
-// AUTH.JS - Login Page Functionality
-// =============================================================
+// assets/js/common/auth.js
+// Supabase Authentication & Multi-Role Login Handler
+// Supports Admin, Teacher, and Student login with redirection to respective dashboards.
 
-document.addEventListener('DOMContentLoaded', function() {
+import { supabase } from '../config/supabaseClient.js';
 
-    // --- ELEMENTS ---
+/**
+ * Generate default account password according to formula:
+ * (# + first 2 letters of last name of student/teacher + 8080)
+ * Example: "Dela Cruz, Juan Paolo" -> "#de8080"
+ * Example: "Miller, Robert" or "Prof. Robert Miller" -> "#mi8080"
+ */
+export function generateDefaultPassword(fullName) {
+    if (!fullName || typeof fullName !== 'string') return '#bc8080';
+
+    let clean = fullName.trim();
+    clean = clean.replace(/^(Prof\.|Dr\.|Mr\.|Mrs\.|Ms\.|Engr\.)\s+/i, '');
+
+    let lastName = '';
+    if (clean.includes(',')) {
+        lastName = clean.split(',')[0].trim();
+    } else {
+        const parts = clean.split(/\s+/);
+        lastName = parts[parts.length - 1] || 'bc';
+    }
+
+    const lettersOnly = lastName.replace(/[^a-zA-Z]/g, '');
+    const twoLetters = (lettersOnly.length >= 2 ? lettersOnly.substring(0, 2) : (lettersOnly + 'x')).toLowerCase();
+
+    return `#${twoLetters}8080`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🔐 Auth Module Initialized with Supabase');
+
     const loginForm = document.getElementById('loginForm');
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
@@ -16,35 +44,26 @@ document.addEventListener('DOMContentLoaded', function() {
     let timer = null;
 
     // =============================================================
-    // SHOW/HIDE PASSWORD
+    // SHOW / HIDE PASSWORD TOGGLE
     // =============================================================
-
     if (toggleBtn) {
-        toggleBtn.addEventListener('click', function(e) {
+        toggleBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
 
-            console.log('Toggle button clicked!');
-
-            // Clear timer
             if (timer) {
                 clearTimeout(timer);
                 timer = null;
             }
 
             isVisible = !isVisible;
-
             if (isVisible) {
-                // Show password
                 passwordInput.type = 'text';
                 eyeOpen.classList.add('hidden');
                 eyeClosed.classList.remove('hidden');
 
                 // Auto-hide after 5 seconds
-                timer = setTimeout(function() {
-                    hidePassword();
-                }, 5000);
-
+                timer = setTimeout(hidePassword, 5000);
             } else {
                 hidePassword();
             }
@@ -55,51 +74,28 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordInput.type = 'password';
             eyeOpen.classList.remove('hidden');
             eyeClosed.classList.add('hidden');
-
             if (timer) {
                 clearTimeout(timer);
                 timer = null;
             }
         }
 
-        // Reset timer when typing
-        passwordInput.addEventListener('input', function() {
+        passwordInput.addEventListener('input', () => {
             if (isVisible) {
                 if (timer) clearTimeout(timer);
-                timer = setTimeout(function() {
-                    hidePassword();
-                }, 5000);
+                timer = setTimeout(hidePassword, 5000);
             }
         });
 
-        // Hide when losing focus
-        passwordInput.addEventListener('blur', function() {
-            if (isVisible) {
-                hidePassword();
-            }
+        passwordInput.addEventListener('blur', () => {
+            if (isVisible) hidePassword();
         });
     }
 
     // =============================================================
-    // TOAST NOTIFICATION
+    // TOAST NOTIFICATIONS
     // =============================================================
-
-    function showToast(titleOrMessage, messageOrType, type = 'success') {
-        let title = titleOrMessage;
-        let message = messageOrType;
-        let toastType = type;
-
-        // Check if it's called as showToast(message, type)
-        if (messageOrType === undefined) {
-            message = titleOrMessage;
-            toastType = 'success';
-            title = 'Success';
-        } else if (messageOrType === 'success' || messageOrType === 'info' || messageOrType === 'error' || messageOrType === 'danger') {
-            message = titleOrMessage;
-            toastType = messageOrType === 'danger' ? 'error' : messageOrType;
-            title = toastType === 'success' ? 'Success' : toastType === 'info' ? 'Info' : 'Error';
-        }
-
+    function showToast(title, message, type = 'success') {
         let toastContainer = document.getElementById('toastContainer');
         if (!toastContainer) {
             toastContainer = document.createElement('div');
@@ -112,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toast.className = 'custom-toast pointer-events-auto bg-white border border-[#e5e7eb] shadow-xl rounded-xl p-3.5 flex items-start gap-3 min-w-[280px] max-w-sm transition-all duration-300 transform translate-x-0';
 
         let iconSvg = '';
-        if (toastType === 'success') {
+        if (type === 'success') {
             iconSvg = `
                 <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -120,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </svg>
                 </div>
             `;
-        } else if (toastType === 'info') {
+        } else if (type === 'info') {
             iconSvg = `
                 <div class="w-8 h-8 rounded-full bg-blue-50 text-[#0030c2] flex items-center justify-center shrink-0">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -144,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p class="text-xs font-bold text-[#111827]">${title}</p>
                 <p class="text-[11px] text-[#6b7280] mt-0.5 leading-tight">${message}</p>
             </div>
-            <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 p-1">
+            <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 p-1 cursor-pointer">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         `;
@@ -158,42 +154,179 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // =============================================================
-    // LOGIN FORM
+    // MULTI-ROLE LOGIN SUBMISSION HANDLER
     // =============================================================
-
     if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const username = usernameInput.value.trim();
+            const userInput = usernameInput.value.trim();
             const password = passwordInput.value.trim();
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
 
-            if (!username || !password) {
-                showToast('Please fill in all fields.', 'error');
+            if (!userInput || !password) {
+                showToast('Missing Fields', 'Please enter your username/ID and password.', 'error');
                 return;
             }
 
-            if (username === 'admin' && password === 'admin123') {
-                showToast('Login successful! Redirecting...', 'success');
-                setTimeout(function() {
-                    window.location.href = 'admin/dashboard.html';
-                }, 800);
-            } else {
-                showToast('Invalid username or password.', 'error');
+            // Button loading state
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <span class="inline-flex items-center gap-2">
+                    <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                </span>
+            `;
+
+            try {
+                // 1. CHECK FIXED ADMIN CREDENTIALS
+                const isAdmin = (
+                    userInput.toLowerCase() === 'admin' || 
+                    userInput.toLowerCase() === 'admin@bcp.edu.ph' || 
+                    userInput.toLowerCase() === 'admin@gmail.com' ||
+                    userInput.toLowerCase() === 'jaynzxc.devs@gmail.com'
+                ) && password === 'bcpadmin123';
+
+                if (isAdmin) {
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        username: 'admin',
+                        name: 'System Administrator',
+                        role: 'admin',
+                        email: 'admin@bcp.edu.ph'
+                    }));
+                    localStorage.setItem('userRole', 'admin');
+
+                    showToast('Admin Login', 'Welcome back, Administrator! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'admin/dashboard.html';
+                    }, 600);
+                    return;
+                }
+
+                // 2. CHECK SUPABASE AUTH SIGN IN (If account exists in auth.users)
+                if (userInput.includes('@')) {
+                    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+                        email: userInput,
+                        password: password
+                    });
+
+                    if (!authError && authData?.user) {
+                        // Lookup profile for role
+                        const { data: profile } = await supabase
+                            .from('profiles')
+                            .select('*')
+                            .eq('id', authData.user.id)
+                            .single();
+
+                        const role = profile?.role || 'student';
+                        localStorage.setItem('currentUser', JSON.stringify(profile || {
+                            email: userInput,
+                            role: role
+                        }));
+                        localStorage.setItem('userRole', role);
+
+                        redirectToRoleDashboard(role, profile?.full_name || userInput);
+                        return;
+                    }
+                }
+
+                // 3. CHECK STUDENTS TABLE (By student_id or email)
+                const { data: studentMatch } = await supabase
+                    .from('students')
+                    .select('*')
+                    .or(`student_id.eq.${userInput},email.eq.${userInput}`)
+                    .limit(1);
+
+                if (studentMatch && studentMatch.length > 0) {
+                    const student = studentMatch[0];
+                    // Formula: # + first 2 letters of last name + 8080 (e.g. Dela Cruz -> #de8080)
+                    const defaultStudentPass = generateDefaultPassword(student.name);
+                    const validStudentPass = (student.password ? student.password.toLowerCase() === password.toLowerCase() : password.toLowerCase() === defaultStudentPass.toLowerCase());
+
+                    if (validStudentPass) {
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            id: student.student_id,
+                            name: student.name,
+                            role: 'student',
+                            courseSection: `${student.course} ${student.section}`,
+                            email: student.email,
+                            rfidUid: student.rfid_uid,
+                            qrCode: student.qr_code
+                        }));
+                        localStorage.setItem('userRole', 'student');
+
+                        redirectToRoleDashboard('student', student.name);
+                        return;
+                    }
+                }
+
+                // 4. CHECK TEACHERS TABLE (By teacher_id or email)
+                const { data: teacherMatch } = await supabase
+                    .from('teachers')
+                    .select('*')
+                    .or(`teacher_id.eq.${userInput},email.eq.${userInput}`)
+                    .limit(1);
+
+                if (teacherMatch && teacherMatch.length > 0) {
+                    const teacher = teacherMatch[0];
+                    // Formula: # + first 2 letters of last name + 8080 (e.g. Miller -> #mi8080)
+                    const defaultTeacherPass = generateDefaultPassword(teacher.name);
+                    const validTeacherPass = (teacher.password ? teacher.password.toLowerCase() === password.toLowerCase() : password.toLowerCase() === defaultTeacherPass.toLowerCase());
+
+                    if (validTeacherPass) {
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            id: teacher.teacher_id,
+                            name: teacher.name,
+                            role: 'teacher',
+                            department: teacher.department,
+                            email: teacher.email,
+                            rfidUid: teacher.rfid_uid,
+                            qrCode: teacher.qr_code
+                        }));
+                        localStorage.setItem('userRole', 'teacher');
+
+                        redirectToRoleDashboard('teacher', teacher.name);
+                        return;
+                    }
+                }
+
+                // If no matching account or incorrect password
+                showToast('Authentication Failed', 'Invalid username/ID or password. Please check your credentials.', 'error');
+
+            } catch (err) {
+                console.error('Login error:', err);
+                showToast('Login Error', 'An error occurred while signing in. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
             }
         });
     }
 
-    // Enter key support
+    function redirectToRoleDashboard(role, name) {
+        showToast('Login Successful', `Welcome, ${name}! Redirecting to your dashboard...`, 'success');
+        setTimeout(() => {
+            if (role === 'admin') {
+                window.location.href = 'admin/dashboard.html';
+            } else if (role === 'teacher') {
+                window.location.href = 'teacher/dashboard.html';
+            } else {
+                window.location.href = 'student/dashboard.html';
+            }
+        }, 700);
+    }
+
+    // Enter key navigation
     if (usernameInput) {
-        usernameInput.addEventListener('keydown', function(e) {
+        usernameInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 passwordInput.focus();
             }
         });
     }
-
-    console.log('auth.js loaded');
-
 });
