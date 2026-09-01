@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (adminValid) {
                         localStorage.setItem('currentUser', JSON.stringify({
                             username: admin.username,
-                            name: admin.full_name || 'System Administrator',
+                            name: admin.full_name || 'Admin User',
                             role: 'admin',
                             email: admin.email
                         }));

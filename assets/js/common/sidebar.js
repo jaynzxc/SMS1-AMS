@@ -382,7 +382,59 @@ document.addEventListener('keydown', function(e) {
             const arrow = document.querySelector('.excuse-dropdown-arrow');
             if (arrow) arrow.classList.remove('rotate-90');
         }
+
+        const profileMenu = document.getElementById('topbarProfileMenu');
+        if (profileMenu && !profileMenu.classList.contains('hidden')) {
+            profileMenu.classList.add('hidden');
+        }
     }
 });
 
-console.log('Sidebar.js loaded successfully');
+// =============================================================
+// ADMIN PROFILE DROPDOWN & LOGOUT HANDLER
+// =============================================================
+
+function toggleProfileDropdown(e) {
+    if (e && e.stopPropagation) {
+        e.stopPropagation();
+    }
+    const menu = document.getElementById('topbarProfileMenu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
+function handleLogout() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userRole');
+
+    const path = window.location.pathname;
+    const isSubdir = path.includes('/rfid-and-qr/') || path.includes('/tardy-and-absence/') || path.includes('/excuse-slip/');
+    const isModuleDir = path.includes('/admin/') || path.includes('/teacher/') || path.includes('/student/');
+
+    let loginUrl = '../index.html';
+    if (isSubdir) {
+        loginUrl = '../../index.html';
+    } else if (!isModuleDir) {
+        loginUrl = 'index.html';
+    }
+
+    window.location.href = loginUrl;
+}
+
+// Global exposure
+window.toggleProfileDropdown = toggleProfileDropdown;
+window.handleLogout = handleLogout;
+
+// Close profile dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const profileBtn = document.getElementById('topbarProfileBtn');
+    const profileMenu = document.getElementById('topbarProfileMenu');
+    if (profileMenu && !profileMenu.classList.contains('hidden')) {
+        if (profileBtn && profileBtn.contains(e.target)) return;
+        if (profileMenu.contains(e.target)) return;
+        profileMenu.classList.add('hidden');
+    }
+});
+
+console.log('Sidebar.js loaded successfully with Profile Dropdown support');
