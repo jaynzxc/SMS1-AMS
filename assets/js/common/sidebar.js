@@ -437,4 +437,59 @@ document.addEventListener('click', function(e) {
     }
 });
 
-console.log('Sidebar.js loaded successfully with Profile Dropdown support');
+// Auto-sync logged in user name & real-time date across all modules
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Sync User Name
+    try {
+        const raw = localStorage.getItem('currentUser');
+        const user = raw ? JSON.parse(raw) : null;
+        let name = user?.name;
+        if (!name || name === 'System Administrator') name = 'Admin User';
+        
+        const topbarNameEl = document.getElementById('topbarAdminName');
+        if (topbarNameEl) {
+            topbarNameEl.textContent = name;
+        }
+    } catch (e) {
+        // ignore
+    }
+
+    // 2. Sync Real-time Day & Date Display
+    try {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = now.toLocaleDateString('en-US', options);
+
+        // Update all elements with id="currentDateLabel"
+        document.querySelectorAll('#currentDateLabel').forEach(el => {
+            el.textContent = formattedDate;
+        });
+
+        // Update any currentDateDisplay button containers
+        document.querySelectorAll('#currentDateDisplay').forEach(btn => {
+            const label = btn.querySelector('#currentDateLabel') || btn.querySelector('span');
+            if (label) {
+                label.textContent = formattedDate;
+            } else {
+                const svg = btn.querySelector('svg');
+                btn.innerHTML = '';
+                if (svg) btn.appendChild(svg);
+                const span = document.createElement('span');
+                span.id = 'currentDateLabel';
+                span.textContent = formattedDate;
+                btn.appendChild(span);
+            }
+        });
+
+        // Find any header buttons containing calendar icons and hardcoded date strings
+        document.querySelectorAll('button, div, span').forEach(el => {
+            if (el.children.length === 0 && (el.textContent.includes('July 25, 2026') || el.textContent.includes('Loading date...'))) {
+                el.textContent = formattedDate;
+            }
+        });
+    } catch (e) {
+        console.error('Error syncing date display:', e);
+    }
+});
+
+console.log('Sidebar.js loaded successfully with Profile Dropdown and Date Sync support');
