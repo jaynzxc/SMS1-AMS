@@ -332,7 +332,8 @@
         </div>
 
         <!-- FULL-WIDTH TABLE CARD (Expanded Height for comfortable dropdowns & clean viewing) -->
-        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm min-h-[500px] flex flex-col justify-between overflow-visible">
+        <div
+          class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm min-h-[500px] flex flex-col justify-between overflow-visible">
 
           <!-- Table Header Controls Bar (Integrated Title, Count Badge, Search, and Add User Button) -->
           <div
@@ -475,7 +476,7 @@
 
         <!-- Full Name -->
         <div>
-          <label class="font-bold text-[#374151] block mb-1">Full Name (Last, First Middle) <span
+          <label class="font-bold text-[#374151] block mb-1">Full Name (Last Name, First Name, Middle Name) <span
               class="text-red-500">*</span></label>
           <input type="text" id="formUserName" required placeholder="e.g. Dela Cruz, Juan Paolo"
             class="w-full px-3 py-2 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
@@ -497,7 +498,7 @@
             Account Password <span class="text-red-500">*</span>
           </label>
           <div class="relative">
-            <input type="password" id="formUserPassword" required placeholder="e.g. #de8080 (Default: # + last name 2 letters + 8080)"
+            <input type="password" id="formUserPassword" required placeholder="Create password"
               class="w-full px-3 py-2 pr-10 border border-[#e5e7eb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
             <button type="button" onclick="toggleModalPassword()"
               class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6b7280] hover:text-[#111827] cursor-pointer"
@@ -510,7 +511,35 @@
               </svg>
             </button>
           </div>
-          <p class="text-[10px] text-[#6b7280] mt-1">Default pattern: <span class="font-semibold text-[#0030c2]"># + first 2 letters of last name + 8080</span> (e.g., <code class="bg-gray-100 px-1 py-0.5 rounded font-mono">#de8080</code> for Dela Cruz, <code class="bg-gray-100 px-1 py-0.5 rounded font-mono">#mi8080</code> for Miller).</p>
+          <p class="text-[10px] text-[#6b7280] mt-1">Default pattern: <span class="font-semibold text-[#0030c2]"># +
+              1st letter uppercase + 2nd letter lowercase + 8080</span> (e.g. <span class="font-mono text-[#0030c2] font-semibold">#De8080</span>)</p>
+
+          <!-- Password Requirements Checklist -->
+          <div id="passwordRequirementsList" class="mt-2.5 p-3 bg-gray-50/90 rounded-xl border border-gray-100 text-[11px] space-y-1.5">
+            <p class="font-bold text-gray-700 text-[10px] uppercase tracking-wider">Password Requirements</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-1.5 text-gray-400">
+              <div id="reqLength" class="flex items-center gap-1.5 transition-colors">
+                <svg class="w-3.5 h-3.5 shrink-0 status-icon text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="2 2"/></svg>
+                <span>At least 8 chars (or default)</span>
+              </div>
+              <div id="reqUpper" class="flex items-center gap-1.5 transition-colors">
+                <svg class="w-3.5 h-3.5 shrink-0 status-icon text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="2 2"/></svg>
+                <span>Uppercase letter (A-Z)</span>
+              </div>
+              <div id="reqLower" class="flex items-center gap-1.5 transition-colors">
+                <svg class="w-3.5 h-3.5 shrink-0 status-icon text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="2 2"/></svg>
+                <span>Lowercase letter (a-z)</span>
+              </div>
+              <div id="reqNumber" class="flex items-center gap-1.5 transition-colors">
+                <svg class="w-3.5 h-3.5 shrink-0 status-icon text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="2 2"/></svg>
+                <span>A number (0-9)</span>
+              </div>
+              <div id="reqSymbol" class="flex items-center gap-1.5 transition-colors">
+                <svg class="w-3.5 h-3.5 shrink-0 status-icon text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="2 2"/></svg>
+                <span>A symbol (e.g. #, @, !)</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- STUDENT-ONLY FIELDS: Course, Section, Validation Date -->
@@ -789,7 +818,8 @@
           <div>
             <h4 id="deleteUserName" class="text-sm font-bold text-[#111827]">User Name</h4>
             <p id="deleteUserId" class="text-xs text-[#6b7280]">s230111001</p>
-            <p class="text-xs text-[#dc2626] mt-2 font-medium">Are you sure you want to permanently delete this account? This will remove the account from the database and portal.</p>
+            <p class="text-xs text-[#dc2626] mt-2 font-medium">Are you sure you want to permanently delete this account?
+              This will remove the account from the database and portal.</p>
           </div>
         </div>
 

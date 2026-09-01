@@ -336,12 +336,12 @@ const ALL_MODAL_IDS = ['userModal', 'rfidModal', 'qrModal', 'resetPasswordModal'
 
 /**
  * Generate default account password according to formula:
- * (# + first 2 letters of last name of student/teacher + 8080)
- * Example: "Dela Cruz, Juan Paolo" -> "#de8080"
- * Example: "Miller, Robert" or "Prof. Robert Miller" -> "#mi8080"
+ * (# + 1st letter uppercase + 2nd letter lowercase of last name + 8080)
+ * Example: "Dela Cruz, Juan Paolo" -> "#De8080"
+ * Example: "Miller, Robert" or "Prof. Robert Miller" -> "#Mi8080"
  */
 export function generateDefaultPassword(fullName) {
-  if (!fullName || typeof fullName !== 'string') return '#bc8080';
+  if (!fullName || typeof fullName !== 'string') return '#Bc8080';
 
   let clean = fullName.trim();
   clean = clean.replace(/^(Prof\.|Dr\.|Mr\.|Mrs\.|Ms\.|Engr\.)\s+/i, '');
@@ -351,13 +351,102 @@ export function generateDefaultPassword(fullName) {
     lastName = clean.split(',')[0].trim();
   } else {
     const parts = clean.split(/\s+/);
-    lastName = parts[parts.length - 1] || 'bc';
+    lastName = parts[parts.length - 1] || 'Bc';
   }
 
   const lettersOnly = lastName.replace(/[^a-zA-Z]/g, '');
-  const twoLetters = (lettersOnly.length >= 2 ? lettersOnly.substring(0, 2) : (lettersOnly + 'x')).toLowerCase();
+  if (!lettersOnly) return '#Bc8080';
 
-  return `#${twoLetters}8080`;
+  const firstLetter = lettersOnly.charAt(0).toUpperCase();
+  const secondLetter = (lettersOnly.length >= 2 ? lettersOnly.charAt(1) : 'x').toLowerCase();
+
+  return `#${firstLetter}${secondLetter}8080`;
+}
+
+/**
+ * Validate password against security requirements:
+ * - At least 8 characters long (or matches 7-char default pattern e.g. #De8080)
+ * - An Uppercase letter
+ * - A lowercase letter
+ * - A number
+ * - A symbol
+ */
+export function validatePasswordRequirements(password) {
+  if (!password || typeof password !== 'string') {
+    return {
+      isValid: false,
+      length: false,
+      uppercase: false,
+      lowercase: false,
+      number: false,
+      symbol: false,
+      message: 'Password is required'
+    };
+  }
+  const length = password.length >= 7; // Supports default #De8080 (7 chars) & custom passwords (>= 8 chars)
+  const uppercase = /[A-Z]/.test(password);
+  const lowercase = /[a-z]/.test(password);
+  const number = /[0-9]/.test(password);
+  const symbol = /[^A-Za-z0-9]/.test(password);
+  const isValid = length && uppercase && lowercase && number && symbol;
+
+  let message = '';
+  if (!length) message = 'Password must be at least 8 characters long (or default pattern)';
+  else if (!uppercase) message = 'Password must include an uppercase letter (A-Z)';
+  else if (!lowercase) message = 'Password must include a lowercase letter (a-z)';
+  else if (!number) message = 'Password must include a number (0-9)';
+  else if (!symbol) message = 'Password must include a symbol (e.g. #, @, !)';
+
+  return { isValid, length, uppercase, lowercase, number, symbol, message };
+}
+
+/**
+ * Update real-time checklist UI indicators for password requirements
+ */
+export function updatePasswordChecklistUI(pass) {
+  const reqLength = document.getElementById('reqLength');
+  const reqUpper = document.getElementById('reqUpper');
+  const reqLower = document.getElementById('reqLower');
+  const reqNumber = document.getElementById('reqNumber');
+  const reqSymbol = document.getElementById('reqSymbol');
+
+  if (!reqLength) return;
+
+  const res = validatePasswordRequirements(pass || '');
+
+  function setBadge(el, satisfied) {
+    if (!el) return;
+    if (satisfied) {
+      el.className = 'flex items-center gap-1.5 transition-colors text-emerald-600 font-medium';
+      el.innerHTML = `
+        <svg class="w-3.5 h-3.5 shrink-0 status-icon text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        <span>${el.dataset.text || el.textContent.trim()}</span>
+      `;
+    } else {
+      el.className = 'flex items-center gap-1.5 transition-colors text-gray-400';
+      el.innerHTML = `
+        <svg class="w-3.5 h-3.5 shrink-0 status-icon text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="2 2" />
+        </svg>
+        <span>${el.dataset.text || el.textContent.trim()}</span>
+      `;
+    }
+  }
+
+  // Cache text content
+  if (!reqLength.dataset.text) reqLength.dataset.text = 'At least 8 chars (or default)';
+  if (!reqUpper.dataset.text) reqUpper.dataset.text = 'Uppercase letter (A-Z)';
+  if (!reqLower.dataset.text) reqLower.dataset.text = 'Lowercase letter (a-z)';
+  if (!reqNumber.dataset.text) reqNumber.dataset.text = 'A number (0-9)';
+  if (!reqSymbol.dataset.text) reqSymbol.dataset.text = 'A symbol (e.g. #, @, !)';
+
+  setBadge(reqLength, res.length);
+  setBadge(reqUpper, res.uppercase);
+  setBadge(reqLower, res.lowercase);
+  setBadge(reqNumber, res.number);
+  setBadge(reqSymbol, res.symbol);
 }
 
 function initModalListeners() {
@@ -379,7 +468,7 @@ function initModalListeners() {
   const passInput = document.getElementById('formUserPassword');
   const isEditingInput = document.getElementById('formIsEditing');
   if (nameInput && passInput) {
-    nameInput.addEventListener('input', function() {
+    nameInput.addEventListener('input', function () {
       if (isEditingInput?.value !== 'true') {
         const val = this.value.trim();
         if (val) {
@@ -387,13 +476,15 @@ function initModalListeners() {
           passInput.placeholder = `Default: ${autoPass}`;
           if (!passInput.dataset.manuallyEdited || (passInput.value.startsWith('#') && passInput.value.endsWith('8080'))) {
             passInput.value = autoPass;
+            updatePasswordChecklistUI(autoPass);
           }
         }
       }
     });
 
-    passInput.addEventListener('input', function() {
+    passInput.addEventListener('input', function () {
       passInput.dataset.manuallyEdited = 'true';
+      updatePasswordChecklistUI(this.value);
     });
   }
 }
@@ -443,12 +534,16 @@ export function openAddModal() {
     : 'Provision a faculty teacher account with department assignment and attendance badge.';
 
   const emailInput = document.getElementById('formUserEmail');
-  if (emailInput) emailInput.value = '';
+  if (emailInput) {
+    emailInput.value = '';
+    emailInput.placeholder = isStudent ? 'e.g. student@gmail.com' : 'e.g. teacher@gmail.com';
+  }
   const passInput = document.getElementById('formUserPassword');
   if (passInput) {
     passInput.value = '';
-    passInput.placeholder = 'e.g. #de8080 (# + last name 2 letters + 8080)';
+    passInput.placeholder = 'create password';
     delete passInput.dataset.manuallyEdited;
+    updatePasswordChecklistUI('');
   }
 
   if (idLabel) idLabel.textContent = isStudent ? 'Student ID' : 'Teacher ID';
@@ -502,12 +597,21 @@ export function openEditModal(userId) {
   if (modalSubtitle) modalSubtitle.textContent = `Modify records and assignments for ${user.name} (${user.id}).`;
   if (submitBtnText) submitBtnText.textContent = 'Save Changes';
 
+  const idLabel = document.getElementById('formUserIdLabel');
+  const gmailLabel = document.getElementById('formGmailLabel');
+  if (idLabel) idLabel.textContent = isStudent ? 'Student ID' : 'Teacher ID';
+  if (gmailLabel) gmailLabel.textContent = isStudent ? 'Student Gmail' : 'Teacher Gmail';
+
   if (idInput) idInput.value = user.id;
   if (nameInput) nameInput.value = user.name;
-  if (emailInput) emailInput.value = user.email || '';
+  if (emailInput) {
+    emailInput.value = user.email || '';
+    emailInput.placeholder = isStudent ? 'e.g. student@gmail.com' : 'e.g. teacher@gmail.com';
+  }
   if (passInput) {
     passInput.value = user.password || generateDefaultPassword(user.name);
     passInput.placeholder = 'Account password';
+    updatePasswordChecklistUI(passInput.value);
   }
   if (statusSelect) statusSelect.value = user.status;
   if (rfidInput) rfidInput.value = user.rfidUid || generateRfidHex();
@@ -546,6 +650,15 @@ export async function handleSaveUser(event) {
 
   if (!id || !name || !email) {
     showToast('Missing Fields', 'Please fill in all required fields.', 'error');
+    return;
+  }
+
+  // Validate password security requirements
+  const passValidation = validatePasswordRequirements(password);
+  if (!passValidation.isValid) {
+    showToast('Password Requirement', passValidation.message, 'error');
+    const passInput = document.getElementById('formUserPassword');
+    if (passInput) passInput.focus();
     return;
   }
   let course = 'BSIT';
@@ -1406,4 +1519,7 @@ function exposeGlobalFunctions() {
   window.goToPage = goToPage;
   window.toggleModalPassword = toggleModalPassword;
   window.dispatchAccountDetailsToEmail = dispatchAccountDetailsToEmail;
+  window.updatePasswordChecklistUI = updatePasswordChecklistUI;
+  window.validatePasswordRequirements = validatePasswordRequirements;
+  window.generateDefaultPassword = generateDefaultPassword;
 }

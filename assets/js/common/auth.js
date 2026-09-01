@@ -6,12 +6,12 @@ import { supabase } from '../config/supabaseClient.js';
 
 /**
  * Generate default account password according to formula:
- * (# + first 2 letters of last name of student/teacher + 8080)
- * Example: "Dela Cruz, Juan Paolo" -> "#de8080"
- * Example: "Miller, Robert" or "Prof. Robert Miller" -> "#mi8080"
+ * (# + 1st letter uppercase + 2nd letter lowercase of last name + 8080)
+ * Example: "Dela Cruz, Juan Paolo" -> "#De8080"
+ * Example: "Miller, Robert" or "Prof. Robert Miller" -> "#Mi8080"
  */
 export function generateDefaultPassword(fullName) {
-    if (!fullName || typeof fullName !== 'string') return '#bc8080';
+    if (!fullName || typeof fullName !== 'string') return '#Bc8080';
 
     let clean = fullName.trim();
     clean = clean.replace(/^(Prof\.|Dr\.|Mr\.|Mrs\.|Ms\.|Engr\.)\s+/i, '');
@@ -21,13 +21,53 @@ export function generateDefaultPassword(fullName) {
         lastName = clean.split(',')[0].trim();
     } else {
         const parts = clean.split(/\s+/);
-        lastName = parts[parts.length - 1] || 'bc';
+        lastName = parts[parts.length - 1] || 'Bc';
     }
 
     const lettersOnly = lastName.replace(/[^a-zA-Z]/g, '');
-    const twoLetters = (lettersOnly.length >= 2 ? lettersOnly.substring(0, 2) : (lettersOnly + 'x')).toLowerCase();
+    if (!lettersOnly) return '#Bc8080';
 
-    return `#${twoLetters}8080`;
+    const firstLetter = lettersOnly.charAt(0).toUpperCase();
+    const secondLetter = (lettersOnly.length >= 2 ? lettersOnly.charAt(1) : 'x').toLowerCase();
+
+    return `#${firstLetter}${secondLetter}8080`;
+}
+
+/**
+ * Validate password against security requirements:
+ * - At least 8 characters long (or matches 7-char default pattern e.g. #De8080)
+ * - An Uppercase letter
+ * - A lowercase letter
+ * - A number
+ * - A symbol
+ */
+export function validatePasswordRequirements(password) {
+    if (!password || typeof password !== 'string') {
+        return {
+            isValid: false,
+            length: false,
+            uppercase: false,
+            lowercase: false,
+            number: false,
+            symbol: false,
+            message: 'Password is required'
+        };
+    }
+    const length = password.length >= 7; // Supports default #De8080 (7 chars) and custom passwords (>= 8 chars)
+    const uppercase = /[A-Z]/.test(password);
+    const lowercase = /[a-z]/.test(password);
+    const number = /[0-9]/.test(password);
+    const symbol = /[^A-Za-z0-9]/.test(password);
+    const isValid = length && uppercase && lowercase && number && symbol;
+
+    let message = '';
+    if (!length) message = 'Password must be at least 8 characters long (or default pattern)';
+    else if (!uppercase) message = 'Password must include an uppercase letter (A-Z)';
+    else if (!lowercase) message = 'Password must include a lowercase letter (a-z)';
+    else if (!number) message = 'Password must include a number (0-9)';
+    else if (!symbol) message = 'Password must include a symbol (e.g. #, @, !)';
+
+    return { isValid, length, uppercase, lowercase, number, symbol, message };
 }
 
 document.addEventListener('DOMContentLoaded', () => {
