@@ -382,7 +382,114 @@ document.addEventListener('keydown', function(e) {
             const arrow = document.querySelector('.excuse-dropdown-arrow');
             if (arrow) arrow.classList.remove('rotate-90');
         }
+
+        const profileMenu = document.getElementById('topbarProfileMenu');
+        if (profileMenu && !profileMenu.classList.contains('hidden')) {
+            profileMenu.classList.add('hidden');
+        }
     }
 });
 
-console.log('Sidebar.js loaded successfully');
+// =============================================================
+// ADMIN PROFILE DROPDOWN & LOGOUT HANDLER
+// =============================================================
+
+function toggleProfileDropdown(e) {
+    if (e && e.stopPropagation) {
+        e.stopPropagation();
+    }
+    const menu = document.getElementById('topbarProfileMenu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
+function handleLogout() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userRole');
+
+    const path = window.location.pathname;
+    const isSubdir = path.includes('/rfid-and-qr/') || path.includes('/tardy-and-absence/') || path.includes('/excuse-slip/');
+    const isModuleDir = path.includes('/admin/') || path.includes('/teacher/') || path.includes('/student/');
+
+    let loginUrl = '../index.html';
+    if (isSubdir) {
+        loginUrl = '../../index.html';
+    } else if (!isModuleDir) {
+        loginUrl = 'index.html';
+    }
+
+    window.location.href = loginUrl;
+}
+
+// Global exposure
+window.toggleProfileDropdown = toggleProfileDropdown;
+window.handleLogout = handleLogout;
+
+// Close profile dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const profileBtn = document.getElementById('topbarProfileBtn');
+    const profileMenu = document.getElementById('topbarProfileMenu');
+    if (profileMenu && !profileMenu.classList.contains('hidden')) {
+        if (profileBtn && profileBtn.contains(e.target)) return;
+        if (profileMenu.contains(e.target)) return;
+        profileMenu.classList.add('hidden');
+    }
+});
+
+// Auto-sync logged in user name & real-time date across all modules
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Sync User Name
+    try {
+        const raw = localStorage.getItem('currentUser');
+        const user = raw ? JSON.parse(raw) : null;
+        let name = user?.name;
+        if (!name || name === 'System Administrator') name = 'Admin User';
+        
+        const topbarNameEl = document.getElementById('topbarAdminName');
+        if (topbarNameEl) {
+            topbarNameEl.textContent = name;
+        }
+    } catch (e) {
+        // ignore
+    }
+
+    // 2. Sync Real-time Day & Date Display
+    try {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = now.toLocaleDateString('en-US', options);
+
+        // Update all elements with id="currentDateLabel"
+        document.querySelectorAll('#currentDateLabel').forEach(el => {
+            el.textContent = formattedDate;
+        });
+
+        // Update any currentDateDisplay button containers
+        document.querySelectorAll('#currentDateDisplay').forEach(btn => {
+            const label = btn.querySelector('#currentDateLabel') || btn.querySelector('span');
+            if (label) {
+                label.textContent = formattedDate;
+            } else {
+                const svg = btn.querySelector('svg');
+                btn.innerHTML = '';
+                if (svg) btn.appendChild(svg);
+                const span = document.createElement('span');
+                span.id = 'currentDateLabel';
+                span.textContent = formattedDate;
+                btn.appendChild(span);
+            }
+        });
+
+        // Find any header buttons containing calendar icons and hardcoded date strings
+        document.querySelectorAll('button, div, span').forEach(el => {
+            if (el.children.length === 0 && (el.textContent.includes('July 25, 2026') || el.textContent.includes('Loading date...'))) {
+                el.textContent = formattedDate;
+            }
+        });
+    } catch (e) {
+        console.error('Error syncing date display:', e);
+    }
+});
+
+console.log('Sidebar.js loaded successfully with Profile Dropdown and Date Sync support');

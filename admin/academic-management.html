@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attendance System · Academic Management</title>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="../assets/css/output.css">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -64,7 +66,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
               </svg>
-              RFID/QR Management
+              <span>RFID/QR Management</span>
             </div>
             <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -95,9 +97,9 @@
             <div class="flex items-center gap-2.5">
               <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 12h3.75M9 15h3.75M9 18h3.75M3.75 21h13.5A2.25 2.25 0 0019.5 18.75V7.5L14.25 2.25H6A2.25 2.25 0 003.75 4.5v14.25A2.25 2.25 0 006 21z" />
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Tardy &amp; Absence Logs
+              <span>Tardy &amp; Absence Logs</span>
             </div>
             <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -131,16 +133,16 @@
           <span>Teacher Attendance</span>
         </a>
 
-        <!-- Excuse Slip Management with Dropdown -->
+        <!-- EXCUSE SLIP with Dropdown -->
         <div class="relative">
           <button onclick="toggleExcuseDropdown()"
             class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
             <div class="flex items-center gap-2.5">
               <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
               </svg>
-              Excuse Management
+              <span>Excuse Slip</span>
             </div>
             <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -163,7 +165,7 @@
             </a>
             <a href="excuse-slip/excuse-history.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Excuse Slip History
+              Excuse History
             </a>
           </div>
         </div>
@@ -175,7 +177,7 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
           </svg>
-          Attendance Calendar
+          <span>Attendance Calendar</span>
         </a>
 
         <!-- Parent Alerts -->
@@ -185,7 +187,7 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
           </svg>
-          Parent Alerts Monitoring
+          <span>Parent Alerts</span>
         </a>
 
         <!-- Performance Analytics -->
@@ -266,22 +268,56 @@
               class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
           </button>
 
-          <!-- Admin Profile -->
-          <div class="flex items-center gap-2.5 cursor-pointer">
-            <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+          <!-- Admin Profile Dropdown Container -->
+          <div class="relative">
+            <button id="topbarProfileBtn" onclick="toggleProfileDropdown(event)"
+              class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-xl transition-colors border border-transparent hover:border-[#e5e7eb] focus:outline-none">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-left">
+                <p class="text-xs font-bold text-[#111827] leading-tight">Admin User</p>
+                <p class="text-[10px] text-[#6b7280] leading-tight">System Administrator</p>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="topbarProfileMenu"
+              class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
+              <a href="profile.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>My Profile</span>
+              </a>
+              <a href="settings.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+              </a>
+              <div class="my-1 border-t border-[#f1f5f9]"></div>
+              <button onclick="handleLogout()"
+                class="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                <span>Log Out</span>
+              </button>
             </div>
-            <div class="hidden sm:block">
-              <p class="text-xs font-bold text-[#111827] leading-tight">Admin User</p>
-              <p class="text-[10px] text-[#6b7280] leading-tight">System Administrator</p>
-            </div>
-            <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-              stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
           </div>
+
         </div>
       </header>
 
@@ -292,545 +328,377 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Academic Management</h2>
-            <p class="text-sm text-[#6b7280]">Manage academic settings, structures, and assignments.</p>
+            <p class="text-sm text-[#6b7280]">Configure academic structures directly supporting attendance monitoring and performance analytics.</p>
           </div>
           <button
-            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-sm hover:bg-gray-50 whitespace-nowrap">
+            class="btn-press flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap">
             <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
               stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
             </svg>
-            <span id="currentDateLabel">July 25, 2026 (Friday)</span>
+            <span id="currentDateLabel">Loading date...</span>
           </button>
         </div>
 
-        <!-- ===== TOP SECTION: ACADEMIC OVERVIEW CARD ===== -->
-        <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-6">
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <!-- Metric Stat Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Active Term Card -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 flex items-center gap-3.5 shadow-xs">
+            <div class="w-10 h-10 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-[#6b7280]">Active Term</p>
+              <h4 id="statActiveTerm" class="text-sm font-bold text-[#111827]">1st Sem 25-26</h4>
+            </div>
+          </div>
 
-            <!-- Left: Description & Icon -->
-            <div class="flex items-center gap-4">
-              <div
-                class="w-14 h-14 rounded-2xl bg-[#eff3ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#dbe4ff]">
-                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <!-- Active Sections Card -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 flex items-center gap-3.5 shadow-xs">
+            <div class="w-10 h-10 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-[#6b7280]">Active Sections</p>
+              <h4 id="statTotalSections" class="text-sm font-bold text-[#111827]">6 Sections</h4>
+            </div>
+          </div>
+
+          <!-- Active Subjects Card -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 flex items-center gap-3.5 shadow-xs">
+            <div class="w-10 h-10 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-[#6b7280]">Active Subjects</p>
+              <h4 id="statTotalSubjects" class="text-sm font-bold text-[#111827]">6 Subjects</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Navigation Tabs (Terms, Courses & Sections, Subjects) -->
+        <div class="flex items-center gap-4 border-b border-[#e5e7eb]">
+          <!-- Tab 1: Terms -->
+          <button id="tabTerms" onclick="switchAcademicTab('terms')"
+            class="btn-press flex items-center gap-2 pb-3 px-3 text-sm font-bold border-b-2 border-[#0030c2] text-[#0030c2] transition-all cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span>Academic Terms &amp; Semesters</span>
+          </button>
+
+          <!-- Tab 2: Courses & Sections -->
+          <button id="tabCourses" onclick="switchAcademicTab('courses')"
+            class="btn-press flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 border-transparent text-[#6b7280] hover:text-[#0030c2] transition-all cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            </svg>
+            <span>Courses &amp; Sections</span>
+          </button>
+
+          <!-- Tab 3: Subjects -->
+          <button id="tabSubjects" onclick="switchAcademicTab('subjects')"
+            class="btn-press flex items-center gap-2 pb-3 px-3 text-sm font-semibold border-b-2 border-transparent text-[#6b7280] hover:text-[#0030c2] transition-all cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            <span>Subjects Catalog</span>
+          </button>
+        </div>
+
+        <!-- FULL-WIDTH TABLE CARD (Matches User Management Layout Pattern) -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm min-h-[500px] flex flex-col justify-between overflow-visible">
+
+          <!-- Table Header Controls Bar -->
+          <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+            <div class="flex items-center gap-2.5">
+              <h3 id="cardTitle" class="text-base font-bold text-[#111827]">Academic Terms &amp; Semesters</h3>
+              <span id="cardRecordCount"
+                class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">
+                0 Records
+              </span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5">
+              <!-- Search Input -->
+              <div class="relative min-w-[240px] sm:min-w-[280px]">
+                <input type="text" id="academicSearchInput" placeholder="Search records..."
+                  class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+                <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
               </div>
-              <div>
-                <h3 class="text-base font-bold text-[#111827]">Academic Overview</h3>
-                <p class="text-xs text-[#6b7280] mt-0.5 max-w-md">Configure and manage all academic elements used in the
-                  system.</p>
-              </div>
+
+              <!-- "+ Add" Button -->
+              <button onclick="openAddModal()"
+                class="btn-press flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors whitespace-nowrap cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span id="btnAddItemLabel">Add Academic Term</span>
+              </button>
             </div>
-
-            <!-- Right: 4 Metric Badges -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <!-- Courses -->
-              <div class="bg-[#f8fafc] border border-[#e5e7eb] rounded-xl p-3.5 flex items-center gap-3 min-w-[130px]">
-                <div class="w-9 h-9 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold text-[#6b7280]">Courses</p>
-                  <p class="text-xl font-extrabold text-[#111827]">16</p>
-                </div>
-              </div>
-
-              <!-- Sections -->
-              <div class="bg-[#f8fafc] border border-[#e5e7eb] rounded-xl p-3.5 flex items-center gap-3 min-w-[130px]">
-                <div class="w-9 h-9 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold text-[#6b7280]">Sections</p>
-                  <p class="text-xl font-extrabold text-[#111827]">48</p>
-                </div>
-              </div>
-
-              <!-- Subjects -->
-              <div class="bg-[#f8fafc] border border-[#e5e7eb] rounded-xl p-3.5 flex items-center gap-3 min-w-[130px]">
-                <div class="w-9 h-9 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold text-[#6b7280]">Subjects</p>
-                  <p class="text-xl font-extrabold text-[#111827]">182</p>
-                </div>
-              </div>
-
-              <!-- Teachers -->
-              <div class="bg-[#f8fafc] border border-[#e5e7eb] rounded-xl p-3.5 flex items-center gap-3 min-w-[130px]">
-                <div class="w-9 h-9 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-[11px] font-semibold text-[#6b7280]">Teachers</p>
-                  <p class="text-xl font-extrabold text-[#111827]">42</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ===== MIDDLE SECTION: ACADEMIC SETUP (10 MODULE CARDS GRID) ===== -->
-        <div class="space-y-3.5">
-          <div>
-            <h3 class="text-base font-bold text-[#111827]">Academic Setup</h3>
-            <p class="text-xs text-[#6b7280]">Manage academic components and their configurations.</p>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-
-            <!-- 1. School Year -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">School Year</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Create, update, and manage school years.</p>
-              </div>
-              <button onclick="openSetupModal('school_year')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 2. Semester -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Semester</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Manage semesters for each school year.</p>
-              </div>
-              <button onclick="openSetupModal('semester')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 3. Courses -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Courses</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Add, edit, and manage all courses.</p>
-              </div>
-              <button onclick="openSetupModal('courses')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 4. Year Levels -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Year Levels</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Manage year levels for each course.</p>
-              </div>
-              <button onclick="openSetupModal('year_levels')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 5. Sections -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Sections</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Create and manage sections.</p>
-              </div>
-              <button onclick="openSetupModal('sections')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 6. Subjects -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Subjects</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Add, edit, and manage subjects.</p>
-              </div>
-              <button onclick="openSetupModal('subjects')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 7. Rooms -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Rooms</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Manage classrooms and other rooms.</p>
-              </div>
-              <button onclick="openSetupModal('rooms')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 8. Class Schedules -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Class Schedules</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Create and manage class schedules.</p>
-              </div>
-              <button onclick="openSetupModal('schedules')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 9. Adviser Assignment -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Adviser Assignment</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Assign advisers to sections.</p>
-              </div>
-              <button onclick="openSetupModal('advisers')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-            <!-- 10. Teacher Subject Assignment -->
-            <div
-              class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-4 flex flex-col justify-between hover:shadow-md hover:border-[#0030c2]/40 transition-all group">
-              <div class="space-y-3">
-                <div class="flex items-center gap-2.5">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                    </svg>
-                  </div>
-                  <h4 class="text-xs font-bold text-[#111827]">Teacher Subject Assignment</h4>
-                </div>
-                <p class="text-[11px] text-[#6b7280] leading-relaxed">Assign teachers to their subjects.</p>
-              </div>
-              <button onclick="openSetupModal('teacher_subjects')"
-                class="mt-4 w-full py-1.5 text-xs font-semibold text-[#0030c2] bg-white border border-[#dbe4ff] hover:bg-[#e7edff] hover:border-[#0030c2] rounded-xl transition-colors text-center">
-                Manage
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ===== BOTTOM SECTION: RECENT ACADEMIC ACTIVITIES TABLE ===== -->
-        <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-sm p-6 space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div>
-              <h3 class="text-base font-bold text-[#111827]">Recent Academic Activities</h3>
-              <p class="text-xs text-[#6b7280] mt-0.5">Latest updates in academic management.</p>
-            </div>
-            <button onclick="openAllActivitiesModal()"
-              class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl shadow-sm transition-colors whitespace-nowrap">
-              View All Activities
-            </button>
-          </div>
-
-          <div class="overflow-x-auto">
+          <!-- Dynamic Data Table -->
+          <div class="overflow-x-auto overflow-y-visible flex-1 min-h-[380px]">
             <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="border-b border-[#e5e7eb] text-[11px] font-bold text-[#6b7280] tracking-wider">
-                  <th class="py-3 px-4">Activity</th>
-                  <th class="py-3 px-4">Details</th>
-                  <th class="py-3 px-4">Date &amp; Time</th>
-                  <th class="py-3 px-4">User</th>
-                </tr>
+              <thead id="academicTableHead" class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <!-- Injected via JavaScript -->
               </thead>
-              <tbody class="divide-y divide-[#f3f4f6]">
-                <!-- Row 1 -->
-                <tr class="hover:bg-[#f8fafc] transition-colors text-xs">
-                  <td class="py-3.5 px-4 font-bold text-[#111827]">New Section Created</td>
-                  <td class="py-3.5 px-4 text-[#4b5563]">BSIT 3A has been created under BSIT 3rd Year.</td>
-                  <td class="py-3.5 px-4 text-[#6b7280] font-medium whitespace-nowrap">May 20, 2026 &nbsp;10:15 AM</td>
-                  <td class="py-3.5 px-4 text-[#374151] font-semibold">Admin User</td>
-                </tr>
-
-                <!-- Row 2 -->
-                <tr class="hover:bg-[#f8fafc] transition-colors text-xs">
-                  <td class="py-3.5 px-4 font-bold text-[#111827]">Subject Added</td>
-                  <td class="py-3.5 px-4 text-[#4b5563]">"Web Development" added under BSIT course.</td>
-                  <td class="py-3.5 px-4 text-[#6b7280] font-medium whitespace-nowrap">May 20, 2026 &nbsp;09:45 AM</td>
-                  <td class="py-3.5 px-4 text-[#374151] font-semibold">Admin User</td>
-                </tr>
-
-                <!-- Row 3 -->
-                <tr class="hover:bg-[#f8fafc] transition-colors text-xs">
-                  <td class="py-3.5 px-4 font-bold text-[#111827]">Teacher Subject Assignment</td>
-                  <td class="py-3.5 px-4 text-[#4b5563]">Juan Dela Cruz assigned to "Database Systems".</td>
-                  <td class="py-3.5 px-4 text-[#6b7280] font-medium whitespace-nowrap">May 19, 2026 &nbsp;04:30 PM</td>
-                  <td class="py-3.5 px-4 text-[#374151] font-semibold">Admin User</td>
-                </tr>
-              </tbody>
-              <tbody id="extraActivitiesContainer" class="divide-y divide-[#f3f4f6] hidden">
-                <!-- Dynamically expanded -->
+              <tbody id="academicTableBody" class="divide-y divide-[#f3f4f6] text-xs text-[#111827]">
+                <!-- Injected via JavaScript -->
               </tbody>
             </table>
           </div>
 
-          <!-- View More / View Less Link -->
-          <div class="text-center pt-2 border-t border-[#f3f4f6]">
-            <button id="viewMoreBtnText" onclick="toggleRecentActivities()"
-              class="text-xs font-semibold text-[#0030c2] hover:text-[#002699] inline-flex items-center gap-1.5 transition-colors">
-              View More
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
-            </button>
-          </div>
         </div>
 
       </main>
-
     </div>
-
   </div>
 
   <!-- ============================================================= -->
-  <!-- MODALS -->
+  <!-- MODAL: ADD / EDIT ACADEMIC TERM -->
   <!-- ============================================================= -->
-
-  <!-- 1. ACADEMIC SETUP DETAIL MODAL -->
-  <div id="setupModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div
-      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-3xl overflow-hidden animate-in fade-in zoom-in duration-200">
+  <div id="modalTerm" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-md overflow-hidden transform transition-all">
       <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
-        <div>
-          <h3 id="setupModalTitle" class="text-base font-bold text-[#111827]">Academic Setup</h3>
-          <p id="setupModalSubtitle" class="text-xs text-[#6b7280]">Configure module details and offerings.</p>
-        </div>
-        <button onclick="closeSetupModal()" class="text-gray-400 hover:text-gray-600 p-1">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <h3 id="modalTermTitle" class="text-sm font-bold text-[#111827]">Add Academic Term</h3>
+        <button onclick="closeModal('modalTerm')" class="text-gray-400 hover:text-gray-600 p-1 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <div class="p-6 space-y-4">
-        <div class="flex items-center justify-between gap-4">
-          <p class="text-xs text-[#6b7280]">Existing configured items in this module:</p>
-          <button onclick="openAddItemModal()"
-            class="px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl shadow-sm transition-colors">
-            <span id="modalAddItemBtnText">+ Add Item</span>
-          </button>
+      <form id="formTerm" class="p-6 space-y-4">
+        <input type="hidden" id="termEditId">
+        
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">School Year <span class="text-red-500">*</span></label>
+          <input type="text" id="termSchoolYear" required placeholder="e.g. S.Y. 2025 - 2026"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
         </div>
 
-        <div class="overflow-x-auto max-h-80 overflow-y-auto border border-[#e5e7eb] rounded-xl">
-          <table class="w-full text-left border-collapse">
-            <thead id="setupTableHeaders" class="sticky top-0 bg-white">
-              <!-- Dynamically rendered -->
-            </thead>
-            <tbody id="setupTableBody" class="divide-y divide-[#f3f4f6]">
-              <!-- Dynamically rendered -->
-            </tbody>
-          </table>
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Semester Term <span class="text-red-500">*</span></label>
+          <select id="termSemester" required
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+            <option value="1st Semester">1st Semester</option>
+            <option value="2nd Semester">2nd Semester</option>
+            <option value="Summer Term">Summer Term</option>
+          </select>
         </div>
 
-        <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-end">
-          <button onclick="closeSetupModal()"
-            class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-xl transition-colors">
-            Close
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#374151] mb-1">Start Date</label>
+            <input type="date" id="termStartDate"
+              class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#374151] mb-1">End Date</label>
+            <input type="date" id="termEndDate"
+              class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Status</label>
+          <select id="termStatus"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+            <option value="Active">Active (System Default)</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Completed">Completed / Archived</option>
+          </select>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2.5 border-t border-[#f1f5f9]">
+          <button type="button" onclick="closeModal('modalTerm')"
+            class="btn-press px-4 py-2 text-xs font-semibold text-[#6b7280] hover:bg-gray-100 rounded-xl transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="submit"
+            class="btn-press px-4 py-2 text-xs font-bold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl transition-colors shadow-xs cursor-pointer">
+            Save Term
           </button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 
-  <!-- 2. VIEW ALL ACTIVITIES MODAL -->
-  <div id="activitiesModal"
-    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div
-      class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+  <!-- ============================================================= -->
+  <!-- MODAL: ADD / EDIT COURSE & SECTION -->
+  <!-- ============================================================= -->
+  <div id="modalCourse" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-md overflow-hidden transform transition-all">
       <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
-        <div>
-          <h3 class="text-base font-bold text-[#111827]">All Academic Activities Log</h3>
-          <p class="text-xs text-[#6b7280]">Complete audit history of changes in academic management.</p>
-        </div>
-        <button onclick="closeAllActivitiesModal()" class="text-gray-400 hover:text-gray-600 p-1">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <h3 id="modalCourseTitle" class="text-sm font-bold text-[#111827]">Add Course &amp; Section</h3>
+        <button onclick="closeModal('modalCourse')" class="text-gray-400 hover:text-gray-600 p-1 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <div class="p-6 space-y-4">
-        <div class="overflow-x-auto max-h-96 overflow-y-auto border border-[#e5e7eb] rounded-xl">
-          <table class="w-full text-left border-collapse text-xs">
-            <thead class="sticky top-0 bg-gray-50 border-b border-[#e5e7eb] text-[11px] font-bold text-[#6b7280]">
-              <tr>
-                <th class="py-2.5 px-4">Activity</th>
-                <th class="py-2.5 px-4">Details</th>
-                <th class="py-2.5 px-4">Date &amp; Time</th>
-                <th class="py-2.5 px-4">User</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-[#f3f4f6]">
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">New Section Created</td>
-                <td class="py-3 px-4 text-[#4b5563]">BSIT 3A has been created under BSIT 3rd Year.</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 20, 2026 10:15 AM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">Subject Added</td>
-                <td class="py-3 px-4 text-[#4b5563]">"Web Development" added under BSIT course.</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 20, 2026 09:45 AM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">Teacher Subject Assignment</td>
-                <td class="py-3 px-4 text-[#4b5563]">Juan Dela Cruz assigned to "Database Systems".</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 19, 2026 04:30 PM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">Room Reallocation</td>
-                <td class="py-3 px-4 text-[#4b5563]">Lab 301 assigned to IT-201 Data Structures class.</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 19, 2026 02:15 PM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">Adviser Assigned</td>
-                <td class="py-3 px-4 text-[#4b5563]">Ms. Emily Davis assigned as Adviser for BSIT 2A.</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 18, 2026 11:00 AM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">Course Curriculum Updated</td>
-                <td class="py-3 px-4 text-[#4b5563]">BSCS 2nd Year elective modules updated.</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 18, 2026 09:30 AM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-              <tr class="hover:bg-[#f8fafc]">
-                <td class="py-3 px-4 font-bold">School Year Setup Completed</td>
-                <td class="py-3 px-4 text-[#4b5563]">S.Y. 2026 - 2027 calendar terms published.</td>
-                <td class="py-3 px-4 text-[#6b7280]">May 17, 2026 04:00 PM</td>
-                <td class="py-3 px-4 font-semibold">Admin User</td>
-              </tr>
-            </tbody>
-          </table>
+      <form id="formCourse" class="p-6 space-y-4">
+        <input type="hidden" id="courseEditId">
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Course Code <span class="text-red-500">*</span></label>
+          <select id="courseCodeSelect" required
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+            <option value="BSIT">BSIT - Bachelor of Science in Information Technology</option>
+            <option value="BSCS">BSCS - Bachelor of Science in Computer Science</option>
+            <option value="BSBA">BSBA - Bachelor of Science in Business Administration</option>
+            <option value="BSA">BSA - Bachelor of Science in Accountancy</option>
+            <option value="BSECE">BSECE - BS in Electronics Engineering</option>
+          </select>
         </div>
 
-        <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-end">
-          <button onclick="closeAllActivitiesModal()"
-            class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-xl transition-colors">
-            Close
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Section Name <span class="text-red-500">*</span></label>
+          <input type="text" id="sectionNameInput" required placeholder="e.g. 1A, 2A, 2B, 3A"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+          <p class="text-[10px] text-[#6b7280] mt-1">This creates the full class identifier (e.g. BSIT 2A).</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Department / College</label>
+          <input type="text" id="courseDepartmentInput" readonly value="College of Computer Studies"
+            class="w-full px-3.5 py-2 bg-gray-50 border border-[#e5e7eb] rounded-xl text-xs text-[#6b7280]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Status</label>
+          <select id="sectionStatus"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2.5 border-t border-[#f1f5f9]">
+          <button type="button" onclick="closeModal('modalCourse')"
+            class="btn-press px-4 py-2 text-xs font-semibold text-[#6b7280] hover:bg-gray-100 rounded-xl transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="submit"
+            class="btn-press px-4 py-2 text-xs font-bold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl transition-colors shadow-xs cursor-pointer">
+            Save Section
           </button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- MODAL: ADD / EDIT SUBJECT -->
+  <!-- ============================================================= -->
+  <div id="modalSubject" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-md overflow-hidden transform transition-all">
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between">
+        <h3 id="modalSubjectTitle" class="text-sm font-bold text-[#111827]">Add Subject</h3>
+        <button onclick="closeModal('modalSubject')" class="text-gray-400 hover:text-gray-600 p-1 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="formSubject" class="p-6 space-y-4">
+        <input type="hidden" id="subjectEditId">
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Subject Code <span class="text-red-500">*</span></label>
+          <input type="text" id="subjectCodeInput" required placeholder="e.g. IT 201"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Subject Title / Description <span class="text-red-500">*</span></label>
+          <input type="text" id="subjectTitleInput" required placeholder="e.g. Web Development"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Course Program</label>
+          <select id="subjectCourseSelect"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+            <option value="BSIT">BSIT - Information Technology</option>
+            <option value="BSCS">BSCS - Computer Science</option>
+            <option value="BSBA">BSBA - Business Administration</option>
+            <option value="General">General Education</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#374151] mb-1">Status</label>
+          <select id="subjectStatus"
+            class="w-full px-3.5 py-2 bg-white border border-[#e5e7eb] rounded-xl text-xs text-[#111827] focus:outline-none focus:border-[#0030c2]">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2.5 border-t border-[#f1f5f9]">
+          <button type="button" onclick="closeModal('modalSubject')"
+            class="btn-press px-4 py-2 text-xs font-semibold text-[#6b7280] hover:bg-gray-100 rounded-xl transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="submit"
+            class="btn-press px-4 py-2 text-xs font-bold text-white bg-[#0030c2] hover:bg-[#002699] rounded-xl transition-colors shadow-xs cursor-pointer">
+            Save Subject
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- MODAL: DELETE CONFIRMATION -->
+  <!-- ============================================================= -->
+  <div id="modalDelete" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl border border-[#e5e7eb] shadow-xl w-full max-w-sm overflow-hidden p-6 text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+      </div>
+      <div>
+        <h4 class="text-base font-bold text-[#111827]">Delete Academic Record?</h4>
+        <p id="deleteModalMessage" class="text-xs text-[#6b7280] mt-1">Are you sure you want to delete this record? This action cannot be undone.</p>
+      </div>
+      <div class="flex items-center justify-center gap-3 pt-2">
+        <button onclick="closeModal('modalDelete')" class="btn-press px-4 py-2 text-xs font-semibold text-[#6b7280] hover:bg-gray-100 rounded-xl transition-colors cursor-pointer">
+          Cancel
+        </button>
+        <button id="btnConfirmDelete" class="btn-press px-4 py-2 text-xs font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl transition-colors shadow-xs cursor-pointer">
+          Delete Record
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- Scripts -->
   <script src="../assets/js/common/sidebar.js"></script>
-  <script src="../assets/js/common/main.js"></script>
-  <script src="../assets/js/admin/attendance.js"></script>
-
+  <script type="module" src="../assets/js/admin/academic-management.js"></script>
 </body>
 
 </html>

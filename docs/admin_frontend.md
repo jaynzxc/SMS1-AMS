@@ -416,20 +416,13 @@ Contents:
 
 #ACADEMIC MANAGEMENT
 
-Purpose: Manage academic structure used by the attendance system
+Purpose: Manage essential academic structures directly supporting attendance monitoring and performance analytics
 
 Contents
 
-    - School Year
-    - Semester
-    - Courses
-    - Year Levels
-    - Sections
-    - Subjects
-    - Rooms
-    - Class Schedules
-    - Adviser Assignment
-    - Teacher Subject Assignment
+    - Academic Terms & Semesters (Active School Year, Term Duration, System Default Term)
+    - Courses & Sections (Course Programs e.g. BSIT, Class Sections e.g. 1A, 2A, 2B)
+    - Subjects (Subject Catalog e.g. Web Development, Database Systems)
 
 #SYSTEM SETTINGS
 
