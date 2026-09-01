@@ -2,14 +2,44 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* Sidebar Slide Motion */
+aside.sidebar-fixed,
+#mainSidebar,
+aside {
+  transition: margin-left 0.32s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease !important;
+  will-change: margin-left;
+}
+
+aside.sidebar-collapsed,
+#mainSidebar.sidebar-collapsed,
+.sidebar-collapsed {
+  margin-left: -16rem !important; /* -w-64 (256px) */
+}
+
+/* Burger Button Motion */
+.burger-btn {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease, color 0.15s ease;
+}
+
+.burger-btn:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.burger-btn:active {
+  transform: scale(0.92);
+}
+
 /* Sidebar Scrollbar */
 .sidebar-fixed::-webkit-scrollbar {
   width: 4px;
 }
+
 .sidebar-fixed::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 8px;
 }
+
 .sidebar-fixed::-webkit-scrollbar-track {
   background: #f3f4f6;
 }
@@ -18,10 +48,12 @@
 .main-scroll::-webkit-scrollbar {
   width: 4px;
 }
+
 .main-scroll::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 8px;
 }
+
 .main-scroll::-webkit-scrollbar-track {
   background: #f3f4f6;
 }
@@ -30,10 +62,12 @@
 .overflow-x-auto::-webkit-scrollbar {
   height: 4px;
 }
+
 .overflow-x-auto::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 8px;
 }
+
 .overflow-x-auto::-webkit-scrollbar-track {
   background: #f3f4f6;
 }
@@ -47,10 +81,12 @@ table tbody tr {
 input[type="date"] {
   min-height: 40px;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0.5;
   padding: 4px;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
@@ -61,44 +97,46 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 /* Login Card Animation */
 .login-page .bg-white {
-    animation: fadeInUp 0.5s ease-out;
+  animation: fadeInUp 0.5s ease-out;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Input Focus */
 .login-page input:focus {
-    box-shadow: 0 0 0 3px rgba(0, 48, 194, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 48, 194, 0.1);
 }
 
 /* Toast Notification */
 .custom-toast {
-    animation: slideInRight 0.3s ease-out;
+  animation: slideInRight 0.3s ease-out;
 }
 
 @keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .custom-toast.opacity-0 {
-    opacity: 0;
-    transform: translateX(20px);
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 /* =============================================================
@@ -139,9 +177,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   .lg\:grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
+
   .lg\:col-span-5 {
     grid-column: span 5 / span 5;
   }
+
   .lg\:col-span-7 {
     grid-column: span 7 / span 7;
   }
@@ -185,4 +225,77 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 .donut-chart-circle {
   transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;
+}
+
+.calendar-day:active {
+  transform: scale(0.97);
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* =============================================================
+   PARENT ALERTS CUSTOM UTILITIES
+   ============================================================= */
+.bg-purple-primary {
+  background-color: #5b4dfb;
+}
+
+.bg-purple-primary:hover {
+  background-color: #4a3cf5;
+}
+
+.text-purple-primary {
+  color: #5b4dfb;
+}
+
+.border-purple-primary {
+  border-color: #5b4dfb;
+}
+
+.donut-chart-circle {
+  transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;
+}
+
+/* =============================================================
+   MICRO-ANIMATIONS & USER MANAGEMENT UTILITIES
+   ============================================================= */
+
+/* Row Slide-out Animation for Deletion / Removal */
+.tr-removing {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform: translateX(-30px);
+  opacity: 0 !important;
+  background-color: #fef2f2 !important;
+}
+
+/* Micro-interaction for buttons */
+.btn-press {
+  transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Floating Bulk Action Bar Animation */
+@keyframes slideUpFloating {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.bulk-toolbar-active {
+  animation: slideUpFloating 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Row select highlight */
+tr.row-selected {
+  background-color: #eff6ff !important;
 }

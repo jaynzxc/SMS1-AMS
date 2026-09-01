@@ -8,6 +8,18 @@
 function toggleDropdown() {
     const dropdown = document.querySelector('.dropdown-menu');
     const arrow = document.querySelector('.dropdown-arrow');
+    
+    // Close other dropdowns
+    const tardyDropdown = document.querySelector('.tardy-dropdown-menu');
+    const tardyArrow = document.querySelector('.tardy-dropdown-arrow');
+    if (tardyDropdown) tardyDropdown.classList.add('hidden');
+    if (tardyArrow) tardyArrow.classList.remove('rotate-90');
+    
+    const excuseDropdown = document.querySelector('.excuse-dropdown-menu');
+    const excuseArrow = document.querySelector('.excuse-dropdown-arrow');
+    if (excuseDropdown) excuseDropdown.classList.add('hidden');
+    if (excuseArrow) excuseArrow.classList.remove('rotate-90');
+
     if (dropdown) {
         dropdown.classList.toggle('hidden');
     }
@@ -20,6 +32,18 @@ function toggleDropdown() {
 function toggleTardyDropdown() {
     const dropdown = document.querySelector('.tardy-dropdown-menu');
     const arrow = document.querySelector('.tardy-dropdown-arrow');
+    
+    // Close other dropdowns
+    const rfidDropdown = document.querySelector('.dropdown-menu');
+    const rfidArrow = document.querySelector('.dropdown-arrow');
+    if (rfidDropdown) rfidDropdown.classList.add('hidden');
+    if (rfidArrow) rfidArrow.classList.remove('rotate-90');
+    
+    const excuseDropdown = document.querySelector('.excuse-dropdown-menu');
+    const excuseArrow = document.querySelector('.excuse-dropdown-arrow');
+    if (excuseDropdown) excuseDropdown.classList.add('hidden');
+    if (excuseArrow) excuseArrow.classList.remove('rotate-90');
+
     if (dropdown) {
         dropdown.classList.toggle('hidden');
     }
@@ -32,6 +56,18 @@ function toggleTardyDropdown() {
 function toggleExcuseDropdown() {
     const dropdown = document.querySelector('.excuse-dropdown-menu');
     const arrow = document.querySelector('.excuse-dropdown-arrow');
+    
+    // Close other dropdowns
+    const rfidDropdown = document.querySelector('.dropdown-menu');
+    const rfidArrow = document.querySelector('.dropdown-arrow');
+    if (rfidDropdown) rfidDropdown.classList.add('hidden');
+    if (rfidArrow) rfidArrow.classList.remove('rotate-90');
+    
+    const tardyDropdown = document.querySelector('.tardy-dropdown-menu');
+    const tardyArrow = document.querySelector('.tardy-dropdown-arrow');
+    if (tardyDropdown) tardyDropdown.classList.add('hidden');
+    if (tardyArrow) tardyArrow.classList.remove('rotate-90');
+
     if (dropdown) {
         dropdown.classList.toggle('hidden');
     }
@@ -90,7 +126,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set active state for current page
     setActiveNavItem();
+
+    // Initialize burger menu sidebar toggle with slide motion
+    initSidebarToggle();
 });
+
+// =============================================================
+// SIDEBAR SLIDE TOGGLE WITH SMOOTH MOTION
+// =============================================================
+
+function toggleSidebar(e) {
+    if (e && e.stopPropagation) {
+        e.stopPropagation();
+    }
+    const sidebar = document.getElementById('mainSidebar') || document.querySelector('aside');
+    if (!sidebar) return;
+
+    sidebar.classList.toggle('sidebar-collapsed');
+
+    const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+    try {
+        localStorage.setItem('sms_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+    } catch (err) {}
+}
+
+function initSidebarToggle() {
+    const sidebar = document.getElementById('mainSidebar') || document.querySelector('aside');
+    if (!sidebar) return;
+
+    // Restore saved state if previously collapsed
+    try {
+        if (localStorage.getItem('sms_sidebar_collapsed') === 'true') {
+            sidebar.classList.add('sidebar-collapsed');
+        }
+    } catch (err) {}
+
+    // Find and attach click handler to burger toggle button(s) if not already inline
+    const burgerPaths = document.querySelectorAll('header button svg path[d*="M3.75 6.75"]');
+    burgerPaths.forEach(path => {
+        const btn = path.closest('button');
+        if (btn && !btn.hasAttribute('data-sidebar-bound')) {
+            btn.setAttribute('data-sidebar-bound', 'true');
+            btn.classList.add('burger-btn', 'cursor-pointer');
+            btn.setAttribute('title', 'Toggle Navigation Sidebar');
+            if (!btn.getAttribute('onclick')) {
+                btn.addEventListener('click', function(evt) {
+                    toggleSidebar(evt);
+                });
+            }
+        }
+    });
+}
 
 // =============================================================
 // SET ACTIVE NAV ITEM BASED ON CURRENT URL - FIXED
