@@ -183,31 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             try {
-                // 1. CHECK FIXED ADMIN CREDENTIALS
-                const isAdmin = (
-                    userInput.toLowerCase() === 'admin' || 
-                    userInput.toLowerCase() === 'admin@bcp.edu.ph' || 
-                    userInput.toLowerCase() === 'admin@gmail.com' ||
-                    userInput.toLowerCase() === 'jaynzxc.devs@gmail.com'
-                ) && password === 'bcpadmin123';
-
-                if (isAdmin) {
-                    localStorage.setItem('currentUser', JSON.stringify({
-                        username: 'admin',
-                        name: 'System Administrator',
-                        role: 'admin',
-                        email: 'admin@bcp.edu.ph'
-                    }));
-                    localStorage.setItem('userRole', 'admin');
-
-                    showToast('Admin Login', 'Welcome back, Administrator! Redirecting...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'admin/dashboard.html';
-                    }, 600);
-                    return;
-                }
-
-                // 2. CHECK SUPABASE AUTH SIGN IN (If account exists in auth.users)
+                // 1. CHECK SUPABASE AUTH (For accounts registered in Supabase Auth auth.users)
                 if (userInput.includes('@')) {
                     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
                         email: userInput,
@@ -215,21 +191,67 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     if (!authError && authData?.user) {
-                        // Lookup profile for role
+                        // Check user metadata or profiles table for assigned role
+                        const metaRole = authData.user.user_metadata?.role;
                         const { data: profile } = await supabase
                             .from('profiles')
                             .select('*')
                             .eq('id', authData.user.id)
-                            .single();
+                            .maybeSingle();
 
-                        const role = profile?.role || 'student';
-                        localStorage.setItem('currentUser', JSON.stringify(profile || {
+                        const role = metaRole || profile?.role || 'admin';
+                        const displayName = profile?.full_name || authData.user.user_metadata?.full_name || userInput;
+
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            id: authData.user.id,
                             email: userInput,
+                            name: displayName,
                             role: role
                         }));
                         localStorage.setItem('userRole', role);
 
-                        redirectToRoleDashboard(role, profile?.full_name || userInput);
+                        redirectToRoleDashboard(role, displayName);
+                        return;
+                    }
+                }
+
+                // 2. CHECK ADMIN TABLE (By username e.g. "admin" or email)
+                const { data: adminMatch } = await supabase
+                    .from('admin_details')
+                    .select('*')
+                    .or(`username.eq.${userInput},email.eq.${userInput}`)
+                    .limit(1);
+
+                if (adminMatch && adminMatch.length > 0) {
+                    const admin = adminMatch[0];
+                    let adminValid = false;
+
+                    // A. Check if password matches admin_details record
+                    if (admin.password && admin.password === password) {
+                        adminValid = true;
+                    }
+
+                    // B. Or attempt Supabase Auth if admin has email
+                    if (!adminValid && admin.email) {
+                        const { data: aAuth } = await supabase.auth.signInWithPassword({
+                            email: admin.email,
+                            password: password
+                        });
+                        if (aAuth?.user) {
+                            adminValid = true;
+                        }
+                    }
+
+                    if (adminValid) {
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            username: admin.username,
+                            name: admin.full_name || 'System Administrator',
+                            role: 'admin',
+                            email: admin.email
+                        }));
+                        localStorage.setItem('userRole', 'admin');
+
+                        redirectToRoleDashboard('admin', admin.full_name || 'Administrator');
                         return;
                     }
                 }
