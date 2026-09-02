@@ -92,11 +92,12 @@ async function loadRemoteUsersFromSupabase() {
  * Format current date header
  */
 function initCurrentDate() {
-  const dateBtn = document.getElementById('currentDateLabel');
-  if (dateBtn) {
+  const dateLabel = document.getElementById('currentDateLabel');
+  if (dateLabel) {
     const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-    dateBtn.textContent = today.toLocaleDateString('en-US', options);
+    const dayOfWeek = today.toLocaleDateString('en-US', { weekday: 'long' });
+    const monthDayYear = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    dateLabel.textContent = `${monthDayYear} (${dayOfWeek})`;
   }
 }
 

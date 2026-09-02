@@ -454,11 +454,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // ignore
     }
 
-    // 2. Sync Real-time Day & Date Display
+    // 2. Sync Real-time Day & Date Display (Dashboard Design Pattern: "Month Day, Year (Weekday)")
     try {
         const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = now.toLocaleDateString('en-US', options);
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const formattedDate = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} (${days[now.getDay()]})`;
 
         // Update all elements with id="currentDateLabel"
         document.querySelectorAll('#currentDateLabel').forEach(el => {
