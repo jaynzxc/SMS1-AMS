@@ -95,8 +95,9 @@ function setCurrentDate() {
   const el = document.getElementById('currentDateLabel');
   if (el) {
     const now = new Date();
-    const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-    el.textContent = now.toLocaleDateString('en-US', options);
+    const dayOfWeek = now.toLocaleDateString('en-US', { weekday: 'long' });
+    const monthDayYear = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    el.textContent = `${monthDayYear} (${dayOfWeek})`;
   }
 }
 
