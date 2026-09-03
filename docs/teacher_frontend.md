@@ -34,7 +34,7 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
 * **Purpose**: Hardware and camera scanning interface for real-time classroom attendance verification.
 * **Sub-Modules**:
   - **Live Scanner (`teacher/rfid-and-qr/live-scanner.html`)**:
-    - *Scanner Interface*: Dual-mode toggle (RFID Card Reader Mode / Camera QR Code Scanner Mode).
+    - *Scanner Interface*: Dual-mode support (Receives real-time WebSocket push events from physical ESP32 RFID card taps; also features direct webcam/phone camera QR scanner for backup).
     - *Live Verification Card*: Student Photo, Full Name, Student ID, Course & Section, Scan Timestamp, Assigned Status badge (*Present / Late*).
     - *Scanner Controls*: Start Scanner, Pause Scanner, Manual Attendance Override, Rescan Student Profile.
   - **Scan Logs (`teacher/rfid-and-qr/scan-logs.html`)**:
@@ -54,30 +54,37 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
     - *Features*: Individual student attendance profile, monthly calendar attendance view, subject attendance rate (%), tardiness and absence patterns.
 
 ### 1.5 Teacher Attendance (`teacher/teacher-attendance.html`)
-* **Purpose**: Allow faculty members to review their own daily attendance, punch-in/out logs, and institutional punctuality history.
+* **Purpose**: Allow faculty members to review their own personal daily attendance, physical RFID punch-in/out logs, rendered duty hours, and institutional punctuality history.
 * **Contents**:
-  - **Summary Badges**: Today's Time In, Today's Time Out, Duty Status, Total Monthly Lates, Total Monthly Absences.
+  - **Summary Badges**: Today's Time In, Today's Time Out, Duty Status (*On Duty / Present on Campus*), Total Monthly Lates, Total Monthly Absences.
   - **Personal Attendance Calendar**: Interactive monthly ledger displaying daily arrival timestamps and status.
-  - **Functions**: View Full History, Download Personal Faculty Attendance Ledger (PDF/CSV).
+  - **Attendance History Log Table**:
+    - *Columns*: Date, Time In, Time Out, Gate / Device Location, Method (*RFID Tap / QR Scan*), Duty Status (*Present / Late / Absent*), Rendered Hours.
+    - *Functions*: Date Range Filter, Search, Quick Pagination, Export Personal DTR.
 
 ### 1.6 Excuse Slip Management (`teacher/excuse-slip/`)
-* **Purpose**: Review and verify excuse slips submitted by students enrolled in the teacher's assigned subjects/sections.
-* **Workflow Role**: Subject teachers/advisers act as the first-line reviewer; approvals directly update student status to *Excused* in daily attendance records.
-* **Contents**:
-  - **Pending Requests**:
-    - *Columns*: Student Name, Section, Submission Date, Date of Absence, Reason Category, Attached Proof (Medical Certificate, Excuse Letter).
-    - *Functions*: Preview Attached Document, Approve Excuse Slip, Reject Excuse Slip with required Feedback Remarks.
-  - **Approved Requests**: Verified records displaying Student Name, Absence Date, Approval Timestamp, Teacher Remarks.
-  - **Rejected Requests**: Rejected submissions with justification reasons and review timestamp.
-  - **Excuse History**: Searchable archive of all excuse requests processed by the teacher.
+* **Purpose**: Multi-tier review and approval portal for student excuse slip submissions for the teacher's assigned classes.
+* **Sub-Modules**:
+  - **Pending Requests (`teacher/excuse-slip/pending-requests.html`)**:
+    - *Columns*: Student Name & ID, Section & Subject, Submission Date, Absence Date, Reason Category, Attached Medical/Official Proof.
+    - *Functions*: View Attached Proof Modal, One-Click Approve (automatically syncs daily roll call status from *Absent* to *Excused*), Reject Request (mandates feedback remarks).
+  - **Approved Requests (`teacher/excuse-slip/approved-requests.html`)**:
+    - *Columns*: Student Name & ID, Section & Subject, Absence Date, Approval Timestamp, Teacher Remarks, Attached Proof.
+    - *Functions*: View Processed Slip Modal, Filter by Subject, Export Approved List.
+  - **Rejected Requests (`teacher/excuse-slip/rejected-requests.html`)**:
+    - *Columns*: Student Name & ID, Section & Subject, Absence Date, Rejection Timestamp, Mandatory Justification Remarks.
+    - *Functions*: View Rejection Details Modal, Filter by Subject.
+  - **Excuse Slip History (`teacher/excuse-slip/excuse-history.html`)**:
+    - *Columns*: Student Name & ID, Section & Subject, Absence Date, Reason Category, Decision Status (*Approved / Rejected*), Processed Date, Remarks.
+    - *Functions*: Complete 33-record searchable archive, Quick Client-Side Status Filter (*All / Approved / Rejected*), Export Archive.
 
 ### 1.7 Attendance Calendar (`teacher/attendance-calendar.html`)
 * **Purpose**: View class attendance records across historical dates and academic calendar schedules.
 * **Contents**:
-  - **Interactive Calendar Grid**: Visual status badges on each teaching day.
-  - **Day View Drawer**: Class-by-class attendance breakdown (Present, Late, Absent, Excused students).
-  - **Filters**: Assigned Subject, Section, Academic Month.
-  - **Functions**: View Daily Roll Call, Print Class Attendance Sheet.
+  - **Interactive Calendar Grid**: Month navigation controls, color-coded daily attendance percentage status badges (≥90% High, Moderate, Low, School Holidays, Weekends).
+  - **Day View Drawer (`#dayViewDrawer`)**: Slide-over drawer with student-by-student roll call overview and direct link to active roll call in `daily-attendance.html`.
+  - **Table Header Controls**: In-table Assigned Classes Filter Dropdown (`BSIT 3A`, `BSIT 3B`, `BSCS 2A`, `BSIT 4A`), View Daily Roll Call button, and Export button.
+  - **Export Modal (`#exportModal`)**: Supports CSV, Excel (.xlsx), and Print Attendance Sheet (PDF/`window.print()`) with date and section selectors.
 
 ### 1.8 Parent Alerts (`teacher/parent-alerts.html`)
 * **Purpose**: Monitor automated SMS notification dispatch status for students enrolled in the teacher's classes.
@@ -86,7 +93,7 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
   - **Notification History Table**: Student Name, Parent/Guardian Contact, Alert Type (Late Advisory, Unexcused Absence, Excuse Status), Timestamp, Delivery Status (*Delivered / Pending / Failed*).
   - **Functions**: Filter by Subject/Section, Search by Student, Resend Failed Notification.
 
-### 1.9 Class Analytics Dashboard (`teacher/performance-analytics.html`)
+### 1.9 Class Analytics Dashboard (`teacher/class-analytics.html`)
 * **Purpose**: Visual analytics and attendance performance reports for the teacher's assigned sections.
 * **Contents**:
   - **Summary Metrics**: Overall Class Attendance Rate (%), Total Present %, Late %, Absent %, Excused %.
@@ -113,8 +120,14 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
 *To maintain a clean and uncluttered sidebar menu, account management is accessed exclusively via the Topbar Profile Dropdown.*
 
 ### 2.1 My Profile (`teacher/profile.html`)
-* **Purpose**: Manage personal faculty information, profile credentials, and security settings.
+* **Purpose**: Manage personal faculty information, digital QR identification, RFID hardware card verification, and security settings.
 * **Contents**:
   - **Personal Information**: Faculty ID, Full Name, Academic Department, Official Email Address, Contact Number.
+  - **Digital Faculty QR Identification**:
+    - *Displays*: Dynamic encrypted QR code containing Faculty ID, Full Name, Department, and security hash.
+    - *Functions*: View Fullscreen QR for phone screen scanning at faculty checkpoints, Download QR (PNG), Print Official Faculty QR Badge.
+  - **Hardware RFID Card Status**:
+    - *Displays*: Registered RFID Card UID, Card Status (*Active*), Assignment Date.
+    - *Action*: Report Lost/Damaged RFID Card (alerts Administrator for immediate deactivation).
   - **Account Security**: Change Password with real-time strength validation, Update Profile Avatar, Manage Notification Preferences.
   - **Assigned Classes Overview**: Read-only summary of currently assigned subjects and class sections.
