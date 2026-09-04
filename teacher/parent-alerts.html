@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Parent Alerts Monitoring</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="mainSidebar" class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo Header -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0 shadow-xs">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight truncate">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280] truncate">Teacher Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+        <!-- Teacher Dashboard -->
+        <a href="dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span class="truncate">Teacher Dashboard</span>
+        </a>
+
+        <!-- Daily Attendance -->
+        <a href="daily-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="truncate">Daily Attendance</span>
+        </a>
+
+        <!-- RFID/QR SCANNING with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              </svg>
+              <span class="truncate">RFID/QR Scanning</span>
+            </div>
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="rfid-and-qr/live-scanner.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Live Scanner</span>
+            </a>
+            <a href="rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Scan Logs</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="truncate">Tardy &amp; Absence Logs</span>
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="tardy-and-absence/tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Tardy List</span>
+            </a>
+            <a href="tardy-and-absence/absence-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Absence List</span>
+            </a>
+            <a href="tardy-and-absence/student-attendance-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Attendance History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Teacher Attendance -->
+        <a href="teacher-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span class="truncate">Teacher Attendance</span>
+        </a>
+
+        <!-- Excuse Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              <span class="truncate">Excuse Management</span>
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Pending Requests</span>
+            </a>
+            <a href="excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Approved Requests</span>
+            </a>
+            <a href="excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Rejected Requests</span>
+            </a>
+            <a href="excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Excuse Slip History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          <span class="truncate">Attendance Calendar</span>
+        </a>
+
+        <!-- Parent Alerts (ACTIVE) -->
+        <a href="parent-alerts.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span class="truncate">Parent Alerts</span>
+        </a>
+
+        <!-- Class Analytics Dashboard -->
+        <a href="class-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span class="truncate">Class Analytics Dashboard</span>
+        </a>
+
+        <!-- Perfect Attendance Award -->
+        <a href="perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          <span class="truncate">Perfect Attendance Award</span>
+        </a>
+
+        <!-- Reports & Export -->
+        <a href="reports-export.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          <span class="truncate">Reports &amp; Export</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT AREA ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar Header -->
+      <header class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3 min-w-0">
+          <button class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg shrink-0 cursor-pointer">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827] truncate">Parent Alerts</h1>
+        </div>
+
+        <div class="flex items-center gap-4 shrink-0">
+          <!-- Notification Bell with Blue Badge -->
+          <button class="relative text-[#6b7280] hover:text-[#111827] p-1 cursor-pointer">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute top-0 right-0 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Teacher Profile Pill with Dropdown -->
+          <div class="relative">
+            <button id="topbarProfileBtn" onclick="toggleProfileDropdown(event)" class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-lg transition-colors focus:outline-none">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-left">
+                <p class="text-xs font-bold text-[#111827] leading-tight">Mrs. Jane Dela Cruz</p>
+                <p class="text-[10px] text-[#6b7280] leading-tight mt-0.5">Teacher</p>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="topbarProfileMenu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
+              <a href="profile.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>My Profile</span>
+              </a>
+              <div class="my-1 border-t border-[#f1f5f9]"></div>
+              <button onclick="handleLogout()"
+                class="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE MAIN CONTENT ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Parent Alerts Monitoring</h2>
+            <p class="text-sm text-[#6b7280]">Track and verify automated SMS attendance notifications dispatched to parents and guardians</p>
+          </div>
+          <button id="currentDateDisplay"
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
+            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span id="currentDateLabel">September 5, 2026 (Saturday)</span>
+          </button>
+        </div>
+
+        <!-- 4 KPI Stat Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          
+          <!-- Card 1: Total Alerts Sent -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#0030c2]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 text-[#0030c2]">
+                <svg class="w-5 h-5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Total Alerts Dispatched</p>
+                <p id="totalAlertsKpi" class="text-xl font-extrabold text-[#111827] truncate">348</p>
+              </div>
+            </div>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] font-medium text-[#6b7280]">
+              <span class="text-[#0030c2] font-semibold truncate">Active Term</span>
+              <span class="text-emerald-600 font-semibold truncate">&uarr; 8.4% this month</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Delivered Successfully -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#16a34a]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 text-[#16a34a]">
+                <svg class="w-5 h-5 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Delivered Successfully</p>
+                <p id="deliveredKpi" class="text-xl font-extrabold text-emerald-600 truncate">334</p>
+              </div>
+            </div>
+            <div class="mt-2.5 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 truncate">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+              <span id="deliveryRateText" class="truncate">96.0% Delivery Rate</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Pending Delivery -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#f59e0b]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#fffbeb] flex items-center justify-center shrink-0 border border-[#fde68a]/50 text-[#d97706]">
+                <svg class="w-5 h-5 text-[#d97706]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Pending Delivery</p>
+                <p id="pendingKpi" class="text-xl font-extrabold text-amber-500 truncate">6</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#6b7280] font-medium mt-2.5 truncate">Queued at SMS Gateway</p>
+          </div>
+
+          <!-- Card 4: Failed Deliveries -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#dc2626]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50 text-[#dc2626]">
+                <svg class="w-5 h-5 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Failed Deliveries</p>
+                <p id="failedKpi" class="text-xl font-extrabold text-rose-600 truncate">8</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-rose-600 font-semibold mt-2.5 truncate">Action needed (Resend available)</p>
+          </div>
+
+        </div>
+
+        <!-- ===== SECTION: NOTIFICATION HISTORY TABLE CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs overflow-hidden">
+          
+          <!-- Table Header Controls -->
+          <div class="p-4 border-b border-[#e5e7eb] flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 bg-white">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <h3 class="text-base font-bold text-[#111827] truncate">Notification History</h3>
+              <span id="alertsRecordCountBadge"
+                class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2] shrink-0">
+                348 Records
+              </span>
+            </div>
+
+            <!-- In-Table Action Toolbar -->
+            <div class="flex flex-wrap items-center gap-2.5">
+              
+              <!-- Search Input -->
+              <div class="relative min-w-[220px] sm:min-w-[260px] flex-1 sm:flex-initial">
+                <input type="text" id="alertsSearchInput" placeholder="Search student ID, student name, parent..."
+                  class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+                <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </div>
+
+              <!-- Quick Class Section Filter -->
+              <select id="sectionQuickFilter"
+                class="px-2.5 py-1.5 text-xs font-semibold text-[#374151] bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] cursor-pointer">
+                <option value="ALL">All Assigned Classes</option>
+                <option value="BSIT 3A">BSIT 3A - IT301 Web Dev</option>
+                <option value="BSIT 3B">BSIT 3B - IT302 Database</option>
+                <option value="BSCS 2A">BSCS 2A - CS201 Data Struct</option>
+                <option value="BSIT 4A">BSIT 4A - IT401 Capstone</option>
+              </select>
+
+              <!-- Advanced Filter Button -->
+              <button onclick="openFilterModal()"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+                </svg>
+                <span>Filter</span>
+              </button>
+
+              <!-- Batch Resend Button -->
+              <button onclick="openBatchResendModal()"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+                <span>Resend Failed</span>
+              </button>
+
+              <!-- Export Button -->
+              <button onclick="openExportModal()"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-xs transition-colors cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Filter Tags Strip -->
+          <div id="activeFiltersContainer" class="hidden px-4 py-2 bg-[#f8fafc] border-b border-[#e5e7eb] flex items-center gap-2 flex-wrap text-xs">
+            <span class="text-[11px] font-semibold text-[#6b7280]">Active Filters:</span>
+            <div id="activeFilterBadges" class="flex items-center gap-1.5 flex-wrap"></div>
+            <button onclick="resetAllFilters()" class="text-[11px] font-semibold text-[#0030c2] hover:underline ml-auto cursor-pointer">Clear All</button>
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                  <th class="py-3 px-4">Student</th>
+                  <th class="py-3 px-4">Class / Section</th>
+                  <th class="py-3 px-4">Parent / Guardian</th>
+                  <th class="py-3 px-4">Alert Type</th>
+                  <th class="py-3 px-4">Timestamp Sent</th>
+                  <th class="py-3 px-4">Delivery Status</th>
+                  <th class="py-3 px-4 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="alertsTableBody" class="divide-y divide-[#f3f4f6] text-xs">
+                <!-- Dynamic rows rendered by parent-alerts.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer Pagination -->
+          <div class="px-4 py-3 border-t border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white text-xs text-[#6b7280]">
+            <p id="showingAlertsCount">
+              Showing <span class="font-semibold text-[#111827]">1</span> to <span class="font-semibold text-[#111827]">8</span> of <span class="font-semibold text-[#111827]">348</span> records
+            </p>
+
+            <div class="flex items-center gap-1.5 self-center sm:self-auto">
+              <button id="prevPageBtn" onclick="changePage(-1)"
+                class="px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg hover:bg-gray-50 text-xs font-semibold text-[#374151] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+                Previous
+              </button>
+              <div id="pageButtonsContainer" class="flex items-center gap-1">
+                <!-- Page numbers rendered dynamically -->
+              </div>
+              <button id="nextPageBtn" onclick="changePage(1)"
+                class="px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg hover:bg-gray-50 text-xs font-semibold text-[#374151] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+                Next
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODALS -->
+  <!-- ============================================================ -->
+
+  <!-- 1. SMS Message Preview Modal -->
+  <div id="smsPreviewModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl border border-[#e5e7eb] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a.75.75 0 01-.774-.774c.057-.597.234-1.258.528-1.846A7.477 7.477 0 013 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">SMS Dispatch Preview</h3>
+            <p class="text-[11px] text-[#6b7280]">Official BCP SMS Gateway Message</p>
+          </div>
+        </div>
+        <button onclick="closeSmsPreviewModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-4">
+        <!-- Recipient & Meta Grid -->
+        <div class="bg-[#f8fafc] rounded-xl p-3 border border-[#e5e7eb] grid grid-cols-2 gap-2 text-xs">
+          <div>
+            <span class="text-[10px] uppercase font-bold text-[#6b7280] block">Student</span>
+            <span id="previewStudentName" class="font-bold text-[#111827] truncate block">-</span>
+            <span id="previewStudentId" class="text-[11px] text-[#6b7280] block">-</span>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold text-[#6b7280] block">Parent / Guardian</span>
+            <span id="previewParentName" class="font-bold text-[#111827] truncate block">-</span>
+            <span id="previewParentContact" class="text-[11px] font-semibold text-[#0030c2] block">-</span>
+          </div>
+          <div class="pt-2 border-t border-[#e5e7eb]">
+            <span class="text-[10px] uppercase font-bold text-[#6b7280] block">Alert Type</span>
+            <span id="previewAlertType" class="font-bold text-[#111827] block">-</span>
+          </div>
+          <div class="pt-2 border-t border-[#e5e7eb]">
+            <span class="text-[10px] uppercase font-bold text-[#6b7280] block">Dispatch Time</span>
+            <span id="previewTimestamp" class="text-[11px] font-medium text-[#374151] block">-</span>
+          </div>
+        </div>
+
+        <!-- Simulated Mobile Phone SMS Bubble -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs font-bold text-[#374151]">SMS Message Body</label>
+            <span id="previewCharCount" class="text-[10px] font-semibold text-[#6b7280]">142 chars · 1 SMS segment</span>
+          </div>
+          <div class="bg-[#e7edff]/60 border border-[#bfdbfe] rounded-2xl rounded-tl-xs p-4 text-xs text-[#1e293b] leading-relaxed shadow-xs relative">
+            <p id="previewMessageBody" class="font-sans whitespace-pre-wrap">Loading message...</p>
+            <div class="mt-2 flex items-center justify-between text-[10px] text-[#64748b] border-t border-[#bfdbfe]/40 pt-1.5">
+              <span>Sender: <strong class="text-[#0030c2]">BCP-AMS</strong></span>
+              <span id="previewDeliveryStatusBadge" class="font-bold text-emerald-600">DELIVERED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carrier & Gateway Diagnostics -->
+        <div class="flex items-center justify-between text-[11px] text-[#6b7280] px-1">
+          <span>Gateway: <strong>Telco SMS API</strong></span>
+          <span id="previewCarrier">Carrier: <strong>Globe Telecom</strong></span>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+        <button type="button" onclick="closeSmsPreviewModal()"
+          class="px-3.5 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors cursor-pointer">
+          Close
+        </button>
+        <button type="button" id="previewResendBtn" onclick="triggerResendFromPreview()"
+          class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+          </svg>
+          <span>Resend SMS</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. Filter Modal -->
+  <div id="filterModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl border border-[#e5e7eb] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Filter Notifications</h3>
+            <p class="text-[11px] text-[#6b7280]">Refine parent SMS delivery records</p>
+          </div>
+        </div>
+        <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-3.5 text-xs">
+        
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Class Section & Subject</label>
+          <select id="modalFilterSection" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Assigned Classes</option>
+            <option value="BSIT 3A">BSIT 3A - IT301 Web Dev</option>
+            <option value="BSIT 3B">BSIT 3B - IT302 Database</option>
+            <option value="BSCS 2A">BSCS 2A - CS201 Data Struct</option>
+            <option value="BSIT 4A">BSIT 4A - IT401 Capstone</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Alert Type</label>
+          <select id="modalFilterType" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Alert Types</option>
+            <option value="Late Advisory">Late Advisory</option>
+            <option value="Unexcused Absence">Unexcused Absence</option>
+            <option value="Excuse Approved">Excuse Slip Approved</option>
+            <option value="Excuse Rejected">Excuse Slip Rejected</option>
+            <option value="Daily Roll Call">Daily Roll Call Summary</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Delivery Status</label>
+          <select id="modalFilterStatus" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Statuses</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Pending">Pending Delivery</option>
+            <option value="Failed">Failed Delivery</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Date Sent</label>
+          <input type="date" id="modalFilterDate"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+        </div>
+
+      </div>
+
+      <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+        <button type="button" onclick="resetFilterModalForm()"
+          class="px-3.5 py-1.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] hover:bg-gray-200 rounded-lg transition-colors cursor-pointer">
+          Reset
+        </button>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeFilterModal()"
+            class="px-3.5 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="button" onclick="applyFiltersFromModal()"
+            class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors cursor-pointer">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. Resend Confirmation Modal -->
+  <div id="resendAlertModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full shadow-xl border border-[#e5e7eb] overflow-hidden animate-in fade-in zoom-in-95 duration-150 text-center p-5 space-y-3.5">
+      <div class="w-12 h-12 rounded-full bg-[#eff6ff] text-[#0030c2] flex items-center justify-center mx-auto">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+        </svg>
+      </div>
+
+      <div>
+        <h3 id="resendModalTitle" class="text-sm font-bold text-[#111827]">Resend Notification?</h3>
+        <p id="resendModalDesc" class="text-xs text-[#6b7280] mt-1 leading-relaxed">
+          An automated SMS will be re-queued to the carrier for the recipient.
+        </p>
+      </div>
+
+      <div class="pt-2 flex items-center justify-center gap-2 border-t border-[#e5e7eb]">
+        <button onclick="closeResendModal()" class="px-3.5 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors cursor-pointer">
+          Cancel
+        </button>
+        <button id="confirmResendBtn" onclick="executeResend()" class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors cursor-pointer">
+          Confirm Resend
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Export Modal -->
+  <div id="exportModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl border border-[#e5e7eb] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Export Parent Alerts Logs</h3>
+            <p class="text-[11px] text-[#6b7280]">Select format and section for download</p>
+          </div>
+        </div>
+        <button onclick="closeExportModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="exportForm" onsubmit="handleExportSubmit(event)" class="p-5 space-y-4 text-xs">
+        
+        <div>
+          <label class="font-bold text-[#374151] block mb-2">Export Format</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <label class="export-format-card border-2 border-[#0030c2] bg-[#eff6ff] p-3 rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all">
+              <input type="radio" name="exportFormat" value="CSV" checked class="hidden" onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#0030c2] export-card-title">CSV</span>
+              <span class="text-[9px] text-[#6b7280]">Spreadsheet</span>
+            </label>
+
+            <label class="export-format-card border border-[#e5e7eb] hover:border-gray-300 p-3 rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all">
+              <input type="radio" name="exportFormat" value="Excel" class="hidden" onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#374151] export-card-title">Excel</span>
+              <span class="text-[9px] text-[#6b7280]">.XLSX Format</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Select Section</label>
+          <select id="exportSection" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Assigned Classes</option>
+            <option value="BSIT 3A">BSIT 3A - IT301 Web Dev</option>
+            <option value="BSIT 3B">BSIT 3B - IT302 Database</option>
+            <option value="BSCS 2A">BSCS 2A - CS201 Data Struct</option>
+            <option value="BSIT 4A">BSIT 4A - IT401 Capstone</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Date Range Filter</label>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <span class="text-[10px] text-[#6b7280] block mb-0.5">From Date</span>
+              <input type="date" id="exportStartDate" value="2026-09-01" class="w-full px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            </div>
+            <div>
+              <span class="text-[10px] text-[#6b7280] block mb-0.5">To Date</span>
+              <input type="date" id="exportEndDate" value="2026-09-05" class="w-full px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+          <button type="button" onclick="closeExportModal()"
+            class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors cursor-pointer">Cancel</button>
+          <button type="submit"
+            class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            <span id="exportSubmitBtnText">Download CSV</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dynamic Toast Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="../assets/js/common/main.js"></script>
+  <script src="../assets/js/common/sidebar.js"></script>
+  <script src="../assets/js/teacher/parent-alerts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Perfect Attendance Award</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR (Reference: teacher/attendance-calendar.html) ===== -->
+    <aside id="mainSidebar"
+      class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo Header -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0 shadow-xs">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight truncate">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280] truncate">Teacher Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+        <!-- Teacher Dashboard -->
+        <a href="dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span class="truncate">Teacher Dashboard</span>
+        </a>
+
+        <!-- Daily Attendance -->
+        <a href="daily-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="truncate">Daily Attendance</span>
+        </a>
+
+        <!-- RFID/QR SCANNING with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              </svg>
+              <span class="truncate">RFID/QR Scanning</span>
+            </div>
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="rfid-and-qr/live-scanner.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Live Scanner</span>
+            </a>
+            <a href="rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Scan Logs</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="truncate">Tardy &amp; Absence Logs</span>
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="tardy-and-absence/tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Tardy List</span>
+            </a>
+            <a href="tardy-and-absence/absence-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Absence List</span>
+            </a>
+            <a href="tardy-and-absence/student-attendance-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Attendance History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Teacher Attendance -->
+        <a href="teacher-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span class="truncate">Teacher Attendance</span>
+        </a>
+
+        <!-- Excuse Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              <span class="truncate">Excuse Management</span>
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Pending Requests</span>
+            </a>
+            <a href="excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Approved Requests</span>
+            </a>
+            <a href="excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Rejected Requests</span>
+            </a>
+            <a href="excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Excuse Slip History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          <span class="truncate">Attendance Calendar</span>
+        </a>
+
+        <!-- Parent Alerts -->
+        <a href="parent-alerts.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span class="truncate">Parent Alerts</span>
+        </a>
+
+        <!-- Class Analytics Dashboard -->
+        <a href="class-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span class="truncate">Class Analytics Dashboard</span>
+        </a>
+
+        <!-- Perfect Attendance Award (ACTIVE) -->
+        <a href="perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          <span class="truncate">Perfect Attendance Award</span>
+        </a>
+
+        <!-- Reports & Export -->
+        <a href="reports-export.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          <span class="truncate">Reports &amp; Export</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT AREA ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar Header (Exact match: teacher/attendance-calendar.html) -->
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3 min-w-0">
+          <button class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827] truncate">Perfect Attendance Award</h1>
+        </div>
+
+        <div class="flex items-center gap-4 shrink-0">
+          <!-- Notification Bell with Blue Badge -->
+          <button class="relative text-[#6b7280] hover:text-[#111827] p-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute top-0 right-0 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Teacher Profile Pill with Dropdown -->
+          <div class="relative">
+            <button id="topbarProfileBtn" onclick="toggleProfileDropdown(event)"
+              class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-lg transition-colors focus:outline-none">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-left">
+                <p class="text-xs font-bold text-[#111827] leading-tight">Mrs. Jane Dela Cruz</p>
+                <p class="text-[10px] text-[#6b7280] leading-tight mt-0.5">Teacher</p>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="topbarProfileMenu"
+              class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
+              <a href="profile.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>My Profile</span>
+              </a>
+              <div class="my-1 border-t border-[#f1f5f9]"></div>
+              <button onclick="handleLogout()"
+                class="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE MAIN CONTENT ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Perfect Attendance Award</h2>
+            <p class="text-sm text-[#6b7280]">Identify qualifying students within your assigned classes and submit official recommendations to the Administrator.</p>
+          </div>
+          <button id="currentDateDisplay"
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
+            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
+          </button>
+        </div>
+
+        <!-- 5 KPI Statistics Summary Cards Grid (Exact match: teacher/attendance-calendar.html) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <!-- Card 1: Total Candidates -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#16a34a]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 text-[#16a34a]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Total Candidates</p>
+                <p id="kpiTotalCandidates" class="text-xl font-extrabold text-[#111827] truncate">8</p>
+              </div>
+            </div>
+            <div class="mt-2.5 flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 truncate">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+              <span class="truncate">100% Attendance rate</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Recommended Nominees -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#0030c2]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 text-[#0030c2]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Total Nominated</p>
+                <p id="kpiNominatedCount" class="text-xl font-extrabold text-[#0030c2] truncate">4</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#0030c2] font-medium mt-2.5 truncate">Endorsed to Admin</p>
+          </div>
+
+          <!-- Card 3: Pending Admin Review -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#f97316]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 text-[#f97316]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Pending Admin</p>
+                <p id="kpiPendingAdmin" class="text-xl font-extrabold text-amber-600 truncate">2</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#f97316] font-medium mt-2.5 truncate">Under verification</p>
+          </div>
+
+          <!-- Card 4: Approved Awards -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#8b5cf6]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#f5f3ff] flex items-center justify-center shrink-0 border border-[#ddd6fe]/50 text-[#8b5cf6]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Approved Awards</p>
+                <p id="kpiApprovedCount" class="text-xl font-extrabold text-[#7c3aed] truncate">2</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#8b5cf6] font-medium mt-2.5 truncate">Certified &amp; Conferred</p>
+          </div>
+
+          <!-- Card 5: Classes Covered -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#8b5cf6]/50 transition-all flex flex-col justify-between overflow-hidden">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center shrink-0 border border-gray-200 text-[#4b5563]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-[#6b7280] truncate">Covered Classes</p>
+                <p class="text-xl font-extrabold text-[#111827] truncate">4 Sections</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#4b5563] font-medium mt-2.5 truncate">128 Students enrolled</p>
+          </div>
+        </div>
+
+
+        <!-- ===== MAIN CANDIDATES & NOMINATIONS CARD (Matching attendance-calendar.html) ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs overflow-hidden">
+          
+          <!-- Card Header Controls Bar (Matching teacher/parent-alerts.html toolbar) -->
+          <div class="p-4 border-b border-[#e5e7eb] flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 bg-white">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-9 h-9 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 text-[#0030c2]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+                </svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-base font-bold text-[#111827] truncate">Perfect Attendance Candidates</h3>
+                  <span id="candidatesRecordCountBadge"
+                    class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2] shrink-0">
+                    8 Candidates
+                  </span>
+                </div>
+                <p class="text-xs text-[#6b7280] truncate">Identify qualified students and submit official faculty nominations</p>
+              </div>
+            </div>
+
+            <!-- In-Table Action Toolbar (Same structure as parent-alerts.html) -->
+            <div class="flex flex-wrap items-center gap-2.5">
+              
+              <!-- Search Input -->
+              <div class="relative min-w-[200px] sm:min-w-[240px] flex-1 sm:flex-initial">
+                <input type="text" id="candidateSearchInput" placeholder="Search student name or ID..."
+                  class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
+                <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </div>
+
+
+              <!-- Advanced Filter Button (Same as parent-alerts.html) -->
+              <button onclick="openFilterModal()"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+                </svg>
+                <span>Filter</span>
+              </button>
+
+              <!-- Batch Recommend Button -->
+              <button id="btnBatchRecommend" disabled
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg transition-colors cursor-pointer shadow-xs opacity-50 pointer-events-none">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+                <span>Batch Recommend (<span id="selectedCandidateCount">0</span>)</span>
+              </button>
+
+
+              <!-- Export Button -->
+              <button id="btnExportRoster"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-xs transition-colors cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Filter Tags Strip (Same as teacher/parent-alerts.html) -->
+          <div id="activeFiltersContainer" class="hidden px-4 py-2 bg-[#f8fafc] border-b border-[#e5e7eb] flex items-center gap-2 flex-wrap text-xs">
+            <span class="text-[11px] font-semibold text-[#6b7280]">Active Filters:</span>
+            <div id="activeFilterBadges" class="flex items-center gap-1.5 flex-wrap"></div>
+            <button onclick="resetAllFilters()" class="text-[11px] font-semibold text-[#0030c2] hover:underline ml-auto cursor-pointer">Clear All</button>
+          </div>
+
+          <!-- Section Breakdown Table (Exact match: table in attendance-calendar.html) -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                  <th class="py-3 px-3 w-10 text-center">
+                    <input type="checkbox" id="selectAllCandidates"
+                      class="w-4 h-4 rounded border-[#d1d5db] text-[#0030c2] focus:ring-[#0030c2] cursor-pointer"
+                      title="Select all qualified students">
+                  </th>
+                  <th class="py-3 px-2 w-12 text-[#6b7280]">#</th>
+                  <th class="py-3 px-4">Student Name &amp; ID</th>
+                  <th class="py-3 px-4">Assigned Section &amp; Subject</th>
+                  <th class="py-3 px-4 text-center">Attendance %</th>
+                  <th class="py-3 px-4 text-center">Late</th>
+                  <th class="py-3 px-4 text-center">Absent</th>
+                  <th class="py-3 px-4 text-center">Status</th>
+                  <th class="py-3 px-4 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="candidatesTableBody" class="divide-y divide-[#f3f4f6]">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer Pagination (Same as teacher/parent-alerts.html) -->
+          <div class="px-4 py-3 border-t border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white text-xs text-[#6b7280]">
+            <p id="showingCandidatesCount">
+              Showing <span class="font-semibold text-[#111827]">1</span> to <span class="font-semibold text-[#111827]">5</span> of <span class="font-semibold text-[#111827]">8</span> candidates
+            </p>
+
+            <div class="flex items-center gap-1.5 self-center sm:self-auto">
+              <button id="prevPageBtn" onclick="changePage(-1)"
+                class="px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg hover:bg-gray-50 text-xs font-semibold text-[#374151] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+                Previous
+              </button>
+              <div id="pageButtonsContainer" class="flex items-center gap-1">
+                <!-- Page numbers rendered dynamically -->
+              </div>
+              <button id="nextPageBtn" onclick="changePage(1)"
+                class="px-2.5 py-1.5 border border-[#e5e7eb] rounded-lg hover:bg-gray-50 text-xs font-semibold text-[#374151] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+                Next
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ===== SECTION 3: SUBMISSION HISTORY CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs overflow-hidden">
+          
+          <div class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 text-[#0030c2]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#111827]">Faculty Recommendation History</h3>
+                <p class="text-xs text-[#6b7280]">Previous endorsement batches submitted to the Administrator for official certificate issuance</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- History Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                  <th class="py-3 px-4">Batch ID</th>
+                  <th class="py-3 px-4">Academic Term</th>
+                  <th class="py-3 px-4">Sections Covered</th>
+                  <th class="py-3 px-4">Date Submitted</th>
+                  <th class="py-3 px-4 text-center">Nominees</th>
+                  <th class="py-3 px-4 text-center">Admin Status</th>
+                  <th class="py-3 px-4 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody" class="divide-y divide-[#f3f4f6]">
+                <!-- Populated via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- History Footer -->
+          <div class="p-4 border-t border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white">
+            <p id="historyFooterText" class="text-xs text-[#6b7280]">Showing 1 to 2 of 2 submissions</p>
+            <span class="text-[11px] text-[#6b7280]">Official endorsement slips registered in Supabase audit logs</span>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== CANDIDATE DETAILS SLIDE-OVER DRAWER (Exact match: #dayViewDrawer in attendance-calendar.html) ===== -->
+  <div id="candidateDrawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-end">
+    <div class="bg-white w-full max-w-md h-full shadow-2xl border-l border-[#e5e7eb] flex flex-col overflow-hidden animate-slide-in-right">
+      
+      <!-- Drawer Header -->
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] flex items-center justify-center shrink-0 text-[#0030c2]">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h3 id="drawerCandidateName" class="text-sm font-bold text-[#111827] truncate">Dela Cruz, Mark J.</h3>
+            <p id="drawerCandidateMeta" class="text-[11px] text-[#6b7280] truncate">2023-01004 • BSIT 3A</p>
+          </div>
+        </div>
+        <button onclick="closeCandidateDrawer()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer KPI Pills (Exact match: #dayViewDrawer KPI pills) -->
+      <div class="p-4 bg-[#f8fafc] border-b border-[#e5e7eb] grid grid-cols-4 gap-2 text-center">
+        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
+          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Rate</p>
+          <p id="drawerCandidateRate" class="text-base font-extrabold text-[#16a34a]">100%</p>
+        </div>
+        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
+          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Late</p>
+          <p class="text-base font-extrabold text-[#16a34a]">0</p>
+        </div>
+        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
+          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Absent</p>
+          <p class="text-base font-extrabold text-[#16a34a]">0</p>
+        </div>
+        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
+          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Sessions</p>
+          <p id="drawerCandidateSessions" class="text-base font-extrabold text-[#0030c2]">24/24</p>
+        </div>
+      </div>
+
+      <!-- Drawer Content: Verification Checklist & Recent Scan Logs -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+        
+        <!-- Status Banner -->
+        <div id="drawerCandidateStatusBanner" class="p-3 rounded-xl border flex items-center justify-between">
+          <!-- Dynamic Banner -->
+        </div>
+
+        <!-- Compliance Checklist -->
+        <div>
+          <h4 class="font-bold text-[#111827] mb-2">Institutional Compliance Verification</h4>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-[#16a34a] text-white flex items-center justify-center font-bold text-[9px]">✓</span>
+                <span class="text-xs font-medium text-[#374151]">100.00% Perfect Attendance Record</span>
+              </div>
+              <span class="font-bold text-xs text-[#16a34a]">Compliant</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-[#16a34a] text-white flex items-center justify-center font-bold text-[9px]">✓</span>
+                <span class="text-xs font-medium text-[#374151]">Zero Late Arrivals across Term</span>
+              </div>
+              <span class="font-bold text-xs text-[#16a34a]">0 Lates</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-[#16a34a] text-white flex items-center justify-center font-bold text-[9px]">✓</span>
+                <span class="text-xs font-medium text-[#374151]">Zero Unexcused or Excused Absences</span>
+              </div>
+              <span class="font-bold text-xs text-[#16a34a]">0 Absences</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-[#0030c2] text-white flex items-center justify-center font-bold text-[9px]">✓</span>
+                <span class="text-xs font-medium text-[#374151]">Physical Hardware RFID/QR Verified</span>
+              </div>
+              <span class="font-bold text-xs text-[#0030c2]">ESP32 Logged</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Verification Logs -->
+        <div>
+          <h4 class="font-bold text-[#111827] mb-2">Recent Classroom Attendance Scans</h4>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-bold text-[#111827]">May 26, 2025 · 07:52 AM</p>
+                  <p class="text-[10px] text-[#6b7280]">Room Lab 304 · ESP32 RFID Tap</p>
+                </div>
+              </div>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a]">
+                Present (On-Time)
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-bold text-[#111827]">May 22, 2025 · 07:48 AM</p>
+                  <p class="text-[10px] text-[#6b7280]">Room Lab 304 · ESP32 RFID Tap</p>
+                </div>
+              </div>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a]">
+                Present (On-Time)
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 bg-white border border-[#e5e7eb] rounded-xl">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-bold text-[#111827]">May 19, 2025 · 07:54 AM</p>
+                  <p class="text-[10px] text-[#6b7280]">Room Lab 304 · ESP32 RFID Tap</p>
+                </div>
+              </div>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a]">
+                Present (On-Time)
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Drawer Footer Action (Exact match: #dayViewDrawer footer) -->
+      <div class="p-4 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between gap-2">
+        <button onclick="closeCandidateDrawer()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg cursor-pointer">
+          Close
+        </button>
+        <div id="drawerActionContainer">
+          <!-- Dynamic Action Button -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== ADVANCED FILTER MODAL (Same as teacher/parent-alerts.html) ===== -->
+  <div id="filterModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl border border-[#e5e7eb] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Filter Candidates</h3>
+            <p class="text-[11px] text-[#6b7280]">Filter candidate list by class section and nomination status</p>
+          </div>
+        </div>
+        <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-3.5 text-xs">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Class Section &amp; Subject</label>
+          <select id="modalFilterSection" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Assigned Classes</option>
+            <option value="BSIT 3A">BSIT 3A - IT301 Web Dev</option>
+            <option value="BSIT 3B">BSIT 3B - IT302 Database</option>
+            <option value="BSCS 2A">BSCS 2A - CS201 Data Struct</option>
+            <option value="BSIT 4A">BSIT 4A - IT401 Capstone</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Nomination Status</label>
+          <select id="modalFilterStatus" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Statuses</option>
+            <option value="QUALIFIED">Qualified</option>
+            <option value="RECOMMENDED">Recommended</option>
+            <option value="APPROVED">Approved</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between">
+        <button type="button" onclick="resetFilterModalForm()"
+          class="px-3.5 py-1.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] hover:bg-gray-200 rounded-lg transition-colors cursor-pointer">
+          Reset
+        </button>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeFilterModal()"
+            class="px-3.5 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="button" onclick="applyFiltersFromModal()"
+            class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors cursor-pointer">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== RECOMMEND TO ADMIN MODAL ===== -->
+  <div id="recommendModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col animate-scale-in">
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+            </svg>
+          </div>
+          <h3 id="recommendModalTitle" class="text-sm font-bold text-[#111827]">Submit Award Recommendation</h3>
+        </div>
+        <button onclick="closeRecommendModal()"
+          class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleConfirmRecommendation(event)" class="p-5 space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-[#374151] block mb-1.5">Selected Candidate(s)</label>
+          <div id="recommendCandidateList" class="space-y-1">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div>
+          <label for="recommendRemarksInput" class="font-bold text-[#374151] block mb-1">Teacher Endorsement Remarks</label>
+          <textarea id="recommendRemarksInput" rows="3"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-xs"
+            placeholder="Provide brief endorsement remarks for the Administrator..."></textarea>
+          <p class="text-[10px] text-[#6b7280] mt-1">This endorsement will be recorded on the official nomination slip sent to the Administrator Panel.</p>
+        </div>
+
+        <div class="p-3 bg-[#eff6ff] rounded-xl border border-[#bfdbfe] text-[#0030c2]">
+          <p class="font-bold text-xs">Administrator Review Notice</p>
+          <p class="text-[11px] text-[#1e40af] mt-0.5">Once submitted, the Administrator will cross-verify scan records against institutional gate logs and issue the official Certificate of Recognition.</p>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+          <button type="button" onclick="closeRecommendModal()"
+            class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="submit"
+            class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+            </svg>
+            <span>Submit Recommendation</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== EXPORT & PRINT MODAL (Exact match: #exportModal in teacher/attendance-calendar.html) ===== -->
+  <div id="exportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col animate-scale-in">
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-[#111827]">Export Award Candidates</h3>
+        </div>
+        <button onclick="closeExportModal()"
+          class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleExport(event)" class="p-5 space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-[#374151] block mb-2">Export Format</label>
+          <div class="grid grid-cols-3 gap-2">
+            <!-- Option 1: CSV -->
+            <label
+              class="flex flex-col items-center justify-center p-2.5 border-2 border-[#0030c2] bg-[#eff6ff] rounded-xl cursor-pointer transition-colors export-format-card">
+              <input type="radio" name="exportFormat" value="CSV" checked class="hidden"
+                onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#0030c2] export-card-title">CSV</span>
+              <span class="text-[9px] text-[#6b7280]">Spreadsheet</span>
+            </label>
+            <!-- Option 2: Excel -->
+            <label
+              class="flex flex-col items-center justify-center p-2.5 border border-[#e5e7eb] hover:bg-gray-50 rounded-xl cursor-pointer transition-colors export-format-card">
+              <input type="radio" name="exportFormat" value="Excel" class="hidden"
+                onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#374151] export-card-title">Excel</span>
+              <span class="text-[9px] text-[#6b7280]">.xlsx format</span>
+            </label>
+            <!-- Option 3: Print Candidate Roster -->
+            <label
+              class="flex flex-col items-center justify-center p-2.5 border border-[#e5e7eb] hover:bg-gray-50 rounded-xl cursor-pointer transition-colors export-format-card">
+              <input type="radio" name="exportFormat" value="Print" class="hidden"
+                onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#374151] export-card-title">Print Sheet</span>
+              <span class="text-[9px] text-[#6b7280]">PDF / Print</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Select Section</label>
+          <select id="exportSection" class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Assigned Sections</option>
+            <option value="BSIT 3A">BSIT 3A - IT301 Web Dev</option>
+            <option value="BSIT 3B">BSIT 3B - IT302 Database</option>
+            <option value="BSCS 2A">BSCS 2A - CS201 Data Struct</option>
+            <option value="BSIT 4A">BSIT 4A - IT401 Capstone</option>
+          </select>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+          <button type="button" onclick="closeExportModal()"
+            class="px-3 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors cursor-pointer">Cancel</button>
+          <button type="submit"
+            class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            <span id="exportSubmitBtnText">Download CSV</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== FACULTY RECOMMENDATION ENDORSEMENT SLIP MODAL ===== -->
+  <div id="endorsementSlipModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh] animate-scale-in">
+      
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm font-bold text-[#111827]">Faculty Recommendation Endorsement Slip</h3>
+              <span id="slipBatchIdBadge" class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
+                REC-2025-001
+              </span>
+            </div>
+            <p class="text-[11px] text-[#6b7280]">Official institutional record for Perfect Attendance Award conferment</p>
+          </div>
+        </div>
+        <button onclick="closeEndorsementSlipModal()"
+          class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Scrollable Slip Content Area -->
+      <div class="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
+        
+        <!-- Institutional Formal Letterhead Strip -->
+        <div class="p-3.5 bg-gray-50 border border-[#e5e7eb] rounded-xl flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white border border-[#e5e7eb] flex items-center justify-center text-[#0030c2] font-black text-sm shadow-xs">
+              BCP
+            </div>
+            <div>
+              <p class="font-extrabold text-[#111827] text-xs uppercase tracking-wide">Bestlink College of the Philippines</p>
+              <p class="text-[10px] text-[#6b7280]">Office of the Academic Administrator &amp; Registrar · Attendance Monitoring System</p>
+              <p class="text-[9px] font-mono text-[#9ca3af] mt-0.5">DOCUMENT NO: AMS-PAA-2025-SLIP</p>
+            </div>
+          </div>
+          <div id="slipStatusBadgeContainer" class="shrink-0 text-right">
+            <!-- Dynamic Status Badge -->
+          </div>
+        </div>
+
+        <!-- Two-Column Slip Details Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 bg-white border border-[#e5e7eb] rounded-xl">
+          <div>
+            <p class="text-[10px] font-semibold text-[#6b7280] uppercase tracking-wider">Endorsing Faculty</p>
+            <p class="font-bold text-xs text-[#111827] mt-0.5">Mrs. Jane Dela Cruz</p>
+            <p class="text-[11px] text-[#4b5563]">College of Computer Studies · Faculty ID: T-2023-084</p>
+          </div>
+          <div>
+            <p class="text-[10px] font-semibold text-[#6b7280] uppercase tracking-wider">Academic Period</p>
+            <p id="slipAcademicTerm" class="font-bold text-xs text-[#111827] mt-0.5">2nd Semester, A.Y. 2024-2025</p>
+            <p id="slipDateSubmitted" class="text-[11px] text-[#4b5563]">Submitted on May 18, 2025</p>
+          </div>
+          <div>
+            <p class="text-[10px] font-semibold text-[#6b7280] uppercase tracking-wider">Covered Class Sections</p>
+            <p id="slipSections" class="font-bold text-xs text-[#0030c2] mt-0.5">BSIT 3B, BSCS 2A</p>
+          </div>
+          <div>
+            <p class="text-[10px] font-semibold text-[#6b7280] uppercase tracking-wider">Total Endorsed Nominees</p>
+            <p id="slipTotalNominees" class="font-bold text-xs text-[#16a34a] mt-0.5">2 Candidates (100% Attendance)</p>
+          </div>
+        </div>
+
+        <!-- Endorsed Nominees Roster Table -->
+        <div class="border border-[#e5e7eb] rounded-xl overflow-hidden">
+          <div class="px-3 py-2 bg-gray-50 border-b border-[#e5e7eb] flex items-center justify-between">
+            <h4 class="font-bold text-xs text-[#111827]">Nominated Student Roster</h4>
+            <span class="text-[10px] text-[#6b7280]">All verified 0 Late, 0 Absent</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-gray-50/50 border-b border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase font-bold">
+                <tr>
+                  <th class="py-2 px-3 w-8">#</th>
+                  <th class="py-2 px-3">Student Name &amp; ID</th>
+                  <th class="py-2 px-3">Section &amp; Subject</th>
+                  <th class="py-2 px-3 text-center">Attendance</th>
+                  <th class="py-2 px-3 text-center">Hardware Status</th>
+                </tr>
+              </thead>
+              <tbody id="slipNomineesTableBody" class="divide-y divide-[#f3f4f6]">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Administrative Remarks & Verification Card -->
+        <div class="p-3.5 bg-[#eff6ff]/60 border border-[#bfdbfe] rounded-xl space-y-1.5">
+          <div class="flex items-center gap-2 text-[#0030c2] font-bold text-xs">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+            </svg>
+            <span>Administrative Review &amp; Verification Remarks</span>
+          </div>
+          <p id="slipAdminRemarks" class="text-xs text-[#1e40af] font-medium leading-relaxed">
+            Verified against gate and room RFID logs. Certificate generated.
+          </p>
+        </div>
+
+        <!-- Institutional Signatures Block -->
+        <div class="grid grid-cols-3 gap-3 pt-2 text-center text-[10px]">
+          <div class="p-2.5 bg-gray-50 rounded-lg border border-[#e5e7eb]">
+            <p class="font-bold text-[#111827] text-xs">Mrs. Jane Dela Cruz</p>
+            <p class="text-[#6b7280]">Endorsing Faculty</p>
+            <span class="inline-block mt-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Signed &amp; Submitted</span>
+          </div>
+          <div class="p-2.5 bg-gray-50 rounded-lg border border-[#e5e7eb]">
+            <p class="font-bold text-[#111827] text-xs">Academic Head</p>
+            <p class="text-[#6b7280]">College of Computer Studies</p>
+            <span class="inline-block mt-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Endorsement Verified</span>
+          </div>
+          <div class="p-2.5 bg-gray-50 rounded-lg border border-[#e5e7eb]">
+            <p class="font-bold text-[#111827] text-xs">Office of the Administrator</p>
+            <p class="text-[#6b7280]">Conferment Authority</p>
+            <span id="slipAdminSignStatus" class="inline-block mt-1 text-[9px] font-bold text-[#7c3aed] bg-[#f5f3ff] px-1.5 py-0.5 rounded border border-[#ddd6fe]">Approved &amp; Conferred</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between shrink-0">
+        <button type="button" onclick="closeEndorsementSlipModal()"
+          class="px-4 py-1.5 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg transition-colors cursor-pointer">
+          Close
+        </button>
+        <button type="button" onclick="printCurrentSlip()"
+          class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+          </svg>
+          <span>Print Slip</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="../assets/js/common/main.js"></script>
+  <script src="../assets/js/common/sidebar.js"></script>
+  <script src="../assets/js/teacher/perfect-attendance.js"></script>
+</body>
+
+</html>

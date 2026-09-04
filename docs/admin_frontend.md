@@ -23,16 +23,16 @@ The **Administrator Panel** serves as the central management, configuration, and
   - **Authority**: Institutional override and audit verification.
 
 ### 1.3 RFID / QR Scanning Management
-* **Purpose**: Hardware and digital identity credential management and real-time checkpoint scan auditing.
+* **Purpose**: Hardware and digital identity credential management and real-time checkpoint scan auditing for both students and faculty members.
 * **Contents**:
   - **RFID Registry**:
-    - *Columns*: Student ID, Student Name, Course & Section, RFID Card UID, Card Status (Active / Inactive / Lost / Damaged), Date Registered.
-    - *Functions*: Register RFID Card, Replace Lost/Damaged RFID, Toggle Card Status (Activate / Deactivate), View Scan History.
+    - *Columns*: User ID, Full Name, Role (Student / Teacher), Course & Section / Department, RFID Card UID, Card Status (Active / Inactive / Lost / Damaged), Date Registered.
+    - *Functions*: Register RFID Card (Student / Teacher), Replace Lost/Damaged RFID, Toggle Card Status (Activate / Deactivate), View Scan History.
   - **QR Code Management**:
-    - *Features*: Batch Generate Dynamic Student QR Codes, Regenerate Compromised QR Codes, Single & Batch Download QR (PNG), Print Official QR Identification Badges, Monitor QR Expiration Status.
+    - *Features*: Batch Generate Dynamic Student/Teacher QR Codes, Regenerate Compromised QR Codes, Single & Batch Download QR (PNG), Print Official Identification QR Badges, Monitor QR Expiration Status.
   - **Scan Logs**:
-    - *Columns*: Student Name, Student ID, Date, Time In/Out, Scan Type (RFID Tap / QR Scan), Result (Success / Failed / Invalid Token / Late Flag), Checkpoint / Device Kiosk Used.
-    - *Functions*: Search, Filter by Checkpoint/Date/Status, Export Scan Logs to CSV.
+    - *Columns*: Full Name, ID Number, Role (Student / Teacher), Date, Time In/Out, Scan Type (RFID Tap / QR Scan), Result (Success / Failed / Invalid Token / Late Flag), Checkpoint / IoT Device Station.
+    - *Functions*: Search, Filter by Role/Checkpoint/Date/Status, Export Scan Logs to CSV.
 
 ### 1.4 Tardy & Absence Logs
 * **Purpose**: Monitor chronic tardiness and unexcused absences, and identify habitual offenders across all year levels.
@@ -48,11 +48,11 @@ The **Administrator Panel** serves as the central management, configuration, and
     - *Actions*: View Intervention History, Issue Guidance Advisory, Log Guardian Notification.
 
 ### 1.5 Teacher Attendance Monitoring
-* **Purpose**: Monitor faculty attendance, duty schedules, and arrival punctuality.
+* **Purpose**: Monitor faculty attendance, duty schedules, arrival punctuality, and rendered duty hours captured via the unified ESP32 RFID/QR stations.
 * **Contents**:
-  - **Attendance Log Columns**: Teacher ID, Faculty Name, Department, Time In, Time Out, Status (Present / Late / Absent / On Leave), Date.
-  - **Functions**: Search by Teacher/Department, Filter by Date Range, View Faculty Attendance History, Manual Administrative Correction, Export Faculty Attendance Report.
-  - **Summary Statistics**: Monthly Faculty Attendance Rate, Total Late Occurrences, Total Absences.
+  - **Attendance Log Columns**: Teacher ID, Faculty Name, Department, Time In, Time Out, Rendered Duty Hours, Status (Present / Late / Absent / On Leave), Date.
+  - **Functions*: Search by Teacher/Department, Filter by Date Range, View Faculty Attendance History, Manual Administrative Correction, Export Faculty Attendance DTR Report.
+  - **Summary Statistics**: Monthly Faculty Attendance Rate, Total On-Campus Faculty Today, Total Late Occurrences, Total Absences.
 
 ### 1.6 Excuse Slip Management
 * **Purpose**: Institutional oversight, review, and final appeal authority for student excuse slips.

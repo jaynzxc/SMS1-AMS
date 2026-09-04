@@ -24,15 +24,15 @@ The **Student Portal** provides students with real-time visibility into their pe
   - **Filters**: Search by Date Range, Filter by Subject, Filter by Academic Month.
 
 ### 1.3 RFID / QR Code (`student/rfid-and-qr.html`)
-* **Purpose**: Digital identification center where students can view their registered RFID card status and access their contactless QR code.
+* **Purpose**: Digital identification center where students can view their registered RFID card status and access their contactless dynamic QR code.
 * **Contents**:
   - **RFID Card Status**:
     - *Displays*: Registered RFID Card Number (UID), Card Status (*Active / Inactive / Reported Lost*), Date Assigned.
-    - *Action*: Report Lost/Damaged RFID Card (alerts Administrator for deactivation and reissue).
-  - **Personal QR Code**:
-    - *Displays*: Official Encrypted Dynamic QR Code, Student ID Number, Full Name, Course & Year Level.
-    - *Functions*: View Fullscreen QR for Kiosk/Classroom Scanning, Download QR Code (PNG), Print Official QR Badge.
-  - **Security Notice**: Note explaining that RFID assignment and physical replacements are handled by the Administrator.
+    - *Action*: Report Lost/Damaged RFID Card (alerts Administrator for immediate card deactivation and reissue).
+  - **Personal Dynamic QR Code**:
+    - *Displays*: Official Encrypted Dynamic QR Code (containing Student ID Number, Full Name, Course & Year Level, and security token).
+    - *Functions*: View Fullscreen QR for phone screen scanning at teacher webcam/camera checkpoints when the physical RFID card is unavailable, Download QR Code (PNG), Print Official QR Badge.
+  - **Security Notice**: Note explaining that physical RFID assignment and physical badge replacements are handled by the Administrator.
 
 ### 1.4 Attendance Calendar (`student/attendance-calendar.html`)
 * **Purpose**: Visual, interactive calendar representation of personal attendance history throughout the academic semester.

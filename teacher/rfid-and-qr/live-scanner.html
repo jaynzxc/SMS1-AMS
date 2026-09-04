@@ -132,15 +132,42 @@
           <span>Teacher Attendance</span>
         </a>
 
-        <!-- Excuse Slip Management -->
-        <a href="../excuse-slip-management.html"
-          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-          </svg>
-          <span>Excuse Slip Management</span>
-        </a>
+        <!-- Excuse Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              <span class="truncate">Excuse Management</span>
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="../excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Pending Requests</span>
+            </a>
+            <a href="../excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Approved Requests</span>
+            </a>
+            <a href="../excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Rejected Requests</span>
+            </a>
+            <a href="../excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Excuse Slip History</span>
+            </a>
+          </div>
+        </div>
 
         <!-- Attendance Calendar -->
         <a href="../attendance-calendar.html"
@@ -198,9 +225,12 @@
     <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
 
       <!-- Topbar Header -->
-      <header class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
         <div class="flex items-center gap-3">
-          <button onclick="toggleSidebar(event)" class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg cursor-pointer" title="Toggle Sidebar">
+          <button onclick="toggleSidebar(event)"
+            class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg cursor-pointer"
+            title="Toggle Sidebar">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -230,7 +260,8 @@
               <p class="text-xs font-bold text-[#111827] leading-tight">Mrs. Jane Dela Cruz</p>
               <p class="text-[10px] text-[#6b7280] leading-tight">Teacher</p>
             </div>
-            <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </div>
@@ -244,11 +275,13 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Live Attendance Scanner</h2>
-            <p class="text-sm text-[#6b7280]">Record classroom attendance in real-time via RFID card tap or mobile QR code scanner</p>
+            <p class="text-sm text-[#6b7280]">Record classroom attendance in real-time via RFID card tap or mobile QR
+              code scanner</p>
           </div>
           <button id="currentDateDisplay"
             class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
-            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
             </svg>
@@ -259,13 +292,14 @@
         <!-- Class & Scanner Control Bar Card -->
         <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            
+
             <!-- Selectors Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 flex-1">
               <!-- Subject Selector -->
               <div>
                 <label class="block text-[11px] font-bold text-[#6b7280] uppercase tracking-wider mb-1">Subject</label>
-                <select id="subjectSelect" class="w-full px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+                <select id="subjectSelect"
+                  class="w-full px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
                   <option value="web-dev">Web Development</option>
                   <option value="dbms">Database Management Systems</option>
                   <option value="data-struct">Data Structures &amp; Algorithms</option>
@@ -275,7 +309,8 @@
               <!-- Section Selector -->
               <div>
                 <label class="block text-[11px] font-bold text-[#6b7280] uppercase tracking-wider mb-1">Section</label>
-                <select id="sectionSelect" class="w-full px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+                <select id="sectionSelect"
+                  class="w-full px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
                   <option value="BSIT 3-A">BSIT 3-A</option>
                   <option value="BSIT 3-B">BSIT 3-B</option>
                   <option value="BSIT 2-A">BSIT 2-A</option>
@@ -284,7 +319,8 @@
 
               <!-- Scanner Mode Switcher -->
               <div>
-                <label class="block text-[11px] font-bold text-[#6b7280] uppercase tracking-wider mb-1">Scanner Input Mode</label>
+                <label class="block text-[11px] font-bold text-[#6b7280] uppercase tracking-wider mb-1">Scanner Input
+                  Mode</label>
                 <div class="flex items-center p-0.5 bg-gray-100 rounded-lg border border-[#e5e7eb] text-xs">
                   <button id="modeRfidBtn" onclick="switchScannerMode('rfid')"
                     class="flex-1 px-2.5 py-1 rounded-md font-bold text-xs bg-[#0030c2] text-white transition-all">
@@ -303,8 +339,10 @@
               <!-- Start / Stop Scanner Button -->
               <button id="scannerToggleBtn" onclick="toggleScanner()"
                 class="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors cursor-pointer">
-                <svg id="scannerToggleIcon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                <svg id="scannerToggleIcon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
                 </svg>
                 <span id="scannerToggleText">Start Scanner</span>
               </button>
@@ -312,8 +350,10 @@
               <!-- Manual Override Button -->
               <button onclick="openManualOverrideModal()"
                 class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg shadow-sm transition-colors">
-                <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                <svg class="w-4 h-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                 </svg>
                 <span>Manual Override</span>
               </button>
@@ -322,7 +362,8 @@
               <a href="scan-logs.html"
                 class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Scan Logs</span>
               </a>
@@ -333,24 +374,28 @@
 
         <!-- ===== MAIN SCANNER VIEWPORT & LIVE STUDENT SNAPSHOT (2-COLUMN GRID) ===== -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          
+
           <!-- LEFT COLUMN: Live Scanner Viewport (7 Cols) -->
-          <div class="lg:col-span-7 bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm flex flex-col justify-between min-h-[380px]">
-            
+          <div
+            class="lg:col-span-7 bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm flex flex-col justify-between min-h-[380px]">
+
             <!-- Viewport Top Bar -->
             <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
               <div class="flex items-center gap-2">
                 <span id="scannerIndicatorDot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span id="scannerStatusText" class="text-xs font-bold text-[#111827]">Scanner Active · Listening for taps &amp; QR codes</span>
+                <span id="scannerStatusText" class="text-xs font-bold text-[#111827]">Scanner Active · Listening for
+                  taps &amp; QR codes</span>
               </div>
-              <span id="activeModeBadge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
+              <span id="activeModeBadge"
+                class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
                 RFID Mode
               </span>
             </div>
 
             <!-- Scanner Visual Screen Container -->
-            <div class="my-4 relative bg-[#0f172a] rounded-xl overflow-hidden min-h-[240px] flex flex-col items-center justify-center p-6 text-center border border-gray-800 shadow-inner">
-              
+            <div
+              class="my-4 relative bg-[#0f172a] rounded-xl overflow-hidden min-h-[240px] flex flex-col items-center justify-center p-6 text-center border border-gray-800 shadow-inner">
+
               <!-- RFID View (Active by default) -->
               <div id="rfidViewContainer" class="flex flex-col items-center justify-center space-y-3">
                 <div class="relative flex items-center justify-center w-24 h-24">
@@ -358,7 +403,8 @@
                   <div class="absolute w-24 h-24 rounded-full bg-[#0030c2]/20 animate-ping"></div>
                   <div class="absolute w-16 h-16 rounded-full bg-[#0030c2]/40 animate-pulse"></div>
                   <div class="w-12 h-12 rounded-full bg-[#0030c2] flex items-center justify-center shadow-lg z-10">
-                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
                   </div>
@@ -369,10 +415,12 @@
                 </div>
                 <!-- Simulated Tap Action Button (for testing) -->
                 <div class="pt-2 flex items-center gap-2">
-                  <button onclick="simulateScan('present')" class="px-2.5 py-1 text-[11px] font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors">
+                  <button onclick="simulateScan('present')"
+                    class="px-2.5 py-1 text-[11px] font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors">
                     Simulate On-Time Tap
                   </button>
-                  <button onclick="simulateScan('late')" class="px-2.5 py-1 text-[11px] font-semibold bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">
+                  <button onclick="simulateScan('late')"
+                    class="px-2.5 py-1 text-[11px] font-semibold bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">
                     Simulate Late Tap
                   </button>
                 </div>
@@ -380,7 +428,8 @@
 
               <!-- QR Code View (Hidden by default) -->
               <div id="qrViewContainer" class="hidden flex-col items-center justify-center space-y-3 w-full">
-                <div class="relative w-44 h-44 border-2 border-dashed border-[#0030c2] rounded-xl flex items-center justify-center bg-gray-900/80 overflow-hidden">
+                <div
+                  class="relative w-44 h-44 border-2 border-dashed border-[#0030c2] rounded-xl flex items-center justify-center bg-gray-900/80 overflow-hidden">
                   <!-- Corner Guides -->
                   <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#0030c2]"></div>
                   <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#0030c2]"></div>
@@ -388,13 +437,16 @@
                   <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#0030c2]"></div>
                   <!-- Laser Scan Line -->
                   <div class="absolute inset-x-0 h-0.5 bg-[#0030c2] shadow-[0_0_8px_#0030c2] animate-pulse"></div>
-                  <svg class="w-16 h-16 text-gray-600 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                  <svg class="w-16 h-16 text-gray-600 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
                   </svg>
                 </div>
                 <p class="text-xs text-gray-300">Align student mobile QR code inside the box</p>
                 <div class="flex items-center gap-2">
-                  <button onclick="simulateScan('qr-success')" class="px-2.5 py-1 text-[11px] font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
+                  <button onclick="simulateScan('qr-success')"
+                    class="px-2.5 py-1 text-[11px] font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
                     Simulate QR Scan
                   </button>
                 </div>
@@ -405,14 +457,16 @@
             <!-- Viewport Bottom Status Info -->
             <div class="flex items-center justify-between text-xs text-[#6b7280] pt-2 border-t border-[#e5e7eb]">
               <span>Hardware: <strong class="text-[#111827]">USB RFID Reader (HID Keyboard)</strong></span>
-              <span id="activeScheduleDisplay">Schedule: <strong class="text-[#111827]">07:30 AM - 09:00 AM (Room 402)</strong></span>
+              <span id="activeScheduleDisplay">Schedule: <strong class="text-[#111827]">07:30 AM - 09:00 AM (Room
+                  402)</strong></span>
             </div>
 
           </div>
 
           <!-- RIGHT COLUMN: Live Student Snapshot Card (5 Cols) -->
-          <div class="lg:col-span-5 bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm flex flex-col justify-between min-h-[380px]">
-            
+          <div
+            class="lg:col-span-5 bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm flex flex-col justify-between min-h-[380px]">
+
             <div>
               <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
                 <h3 class="text-sm font-bold text-[#111827]">Latest Verified Student</h3>
@@ -423,13 +477,16 @@
               <div class="py-6 flex flex-col items-center text-center">
                 <!-- Avatar -->
                 <div class="relative mb-3">
-                  <div id="snapshotAvatar" class="w-20 h-20 rounded-full bg-[#e5e7eb] border-2 border-white shadow-md flex items-center justify-center text-gray-500 font-extrabold text-xl overflow-hidden">
+                  <div id="snapshotAvatar"
+                    class="w-20 h-20 rounded-full bg-[#e5e7eb] border-2 border-white shadow-md flex items-center justify-center text-gray-500 font-extrabold text-xl overflow-hidden">
                     <svg class="w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                      <path
+                        d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
                     </svg>
                   </div>
                   <!-- Status Indicator Icon -->
-                  <div id="snapshotStatusIconContainer" class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs border-2 border-white">
+                  <div id="snapshotStatusIconContainer"
+                    class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs border-2 border-white">
                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
@@ -439,7 +496,8 @@
                 <!-- Name & ID -->
                 <h4 id="snapshotStudentName" class="text-lg font-bold text-[#111827]">Santos, Maria</h4>
                 <p id="snapshotStudentId" class="text-xs font-mono font-semibold text-[#6b7280] mt-0.5">2026-1001</p>
-                <p id="snapshotStudentSection" class="text-xs font-medium text-[#374151] mt-1 bg-gray-100 px-2.5 py-0.5 rounded-md">
+                <p id="snapshotStudentSection"
+                  class="text-xs font-medium text-[#374151] mt-1 bg-gray-100 px-2.5 py-0.5 rounded-md">
                   Web Development (BSIT 3-A)
                 </p>
 
@@ -464,7 +522,8 @@
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-[#6b7280]">Guardian Notification:</span>
-                <span class="text-[11px] font-semibold text-[#0030c2] bg-[#eff6ff] px-2 py-0.5 rounded border border-[#bfdbfe]">
+                <span
+                  class="text-[11px] font-semibold text-[#0030c2] bg-[#eff6ff] px-2 py-0.5 rounded border border-[#bfdbfe]">
                   SMS Dispatched
                 </span>
               </div>
@@ -477,11 +536,15 @@
         <!-- ===== 4 KPI STATISTICS CARDS ===== -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Total Scans Today -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
-                <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              <div
+                class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+                <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
                 </svg>
               </div>
               <div>
@@ -493,11 +556,15 @@
           </div>
 
           <!-- On-Time Scans -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
-                <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <div
+                class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
+                <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
@@ -509,11 +576,15 @@
           </div>
 
           <!-- Late Scans -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
-                <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <div
+                class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+                <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
@@ -525,11 +596,15 @@
           </div>
 
           <!-- Flagged / Unregistered -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all">
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all">
             <div class="flex items-center gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
-                <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              <div
+                class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
+                <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                 </svg>
               </div>
               <div>
@@ -543,15 +618,17 @@
 
         <!-- ===== RECENT SCANS LIVE FEED TABLE ===== -->
         <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
-          
+
           <div class="p-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
             <div class="flex items-center gap-2.5">
               <h3 class="text-base font-bold text-[#111827]">Live Session Scan Stream</h3>
-              <span id="sessionScanCountBadge" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">
+              <span id="sessionScanCountBadge"
+                class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2]">
                 9 Records
               </span>
             </div>
-            <a href="scan-logs.html" class="text-xs font-semibold text-[#0030c2] hover:underline flex items-center gap-1">
+            <a href="scan-logs.html"
+              class="text-xs font-semibold text-[#0030c2] hover:underline flex items-center gap-1">
               <span>View Full Scan Logs</span>
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -563,7 +640,8 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                <tr
+                  class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
                   <th class="py-3 px-4">Student ID</th>
                   <th class="py-3 px-4">Student Name</th>
                   <th class="py-3 px-4">Time In</th>
@@ -588,13 +666,15 @@
   </div>
 
   <!-- ===== MANUAL OVERRIDE MODAL ===== -->
-  <div id="manualOverrideModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+  <div id="manualOverrideModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#e5e7eb] transform transition-all">
       <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-full bg-blue-50 text-[#0030c2] flex items-center justify-center">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
             </svg>
           </div>
           <h3 class="text-base font-bold text-[#111827]">Manual Attendance Override</h3>
@@ -609,7 +689,8 @@
       <form id="manualOverrideForm" onsubmit="handleManualOverrideSubmit(event)" class="mt-4 space-y-3.5">
         <div>
           <label class="block text-xs font-bold text-[#374151] mb-1">Select Student</label>
-          <select id="overrideStudentSelect" required class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+          <select id="overrideStudentSelect" required
+            class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
             <option value="2026-1010">2026-1010 — Ramos, Joshua (BSIT 3-A)</option>
             <option value="2026-1011">2026-1011 — Valdez, Christine (BSIT 3-A)</option>
             <option value="2026-1012">2026-1012 — Mendoza, Kyle (BSIT 3-A)</option>
@@ -619,7 +700,8 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold text-[#374151] mb-1">Status</label>
-            <select id="overrideStatusSelect" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+            <select id="overrideStatusSelect"
+              class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
               <option value="Present">Present</option>
               <option value="Late">Late</option>
               <option value="Excused">Excused</option>
@@ -627,20 +709,25 @@
           </div>
           <div>
             <label class="block text-xs font-bold text-[#374151] mb-1">Time In</label>
-            <input type="text" id="overrideTimeInput" value="07:45 AM" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+            <input type="text" id="overrideTimeInput" value="07:45 AM"
+              class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
           </div>
         </div>
 
         <div>
           <label class="block text-xs font-bold text-[#374151] mb-1">Reason / Remarks</label>
-          <textarea id="overrideRemarksInput" rows="2" placeholder="e.g., Forgot RFID card, manual verification approved" class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] resize-none"></textarea>
+          <textarea id="overrideRemarksInput" rows="2"
+            placeholder="e.g., Forgot RFID card, manual verification approved"
+            class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] resize-none"></textarea>
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#e5e7eb]">
-          <button type="button" onclick="closeManualOverrideModal()" class="px-4 py-2 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg transition-colors">
+          <button type="button" onclick="closeManualOverrideModal()"
+            class="px-4 py-2 text-xs font-medium text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 rounded-lg transition-colors">
             Cancel
           </button>
-          <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
+          <button type="submit"
+            class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors">
             Confirm &amp; Record
           </button>
         </div>

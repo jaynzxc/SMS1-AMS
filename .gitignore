@@ -17,4 +17,8 @@ Thumbs.db
 # Keys and secrets
 keys/
 
-docs/
+# Database Schema and Internal Docs
+docs/*
+!docs/admin_frontend.md
+!docs/teacher_frontend.md
+!docs/student_frontend.md
