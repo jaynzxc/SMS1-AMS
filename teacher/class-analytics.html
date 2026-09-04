@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Class Analytics</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR (Reference: teacher/attendance-calendar.html) ===== -->
+    <aside id="mainSidebar"
+      class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo Header -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0 shadow-xs">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight truncate">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280] truncate">Teacher Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+        <!-- Teacher Dashboard -->
+        <a href="dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span class="truncate">Teacher Dashboard</span>
+        </a>
+
+        <!-- Daily Attendance -->
+        <a href="daily-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="truncate">Daily Attendance</span>
+        </a>
+
+        <!-- RFID/QR SCANNING with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              </svg>
+              <span class="truncate">RFID/QR Scanning</span>
+            </div>
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="rfid-and-qr/live-scanner.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Live Scanner</span>
+            </a>
+            <a href="rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Scan Logs</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="truncate">Tardy &amp; Absence Logs</span>
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="tardy-and-absence/tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Tardy List</span>
+            </a>
+            <a href="tardy-and-absence/absence-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Absence List</span>
+            </a>
+            <a href="tardy-and-absence/student-attendance-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Attendance History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Teacher Attendance -->
+        <a href="teacher-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span class="truncate">Teacher Attendance</span>
+        </a>
+
+        <!-- Excuse Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              <span class="truncate">Excuse Management</span>
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Pending Requests</span>
+            </a>
+            <a href="excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Approved Requests</span>
+            </a>
+            <a href="excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Rejected Requests</span>
+            </a>
+            <a href="excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Excuse Slip History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          <span class="truncate">Attendance Calendar</span>
+        </a>
+
+        <!-- Parent Alerts -->
+        <a href="parent-alerts.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span class="truncate">Parent Alerts</span>
+        </a>
+
+        <!-- Class Analytics (ACTIVE) -->
+        <a href="class-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span class="truncate">Class Analytics</span>
+        </a>
+
+        <!-- Perfect Attendance Award -->
+        <a href="perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          <span class="truncate">Perfect Attendance Award</span>
+        </a>
+
+        <!-- Reports & Export -->
+        <a href="reports-export.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          <span class="truncate">Reports &amp; Export</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT AREA ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar Header (Reference: teacher/attendance-calendar.html) -->
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3 min-w-0">
+          <button class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827] truncate">Class Analytics</h1>
+        </div>
+
+        <div class="flex items-center gap-4 shrink-0">
+          <!-- Notification Bell with Blue Badge -->
+          <button class="relative text-[#6b7280] hover:text-[#111827] p-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute top-0 right-0 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Teacher Profile Pill with Dropdown (Identical to attendance-calendar.html) -->
+          <div class="relative">
+            <button id="topbarProfileBtn" onclick="toggleProfileDropdown(event)"
+              class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-lg transition-colors focus:outline-none">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-left">
+                <p class="text-xs font-bold text-[#111827] leading-tight">Mrs. Jane Dela Cruz</p>
+                <p class="text-[10px] text-[#6b7280] leading-tight mt-0.5">Teacher</p>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <!-- Topbar Profile Dropdown Menu -->
+            <div id="topbarProfileMenu"
+              class="hidden absolute right-0 mt-2 w-48 bg-white border border-[#e5e7eb] rounded-xl shadow-lg py-1.5 z-50 text-xs font-medium text-[#374151]">
+              <a href="profile.html"
+                class="flex items-center gap-2 px-3.5 py-2 hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                My Profile
+              </a>
+              <a href="profile.html#security"
+                class="flex items-center gap-2 px-3.5 py-2 hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Account Settings
+              </a>
+              <div class="h-px bg-gray-100 my-1"></div>
+              <a href="../login.html"
+                class="flex items-center gap-2 px-3.5 py-2 text-rose-600 hover:bg-rose-50 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Log Out
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE CONTENT (UI Design: admin/performance-analytics.html, Content: docs 1.9) ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header (Matching admin/performance-analytics.html) -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Class Attendance Analytics</h2>
+            <p class="text-sm text-[#6b7280]">Analyze attendance data and generate insights to improve student and class
+              performance.</p>
+          </div>
+          <button id="currentDateDisplay"
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
+            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span id="currentDateLabel">September 5, 2026 (Saturday)</span>
+          </button>
+        </div>
+
+        <!-- ===== TOP STAT CARDS (5 SUMMARY METRICS AS PER DOCS 1.9 & ADMIN UI) ===== -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+
+          <!-- Card 1: Overall Attendance Rate (Purple Theme) -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#8b5cf6]/50 transition-all block group">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-11 h-11 rounded-xl bg-[#f3e8ff] flex items-center justify-center shrink-0 border border-[#e9d5ff]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#9333ea]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 18L9 11.25l4.306 4.307a.5.5 0 00.71 0l7.234-7.234M21 8.25V13.5M21 8.25H15.75" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Overall Attendance</p>
+                <p class="text-2xl font-extrabold text-[#111827]" id="kpiOverallRate">93.40%</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
+              <span>&uarr;</span> <span id="kpiOverallTrend">2.10%</span> <span class="font-normal text-[#6b7280]">from
+                last month</span>
+            </p>
+          </div>
+
+          <!-- Card 2: Present % (Green Theme) -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all block group">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Present %</p>
+                <p class="text-2xl font-extrabold text-[#111827]" id="kpiPresentRate">90.80%</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
+              <span>&uarr;</span> <span>3.12%</span> <span class="font-normal text-[#6b7280]">from last month</span>
+            </p>
+          </div>
+
+          <!-- Card 3: Absent % (Red Theme) -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all block group">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#dc2626]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.765z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Absent %</p>
+                <p class="text-2xl font-extrabold text-[#111827]" id="kpiAbsentRate">2.60%</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#dc2626] font-medium mt-2 flex items-center gap-1">
+              <span>&darr;</span> <span>1.18%</span> <span class="font-normal text-[#6b7280]">from last month</span>
+            </p>
+          </div>
+
+          <!-- Card 4: Late % (Orange Theme) -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all block group">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Late %</p>
+                <p class="text-2xl font-extrabold text-[#111827]" id="metricLate">5.40%</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#dc2626] font-medium mt-2 flex items-center gap-1">
+              <span>&darr;</span> <span>0.75%</span> <span class="font-normal text-[#6b7280]">from last month</span>
+            </p>
+          </div>
+
+          <!-- Card 5: Excused % (Blue Theme) -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all block group">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Excused %</p>
+                <p class="text-2xl font-extrabold text-[#111827]" id="kpiExcusedRate">1.20%</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#16a34a] font-medium mt-2 flex items-center gap-1">
+              <span>&uarr;</span> <span>0.81%</span> <span class="font-normal text-[#6b7280]">from last month</span>
+            </p>
+          </div>
+
+        </div>
+
+        <!-- ===== CHARTS ROW (VISUAL CHARTS AS PER DOCS 1.9 & ADMIN UI) ===== -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+          <!-- Left Card: Daily Class Attendance Trends (Line Chart) -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold text-[#111827]">Daily Class Attendance Trends</h3>
+              <div class="flex items-center gap-2 text-xs text-[#6b7280]">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#0030c2] inline-block"></span>
+                <span>Attendance Rate (%)</span>
+              </div>
+            </div>
+
+            <!-- SVG Line Chart -->
+            <div class="relative mt-2">
+              <svg viewBox="0 0 600 240" class="w-full h-64 overflow-visible">
+                <!-- Background Grid Lines -->
+                <g stroke="#f1f5f9" stroke-width="1">
+                  <line x1="35" y1="20" x2="580" y2="20" />
+                  <line x1="35" y1="65" x2="580" y2="65" />
+                  <line x1="35" y1="110" x2="580" y2="110" />
+                  <line x1="35" y1="155" x2="580" y2="155" />
+                  <line x1="35" y1="200" x2="580" y2="200" />
+                </g>
+
+                <!-- Y-Axis Labels -->
+                <g font-size="10" fill="#9ca3af" font-weight="500">
+                  <text x="5" y="24">100%</text>
+                  <text x="11" y="69">90%</text>
+                  <text x="11" y="114">80%</text>
+                  <text x="11" y="159">70%</text>
+                  <text x="11" y="204">60%</text>
+                </g>
+
+                <!-- Polyline Trend Line -->
+                <polyline id="lineChartPolyline" fill="none" stroke="#0030c2" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round"
+                  points="45,69.5 79,78.5 113,51.5 147,56 181,74 215,47 249,56 283,42.5 317,60.5 351,56 385,31.2 419,42.5 453,31.2 487,31.2 521,35.7 555,56" />
+
+                <!-- Data Points (Circles) -->
+                <g id="lineChartCircles" fill="#0030c2" stroke="#ffffff" stroke-width="2">
+                  <circle cx="45" cy="69.5" r="4" />
+                  <circle cx="79" cy="78.5" r="4" />
+                  <circle cx="113" cy="51.5" r="4" />
+                  <circle cx="147" cy="56" r="4" />
+                  <circle cx="181" cy="74" r="4" />
+                  <circle cx="215" cy="47" r="4" />
+                  <circle cx="249" cy="56" r="4" />
+                  <circle cx="283" cy="42.5" r="4" />
+                  <circle cx="317" cy="60.5" r="4" />
+                  <circle cx="351" cy="56" r="4" />
+                  <circle cx="385" cy="31.2" r="5" fill="#0030c2" stroke="#ffffff" stroke-width="2" />
+                  <circle cx="419" cy="42.5" r="4" />
+                  <circle cx="453" cy="31.2" r="4" />
+                  <circle cx="487" cy="31.2" r="4" />
+                  <circle cx="521" cy="35.7" r="4" />
+                  <circle cx="555" cy="56" r="4" />
+                </g>
+
+                <!-- X-Axis Labels -->
+                <g font-size="10" fill="#6b7280" font-weight="500">
+                  <text x="37" y="222">Sep 1</text>
+                  <text x="105" y="222">Sep 6</text>
+                  <text x="173" y="222">Sep 11</text>
+                  <text x="275" y="222">Sep 16</text>
+                  <text x="343" y="222">Sep 21</text>
+                  <text x="445" y="222">Sep 26</text>
+                  <text x="547" y="222">Sep 30</text>
+                </g>
+              </svg>
+
+              <!-- Tooltip Overlay -->
+              <div
+                class="absolute top-28 right-16 bg-white border border-[#e5e7eb] shadow-md rounded-lg p-2 text-center pointer-events-none z-10 min-w-[130px]">
+                <p class="text-[10px] font-medium text-[#6b7280]">Sep 25, 2026</p>
+                <p class="text-xs font-bold text-[#111827] mt-0.5">Attendance Rate: <span
+                    class="text-[#0030c2]">93.40%</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Card: Monthly Comparison (Bar Chart) -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold text-[#111827]">Monthly Comparison</h3>
+              <div class="flex items-center gap-2 text-xs text-[#6b7280]">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#0030c2] inline-block"></span>
+                <span>Attendance Rate (%)</span>
+              </div>
+            </div>
+
+            <!-- Bar Chart SVG Container -->
+            <div class="relative mt-2">
+              <svg viewBox="0 0 600 240" class="w-full h-64 overflow-visible">
+                <!-- Background Grid Lines -->
+                <g stroke="#f1f5f9" stroke-width="1">
+                  <line x1="35" y1="20" x2="580" y2="20" />
+                  <line x1="35" y1="65" x2="580" y2="65" />
+                  <line x1="35" y1="110" x2="580" y2="110" />
+                  <line x1="35" y1="155" x2="580" y2="155" />
+                  <line x1="35" y1="200" x2="580" y2="200" />
+                </g>
+
+                <!-- Y-Axis Labels -->
+                <g font-size="10" fill="#9ca3af" font-weight="500">
+                  <text x="5" y="24">100%</text>
+                  <text x="11" y="69">75%</text>
+                  <text x="11" y="114">50%</text>
+                  <text x="11" y="159">25%</text>
+                  <text x="17" y="204">0%</text>
+                </g>
+
+                <!-- Monthly Bars (12 Months) -->
+                <g>
+                  <!-- Feb: 88.21% -->
+                  <rect x="45" y="41.3" width="26" height="158.7" rx="4" fill="#93b4ff" />
+                  <text x="42" y="35" font-size="9" fill="#6b7280" font-weight="600">88.21%</text>
+
+                  <!-- Mar: 89.34% -->
+                  <rect x="90" y="39.2" width="26" height="160.8" rx="4" fill="#93b4ff" />
+                  <text x="87" y="33" font-size="9" fill="#6b7280" font-weight="600">89.34%</text>
+
+                  <!-- Apr: 90.12% -->
+                  <rect x="135" y="37.8" width="26" height="162.2" rx="4" fill="#93b4ff" />
+                  <text x="132" y="31" font-size="9" fill="#6b7280" font-weight="600">90.12%</text>
+
+                  <!-- May: 91.05% -->
+                  <rect x="180" y="36.1" width="26" height="163.9" rx="4" fill="#93b4ff" />
+                  <text x="177" y="29" font-size="9" fill="#6b7280" font-weight="600">91.05%</text>
+
+                  <!-- Jun: 90.11% -->
+                  <rect x="225" y="37.8" width="26" height="162.2" rx="4" fill="#93b4ff" />
+                  <text x="222" y="31" font-size="9" fill="#6b7280" font-weight="600">90.11%</text>
+
+                  <!-- Jul: 91.42% -->
+                  <rect x="270" y="35.5" width="26" height="164.5" rx="4" fill="#93b4ff" />
+                  <text x="267" y="29" font-size="9" fill="#6b7280" font-weight="600">91.42%</text>
+
+                  <!-- Aug: 92.15% -->
+                  <rect x="315" y="34.1" width="26" height="165.9" rx="4" fill="#93b4ff" />
+                  <text x="312" y="28" font-size="9" fill="#6b7280" font-weight="600">92.15%</text>
+
+                  <!-- Sep: 93.40% (Highlighted Active Month) -->
+                  <rect x="360" y="31.9" width="26" height="168.1" rx="4" fill="#0030c2" />
+                  <text x="357" y="24" font-size="9" fill="#0030c2" font-weight="700">93.40%</text>
+
+                  <!-- Oct (Future / Projection) -->
+                  <rect x="405" y="52" width="26" height="148" rx="4" fill="#e2e8f0" />
+
+                  <!-- Nov -->
+                  <rect x="450" y="68" width="26" height="132" rx="4" fill="#e2e8f0" />
+
+                  <!-- Dec -->
+                  <rect x="495" y="75" width="26" height="125" rx="4" fill="#e2e8f0" />
+
+                  <!-- Jan -->
+                  <rect x="540" y="65" width="26" height="135" rx="4" fill="#e2e8f0" />
+                </g>
+
+                <!-- X-Axis Labels -->
+                <g font-size="10" fill="#6b7280" font-weight="500">
+                  <text x="51" y="222">Feb</text>
+                  <text x="96" y="222">Mar</text>
+                  <text x="142" y="222">Apr</text>
+                  <text x="186" y="222">May</text>
+                  <text x="232" y="222">Jun</text>
+                  <text x="278" y="222">Jul</text>
+                  <text x="322" y="222">Aug</text>
+                  <text x="368" y="222" font-weight="700" fill="#0030c2">Sep</text>
+                  <text x="413" y="222">Oct</text>
+                  <text x="457" y="222">Nov</text>
+                  <text x="502" y="222">Dec</text>
+                  <text x="548" y="222">Jan</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ===== TABLES ROW (STUDENT RANKINGS & SUBJECT PUNCTUALITY AS PER DOCS 1.9 & ADMIN UI) ===== -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+          <!-- Card 1: Punctual Students Roster -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <h3 class="text-xs font-bold text-[#111827]">Punctual Students Roster</h3>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="border-b border-[#e5e7eb] text-[#6b7280] font-semibold">
+                      <th class="py-2 px-1">Rank</th>
+                      <th class="py-2 px-1">Student</th>
+                      <th class="py-2 px-1">Section</th>
+                      <th class="py-2 px-1 text-right">Attendance Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody id="topStudentsTableBody" class="divide-y divide-[#f1f5f9] text-[#111827]">
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">1</td>
+                      <td class="py-2.5 px-1 font-bold">Dela Cruz, Mark</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3A</td>
+                      <td class="py-2.5 px-1 text-right">
+                        <span
+                          class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#dcfce7] text-[#16a34a]">100.0%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">2</td>
+                      <td class="py-2.5 px-1 font-bold">Santos, Maria Elena</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSCS 2A</td>
+                      <td class="py-2.5 px-1 text-right">
+                        <span
+                          class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#dcfce7] text-[#16a34a]">100.0%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">3</td>
+                      <td class="py-2.5 px-1 font-bold">Reyes, Joshua Paul</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3B</td>
+                      <td class="py-2.5 px-1 text-right">
+                        <span
+                          class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#dcfce7] text-[#16a34a]">99.50%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">4</td>
+                      <td class="py-2.5 px-1 font-bold">Bautista, Angel Mae</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 4A</td>
+                      <td class="py-2.5 px-1 text-right">
+                        <span
+                          class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#dcfce7] text-[#16a34a]">98.80%</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">5</td>
+                      <td class="py-2.5 px-1 font-bold">Aquino, John Lloyd</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3A</td>
+                      <td class="py-2.5 px-1 text-right">
+                        <span
+                          class="px-2 py-0.5 rounded text-[11px] font-bold bg-[#dcfce7] text-[#16a34a]">98.50%</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-2 border-t border-[#f1f5f9]">
+              <a href="perfect-attendance.html"
+                class="inline-flex items-center gap-1 text-xs font-bold text-[#0030c2] hover:text-[#002594]">
+                View Full Roster &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Students at Risk of Exceeding Absence Thresholds -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <h3 class="text-xs font-bold text-[#111827]">Students at Risk of Thresholds</h3>
+              </div>
+
+              <!-- Tab Controls -->
+              <div class="flex items-center gap-4 border-b border-[#e5e7eb] mb-3 pb-1">
+                <button id="btnTabAbsences" onclick="switchRiskTab('absences')"
+                  class="text-xs font-bold text-[#dc2626] pb-1 border-b-2 border-[#dc2626] focus:outline-none transition-colors cursor-pointer">
+                  Most Absences
+                </button>
+                <button id="btnTabTardiness" onclick="switchRiskTab('tardiness')"
+                  class="text-xs font-medium text-[#6b7280] pb-1 hover:text-[#111827] focus:outline-none transition-colors cursor-pointer">
+                  Most Tardiness
+                </button>
+              </div>
+
+              <!-- Absences Table View -->
+              <div id="viewMostAbsences" class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="border-b border-[#e5e7eb] text-[#6b7280] font-semibold">
+                      <th class="py-2 px-1">Rank</th>
+                      <th class="py-2 px-1">Student</th>
+                      <th class="py-2 px-1">Section</th>
+                      <th class="py-2 px-1 text-right">Absences</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#f1f5f9] text-[#111827]">
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">1</td>
+                      <td class="py-2.5 px-1 font-bold">Villanueva, Gabriel</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3B</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#dc2626]">4</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">2</td>
+                      <td class="py-2.5 px-1 font-bold">Navarro, Kenneth</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3A</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#dc2626]">3</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">3</td>
+                      <td class="py-2.5 px-1 font-bold">Mercado, Alyssa</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 4A</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#dc2626]">3</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">4</td>
+                      <td class="py-2.5 px-1 font-bold">Pascual, Kevin</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSCS 2A</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#dc2626]">2</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Tardiness Table View (Hidden by default) -->
+              <div id="viewMostTardiness" class="overflow-x-auto hidden">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="border-b border-[#e5e7eb] text-[#6b7280] font-semibold">
+                      <th class="py-2 px-1">Rank</th>
+                      <th class="py-2 px-1">Student</th>
+                      <th class="py-2 px-1">Section</th>
+                      <th class="py-2 px-1 text-right">Tardies</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#f1f5f9] text-[#111827]">
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">1</td>
+                      <td class="py-2.5 px-1 font-bold">Soriano, Jerome</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3B</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#ea580c]">6</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">2</td>
+                      <td class="py-2.5 px-1 font-bold">Castaneda, Ryan</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3A</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#ea580c]">5</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">3</td>
+                      <td class="py-2.5 px-1 font-bold">Villanueva, Gabriel</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3B</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#ea580c]">4</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-semibold text-[#6b7280]">4</td>
+                      <td class="py-2.5 px-1 font-bold">Navarro, Kenneth</td>
+                      <td class="py-2.5 px-1 text-[#4b5563]">BSIT 3A</td>
+                      <td class="py-2.5 px-1 text-right font-bold text-[#ea580c]">3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-2 border-t border-[#f1f5f9]">
+              <a href="tardy-and-absence/absence-list.html"
+                class="inline-flex items-center gap-1 text-xs font-bold text-[#dc2626] hover:text-[#b91c1c]">
+                View Full Risk Roster &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Subject Punctuality Comparison -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <h3 class="text-xs font-bold text-[#111827]">Subject Punctuality Comparison</h3>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="border-b border-[#e5e7eb] text-[#6b7280] font-semibold">
+                      <th class="py-2 px-1">Subject &amp; Sec</th>
+                      <th class="py-2 px-1 text-right">Present %</th>
+                      <th class="py-2 px-1 text-right">Late %</th>
+                      <th class="py-2 px-1 text-right">Absent %</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sectionPerformanceTableBody" class="divide-y divide-[#f1f5f9] text-[#111827]">
+                    <tr>
+                      <td class="py-2.5 px-1 font-bold">CS201 (BSCS 2A)</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">93.00%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">4.10%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">1.80%</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-bold">IT301 (BSIT 3A)</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">91.50%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">4.80%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">2.40%</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-bold">IT302 (BSIT 3B)</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">89.20%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">6.10%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">3.10%</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2.5 px-1 font-bold">IT401 (BSIT 4A)</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">89.50%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">6.60%</td>
+                      <td class="py-2.5 px-1 text-right font-medium text-[#111827]">3.10%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-2 border-t border-[#f1f5f9]">
+              <button onclick="openExportModal()"
+                class="inline-flex items-center gap-1 text-xs font-bold text-[#0030c2] hover:text-[#002594] cursor-pointer">
+                Export Complete Breakdown &rarr;
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== EXPORT MODAL ===== -->
+  <div id="exportModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden p-4">
+    <div
+      class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-[#e5e7eb] overflow-hidden transform transition-all">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-[#e5e7eb] bg-gray-50/50">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Export Class Analytics</h3>
+            <p class="text-[11px] text-[#6b7280]">Generate official analytics performance sheets</p>
+          </div>
+        </div>
+        <button onclick="closeExportModal()"
+          class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="exportAnalyticsForm" onsubmit="handleExportSubmit(event)" class="p-5 space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-[#374151] block mb-2">Export Format</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <label
+              class="export-format-card border-2 border-[#0030c2] bg-[#eff6ff] p-3 rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all">
+              <input type="radio" name="exportFormat" value="CSV" checked class="hidden"
+                onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#0030c2] export-card-title">CSV</span>
+              <span class="text-[9px] text-[#6b7280]">Spreadsheet</span>
+            </label>
+
+            <label
+              class="export-format-card border border-[#e5e7eb] hover:border-gray-300 p-3 rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all">
+              <input type="radio" name="exportFormat" value="Excel" class="hidden"
+                onchange="updateExportFormatSelection(this)">
+              <span class="font-bold text-[#374151] export-card-title">Excel</span>
+              <span class="text-[9px] text-[#6b7280]">.XLSX Format</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Target Subject &amp; Section</label>
+          <select id="modalExportSection"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ALL">All Assigned Classes (Comprehensive)</option>
+            <option value="BSIT 3A">IT301 - BSIT 3A (Web Development)</option>
+            <option value="BSIT 3B">IT302 - BSIT 3B (Database Systems)</option>
+            <option value="BSCS 2A">CS201 - BSCS 2A (Data Structures)</option>
+            <option value="BSIT 4A">IT401 - BSIT 4A (Capstone Advisory)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="font-bold text-[#374151] block mb-1">Date Period Scope</label>
+          <select id="modalExportPeriod"
+            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
+            <option value="ActiveMonth">Current Month (September 2026)</option>
+            <option value="FullTerm">Full Academic Term (AY 2026-2027)</option>
+          </select>
+        </div>
+
+        <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-end gap-2">
+          <button type="button" onclick="closeExportModal()"
+            class="px-4 py-2 border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 rounded-lg font-semibold transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="submit"
+            class="px-4 py-2 bg-[#0030c2] hover:bg-[#0028a0] text-white rounded-lg font-semibold transition-colors shadow-xs cursor-pointer flex items-center gap-1.5">
+            <span id="exportSubmitBtnText">Download CSV</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JavaScript Scripts -->
+  <script src="../assets/js/common/main.js"></script>
+  <script src="../assets/js/common/sidebar.js"></script>
+  <script src="../assets/js/teacher/class-analytics.js"></script>
+</body>
+
+</html>
