@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Reports &amp; Export</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+    @media print {
+
+      body,
+      html {
+        overflow: visible !important;
+        height: auto !important;
+        background: white !important;
+      }
+
+      body * {
+        visibility: hidden;
+      }
+
+      #reportPreviewModal {
+        position: static !important;
+        background: none !important;
+        backdrop-filter: none !important;
+        display: block !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+
+      #reportPreviewModal>div {
+        max-width: 100% !important;
+        max-height: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        overflow: visible !important;
+      }
+
+      #reportPrintArea,
+      #reportPrintArea * {
+        visibility: visible;
+      }
+
+      #reportPrintArea {
+        position: static !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        background: white !important;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="mainSidebar"
+      class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo Header -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0 shadow-xs">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight truncate">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280] truncate">Teacher Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+        <!-- Teacher Dashboard -->
+        <a href="dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span class="truncate">Teacher Dashboard</span>
+        </a>
+
+        <!-- Daily Attendance -->
+        <a href="daily-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="truncate">Daily Attendance</span>
+        </a>
+
+        <!-- RFID/QR SCANNING with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleDropdown()"
+            class="dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+              </svg>
+              <span class="truncate">RFID/QR Scanning</span>
+            </div>
+            <svg class="dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="rfid-and-qr/live-scanner.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Live Scanner</span>
+            </a>
+            <a href="rfid-and-qr/scan-logs.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Scan Logs</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TARDY & ABSENCE LOGS with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="truncate">Tardy &amp; Absence Logs</span>
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="tardy-and-absence/tardy-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Tardy List</span>
+            </a>
+            <a href="tardy-and-absence/absence-list.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Absence List</span>
+            </a>
+            <a href="tardy-and-absence/student-attendance-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Attendance History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Teacher Attendance -->
+        <a href="teacher-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span class="truncate">Teacher Attendance</span>
+        </a>
+
+        <!-- Excuse Management with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              <span class="truncate">Excuse Management</span>
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280] shrink-0"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="excuse-slip/pending-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Pending Requests</span>
+            </a>
+            <a href="excuse-slip/approved-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Approved Requests</span>
+            </a>
+            <a href="excuse-slip/rejected-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Rejected Requests</span>
+            </a>
+            <a href="excuse-slip/excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              <span class="truncate">Excuse Slip History</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          <span class="truncate">Attendance Calendar</span>
+        </a>
+
+        <!-- Parent Alerts -->
+        <a href="parent-alerts.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span class="truncate">Parent Alerts</span>
+        </a>
+
+        <!-- Class Analytics Dashboard -->
+        <a href="class-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span class="truncate">Class Analytics Dashboard</span>
+        </a>
+
+        <!-- Perfect Attendance Award -->
+        <a href="perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          <span class="truncate">Perfect Attendance Award</span>
+        </a>
+
+        <!-- Reports & Export (ACTIVE) -->
+        <a href="reports-export.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          <span class="truncate">Reports &amp; Export</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT AREA ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar Header -->
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3 min-w-0">
+          <button class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827] truncate">Reports &amp; Export</h1>
+        </div>
+
+        <div class="flex items-center gap-4 shrink-0">
+          <!-- Notification Bell with Blue Badge -->
+          <button class="relative text-[#6b7280] hover:text-[#111827] p-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute top-0 right-0 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Teacher Profile Pill with Dropdown -->
+          <div class="relative">
+            <button id="topbarProfileBtn" onclick="toggleProfileDropdown(event)"
+              class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-lg transition-colors focus:outline-none">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-left">
+                <p class="text-xs font-bold text-[#111827] leading-tight">Mrs. Jane Dela Cruz</p>
+                <p class="text-[10px] text-[#6b7280] leading-tight mt-0.5">Teacher</p>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="topbarProfileMenu"
+              class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
+              <a href="profile.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>My Profile</span>
+              </a>
+              <div class="my-1 border-t border-[#f1f5f9]"></div>
+              <button onclick="handleLogout()"
+                class="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE MAIN CONTENT ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Reports &amp; Export</h2>
+            <p class="text-sm text-[#6b7280]">Generate and download attendance reports for academic grading and
+              departmental submission.</p>
+          </div>
+          <button id="currentDateDisplay"
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
+            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
+          </button>
+        </div>
+
+        <!-- ===== 4 FACULTY OVERVIEW METRIC CARDS ===== -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <!-- Card 1: Assigned Classes -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#0030c2]/50 transition-all flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-[#6b7280] uppercase tracking-wider">Assigned Classes</span>
+              <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p class="text-xl font-extrabold text-[#111827]">4 Classes</p>
+              <p class="text-[11px] text-[#6b7280] mt-0.5">BSIT 3A, 3B, BSCS 2A, BSIT 4A</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Enrolled Students -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#0030c2]/50 transition-all flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-[#6b7280] uppercase tracking-wider">Enrolled Students</span>
+              <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p class="text-xl font-extrabold text-[#111827]">142 Students</p>
+              <p class="text-[11px] text-[#6b7280] mt-0.5">Monitored via RFID &amp; QR</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Term Attendance Average -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#16a34a]/50 transition-all flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-[#6b7280] uppercase tracking-wider">Term Attendance</span>
+              <div class="w-8 h-8 rounded-lg bg-[#f0fdf4] text-[#16a34a] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p class="text-xl font-extrabold text-[#16a34a]">94.8%</p>
+              <p class="text-[11px] text-[#6b7280] mt-0.5">Above institutional 80% target</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Report Templates Ready -->
+          <div
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#7c3aed]/50 transition-all flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-[#6b7280] uppercase tracking-wider">Report Templates</span>
+              <div class="w-8 h-8 rounded-lg bg-[#f5f3ff] text-[#7c3aed] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <p class="text-xl font-extrabold text-[#7c3aed]">5 Formats</p>
+              <p class="text-[11px] text-[#6b7280] mt-0.5">Grading &amp; Departmental</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SECTION 1: AVAILABLE REPORTS GRID ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-base font-bold text-[#111827]">Available Reports</h2>
+              <p class="text-xs text-[#6b7280]">Select an official faculty report to compile and export.</p>
+            </div>
+            <!-- Filter Button (Opens Filter Modal) -->
+            <button id="btnOpenFilterModal" onclick="openFilterModal()"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors self-start sm:self-auto shadow-2xs cursor-pointer">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              </svg>
+              <span id="filterBtnLabel">Filter Criteria</span>
+            </button>
+          </div>
+
+          <!-- Active Filter Chips Summary (Dynamic) -->
+          <div id="activeFiltersSummaryBar"
+            class="hidden flex-wrap items-center gap-2 mb-4 p-2.5 bg-[#f8fafc] border border-[#e5e7eb] rounded-lg text-[11px]">
+            <span class="font-bold text-[#374151]">Active Filter:</span>
+            <div id="activeFilterChipsContainer" class="flex flex-wrap items-center gap-1.5"></div>
+            <button onclick="handleResetFilters()"
+              class="ml-auto text-[11px] font-semibold text-[#dc2626] hover:underline cursor-pointer">
+              Clear All
+            </button>
+          </div>
+
+          <!-- 5 Selectable Report Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5" id="reportsGrid">
+
+            <!-- 1. Class Master Attendance Sheet -->
+            <div
+              class="report-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex flex-col justify-between group relative shadow-2xs"
+              data-report="master" onclick="selectReportCard('master')">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#eff6ff] text-[#0030c2] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                    </svg>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]/60">Academic
+                    Grading</span>
+                </div>
+                <h3 class="text-xs font-bold text-[#111827] mb-1">Class Master Attendance</h3>
+                <p class="text-[11px] text-[#6b7280] leading-snug">Full term roster with attendance percentages, session
+                  counts, and grading compliance status.</p>
+              </div>
+            </div>
+
+            <!-- 2. Weekly Roll Call -->
+            <div
+              class="report-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex flex-col justify-between group relative shadow-2xs"
+              data-report="weekly" onclick="selectReportCard('weekly')">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#eff6ff] text-[#0030c2] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                    </svg>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]/60">Daily
+                    Roll Call</span>
+                </div>
+                <h3 class="text-xs font-bold text-[#111827] mb-1">Weekly Roll Call</h3>
+                <p class="text-[11px] text-[#6b7280] leading-snug">Day-by-day attendance log across Monday to Friday for
+                  enrolled students in the section.</p>
+              </div>
+            </div>
+
+            <!-- 3. Monthly Section Summary -->
+            <div
+              class="report-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex flex-col justify-between group relative shadow-2xs"
+              data-report="monthly" onclick="selectReportCard('monthly')">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#eff6ff] text-[#0030c2] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                    </svg>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]/60">Departmental</span>
+                </div>
+                <h3 class="text-xs font-bold text-[#111827] mb-1">Monthly Section Summary</h3>
+                <p class="text-[11px] text-[#6b7280] leading-snug">Aggregated attendance rates, total sessions held, and
+                  breakdown statistics across calendar months.</p>
+              </div>
+            </div>
+
+            <!-- 4. Student-by-Student Attendance Summary -->
+            <div
+              class="report-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex flex-col justify-between group relative shadow-2xs"
+              data-report="student" onclick="selectReportCard('student')">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#eff6ff] text-[#0030c2] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]/60">Student
+                    Dossier</span>
+                </div>
+                <h3 class="text-xs font-bold text-[#111827] mb-1">Student Attendance Summary</h3>
+                <p class="text-[11px] text-[#6b7280] leading-snug">Individual student chronological log with RFID/QR
+                  scan times, excuse verification, and behavior history.</p>
+              </div>
+            </div>
+
+            <!-- 5. Subject Tardy/Absence Report -->
+            <div
+              class="report-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex flex-col justify-between group relative shadow-2xs"
+              data-report="tardy" onclick="selectReportCard('tardy')">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#eff6ff] text-[#0030c2] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">20%
+                    Threshold Warning</span>
+                </div>
+                <h3 class="text-xs font-bold text-[#111827] mb-1">Subject Tardy / Absence</h3>
+                <p class="text-[11px] text-[#6b7280] leading-snug">Identifies chronic tardiness and unexcused absences
+                  approaching maximum allowable absences.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===== SECTION 2: EXPORT FORMATS & OPTIONS ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
+          <div class="mb-4">
+            <h2 class="text-base font-bold text-[#111827]">Export Formats &amp; Document Options</h2>
+            <p class="text-xs text-[#6b7280]">Choose your desired file format and customize document fields.</p>
+          </div>
+
+          <!-- 3 Format Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+
+            <!-- CSV Format -->
+            <label
+              class="format-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex items-start justify-between relative shadow-2xs"
+              onclick="selectFormatOption(this, 'CSV')">
+              <input type="radio" name="exportFormatOption" value="CSV" class="hidden">
+              <div class="flex items-start gap-3.5">
+                <div
+                  class="w-10 h-10 rounded-lg bg-[#dcfce7] text-[#16a34a] flex items-center justify-center font-black text-xs shrink-0">
+                  CSV
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-[#111827] mb-0.5">CSV Spreadsheet</h3>
+                  <p class="text-[11px] text-[#6b7280] leading-relaxed">
+                    Raw tabular data formatted for grading calculators, Excel spreadsheets, and school SIS import.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="radio-circle w-4 h-4 rounded-full border-2 border-[#d1d5db] flex items-center justify-center shrink-0 mt-0.5 bg-white">
+                <div class="w-1.5 h-1.5 rounded-full bg-white hidden"></div>
+              </div>
+            </label>
+
+            <!-- Excel Format -->
+            <label
+              class="format-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex items-start justify-between relative shadow-2xs"
+              onclick="selectFormatOption(this, 'Excel')">
+              <input type="radio" name="exportFormatOption" value="Excel" class="hidden">
+              <div class="flex items-start gap-3.5">
+                <div
+                  class="w-10 h-10 rounded-lg bg-[#dcfce7] text-[#16a34a] flex items-center justify-center font-black text-xs shrink-0">
+                  XLSX
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-[#111827] mb-0.5">Microsoft Excel (.xlsx)</h3>
+                  <p class="text-[11px] text-[#6b7280] leading-relaxed">
+                    Formatted workbook with section headers and auto-styled columns ready for departmental submission.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="radio-circle w-4 h-4 rounded-full border-2 border-[#d1d5db] flex items-center justify-center shrink-0 mt-0.5 bg-white">
+                <div class="w-1.5 h-1.5 rounded-full bg-white hidden"></div>
+              </div>
+            </label>
+
+            <!-- PDF Format -->
+            <label
+              class="format-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex items-start justify-between relative shadow-2xs"
+              onclick="selectFormatOption(this, 'PDF')">
+              <input type="radio" name="exportFormatOption" value="PDF" class="hidden">
+              <div class="flex items-start gap-3.5">
+                <div
+                  class="w-10 h-10 rounded-lg bg-[#fee2e2] text-[#dc2626] flex items-center justify-center font-black text-xs shrink-0">
+                  PDF
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-[#111827] mb-0.5">Official Printable PDF</h3>
+                  <p class="text-[11px] text-[#6b7280] leading-relaxed">
+                    Official BCP letterhead document with document tracking codes and faculty signatory blocks.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="radio-circle w-4 h-4 rounded-full border-2 border-[#d1d5db] flex items-center justify-center shrink-0 mt-0.5 bg-white">
+                <div class="w-1.5 h-1.5 rounded-full bg-white hidden"></div>
+              </div>
+            </label>
+
+          </div>
+
+          <!-- Document Customization Checkboxes -->
+          <div class="p-3.5 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl mb-5">
+            <h4 class="text-xs font-bold text-[#374151] mb-2 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+              </svg>
+              Report Fields &amp; Layout Customization
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[#374151]">
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="optIncludePercentages" checked
+                  class="w-4 h-4 rounded border-[#d1d5db] text-[#0030c2] focus:ring-[#0030c2]">
+                <span>Include Attendance Percentage (%)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="optIncludeTimestamps" checked
+                  class="w-4 h-4 rounded border-[#d1d5db] text-[#0030c2] focus:ring-[#0030c2]">
+                <span>Include RFID/QR Scan Timestamps</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="optIncludeSignatures" checked
+                  class="w-4 h-4 rounded border-[#d1d5db] text-[#0030c2] focus:ring-[#0030c2]">
+                <span>Include Faculty Signatory Lines</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Action Buttons (Generate Report & Clear Selection) -->
+          <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#e5e7eb]">
+            <button id="btnClearSelection" type="button" onclick="clearReportSelections()"
+              class="inline-flex items-center gap-1.5 bg-white border border-[#e5e7eb] hover:bg-gray-50 text-[#374151] px-4 py-2.5 rounded-lg text-xs font-semibold transition-colors shadow-2xs focus:outline-none cursor-pointer">
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Clear Selection
+            </button>
+            <button id="btnGenerateReport" type="button" onclick="triggerGenerateReport()"
+              class="inline-flex items-center gap-2 bg-[#0030c2] hover:bg-[#002594] text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm focus:outline-none cursor-pointer">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              Preview &amp; Generate Report
+            </button>
+          </div>
+        </div>
+
+        <!-- ===== SECTION 3: RECENT DOWNLOADS / EXPORT HISTORY ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs overflow-hidden">
+          <div class="p-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-[#111827]">Recent Generated Reports</h3>
+                <p class="text-xs text-[#6b7280]">Previous exports compiled during this grading period</p>
+              </div>
+            </div>
+            <span class="text-xs text-[#6b7280] font-medium" id="historyCounterText">4 Exports Recorded</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr
+                  class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                  <th class="py-3 px-4">Report Name</th>
+                  <th class="py-3 px-4">Subject &amp; Section</th>
+                  <th class="py-3 px-4">Date Generated</th>
+                  <th class="py-3 px-4 text-center">Format</th>
+                  <th class="py-3 px-4 text-center">File Size</th>
+                  <th class="py-3 px-4 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="recentExportsTableBody" class="divide-y divide-[#f3f4f6]">
+                <!-- Rendered dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: FILTER REPORT CRITERIA (Vertical Look) ===== -->
+  <div id="filterModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Header -->
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Filter Report Criteria</h3>
+            <p class="text-[11px] text-[#6b7280]">Select specific class and date parameters</p>
+          </div>
+        </div>
+        <button onclick="closeFilterModal()"
+          class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Form Body (Vertical Layout) -->
+      <form id="filtersForm" onsubmit="handleApplyFilters(event)" class="p-5 space-y-3.5 text-xs overflow-y-auto">
+        <!-- Assigned Subject Dropdown -->
+        <div>
+          <label for="filterSubject" class="block font-bold text-[#374151] mb-1">Subject</label>
+          <select id="filterSubject"
+            class="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-xs bg-white text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#0030c2] focus:border-[#0030c2]">
+            <option value="all">All Assigned Subjects</option>
+            <option value="IT301 - Web Development">IT301 - Web Development</option>
+            <option value="IT302 - Database Management">IT302 - Database Management</option>
+            <option value="CS201 - Data Structures">CS201 - Data Structures &amp; Algorithms</option>
+            <option value="IT401 - Capstone Project 1">IT401 - Capstone Project 1</option>
+          </select>
+        </div>
+
+        <!-- Section Dropdown -->
+        <div>
+          <label for="filterSection" class="block font-bold text-[#374151] mb-1">Class Section</label>
+          <select id="filterSection" onchange="handleSectionFilterChange()"
+            class="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-xs bg-white text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#0030c2] focus:border-[#0030c2]">
+            <option value="all">All Assigned Sections</option>
+            <option value="BSIT 3A">BSIT 3A</option>
+            <option value="BSIT 3B">BSIT 3B</option>
+            <option value="BSCS 2A">BSCS 2A</option>
+            <option value="BSIT 4A">BSIT 4A</option>
+          </select>
+        </div>
+
+        <!-- Date Range Selection -->
+        <div>
+          <label for="filterDateRange" class="block font-bold text-[#374151] mb-1">Date Period</label>
+          <select id="filterDateRange" onchange="handleDateRangePresetChange()"
+            class="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-xs bg-white text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#0030c2] focus:border-[#0030c2]">
+            <option value="current_term">2nd Semester, A.Y. 2024-2025 (Full Term)</option>
+            <option value="this_month">Current Month (May 2025)</option>
+            <option value="this_week">Current Week (May 26 - May 30, 2025)</option>
+            <option value="today">Today (May 27, 2025)</option>
+            <option value="custom">Custom Date Range...</option>
+          </select>
+        </div>
+
+        <!-- Custom Date Range Inputs (collapsible) -->
+        <div id="customDateRangeInputs" class="hidden grid grid-cols-2 gap-2 pt-0.5">
+          <div>
+            <label for="filterStartDate" class="block text-[11px] font-semibold text-[#4b5563] mb-0.5">Start
+              Date</label>
+            <input type="date" id="filterStartDate" value="2025-01-15"
+              class="w-full px-2 py-1.5 border border-[#d1d5db] rounded-lg text-xs bg-white text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#0030c2]">
+          </div>
+          <div>
+            <label for="filterEndDate" class="block text-[11px] font-semibold text-[#4b5563] mb-0.5">End Date</label>
+            <input type="date" id="filterEndDate" value="2025-05-27"
+              class="w-full px-2 py-1.5 border border-[#d1d5db] rounded-lg text-xs bg-white text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#0030c2]">
+          </div>
+        </div>
+
+        <!-- Specific Student Dropdown (Populated Dynamically) -->
+        <div>
+          <label for="filterStudent" class="block font-bold text-[#374151] mb-1">Student (Optional)</label>
+          <select id="filterStudent"
+            class="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-xs bg-white text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#0030c2] focus:border-[#0030c2]">
+            <option value="all">All Enrolled Students</option>
+          </select>
+        </div>
+
+        <!-- Filter Action Buttons -->
+        <div class="pt-3 flex items-center justify-end gap-2 border-t border-[#e5e7eb]">
+          <button type="button" onclick="handleResetFilters()"
+            class="px-3.5 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-100 rounded-lg transition-colors cursor-pointer">
+            Reset
+          </button>
+          <button type="submit"
+            class="inline-flex items-center gap-1.5 bg-[#0030c2] hover:bg-[#002594] text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors shadow-sm focus:outline-none cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+            </svg>
+            Apply Filters
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: GENERATED REPORT PREVIEW MODAL ===== -->
+  <div id="reportPreviewModal"
+    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-[#e5e7eb] overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <div>
+            <h3 id="previewModalTitle" class="text-sm font-bold text-[#111827]">Class Master Attendance Sheet</h3>
+            <p id="previewModalSubtitle" class="text-xs text-[#6b7280]">Official Academic Attendance Report · Bestlink
+              College of the Philippines</p>
+          </div>
+        </div>
+        <button onclick="closeReportPreviewModal()"
+          class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Printable Area & Preview Table) -->
+      <div id="reportPrintArea" class="flex-1 overflow-y-auto p-6 space-y-4">
+
+        <!-- Formal BCP Letterhead (Visible in Print & Preview) -->
+        <div class="border-b border-[#e5e7eb] pb-4 text-center">
+          <p class="text-[11px] font-semibold tracking-widest text-[#6b7280] uppercase">Republic of the Philippines</p>
+          <h2 class="text-base font-extrabold text-[#0030c2] tracking-tight uppercase">Bestlink College of the
+            Philippines</h2>
+          <p class="text-xs text-[#374151]">College of Computer Studies · Attendance Monitoring System</p>
+          <div
+            class="mt-2 inline-flex items-center gap-3 px-3 py-1 bg-[#f8fafc] border border-[#e5e7eb] rounded-lg text-[11px] font-mono text-[#4b5563]">
+            <span>Document Code: <strong>AMS-REP-2025-FAC</strong></span>
+            <span>·</span>
+            <span>Faculty: <strong>Mrs. Jane Dela Cruz</strong></span>
+            <span>·</span>
+            <span>Date: <strong>May 27, 2025</strong></span>
+          </div>
+        </div>
+
+        <!-- Metadata Information Strip -->
+        <div
+          class="flex flex-wrap items-center justify-between gap-3 text-xs bg-[#f8fafc] border border-[#e2e8f0] p-3.5 rounded-xl no-print">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-[#111827]">Report Template:</span>
+            <span id="previewReportBadge"
+              class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#eff6ff] text-[#0030c2]">
+              Class Master Attendance
+            </span>
+          </div>
+          <div class="flex items-center gap-4 text-[#6b7280]">
+            <span>Format: <strong id="previewFormatLabel" class="text-[#111827]">CSV</strong></span>
+            <span>Total Rows: <strong id="previewRowCount" class="text-[#111827]">8</strong></span>
+            <span>Section: <strong id="previewSectionLabel" class="text-[#111827]">All Sections</strong></span>
+          </div>
+        </div>
+
+        <!-- Active Filter Summary inside Preview -->
+        <div id="previewFilterCriteriaContainer"
+          class="flex flex-wrap items-center gap-2 text-[11px] text-[#4b5563] bg-[#eff6ff]/60 border border-[#dbeafe] px-3.5 py-2 rounded-lg no-print">
+          <span class="font-bold text-[#0030c2] flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+            </svg>
+            Scope &amp; Parameters:
+          </span>
+          <div id="previewFilterChips" class="flex flex-wrap items-center gap-1.5 font-medium"></div>
+        </div>
+
+        <!-- Table Display Container -->
+        <div class="overflow-x-auto border border-[#e5e7eb] rounded-xl shadow-2xs">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead
+              class="bg-[#f8fafc] border-b border-[#e5e7eb] text-[#6b7280] font-semibold uppercase text-[10px] tracking-wider">
+              <tr id="previewTableHead">
+                <!-- Dynamically populated via JS -->
+              </tr>
+            </thead>
+            <tbody id="previewTableBody" class="divide-y divide-[#f1f5f9] text-[#111827]">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Formal Three-Tier Signatory Block -->
+        <div id="previewSignatoryBlock"
+          class="pt-8 border-t border-[#e5e7eb] grid grid-cols-3 gap-6 text-center text-xs">
+          <div>
+            <div class="h-10"></div>
+            <p class="font-bold text-[#111827] border-b border-[#9ca3af] pb-1 mx-4">Mrs. Jane Dela Cruz, LPT</p>
+            <p class="text-[10px] text-[#6b7280] mt-1">Faculty Instructor / Subject Teacher</p>
+          </div>
+          <div>
+            <div class="h-10"></div>
+            <p class="font-bold text-[#111827] border-b border-[#9ca3af] pb-1 mx-4">Engr. Roberto M. Santos, MSIT</p>
+            <p class="text-[10px] text-[#6b7280] mt-1">Dean, College of Computer Studies</p>
+          </div>
+          <div>
+            <div class="h-10"></div>
+            <p class="font-bold text-[#111827] border-b border-[#9ca3af] pb-1 mx-4">Dr. Maria Elena Bautista</p>
+            <p class="text-[10px] text-[#6b7280] mt-1">Vice President for Academic Affairs</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between px-6 py-3.5 border-t border-[#e5e7eb] bg-white shrink-0">
+        <button onclick="closeReportPreviewModal()"
+          class="px-4 py-2 rounded-lg border border-[#e5e7eb] text-xs font-semibold text-[#4b5563] hover:bg-gray-50 transition-colors cursor-pointer">
+          Close Preview
+        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-[#e5e7eb] text-xs font-semibold text-[#374151] hover:bg-gray-50 transition-colors cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+            </svg>
+            Print Report
+          </button>
+          <button onclick="downloadReportFile()"
+            class="inline-flex items-center gap-1.5 bg-[#0030c2] hover:bg-[#002594] text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            Download File
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JavaScript Scripts -->
+  <script src="../assets/js/common/sidebar.js"></script>
+  <script src="../assets/js/common/main.js"></script>
+  <script src="../assets/js/teacher/reports-export.js"></script>
+
+</body>
+
+</html>
