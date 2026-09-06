@@ -298,4 +298,73 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 /* Row select highlight */
 tr.row-selected {
   background-color: #eff6ff !important;
-}
+}
+
+/* Password Input Eye Toggle Inside Field */
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Interactive Profile Avatar with Camera Overlay */
+.avatar-upload-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-upload-label {
+  position: relative;
+  display: block;
+  width: 5rem; /* 80px */
+  height: 5rem; /* 80px */
+  border-radius: 9999px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+  transition: all 0.2s ease-in-out;
+}
+
+.avatar-upload-label:hover {
+  border-color: #0030c2;
+  box-shadow: 0 4px 14px rgba(0, 48, 194, 0.25);
+  transform: translateY(-1px);
+}
+
+.avatar-camera-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(1px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  color: #ffffff;
+  pointer-events: none;
+  border-radius: 9999px;
+}
+
+.avatar-upload-label:hover .avatar-camera-overlay {
+  opacity: 1;
+}
+
+
