@@ -299,13 +299,13 @@ function downloadQrCode() {
       // Trigger download
       const pngFile = canvas.toDataURL('image/png');
       const downloadLink = document.createElement('a');
-      downloadLink.download = 'BCP_Faculty_QR_JaneDelaCruz.png';
+      downloadLink.download = 'BCP_Teacher_QR_t230110089.png';
       downloadLink.href = pngFile;
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
 
-      showToast('Faculty QR Code downloaded (PNG)!');
+      showToast('Teacher QR Pass downloaded (PNG)!');
     };
 
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
