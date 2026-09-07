@@ -21,9 +21,10 @@ function initProfileModule() {
     formPassword.addEventListener('submit', handlePasswordChange);
   }
 
-  const formNotifications = document.getElementById('formNotificationPreferences');
-  if (formNotifications) {
-    formNotifications.addEventListener('submit', handleNotificationPreferencesSubmit);
+  // Revoke Remote Device Sessions Button
+  const btnRevoke = document.getElementById('btnRevokeOtherSessions');
+  if (btnRevoke) {
+    btnRevoke.addEventListener('click', handleRevokeOtherSessions);
   }
 
   // Bind password input for live strength validation
@@ -683,11 +684,19 @@ function switchSecurityTab(tab) {
 }
 
 /**
- * Handle Notification Preferences Submit
+ * Handle Revoke Other Device Sessions
  */
-function handleNotificationPreferencesSubmit(e) {
-  e.preventDefault();
-  showToast('Notification preferences updated successfully!');
+function handleRevokeOtherSessions() {
+  const secondary = document.getElementById('secondarySessionItem');
+  if (secondary) {
+    secondary.classList.add('opacity-40', 'pointer-events-none');
+    const status = document.getElementById('secondarySessionStatus');
+    if (status) {
+      status.textContent = 'Terminated';
+      status.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 shrink-0';
+    }
+  }
+  showToast('Sessions Terminated', 'Logged out of 1 remote laboratory terminal.', 'warning');
 }
 
 // Explicit window bindings for inline HTML attributes
@@ -700,6 +709,7 @@ window.closeLostCardModal = closeLostCardModal;
 window.submitLostCardReport = submitLostCardReport;
 window.togglePasswordVisibility = togglePasswordVisibility;
 window.switchSecurityTab = switchSecurityTab;
+window.handleRevokeOtherSessions = handleRevokeOtherSessions;
 window.showToast = showToast;
 
 

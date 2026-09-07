@@ -299,19 +299,9 @@
       <main class="flex-1 p-5 space-y-5">
 
         <!-- Page Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">My Profile</h2>
-            <p class="text-sm text-[#6b7280]">Manage personal faculty credentials, digital pass, and account security</p>
-          </div>
-          <button id="currentDateDisplay"
-            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
-            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-            </svg>
-            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
-          </button>
+        <div>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">My Profile</h2>
+          <p class="text-sm text-[#6b7280]">Manage personal faculty credentials, digital pass, and account security</p>
         </div>
 
         <!-- ======================================================== -->
@@ -364,10 +354,6 @@
                 <span id="cardTeacherContact" class="font-semibold text-[#111827]">+63 912 345 6789</span>
               </div>
               <div class="flex items-center justify-between text-[#6b7280]">
-                <span>Office:</span>
-                <span class="font-semibold text-[#111827]">Room 402 - CCS Lounge</span>
-              </div>
-              <div class="flex items-center justify-between text-[#6b7280]">
                 <span>Status:</span>
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                   Active Faculty
@@ -401,14 +387,14 @@
                 <span>Digital ID &amp; RFID</span>
               </button>
 
-              <!-- Tab 3 Button: Security & Notifications -->
+              <!-- Tab 3 Button: Security & Active Sessions -->
               <button id="tabSecurityBtn" onclick="switchProfileTab('security')"
                 class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap">
                 <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
-                <span>Security &amp; Notifications</span>
+                <span>Security &amp; Active Sessions</span>
               </button>
             </div>
 
@@ -461,18 +447,10 @@
                     </div>
                   </div>
 
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <label class="block text-xs font-bold text-[#374151] mb-1">Academic Department</label>
-                      <input type="text" id="teacherDepartment" value="College of Computer Studies" readonly
-                        class="w-full px-3.5 py-2 text-xs bg-gray-50 border border-[#e5e7eb] rounded-lg text-gray-600 cursor-not-allowed">
-                    </div>
-
-                    <div>
-                      <label class="block text-xs font-bold text-[#374151] mb-1">Faculty Office / Room</label>
-                      <input type="text" id="teacherOffice" value="Room 402 - CCS Faculty Lounge"
-                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
-                    </div>
+                  <div>
+                    <label class="block text-xs font-bold text-[#374151] mb-1">Academic Department</label>
+                    <input type="text" id="teacherDepartment" value="College of Computer Studies" readonly
+                      class="w-full px-3.5 py-2 text-xs bg-gray-50 border border-[#e5e7eb] rounded-lg text-gray-600 cursor-not-allowed">
                   </div>
 
                   <div class="flex justify-end pt-2">
@@ -758,7 +736,7 @@
             </div>
 
             <!-- ======================================================== -->
-            <!-- TAB PANEL 3: SECURITY & NOTIFICATIONS                    -->
+            <!-- TAB PANEL 3: SECURITY & ACTIVE SESSIONS                  -->
             <!-- ======================================================== -->
             <div id="panelSecurity" class="space-y-5 hidden">
 
@@ -834,11 +812,11 @@
                         </div>
                       </div>
 
-                      <!-- Live Password Strength Checklist -->
-                      <div id="passwordRequirementsBox" class="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl space-y-1.5 text-[11px] transition-all">
-                        <div class="flex items-center justify-between mb-1">
-                          <p class="font-bold text-[#374151]">Password Requirements:</p>
-                          <span id="passwordReqWarningBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                      <!-- Password Strength Requirements Checklist -->
+                      <div id="passwordRequirementsBox" class="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl text-xs space-y-2 transition-all">
+                        <div class="flex items-center justify-between pb-1 border-b border-[#e5e7eb]">
+                          <span class="font-bold text-[#374151]">Password Requirements</span>
+                          <span id="passwordReqWarningBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 hidden">
                             ⚠ Requirements pending
                           </span>
                         </div>
@@ -869,64 +847,87 @@
                   </div>
                 </div>
 
-                <!-- Right: Manage Notification Preferences -->
+                <!-- Right: Active Device Sessions -->
                 <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 flex flex-col justify-between">
-                  <div>
-                    <div class="flex items-center gap-2.5 pb-4 border-b border-[#f1f5f9] mb-4">
-                      <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-                        </svg>
+                  <div class="space-y-4">
+                    <div class="flex items-center justify-between pb-4 border-b border-[#f1f5f9]">
+                      <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="text-sm font-bold text-[#111827]">Active Device Sessions</h3>
+                          <p class="text-xs text-[#6b7280]">Manage logged-in devices and revoke shared laboratory podium access</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 class="text-sm font-bold text-[#111827]">Notification Preferences</h3>
-                        <p class="text-xs text-[#6b7280]">Select your faculty notification delivery options</p>
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                        2 Connected
+                      </span>
+                    </div>
+
+                    <div class="space-y-3">
+                      <!-- Current Session Item -->
+                      <div class="p-3.5 bg-[#f8fafc] border border-blue-200 rounded-xl flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div class="flex items-center gap-2">
+                              <h4 class="text-xs font-bold text-[#111827]">This Device (Phone / Laptop)</h4>
+                              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-700">Current</span>
+                            </div>
+                            <p class="text-[11px] text-[#6b7280] mt-0.5">IP: 192.168.1.104 · BCP Campus Wi-Fi</p>
+                            <p class="text-[10px] text-[#0030c2] font-semibold mt-1">● Active now</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                          Active
+                        </span>
+                      </div>
+
+                      <!-- Secondary Session Item (Computer Lab) -->
+                      <div id="secondarySessionItem" class="p-3.5 bg-white border border-[#e5e7eb] rounded-xl flex items-start justify-between gap-3 transition-all">
+                        <div class="flex items-start gap-3">
+                          <div class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center shrink-0 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5h3m-6.75 2.25h10.5a2.25 2.25 0 002.25-2.25v-10.5a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 9v10.5a2.25 2.25 0 002.25 2.25zm0 0h10.5" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h4 class="text-xs font-bold text-[#111827]">Laboratory 305 Instructor Podium PC</h4>
+                            <p class="text-[11px] text-[#6b7280] mt-0.5">Shared Lab Terminal · Subnet 10.10.3.45</p>
+                            <p class="text-[10px] text-gray-500 mt-1">Last active: Today, 11:20 AM</p>
+                          </div>
+                        </div>
+                        <span id="secondarySessionStatus" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                          Active
+                        </span>
                       </div>
                     </div>
 
-                    <form id="formNotificationPreferences" class="space-y-3">
-                      <div class="space-y-2.5">
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Class Session Reminders</p>
-                            <p class="text-[10px] text-[#6b7280]">Notify 10 mins before assigned roll call starts.</p>
-                          </div>
-                          <input type="checkbox" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
+                    <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2">
+                      <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                      </svg>
+                      <p class="text-[11px] leading-snug">
+                        If you used a shared lab or classroom computer, terminate the session immediately to prevent unauthorized roll call modifications.
+                      </p>
+                    </div>
+                  </div>
 
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Student Absence Alerts</p>
-                            <p class="text-[10px] text-[#6b7280]">Alert when a student hits 3+ consecutive cuts.</p>
-                          </div>
-                          <input type="checkbox" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
-
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Excuse Slip Submissions</p>
-                            <p class="text-[10px] text-[#6b7280]">Alert when a student files an excuse slip.</p>
-                          </div>
-                          <input type="checkbox" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
-
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Parent SMS Dispatches</p>
-                            <p class="text-[10px] text-[#6b7280]">Daily summary of dispatched parent SMS.</p>
-                          </div>
-                          <input type="checkbox" class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
-                      </div>
-
-                      <div class="pt-2">
-                        <button type="submit"
-                          class="w-full px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-xs transition-colors cursor-pointer">
-                          Save Notification Preferences
-                        </button>
-                      </div>
-                    </form>
+                  <div class="pt-4 mt-4 border-t border-[#f1f5f9]">
+                    <button type="button" id="btnRevokeOtherSessions"
+                      class="w-full px-3.5 py-2 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                      </svg>
+                      <span>Log Out All Other Device Sessions</span>
+                    </button>
                   </div>
                 </div>
               </div>

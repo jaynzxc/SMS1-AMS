@@ -12,7 +12,9 @@ const DEFAULT_FACULTY_SETTINGS = {
   // 1. Teacher Notifications
   notifyExcuseSlip: true,
   notifyConsecutiveCuts: true,
+  notifyClassReminder: true,
   notifySessionReminder: true,
+  notifyParentSms: false,
 
   // 2. In-Browser QR Scanner (Phone or Laptop Camera)
   qrChime: true,
@@ -40,7 +42,7 @@ function initSettingsModule() {
  */
 function initTabNavigation() {
   const hash = window.location.hash.replace('#', '');
-  const validTabs = ['notifications', 'qr-scanner', 'sessions'];
+  const validTabs = ['notifications', 'qr-scanner'];
 
   if (validTabs.includes(hash)) {
     switchSettingsTab(hash);
@@ -51,21 +53,18 @@ function initTabNavigation() {
 
 /**
  * Switch Active Settings Tab
- * @param {string} tab - The tab identifier ('notifications', 'qr-scanner', 'sessions')
+ * @param {string} tab - The tab identifier ('notifications', 'qr-scanner')
  */
 function switchSettingsTab(tab) {
   const tabNotificationsBtn = document.getElementById('tabNotificationsBtn');
   const tabQrScannerBtn = document.getElementById('tabQrScannerBtn');
-  const tabSessionsBtn = document.getElementById('tabSessionsBtn');
 
   const panelNotifications = document.getElementById('panelNotifications');
   const panelQrScanner = document.getElementById('panelQrScanner');
-  const panelSessions = document.getElementById('panelSessions');
 
   const tabs = [
     { key: 'notifications', btn: tabNotificationsBtn, panel: panelNotifications },
-    { key: 'qr-scanner', btn: tabQrScannerBtn, panel: panelQrScanner },
-    { key: 'sessions', btn: tabSessionsBtn, panel: panelSessions }
+    { key: 'qr-scanner', btn: tabQrScannerBtn, panel: panelQrScanner }
   ];
 
   tabs.forEach(t => {
@@ -104,7 +103,9 @@ function loadAndApplySettings() {
   // 1. Teacher Notifications
   setCheckboxState('settingNotifyExcuseSlip', settings.notifyExcuseSlip);
   setCheckboxState('settingNotifyConsecutiveCuts', settings.notifyConsecutiveCuts);
+  setCheckboxState('settingNotifyClassReminder', settings.notifyClassReminder);
   setCheckboxState('settingNotifySessionReminder', settings.notifySessionReminder);
+  setCheckboxState('settingNotifyParentSms', settings.notifyParentSms);
 
   // 2. In-Browser QR Scanner
   setCheckboxState('settingQrChime', settings.qrChime);
@@ -139,13 +140,16 @@ function updateConfigurationSnapshot(settings) {
 /**
  * Save Current Settings to LocalStorage
  * @param {string|null} contextName - Optional specific domain/tab name for the confirmation toast
+ * @param {boolean} showFeedbackToast - Whether to trigger a toast notification (defaults to true)
  */
-function saveCurrentSettings(contextName = null) {
+function saveCurrentSettings(contextName = null, showFeedbackToast = true) {
   const settings = {
     // 1. Teacher Notifications
     notifyExcuseSlip: getCheckboxState('settingNotifyExcuseSlip', true),
     notifyConsecutiveCuts: getCheckboxState('settingNotifyConsecutiveCuts', true),
+    notifyClassReminder: getCheckboxState('settingNotifyClassReminder', true),
     notifySessionReminder: getCheckboxState('settingNotifySessionReminder', true),
+    notifyParentSms: getCheckboxState('settingNotifyParentSms', false),
 
     // 2. In-Browser QR Scanner
     qrChime: getCheckboxState('settingQrChime', true),
@@ -157,13 +161,17 @@ function saveCurrentSettings(contextName = null) {
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
     updateConfigurationSnapshot(settings);
 
-    const message = contextName 
-      ? `${contextName} preferences saved successfully.`
-      : 'All faculty preferences have been updated.';
-    showToast('Settings Saved', message, 'success');
+    if (showFeedbackToast) {
+      const message = contextName 
+        ? `${contextName} preferences saved successfully.`
+        : 'All faculty preferences have been updated.';
+      showToast('Settings Saved', message, 'success');
+    }
   } catch (err) {
     console.error('Failed to save faculty settings to localStorage:', err);
-    showToast('Storage Error', 'Could not save settings to local storage.', 'error');
+    if (showFeedbackToast) {
+      showToast('Storage Error', 'Could not save settings to local storage.', 'error');
+    }
   }
 }
 
@@ -172,22 +180,20 @@ function saveCurrentSettings(contextName = null) {
  * @param {string} panelName
  */
 function saveSettingsFromPanel(panelName) {
-  saveCurrentSettings(panelName);
+  saveCurrentSettings(panelName, true);
 }
 
 /**
  * Reset Settings to Default
  */
 function resetSettingsToDefault() {
-  if (confirm('Are you sure you want to reset all faculty preferences to default values?')) {
-    try {
-      localStorage.removeItem(SETTINGS_STORAGE_KEY);
-      loadAndApplySettings();
-      showToast('Defaults Restored', 'All settings restored to defaults.', 'info');
-    } catch (err) {
-      console.error('Failed to reset settings:', err);
-      showToast('Error', 'Failed to reset settings.', 'error');
-    }
+  try {
+    localStorage.removeItem(SETTINGS_STORAGE_KEY);
+    loadAndApplySettings();
+    showToast('Defaults Restored', 'All faculty preferences have been reset to system defaults.', 'info');
+  } catch (err) {
+    console.error('Failed to reset settings:', err);
+    showToast('Error', 'Failed to reset settings to defaults.', 'error');
   }
 }
 
@@ -195,18 +201,39 @@ function resetSettingsToDefault() {
  * Bind Action Button Listeners
  */
 function bindSettingsEvents() {
-  // Topbar and Left Card Save Buttons
+  // Auto-save on change so changes made to toggles or dropdowns take effect immediately
+  const interactiveSettingIds = [
+    'settingNotifyExcuseSlip',
+    'settingNotifyConsecutiveCuts',
+    'settingNotifyClassReminder',
+    'settingNotifySessionReminder',
+    'settingNotifyParentSms',
+    'settingQrChime',
+    'settingQrVibrate',
+    'settingQrCooldown'
+  ];
+
+  interactiveSettingIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', () => {
+        saveCurrentSettings(null, false);
+      });
+    }
+  });
+
+  // Topbar and Card Save Buttons (if present in DOM)
   const btnSaveTop = document.getElementById('btnSaveAllSettings');
   if (btnSaveTop) {
-    btnSaveTop.addEventListener('click', () => saveCurrentSettings());
+    btnSaveTop.addEventListener('click', () => saveCurrentSettings(null, true));
   }
 
   const btnSaveCard = document.getElementById('cardBtnSaveSettings');
   if (btnSaveCard) {
-    btnSaveCard.addEventListener('click', () => saveCurrentSettings());
+    btnSaveCard.addEventListener('click', () => saveCurrentSettings(null, true));
   }
 
-  // Topbar and Left Card Reset Buttons
+  // Reset Defaults Button (Aligned with Tabs Navigation)
   const btnResetTop = document.getElementById('btnResetDefaultSettings');
   if (btnResetTop) {
     btnResetTop.addEventListener('click', resetSettingsToDefault);
@@ -217,37 +244,36 @@ function bindSettingsEvents() {
     btnResetCard.addEventListener('click', resetSettingsToDefault);
   }
 
+  // Bind avatar file input for interactive preview
+  const avatarInput = document.getElementById('avatarFileInput');
+  if (avatarInput) {
+    avatarInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        showToast('Invalid File', 'Please select a valid image file.', 'warning');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const avatarPreview = document.getElementById('profileAvatarPreview');
+        if (avatarPreview) {
+          avatarPreview.innerHTML = `<img src="${event.target.result}" alt="Faculty Photo" class="w-full h-full object-cover">`;
+        }
+        showToast('Photo Updated', 'Faculty photo preview updated.', 'success');
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
   // Test Camera Audio Chime Button
   const btnTestBeep = document.getElementById('btnTestScannerBeep');
   if (btnTestBeep) {
     btnTestBeep.addEventListener('click', () => {
       playScannerBeep();
       showToast('Audio Chime Test', 'Dual-tone chime synthesized via Web Audio API.', 'info', 2500);
-    });
-  }
-
-  // Revoke Remote Sessions Button
-  const btnRevoke = document.getElementById('btnRevokeOtherSessions');
-  if (btnRevoke) {
-    btnRevoke.addEventListener('click', () => {
-      if (confirm('Terminate all other device logins including Computer Lab / Classroom podium PCs?')) {
-        const secondary = document.getElementById('secondarySessionItem');
-        if (secondary) {
-          secondary.classList.add('opacity-40', 'pointer-events-none');
-          const status = document.getElementById('secondarySessionStatus');
-          if (status) {
-            status.textContent = 'Terminated';
-            status.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 shrink-0';
-          }
-        }
-
-        const snapSessions = document.getElementById('snapshotActiveSessions');
-        if (snapSessions) {
-          snapSessions.textContent = '1 Device (Current)';
-        }
-
-        showToast('Sessions Terminated', 'Logged out of 1 remote laboratory terminal.', 'warning');
-      }
     });
   }
 }
