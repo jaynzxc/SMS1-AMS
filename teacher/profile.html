@@ -835,21 +835,26 @@
                       </div>
 
                       <!-- Live Password Strength Checklist -->
-                      <div class="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl space-y-1.5 text-[11px]">
-                        <p class="font-bold text-[#374151] mb-1">Password Requirements:</p>
-                        <div id="ruleLength" class="flex items-center gap-1.5 text-gray-500">
+                      <div id="passwordRequirementsBox" class="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl space-y-1.5 text-[11px] transition-all">
+                        <div class="flex items-center justify-between mb-1">
+                          <p class="font-bold text-[#374151]">Password Requirements:</p>
+                          <span id="passwordReqWarningBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                            ⚠ Requirements pending
+                          </span>
+                        </div>
+                        <div id="ruleLength" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 8 characters long</span>
                         </div>
-                        <div id="ruleUpper" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleUpper" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 uppercase letter (A-Z)</span>
                         </div>
-                        <div id="ruleLower" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleLower" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 lowercase letter (a-z)</span>
                         </div>
-                        <div id="ruleNumber" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleNumber" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 numeric digit (0-9)</span>
                         </div>
-                        <div id="ruleSpecial" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleSpecial" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 special character (!@#$%^&*)</span>
                         </div>
                       </div>
@@ -990,11 +995,12 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="profileToast" class="fixed bottom-5 right-5 z-50 transform transition-all duration-300 translate-y-20 opacity-0 pointer-events-none">
-    <div class="bg-gray-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 border border-gray-700">
-      <span id="profileToastIcon">✓</span>
-      <span id="profileToastMsg">Profile updated successfully</span>
-    </div>
+  <div id="toastContainer" class="toast-container-fixed"></div>
+
+  <!-- Fallback legacy toast element for backwards compatibility -->
+  <div id="profileToast" class="hidden">
+    <span id="profileToastIcon"></span>
+    <span id="profileToastMsg"></span>
   </div>
 
   <script src="../assets/js/common/sidebar.js"></script>
