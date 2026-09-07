@@ -699,6 +699,19 @@ function handleRevokeOtherSessions() {
   showToast('Sessions Terminated', 'Logged out of 1 remote laboratory terminal.', 'warning');
 }
 
+/**
+ * Copy RFID Card UID to clipboard with toast feedback
+ */
+function copyUidToClipboard() {
+  const uidEl = document.getElementById('cardVisualUid');
+  const uid = uidEl ? uidEl.textContent.trim() : 'RFID-8842-9901';
+  navigator.clipboard.writeText(uid).then(() => {
+    showToast('Copied to Clipboard', `Card UID ${uid} copied to clipboard.`, 'success');
+  }).catch(() => {
+    showToast('Card UID', uid, 'info');
+  });
+}
+
 // Explicit window bindings for inline HTML attributes
 window.switchProfileTab = switchProfileTab;
 window.openQrModal = openQrModal;
@@ -711,6 +724,7 @@ window.togglePasswordVisibility = togglePasswordVisibility;
 window.switchSecurityTab = switchSecurityTab;
 window.handleRevokeOtherSessions = handleRevokeOtherSessions;
 window.showToast = showToast;
+window.copyUidToClipboard = copyUidToClipboard;
 
 
 

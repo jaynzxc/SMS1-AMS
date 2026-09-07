@@ -31,10 +31,23 @@ The **Student Portal** provides students with real-time visibility into their pe
     - *Action*: Report Lost/Damaged RFID Card (alerts Administrator for immediate card deactivation and reissue).
   - **Personal Dynamic QR Code**:
     - *Displays*: Official Encrypted Dynamic QR Code (containing Student ID Number, Full Name, Course & Year Level, and security token).
-    - *Functions*: View Fullscreen QR for phone screen scanning at teacher webcam/camera checkpoints when the physical RFID card is unavailable, Download QR Code (PNG), Print Official QR Badge.
+    - *Functions*: View Fullscreen QR for phone screen scanning at teacher webcam/camera checkpoints when the physical RFID card is unavailable, Download QR Code (PNG).
   - **Security Notice**: Note explaining that physical RFID assignment and physical badge replacements are handled by the Administrator.
 
-### 1.4 Attendance Calendar (`student/attendance-calendar.html`)
+### 1.4 Tardy & Absence Logs (`student/tardy-and-absence/`)
+* **Purpose**: Self-monitoring portal allowing students to review tardiness occurrences, accumulated delay minutes, excused vs unexcused absences, policy standing, and complete attendance history.
+* **Sub-Modules**:
+  - **Tardy Records (`student/tardy-and-absence/tardy-records.html`)**:
+    - *Displays*: Total late count, accumulated delay minutes, average delay per occurrence, subject frequency breakdown, and 3-late threshold warning banner (3 lates = 1 unexcused absence).
+    - *Table Columns*: Date & Day, Enrolled Subject, Teacher, Scheduled Period, Time In, Delay Duration (e.g. `+17 mins late`), Scan Method (RFID / QR), Actions (View Details).
+    - *Functions*: Search by Subject/Teacher, Filter by Subject, Delay Duration, and Academic Month; Session Details Modal with direct action to submit an excuse slip.
+  - **Absence Records (`student/tardy-and-absence/absence-records.html`)**:
+    - *Displays*: Total absences, excused absences, unexcused absences, and risk standing.
+    - *Functions*: View absence dates, excuse slip review status, and direct excuse submission link.
+  - **Attendance History (`student/tardy-and-absence/attendance-history.html`)**:
+    - *Displays*: Comprehensive chronological attendance history ledger across all enrolled subjects with subject progress bars and audit logs.
+
+### 1.5 Attendance Calendar (`student/attendance-calendar.html`)
 * **Purpose**: Visual, interactive calendar representation of personal attendance history throughout the academic semester.
 * **Contents**:
   - **Color-Coded Calendar Grid**:
@@ -45,7 +58,7 @@ The **Student Portal** provides students with real-time visibility into their pe
   - **Interactive Day Modal**: Click any date to view class periods, subjects, time-in timestamps, and teacher remarks for that specific day.
   - **Filters**: Filter by Academic Month and Semester.
 
-### 1.5 Excuse Slip Submission (`student/excuse-slip.html`)
+### 1.6 Excuse Slip Submission (`student/excuse-slip.html`)
 * **Purpose**: Submit formal excuse slips for missed classes or tardiness with supporting attachments, and monitor approval status.
 * **Contents**:
   - **Excuse Slip Submission Form**:
@@ -55,7 +68,7 @@ The **Student Portal** provides students with real-time visibility into their pe
     - *Columns*: Date Submitted, Date of Absence, Subject, Reason, Attached Document Link, Review Status (*Pending Review / Approved / Rejected*), Reviewer Remarks (Teacher or Administrator), Reviewed Date.
   - **Detailed View Modal**: Full view of submitted rationale, document preview, and teacher/admin feedback notes.
 
-### 1.6 In-App Notifications (`student/notifications.html`)
+### 1.7 In-App Notifications (`student/notifications.html`)
 * **Purpose**: Direct inbox informing the student of attendance scans, status changes, and guardian SMS delivery confirmations.
 * **Contents**:
   - **Notification Feed**:
@@ -66,7 +79,7 @@ The **Student Portal** provides students with real-time visibility into their pe
     - Perfect Attendance Alerts (e.g. *"You are currently qualified for the Semester Perfect Attendance Award"*).
   - **Functions**: Mark as Read, Delete Notification, Filter by Category.
 
-### 1.7 Attendance Analytics (`student/analytics.html`)
+### 1.8 Attendance Analytics (`student/analytics.html`)
 * **Purpose**: Self-monitoring analytics dashboard showing personal attendance trends, patterns, and subject compliance.
 * **Contents**:
   - **Performance Metrics**: Overall Punctuality Rate (%), Subject Compliance Score, Risk Level Indicator.
@@ -76,7 +89,7 @@ The **Student Portal** provides students with real-time visibility into their pe
     - Punctuality vs Delay Distribution (Pie chart).
   - **Actionable Insights**: Highest attended subject, subject needing punctuality improvement, total excused percentage.
 
-### 1.8 Perfect Attendance Status (`student/perfect-attendance.html`)
+### 1.9 Perfect Attendance Status (`student/perfect-attendance.html`)
 * **Purpose**: Track real-time eligibility and progress toward qualifying for the institutional Perfect Attendance Award.
 * **Contents**:
   - **Eligibility Progress Bar**: Percentage progress toward meeting zero unexcused absences and tardiness limits.
