@@ -14,7 +14,9 @@
   "author": "",
   "scripts": {
     "dev": "npx @tailwindcss/cli -i ./assets/css/input.css -o ./assets/css/output.css --watch",
-    "build": "npx @tailwindcss/cli -i ./assets/css/input.css -o ./assets/css/output.css --minify"
+    "build": "npx @tailwindcss/cli -i ./assets/css/input.css -o ./assets/css/output.css --minify",
+    "signin": "npx http-server . -p 8080"
+
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.3",
