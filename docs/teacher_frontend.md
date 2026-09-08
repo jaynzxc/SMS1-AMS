@@ -131,3 +131,22 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
     - *Action*: Report Lost/Damaged RFID Card (alerts Administrator for immediate deactivation).
   - **Account Security**: Change Password with real-time strength validation, Update Profile Avatar, Manage Notification Preferences.
   - **Assigned Classes Overview**: Read-only summary of currently assigned subjects and class sections.
+
+### 2.2 Faculty Settings (`teacher/settings.html`)
+* **Purpose**: Personal faculty preferences and account security sessions. System policies, ESP32 hardware configurations, and automated SMS dispatch are managed at the Administrator level, keeping faculty settings focused on practical teacher utility.
+* **Layout**: Follows the `profile.html` tabbed workspace design with a persistent 1/3 sidebar (faculty profile credentials, active preferences snapshot, and quick actions) and 2/3 horizontal tabbed panels.
+* **Streamlined Tabs**:
+  - **Teacher Notifications (`#panelNotifications`)**:
+    - *New Excuse Slip Submissions*: Real-time in-app bell notification when an enrolled student files a medical or excuse slip requiring teacher review.
+    - *Student Absence / Cuts Warning*: Notification alert when an enrolled student accumulates 3 unexcused cuts in the teacher's subject.
+    - *Unsubmitted Roll Call Reminder*: Timely prompt to finalize and commit ongoing attendance before leaving the classroom.
+  - **In-Browser QR Scanner (`#panelQrScanner`)**:
+    - *Hardware Boundary Note*: Physical RFID taps are processed by the standalone ESP32 microcontroller with its own onboard buzzer and green/red status LEDs. The in-browser scanner settings apply exclusively to reading digital student QR badges via smartphone or laptop camera.
+    - *Audio Chime on Successful Scan*: Synthesizes an audible confirmation chime via the Web Audio API when a valid QR code is scanned. Includes interactive "Test Chime" audio verification.
+    - *Camera Auto-Resume Delay*: Configurable delay (2s, 3s, 5s) before re-arming the camera viewport for the next student in line.
+    - *Vibrate on Successful Scan*: Haptic vibration feedback for mobile phone scanning.
+  - **Security & Active Sessions (`#panelSessions`)**:
+    - *Active Device Monitor*: Displays current device connection (*Phone / Laptop · Campus Wi-Fi · Active Now*).
+    - *Shared Campus Terminal Detection*: Identifies open logins on shared classroom podiums and computer laboratory PCs (*e.g., Laboratory 305 Instructor Podium PC*).
+    - *Remote Session Revocation*: One-click "Log Out All Other Device Sessions" button to safeguard faculty credentials after teaching in shared computer labs.
+    - *Account Password Shortcut*: Direct navigation link to `teacher/profile.html#security`.

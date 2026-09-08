@@ -21,9 +21,10 @@ function initProfileModule() {
     formPassword.addEventListener('submit', handlePasswordChange);
   }
 
-  const formNotifications = document.getElementById('formNotificationPreferences');
-  if (formNotifications) {
-    formNotifications.addEventListener('submit', handleNotificationPreferencesSubmit);
+  // Revoke Remote Device Sessions Button
+  const btnRevoke = document.getElementById('btnRevokeOtherSessions');
+  if (btnRevoke) {
+    btnRevoke.addEventListener('click', handleRevokeOtherSessions);
   }
 
   // Bind password input for live strength validation
@@ -104,6 +105,30 @@ function handleProfileUpdate(e) {
   showToast('Profile information updated successfully!');
 }
 
+// Password Rules Metadata for clear warning feedback
+const PASSWORD_RULES_META = {
+  length: {
+    id: 'ruleLength',
+    label: 'At least 8 characters long'
+  },
+  upper: {
+    id: 'ruleUpper',
+    label: 'At least 1 uppercase letter (A-Z)'
+  },
+  lower: {
+    id: 'ruleLower',
+    label: 'At least 1 lowercase letter (a-z)'
+  },
+  number: {
+    id: 'ruleNumber',
+    label: 'At least 1 numeric digit (0-9)'
+  },
+  special: {
+    id: 'ruleSpecial',
+    label: 'At least 1 special character (!@#$%^&*)'
+  }
+};
+
 /**
  * Handle Account Security / Password Change
  */
@@ -114,13 +139,18 @@ function handlePasswordChange(e) {
   const newPass = document.getElementById('newPassword')?.value;
   const confirmPass = document.getElementById('confirmPassword')?.value;
 
-  if (!currentPass || !newPass || !confirmPass) {
-    showToast('Please complete all password fields.', false);
-    return;
-  }
+  const box = document.getElementById('passwordRequirementsBox');
+  const badge = document.getElementById('passwordReqWarningBadge');
 
-  if (newPass !== confirmPass) {
-    showToast('New password and confirmation do not match.', false);
+  if (!currentPass || !newPass || !confirmPass) {
+    if (box) box.classList.add('checklist-warning-highlight');
+    if (badge) {
+      badge.textContent = '⚠ Complete all password fields';
+      badge.classList.remove('hidden');
+    }
+    if (!currentPass) document.getElementById('currentPassword')?.focus();
+    else if (!newPass) document.getElementById('newPassword')?.focus();
+    else document.getElementById('confirmPassword')?.focus();
     return;
   }
 
@@ -129,14 +159,58 @@ function handlePasswordChange(e) {
   const allValid = Object.values(rules).every(Boolean);
 
   if (!allValid) {
-    showToast('Please satisfy all password security requirements.', false);
+    // Keep UI clean: NO TOAST NOTIFICATION. The yellow warning on the password requirements checklist stays!
+    highlightUnmetPasswordRules(rules);
+
+    // Focus new password field to let teacher continue typing
+    const newPassInput = document.getElementById('newPassword');
+    if (newPassInput) {
+      newPassInput.focus();
+    }
     return;
   }
 
-  // Reset password form
+  if (newPass !== confirmPass) {
+    if (box) box.classList.add('checklist-warning-highlight');
+    if (badge) {
+      badge.textContent = '⚠ Passwords do not match';
+      badge.classList.remove('hidden');
+    }
+    const confirmInput = document.getElementById('confirmPassword');
+    if (confirmInput) {
+      confirmInput.focus();
+    }
+    return;
+  }
+
+  // Reset password form upon success
   e.target.reset();
   validatePasswordStrength(); // Reset visual rules checklist
-  showToast('Account password updated successfully!');
+  showToast('Account Password Updated', 'Your faculty account password has been successfully updated.', 'success');
+}
+
+/**
+ * Apply and keep the yellow warning on the password requirements checklist
+ */
+function highlightUnmetPasswordRules(rules) {
+  const checklistBox = document.getElementById('passwordRequirementsBox') ||
+                        document.querySelector('#panelSecurity .bg-\\[\\#f8fafc\\].border');
+  const badge = document.getElementById('passwordReqWarningBadge');
+
+  if (checklistBox) {
+    checklistBox.classList.remove('border-emerald-300', 'bg-emerald-50/20');
+    checklistBox.classList.add('checklist-warning-highlight');
+  }
+
+  if (badge) {
+    badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
+    badge.textContent = '⚠ Requirements not met';
+    badge.classList.remove('hidden');
+  }
+
+  Object.keys(rules).forEach(key => {
+    updateRuleUI(PASSWORD_RULES_META[key]?.id, rules[key], true);
+  });
 }
 
 /**
@@ -155,26 +229,74 @@ function checkRules(password) {
 function validatePasswordStrength() {
   const password = document.getElementById('newPassword')?.value || '';
   const rules = checkRules(password);
+  const allValid = Object.values(rules).every(Boolean);
 
-  updateRuleUI('ruleLength', rules.length);
-  updateRuleUI('ruleUpper', rules.upper);
-  updateRuleUI('ruleLower', rules.lower);
-  updateRuleUI('ruleNumber', rules.number);
-  updateRuleUI('ruleSpecial', rules.special);
+  const box = document.getElementById('passwordRequirementsBox') ||
+              document.querySelector('#panelSecurity .bg-\\[\\#f8fafc\\].border');
+  const badge = document.getElementById('passwordReqWarningBadge');
+
+  if (!password) {
+    // Initial empty state: reset to neutral
+    if (box) {
+      box.classList.remove('checklist-warning-highlight', 'border-emerald-300', 'bg-emerald-50/20');
+    }
+    if (badge) {
+      badge.classList.add('hidden');
+    }
+    Object.keys(rules).forEach(key => {
+      const el = document.getElementById(PASSWORD_RULES_META[key]?.id);
+      if (el) {
+        el.className = 'flex items-center gap-1.5 text-gray-500 transition-colors';
+        const icon = el.querySelector('.rule-icon');
+        if (icon) icon.textContent = '○';
+      }
+    });
+    return;
+  }
+
+  // Active typing state
+  if (allValid) {
+    if (box) {
+      box.classList.remove('checklist-warning-highlight');
+      box.classList.add('border-emerald-300', 'bg-emerald-50/20');
+    }
+    if (badge) {
+      badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
+      badge.textContent = '✓ All requirements satisfied';
+      badge.classList.remove('hidden');
+    }
+  } else {
+    // Yellow warning stays on unmet requirements
+    if (box) {
+      box.classList.remove('border-emerald-300', 'bg-emerald-50/20');
+      box.classList.add('checklist-warning-highlight');
+    }
+    if (badge) {
+      badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
+      badge.textContent = '⚠ Requirements pending';
+      badge.classList.remove('hidden');
+    }
+  }
+
+  Object.keys(rules).forEach(key => {
+    updateRuleUI(PASSWORD_RULES_META[key]?.id, rules[key], Boolean(password));
+  });
 }
 
-function updateRuleUI(ruleElementId, isValid) {
+function updateRuleUI(ruleElementId, isValid, hasTyped = true) {
   const el = document.getElementById(ruleElementId);
   if (!el) return;
 
   const iconSpan = el.querySelector('.rule-icon');
   if (isValid) {
-    el.classList.remove('text-gray-500');
-    el.classList.add('text-emerald-600', 'font-semibold');
+    el.className = 'flex items-center gap-1.5 rule-met-highlight transition-colors';
     if (iconSpan) iconSpan.textContent = '✓';
+  } else if (hasTyped) {
+    // Yellow warning stays on unmet requirements
+    el.className = 'flex items-center gap-1.5 rule-unmet-highlight transition-colors';
+    if (iconSpan) iconSpan.textContent = '⚠';
   } else {
-    el.classList.remove('text-emerald-600', 'font-semibold');
-    el.classList.add('text-gray-500');
+    el.className = 'flex items-center gap-1.5 text-gray-500 transition-colors';
     if (iconSpan) iconSpan.textContent = '○';
   }
 }
@@ -299,13 +421,13 @@ function downloadQrCode() {
       // Trigger download
       const pngFile = canvas.toDataURL('image/png');
       const downloadLink = document.createElement('a');
-      downloadLink.download = 'BCP_Faculty_QR_JaneDelaCruz.png';
+      downloadLink.download = 'BCP_Teacher_QR_t230110089.png';
       downloadLink.href = pngFile;
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
 
-      showToast('Faculty QR Code downloaded (PNG)!');
+      showToast('Teacher QR Pass downloaded (PNG)!');
     };
 
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
@@ -360,36 +482,151 @@ function submitLostCardReport() {
 
 /**
  * Toast Notification Utility
+ * Supports rich toast types: 'warning', 'success', 'error', 'info'
+ * Backwards compatible with showToast(message, isSuccess)
  */
-let toastTimeout = null;
-function showToast(message, isSuccess = true) {
-  const toast = document.getElementById('profileToast');
-  const toastMsg = document.getElementById('profileToastMsg');
-  const toastIcon = document.getElementById('profileToastIcon');
+function showToast(titleOrMessage, detailsOrSuccess = true, type = null, customDuration = null) {
+  let title = '';
+  let message = '';
+  let items = [];
+  let toastType = 'info';
+  let duration = customDuration || 4500;
 
-  if (!toast || !toastMsg) return;
-
-  toastMsg.textContent = message;
-
-  if (toastIcon) {
-    toastIcon.textContent = isSuccess ? '✓' : '✕';
-    toastIcon.className = isSuccess ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold';
+  // Detect signature
+  if (type !== null) {
+    // Rich signature: showToast(title, messageOrList, type, duration)
+    title = titleOrMessage;
+    toastType = type;
+    if (Array.isArray(detailsOrSuccess)) {
+      items = detailsOrSuccess;
+    } else {
+      message = detailsOrSuccess || '';
+    }
+    if (toastType === 'warning' && !customDuration) {
+      duration = 6000; // Give extra reading time for warning requirements
+    }
+  } else if (typeof detailsOrSuccess === 'boolean') {
+    // Legacy signature: showToast(message, isSuccess)
+    message = titleOrMessage;
+    toastType = detailsOrSuccess ? 'success' : 'error';
+    title = detailsOrSuccess ? 'Success' : 'Attention';
+  } else if (typeof detailsOrSuccess === 'string' && ['success', 'warning', 'error', 'info'].includes(detailsOrSuccess)) {
+    // 2-arg signature: showToast(message, 'warning')
+    message = titleOrMessage;
+    toastType = detailsOrSuccess;
+    title = toastType === 'warning' ? 'Security Notice' : (toastType === 'success' ? 'Success' : 'Notice');
+  } else {
+    title = 'Notification';
+    message = titleOrMessage;
+    toastType = 'info';
   }
 
-  // Clear previous timer
-  if (toastTimeout) {
-    clearTimeout(toastTimeout);
+  // Backwards compatibility fallback for legacy single-line DOM element if accessed elsewhere
+  const legacyMsg = document.getElementById('profileToastMsg');
+  if (legacyMsg) legacyMsg.textContent = message || title;
+
+  // Get or dynamically inject toast container
+  let container = document.getElementById('toastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toastContainer';
+    container.className = 'toast-container-fixed';
+    document.body.appendChild(container);
+  } else if (!container.classList.contains('toast-container-fixed')) {
+    container.className = 'toast-container-fixed';
   }
 
-  // Show
-  toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-  toast.classList.add('translate-y-0', 'opacity-100');
+  // Create toast card element
+  const toast = document.createElement('div');
+  toast.className = `toast-notification-card toast-theme-${toastType}`;
 
-  // Auto hide after 3 seconds
-  toastTimeout = setTimeout(() => {
-    toast.classList.remove('translate-y-0', 'opacity-100');
-    toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-  }, 3200);
+  // SVG Icon based on toastType
+  let iconSvg = `
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+    </svg>`;
+
+  if (toastType === 'warning') {
+    iconSvg = `
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      </svg>`;
+  } else if (toastType === 'success') {
+    iconSvg = `
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>`;
+  } else if (toastType === 'error') {
+    iconSvg = `
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>`;
+  }
+
+  // Build items HTML if list is supplied
+  let itemsHtml = '';
+  if (items.length > 0) {
+    itemsHtml = `
+      <div class="toast-req-list-box">
+        <p class="toast-req-list-title">Missing Requirements:</p>
+        <div class="toast-req-list">
+          ${items.map(item => `
+            <div class="toast-req-item">
+              <span class="toast-req-dot"></span>
+              <span>${item}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  toast.innerHTML = `
+    <div class="toast-icon-wrapper">
+      ${iconSvg}
+    </div>
+    <div class="toast-content-wrapper">
+      <div class="toast-header-row">
+        <h4 class="toast-title">${title}</h4>
+        <span class="toast-type-badge">${toastType}</span>
+      </div>
+      ${message ? `<p class="toast-desc">${message}</p>` : ''}
+      ${itemsHtml}
+    </div>
+    <button type="button" class="toast-dismiss-btn" aria-label="Dismiss notification">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  `;
+
+  // Attach close handler
+  const closeBtn = toast.querySelector('.toast-dismiss-btn');
+  let isRemoved = false;
+  const removeToast = () => {
+    if (isRemoved) return;
+    isRemoved = true;
+    toast.classList.remove('toast-visible');
+    toast.classList.add('toast-hiding');
+    setTimeout(() => {
+      if (toast.parentElement) toast.remove();
+    }, 300);
+  };
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', removeToast);
+  }
+
+  // Insert toast into container
+  container.appendChild(toast);
+
+  // Trigger smooth enter animation
+  requestAnimationFrame(() => {
+    toast.classList.add('toast-visible');
+  });
+
+  // Auto remove after specified duration
+  setTimeout(removeToast, duration);
 }
 
 /**
@@ -447,11 +684,32 @@ function switchSecurityTab(tab) {
 }
 
 /**
- * Handle Notification Preferences Submit
+ * Handle Revoke Other Device Sessions
  */
-function handleNotificationPreferencesSubmit(e) {
-  e.preventDefault();
-  showToast('Notification preferences updated successfully!');
+function handleRevokeOtherSessions() {
+  const secondary = document.getElementById('secondarySessionItem');
+  if (secondary) {
+    secondary.classList.add('opacity-40', 'pointer-events-none');
+    const status = document.getElementById('secondarySessionStatus');
+    if (status) {
+      status.textContent = 'Terminated';
+      status.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 shrink-0';
+    }
+  }
+  showToast('Sessions Terminated', 'Logged out of 1 remote laboratory terminal.', 'warning');
+}
+
+/**
+ * Copy RFID Card UID to clipboard with toast feedback
+ */
+function copyUidToClipboard() {
+  const uidEl = document.getElementById('cardVisualUid');
+  const uid = uidEl ? uidEl.textContent.trim() : 'RFID-8842-9901';
+  navigator.clipboard.writeText(uid).then(() => {
+    showToast('Copied to Clipboard', `Card UID ${uid} copied to clipboard.`, 'success');
+  }).catch(() => {
+    showToast('Card UID', uid, 'info');
+  });
 }
 
 // Explicit window bindings for inline HTML attributes
@@ -464,7 +722,9 @@ window.closeLostCardModal = closeLostCardModal;
 window.submitLostCardReport = submitLostCardReport;
 window.togglePasswordVisibility = togglePasswordVisibility;
 window.switchSecurityTab = switchSecurityTab;
+window.handleRevokeOtherSessions = handleRevokeOtherSessions;
 window.showToast = showToast;
+window.copyUidToClipboard = copyUidToClipboard;
 
 
 

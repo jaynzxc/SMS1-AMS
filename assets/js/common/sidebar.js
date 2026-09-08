@@ -398,7 +398,7 @@ function toggleProfileDropdown(e) {
     if (e && e.stopPropagation) {
         e.stopPropagation();
     }
-    const menu = document.getElementById('topbarProfileMenu');
+    const menu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu');
     if (menu) {
         menu.classList.toggle('hidden');
     }
@@ -429,7 +429,7 @@ window.handleLogout = handleLogout;
 // Close profile dropdown when clicking outside
 document.addEventListener('click', function(e) {
     const profileBtn = document.getElementById('topbarProfileBtn');
-    const profileMenu = document.getElementById('topbarProfileMenu');
+    const profileMenu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu');
     if (profileMenu && !profileMenu.classList.contains('hidden')) {
         if (profileBtn && profileBtn.contains(e.target)) return;
         if (profileMenu.contains(e.target)) return;

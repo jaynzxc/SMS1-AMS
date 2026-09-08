@@ -299,19 +299,9 @@
       <main class="flex-1 p-5 space-y-5">
 
         <!-- Page Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">My Profile</h2>
-            <p class="text-sm text-[#6b7280]">Manage personal faculty credentials, digital pass, and account security</p>
-          </div>
-          <button id="currentDateDisplay"
-            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
-            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-            </svg>
-            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
-          </button>
+        <div>
+          <h2 class="text-2xl font-bold text-[#111827] tracking-tight">My Profile</h2>
+          <p class="text-sm text-[#6b7280]">Manage personal faculty credentials, digital pass, and account security</p>
         </div>
 
         <!-- ======================================================== -->
@@ -343,7 +333,7 @@
                 <span class="absolute bottom-0 right-0 w-4.5 h-4.5 bg-emerald-500 border-2 border-white rounded-full pointer-events-none z-10" title="Active Account"></span>
               </div>
               <h3 id="cardTeacherFullName" class="text-base font-bold text-[#111827]">Mrs. Jane Dela Cruz, LPT</h3>
-              <p class="text-xs text-[#6b7280] mt-0.5 font-mono">BCP-FAC-2024-089</p>
+              <p id="cardTeacherNo" class="text-xs text-[#0030c2] mt-0.5 font-mono font-semibold">t230110089</p>
               <div class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#0030c2]"></span>
                 Faculty Teacher
@@ -362,10 +352,6 @@
               <div class="flex items-center justify-between text-[#6b7280]">
                 <span>Contact:</span>
                 <span id="cardTeacherContact" class="font-semibold text-[#111827]">+63 912 345 6789</span>
-              </div>
-              <div class="flex items-center justify-between text-[#6b7280]">
-                <span>Office:</span>
-                <span class="font-semibold text-[#111827]">Room 402 - CCS Lounge</span>
               </div>
               <div class="flex items-center justify-between text-[#6b7280]">
                 <span>Status:</span>
@@ -401,14 +387,14 @@
                 <span>Digital ID &amp; RFID</span>
               </button>
 
-              <!-- Tab 3 Button: Security & Notifications -->
+              <!-- Tab 3 Button: Security & Active Sessions -->
               <button id="tabSecurityBtn" onclick="switchProfileTab('security')"
                 class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap">
                 <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
-                <span>Security &amp; Notifications</span>
+                <span>Security &amp; Active Sessions</span>
               </button>
             </div>
 
@@ -441,9 +427,9 @@
                     </div>
 
                     <div>
-                      <label class="block text-xs font-bold text-[#374151] mb-1">Faculty ID (Read-only)</label>
-                      <input type="text" id="teacherFacultyId" value="BCP-FAC-2024-089" readonly
-                        class="w-full px-3.5 py-2 text-xs bg-gray-50 border border-[#e5e7eb] rounded-lg text-gray-500 font-mono cursor-not-allowed">
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Teacher No. <span class="text-gray-400 font-normal">(Login Username)</span></label>
+                      <input type="text" id="teacherNo" value="t230110089" readonly
+                        class="w-full px-3.5 py-2 text-xs bg-gray-50 border border-[#e5e7eb] rounded-lg text-[#0030c2] font-mono font-semibold cursor-not-allowed">
                     </div>
                   </div>
 
@@ -461,18 +447,10 @@
                     </div>
                   </div>
 
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div>
-                      <label class="block text-xs font-bold text-[#374151] mb-1">Academic Department</label>
-                      <input type="text" id="teacherDepartment" value="College of Computer Studies" readonly
-                        class="w-full px-3.5 py-2 text-xs bg-gray-50 border border-[#e5e7eb] rounded-lg text-gray-600 cursor-not-allowed">
-                    </div>
-
-                    <div>
-                      <label class="block text-xs font-bold text-[#374151] mb-1">Faculty Office / Room</label>
-                      <input type="text" id="teacherOffice" value="Room 402 - CCS Faculty Lounge"
-                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
-                    </div>
+                  <div>
+                    <label class="block text-xs font-bold text-[#374151] mb-1">Academic Department</label>
+                    <input type="text" id="teacherDepartment" value="College of Computer Studies" readonly
+                      class="w-full px-3.5 py-2 text-xs bg-gray-50 border border-[#e5e7eb] rounded-lg text-gray-600 cursor-not-allowed">
                   </div>
 
                   <div class="flex justify-end pt-2">
@@ -652,8 +630,8 @@
 
                       <div class="space-y-1">
                         <p class="text-xs font-bold text-[#111827]">Mrs. Jane Dela Cruz, LPT</p>
-                        <p class="text-[11px] font-mono text-[#0030c2] font-semibold">ID: BCP-FAC-2024-089</p>
-                        <p class="text-[10px] text-[#6b7280]">College of Computer Studies · Token: <span class="font-mono font-semibold">4F92A-BCP</span></p>
+                        <p class="text-[11px] font-mono text-[#0030c2] font-semibold">Teacher No: t230110089</p>
+                        <p class="text-[10px] text-[#6b7280]">College of Computer Studies · Token: <span class="font-mono font-semibold">4F92A-T230110089</span></p>
                       </div>
                     </div>
 
@@ -679,15 +657,18 @@
                   </div>
                 </div>
 
-                <!-- Right: Hardware RFID Card Status Box -->
-                <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 flex flex-col justify-between">
+                <!-- Right: Hardware RFID Card Status Box (Matching student/rfid-and-qr.html 1:1) -->
+                <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 flex flex-col justify-between hover:shadow-sm transition-shadow">
                   <div>
+                    <!-- Card Header -->
                     <div class="flex items-center justify-between pb-4 border-b border-[#f1f5f9] mb-4">
-                      <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                      <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]/60 flex items-center justify-center shrink-0">
+                          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                            <rect x="2.5" y="5.5" width="19" height="13" rx="2" stroke="currentColor" stroke-width="1.75" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 9.5h19" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 15a2 2 0 000-3m2.5 4a4.5 4.5 0 000-5" />
+                            <circle cx="6.5" cy="14" r="0.75" fill="currentColor" />
                           </svg>
                         </div>
                         <div>
@@ -695,58 +676,112 @@
                           <p class="text-xs text-[#6b7280]">Physical contactless token for hardware scanner tap</p>
                         </div>
                       </div>
-                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span id="cardStatusBadgeTop" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                         Card Active
                       </span>
                     </div>
 
-                    <!-- RFID Virtual Smart Card Visual -->
-                    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0030c2] via-[#002699] to-[#0f172a] text-white p-5 shadow-sm mb-4">
-                      <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-                      <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-2">
-                          <div class="w-7 h-5 rounded bg-amber-400/90 flex items-center justify-center text-[9px] font-bold text-black/80 font-mono">
-                            CHIP
+                    <!-- Executive Virtual RFID Smart Card Visual (Matching student/rfid-and-qr.html) -->
+                    <div class="rfid-virtual-card relative overflow-hidden rounded-2xl text-white p-5 shadow-md mb-4 border border-white/20"
+                      style="background: linear-gradient(135deg, #0030c2 0%, #002699 45%, #0f172a 100%); background-color: #0030c2; color: #ffffff; min-height: 205px;">
+                      <!-- Glowing ambient background orbs -->
+                      <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-blue-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                      <div class="absolute -left-10 -top-10 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+
+                      <!-- Top Card Row: Chip + Contactless Wave + Registered Badge -->
+                      <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div class="flex items-center gap-2.5">
+                          <!-- Realistic Metallic Gold Microchip -->
+                          <div class="rfid-chip-gold relative w-10 h-7 rounded-md p-0.5 shadow-xs border border-amber-200/60"
+                            style="background: linear-gradient(135deg, #fde047 0%, #f59e0b 50%, #d97706 100%); background-color: #f59e0b;">
+                            <div class="w-full h-full border border-amber-700/30 rounded flex items-center justify-center">
+                              <div class="w-2.5 h-4 border-r border-l border-amber-700/40"></div>
+                            </div>
                           </div>
-                          <span class="text-[10px] font-bold tracking-wider text-blue-200 uppercase">Bestlink NFC/RFID</span>
+
+                          <!-- Contactless Wave Waves -->
+                          <div class="flex items-center text-blue-200" title="Contactless NFC / 13.56 MHz RFID">
+                            <svg class="w-5 h-5 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9.75a6 6 0 010 4.5m3-6.5a9 9 0 010 8.5m3-10.5a12 12 0 010 12.5" />
+                            </svg>
+                          </div>
+
+                          <span class="text-[10px] font-extrabold tracking-wider text-blue-100 uppercase" style="color: #dbeafe;">BCP Smart Token</span>
                         </div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
-                          REGISTERED
+
+                        <span id="cardBadgeInner" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400/40" style="color: #6ee7b7;">
+                          ● REGISTERED
                         </span>
                       </div>
 
-                      <div class="space-y-1 mb-4">
-                        <span class="text-[10px] text-blue-200 uppercase tracking-widest block font-medium">Card UID (HEX)</span>
-                        <p class="font-mono text-base font-extrabold tracking-widest text-white">RFID-8842-9901</p>
+                      <!-- Middle Card Row: Embossed Card UID -->
+                      <div class="space-y-1 mb-4 relative z-10">
+                        <span class="text-[9px] text-blue-200 uppercase tracking-widest block font-medium" style="color: #bfdbfe;">Card UID (HEX)</span>
+                        <div class="flex items-center justify-between">
+                          <p id="cardVisualUid" class="font-mono text-xl sm:text-2xl font-black tracking-widest text-white drop-shadow-sm" style="color: #ffffff; letter-spacing: 0.15em;">RFID-8842-9901</p>
+                          <button type="button" onclick="copyUidToClipboard()" class="text-blue-200 hover:text-white text-xs p-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors cursor-pointer" title="Copy Card UID">
+                            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
 
-                      <div class="flex items-center justify-between text-[11px] pt-3 border-t border-white/15">
+                      <!-- Bottom Card Row: Cardholder & Validity -->
+                      <div class="flex items-center justify-between text-[11px] pt-3 border-t border-white/20 relative z-10">
                         <div>
-                          <span class="text-[9px] text-blue-200 block uppercase">Cardholder</span>
-                          <span class="font-bold">Mrs. Jane Dela Cruz</span>
+                          <span class="text-[9px] text-blue-200 block uppercase font-medium" style="color: #bfdbfe;">Cardholder Name</span>
+                          <span id="cardVisualName" class="font-extrabold uppercase tracking-wide text-white" style="color: #ffffff;">Mrs. Jane Dela Cruz</span>
                         </div>
                         <div class="text-right">
-                          <span class="text-[9px] text-blue-200 block uppercase">Issued Date</span>
-                          <span class="font-bold">Aug 15, 2024</span>
+                          <span class="text-[9px] text-blue-200 block uppercase font-medium" style="color: #bfdbfe;">Assigned Date</span>
+                          <span id="cardVisualAssigned" class="font-bold text-white" style="color: #ffffff;">Aug 15, 2024</span>
                         </div>
                       </div>
                     </div>
 
-                    <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2">
-                      <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                      </svg>
+                    <!-- Hardware Specs Micro Tiles -->
+                    <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+                      <div class="p-2 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                        <span class="text-[10px] text-[#6b7280] block">Frequency</span>
+                        <p class="text-xs font-bold text-[#111827]">13.56 MHz</p>
+                      </div>
+                      <div class="p-2 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                        <span class="text-[10px] text-[#6b7280] block">Tag Standard</span>
+                        <p class="text-xs font-bold text-[#111827]">Mifare 1K</p>
+                      </div>
+                      <div class="p-2 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                        <span class="text-[10px] text-[#6b7280] block">Anti-Passback</span>
+                        <p class="text-xs font-bold text-emerald-600">Enabled (5m)</p>
+                      </div>
+                    </div>
+
+                    <!-- Security Notice Banner -->
+                    <div class="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-xs text-amber-800 flex items-start gap-2.5 mb-4">
+                      <div class="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mt-0.5 text-amber-600">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                      </div>
                       <p class="text-[11px] leading-snug">
-                        If this card is lost or unreadable at campus turnstiles, report immediately so the System Administrator can revoke the UID.
+                        Physical RFID card assignment and faculty badge replacements are handled strictly by the Administrator. If lost or unreadable, report immediately.
                       </p>
                     </div>
                   </div>
 
-                  <div class="pt-4 border-t border-[#f1f5f9] flex items-center justify-between">
-                    <span class="text-xs text-[#6b7280]">Last tapped: <strong>Today, 07:44 AM</strong></span>
+                  <!-- Footer Action Row -->
+                  <div class="pt-4 mt-auto border-t border-[#f1f5f9] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="flex items-center gap-1.5 text-xs text-[#6b7280]">
+                      <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Last tapped: <strong>Today, 07:44 AM</strong> (Gate 1 Turnstile)</span>
+                    </div>
+
                     <button type="button" onclick="openLostCardModal()"
-                      class="px-3.5 py-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5">
-                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      class="px-4 py-2 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0 active:scale-[0.98]">
+                      <svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                       </svg>
                       <span>Report Lost / Damaged</span>
@@ -758,7 +793,7 @@
             </div>
 
             <!-- ======================================================== -->
-            <!-- TAB PANEL 3: SECURITY & NOTIFICATIONS                    -->
+            <!-- TAB PANEL 3: SECURITY & ACTIVE SESSIONS                  -->
             <!-- ======================================================== -->
             <div id="panelSecurity" class="space-y-5 hidden">
 
@@ -834,22 +869,27 @@
                         </div>
                       </div>
 
-                      <!-- Live Password Strength Checklist -->
-                      <div class="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl space-y-1.5 text-[11px]">
-                        <p class="font-bold text-[#374151] mb-1">Password Requirements:</p>
-                        <div id="ruleLength" class="flex items-center gap-1.5 text-gray-500">
+                      <!-- Password Strength Requirements Checklist -->
+                      <div id="passwordRequirementsBox" class="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl text-xs space-y-2 transition-all">
+                        <div class="flex items-center justify-between pb-1 border-b border-[#e5e7eb]">
+                          <span class="font-bold text-[#374151]">Password Requirements</span>
+                          <span id="passwordReqWarningBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 hidden">
+                            ⚠ Requirements pending
+                          </span>
+                        </div>
+                        <div id="ruleLength" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 8 characters long</span>
                         </div>
-                        <div id="ruleUpper" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleUpper" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 uppercase letter (A-Z)</span>
                         </div>
-                        <div id="ruleLower" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleLower" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 lowercase letter (a-z)</span>
                         </div>
-                        <div id="ruleNumber" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleNumber" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 numeric digit (0-9)</span>
                         </div>
-                        <div id="ruleSpecial" class="flex items-center gap-1.5 text-gray-500">
+                        <div id="ruleSpecial" class="flex items-center gap-1.5 text-gray-500 transition-colors">
                           <span class="rule-icon">○</span> <span>At least 1 special character (!@#$%^&*)</span>
                         </div>
                       </div>
@@ -864,64 +904,87 @@
                   </div>
                 </div>
 
-                <!-- Right: Manage Notification Preferences -->
+                <!-- Right: Active Device Sessions -->
                 <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 flex flex-col justify-between">
-                  <div>
-                    <div class="flex items-center gap-2.5 pb-4 border-b border-[#f1f5f9] mb-4">
-                      <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-                        </svg>
+                  <div class="space-y-4">
+                    <div class="flex items-center justify-between pb-4 border-b border-[#f1f5f9]">
+                      <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="text-sm font-bold text-[#111827]">Active Device Sessions</h3>
+                          <p class="text-xs text-[#6b7280]">Manage logged-in devices and revoke shared laboratory podium access</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 class="text-sm font-bold text-[#111827]">Notification Preferences</h3>
-                        <p class="text-xs text-[#6b7280]">Select your faculty notification delivery options</p>
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                        2 Connected
+                      </span>
+                    </div>
+
+                    <div class="space-y-3">
+                      <!-- Current Session Item -->
+                      <div class="p-3.5 bg-[#f8fafc] border border-blue-200 rounded-xl flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                          <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div class="flex items-center gap-2">
+                              <h4 class="text-xs font-bold text-[#111827]">This Device (Phone / Laptop)</h4>
+                              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-700">Current</span>
+                            </div>
+                            <p class="text-[11px] text-[#6b7280] mt-0.5">IP: 192.168.1.104 · BCP Campus Wi-Fi</p>
+                            <p class="text-[10px] text-[#0030c2] font-semibold mt-1">● Active now</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                          Active
+                        </span>
+                      </div>
+
+                      <!-- Secondary Session Item (Computer Lab) -->
+                      <div id="secondarySessionItem" class="p-3.5 bg-white border border-[#e5e7eb] rounded-xl flex items-start justify-between gap-3 transition-all">
+                        <div class="flex items-start gap-3">
+                          <div class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center shrink-0 mt-0.5">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5h3m-6.75 2.25h10.5a2.25 2.25 0 002.25-2.25v-10.5a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 9v10.5a2.25 2.25 0 002.25 2.25zm0 0h10.5" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h4 class="text-xs font-bold text-[#111827]">Laboratory 305 Instructor Podium PC</h4>
+                            <p class="text-[11px] text-[#6b7280] mt-0.5">Shared Lab Terminal · Subnet 10.10.3.45</p>
+                            <p class="text-[10px] text-gray-500 mt-1">Last active: Today, 11:20 AM</p>
+                          </div>
+                        </div>
+                        <span id="secondarySessionStatus" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                          Active
+                        </span>
                       </div>
                     </div>
 
-                    <form id="formNotificationPreferences" class="space-y-3">
-                      <div class="space-y-2.5">
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Class Session Reminders</p>
-                            <p class="text-[10px] text-[#6b7280]">Notify 10 mins before assigned roll call starts.</p>
-                          </div>
-                          <input type="checkbox" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
+                    <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2">
+                      <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                      </svg>
+                      <p class="text-[11px] leading-snug">
+                        If you used a shared lab or classroom computer, terminate the session immediately to prevent unauthorized roll call modifications.
+                      </p>
+                    </div>
+                  </div>
 
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Student Absence Alerts</p>
-                            <p class="text-[10px] text-[#6b7280]">Alert when a student hits 3+ consecutive cuts.</p>
-                          </div>
-                          <input type="checkbox" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
-
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Excuse Slip Submissions</p>
-                            <p class="text-[10px] text-[#6b7280]">Alert when a student files an excuse slip.</p>
-                          </div>
-                          <input type="checkbox" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
-
-                        <label class="flex items-start justify-between p-2.5 rounded-lg border border-[#e5e7eb] hover:bg-[#f8fafc] cursor-pointer transition-colors">
-                          <div class="pr-2">
-                            <p class="text-xs font-bold text-[#111827]">Parent SMS Dispatches</p>
-                            <p class="text-[10px] text-[#6b7280]">Daily summary of dispatched parent SMS.</p>
-                          </div>
-                          <input type="checkbox" class="w-4 h-4 text-[#0030c2] rounded border-gray-300 focus:ring-[#0030c2] mt-0.5">
-                        </label>
-                      </div>
-
-                      <div class="pt-2">
-                        <button type="submit"
-                          class="w-full px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-xs transition-colors cursor-pointer">
-                          Save Notification Preferences
-                        </button>
-                      </div>
-                    </form>
+                  <div class="pt-4 mt-4 border-t border-[#f1f5f9]">
+                    <button type="button" id="btnRevokeOtherSessions"
+                      class="w-full px-3.5 py-2 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                      </svg>
+                      <span>Log Out All Other Device Sessions</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -990,11 +1053,12 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="profileToast" class="fixed bottom-5 right-5 z-50 transform transition-all duration-300 translate-y-20 opacity-0 pointer-events-none">
-    <div class="bg-gray-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 border border-gray-700">
-      <span id="profileToastIcon">✓</span>
-      <span id="profileToastMsg">Profile updated successfully</span>
-    </div>
+  <div id="toastContainer" class="toast-container-fixed"></div>
+
+  <!-- Fallback legacy toast element for backwards compatibility -->
+  <div id="profileToast" class="hidden">
+    <span id="profileToastIcon"></span>
+    <span id="profileToastMsg"></span>
   </div>
 
   <script src="../assets/js/common/sidebar.js"></script>
