@@ -288,6 +288,7 @@ function resetFilters() {
 
   filteredLogs = [...scanLogsData];
   renderScanLogsTable();
+  showToast('Filters Reset', 'Filters have been reset', 'info');
 }
 
 /**
@@ -351,13 +352,13 @@ function downloadQrCode() {
       downloadLink.click();
       document.body.removeChild(downloadLink);
 
-      showToast('Student Dynamic QR Pass downloaded successfully!');
+      showToast('Download Ready', 'Student Dynamic QR Pass downloaded successfully!', 'success');
     };
 
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
   } catch (err) {
     console.error('Download QR failed:', err);
-    showToast('Failed to download QR code image.', 'error');
+    showToast('Download Failed', 'Failed to download QR code image.', 'error');
   }
 }
 
@@ -405,7 +406,7 @@ function submitLostCardReport() {
     statStatus.className = 'text-xl font-extrabold text-rose-600 truncate';
   }
 
-  showToast(`RFID incident reported (${reason}). Administrator alerted for card revocation.`);
+  showToast('Incident Reported', `RFID incident reported (${reason}). Administrator alerted for card revocation.`, 'warning');
 }
 
 /**
@@ -456,37 +457,86 @@ function closeScanModal() {
 }
 
 /**
- * Toast Notification Utility
+ * Toast Notification Helper (1:1 Reference from admin/attendance.js)
  */
-function showToast(message, type = 'success') {
-  const container = document.getElementById('toastContainer');
-  if (!container) return;
+function showToast(titleOrMessage, messageOrType, type = 'success') {
+  let title = titleOrMessage;
+  let message = messageOrType;
+  let toastType = type;
 
-  const toast = document.createElement('div');
-  toast.className = 'flex items-center gap-2.5 px-4 py-3 bg-[#111827] text-white text-xs font-semibold rounded-xl shadow-lg border border-white/10 transition-all transform duration-300 translate-y-2 opacity-0 mb-2';
-
-  let iconSvg = '';
-  if (type === 'success') {
-    iconSvg = `<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
-  } else if (type === 'error') {
-    iconSvg = `<svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>`;
-  } else {
-    iconSvg = `<svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12v-.008z" /></svg>`;
+  // Check if it's called as showToast(message, type)
+  if (messageOrType === undefined) {
+    message = titleOrMessage;
+    toastType = 'success';
+    title = 'Success';
+  } else if (messageOrType === 'success' || messageOrType === 'info' || messageOrType === 'error' || messageOrType === 'danger' || messageOrType === 'warning') {
+    message = titleOrMessage;
+    toastType = messageOrType === 'danger' ? 'error' : messageOrType;
+    title = toastType === 'success' ? 'Success' : toastType === 'info' ? 'Info' : toastType === 'warning' ? 'Warning' : 'Error';
   }
 
-  toast.innerHTML = `${iconSvg}<span>${message}</span>`;
-  container.appendChild(toast);
+  let toastContainer = document.getElementById('toastContainer');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toastContainer';
+    toastContainer.className = 'fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none';
+    document.body.appendChild(toastContainer);
+  }
 
-  // Trigger animation
-  requestAnimationFrame(() => {
-    toast.classList.remove('translate-y-2', 'opacity-0');
-  });
+  const toast = document.createElement('div');
+  toast.className = 'custom-toast pointer-events-auto bg-white border border-[#e5e7eb] shadow-xl rounded-xl p-3.5 flex items-start gap-3 min-w-[280px] max-w-sm transition-all duration-300 transform translate-x-0';
+
+  let iconSvg = '';
+  if (toastType === 'success') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+    `;
+  } else if (toastType === 'info') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+        </svg>
+      </div>
+    `;
+  } else if (toastType === 'warning') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#fff7ed] text-[#f97316] border border-[#fed7aa] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+      </div>
+    `;
+  } else {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#fef2f2] text-[#dc2626] border border-[#fecaca] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+    `;
+  }
+
+  toast.innerHTML = `
+    ${iconSvg}
+    <div class="flex-1 min-w-0">
+      <p class="text-xs font-bold text-[#111827]">${title}</p>
+      <p class="text-[11px] text-[#6b7280] mt-0.5 leading-tight">${message}</p>
+    </div>
+    <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1 transition-colors cursor-pointer shrink-0">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  `;
+
+  toastContainer.appendChild(toast);
 
   setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-y-2');
-    setTimeout(() => {
-      if (toast.parentNode) toast.parentNode.removeChild(toast);
-    }, 300);
+    toast.classList.add('opacity-0', 'translate-x-full');
+    setTimeout(() => toast.remove(), 300);
   }, 4000);
 }
 
@@ -497,10 +547,10 @@ function copyTokenToClipboard() {
   if (currentStudent && currentStudent.qrToken) {
     navigator.clipboard.writeText(currentStudent.qrToken)
       .then(() => {
-        showToast('Dynamic Security Token copied to clipboard!');
+        showToast('Token Copied', 'Dynamic Security Token copied to clipboard!', 'success');
       })
       .catch(() => {
-        showToast('Copied: ' + currentStudent.qrToken);
+        showToast('Token Copied', 'Copied: ' + currentStudent.qrToken, 'info');
       });
   }
 }
@@ -509,10 +559,10 @@ function copyUidToClipboard() {
   if (currentStudent && currentStudent.rfidUid) {
     navigator.clipboard.writeText(currentStudent.rfidUid)
       .then(() => {
-        showToast('RFID Card UID copied to clipboard!');
+        showToast('UID Copied', 'RFID Card UID copied to clipboard!', 'success');
       })
       .catch(() => {
-        showToast('Copied: ' + currentStudent.rfidUid);
+        showToast('UID Copied', 'Copied: ' + currentStudent.rfidUid, 'info');
       });
   }
 }
@@ -532,4 +582,5 @@ function exposeGlobalFunctions() {
   window.resetFilters = resetFilters;
   window.copyTokenToClipboard = copyTokenToClipboard;
   window.copyUidToClipboard = copyUidToClipboard;
+  window.showToast = showToast;
 }

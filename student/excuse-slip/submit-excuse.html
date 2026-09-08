@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System · Submit Excuse Slip</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../assets/css/output.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body class="bg-[#f8fafc] text-[#111827]">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ===== SIDEBAR (1:1 Reference from attendance-history.html) ===== -->
+    <aside id="mainSidebar"
+      class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
+
+      <!-- Logo Header -->
+      <div class="flex items-center gap-2.5 px-4 py-4 border-b border-[#e5e7eb] sticky top-0 z-10 bg-white">
+        <div class="w-8 h-8 rounded-full bg-[#0030c2] flex items-center justify-center shrink-0 shadow-xs">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.814 59.906 59.906 0 0110.399-5.84 59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-[11px] font-bold tracking-wide text-[#111827] leading-tight">ATTENDANCE MONITORING</p>
+          <p class="text-[10px] text-[#6b7280]">Student Panel</p>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
+
+        <!-- Student Dashboard -->
+        <a href="../dashboard.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span>Student Dashboard</span>
+        </a>
+
+        <!-- My Attendance -->
+        <a href="../my-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>My Attendance</span>
+        </a>
+
+        <!-- RFID / QR Code -->
+        <a href="../rfid-and-qr.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+          </svg>
+          <span>RFID / QR Code</span>
+        </a>
+
+        <!-- TARDY & ABSENCE with Dropdown -->
+        <div class="relative">
+          <button onclick="toggleTardyDropdown()"
+            class="tardy-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Tardy &amp; Absence</span>
+            </div>
+            <svg class="tardy-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
+            <a href="../tardy-and-absence/tardy-records.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Tardy Records
+            </a>
+            <a href="../tardy-and-absence/absence-records.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Absence Records
+            </a>
+            <a href="../tardy-and-absence/attendance-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Attendance History
+            </a>
+          </div>
+        </div>
+
+        <!-- EXCUSE SLIP MANAGEMENT with Dropdown (Active Menu) -->
+        <div class="relative">
+          <button onclick="toggleExcuseDropdown()"
+            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#0030c2] bg-[#e7edff] text-sm font-medium transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 shrink-0 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              <span>Excuse Slip</span>
+            </div>
+            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 rotate-90 text-[#0030c2]" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2">
+            <!-- Submit Excuse Slip (Active Focus) -->
+            <a href="submit-excuse.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm pl-9 transition-colors">
+              Submit Excuse Slip
+            </a>
+            <!-- My Requests -->
+            <a href="my-requests.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              My Requests
+            </a>
+            <!-- Excuse History -->
+            <a href="excuse-history.html"
+              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
+              Excuse History
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendance Calendar -->
+        <a href="../attendance-calendar.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+          </svg>
+          <span>Attendance Calendar</span>
+        </a>
+
+        <!-- Notifications & Alerts -->
+        <a href="../notifications.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+          </svg>
+          <span>Notifications &amp; Alerts</span>
+        </a>
+
+        <!-- Performance Analytics -->
+        <a href="../performance-analytics.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span>Performance Analytics</span>
+        </a>
+
+        <!-- Perfect Attendance Award -->
+        <a href="../perfect-attendance.html"
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.75a1.125 1.125 0 01-1.125-1.125v-.75c0-.621-.504-1.125-1.125-1.125h-2.25c-.621 0-1.125.504-1.125 1.125v.75c0 .621-.504 1.125-1.125 1.125h-.75c-.621 0-1.125.504-1.125 1.125V18.75" />
+          </svg>
+          <span>Perfect Attendance Award</span>
+        </a>
+
+      </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT CONTAINER ===== -->
+    <div class="flex-1 flex flex-col min-w-0 h-full overflow-y-auto main-scroll">
+
+      <!-- Topbar (1:1 Reference from attendance-history.html) -->
+      <header
+        class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+        <div class="flex items-center gap-3">
+          <button class="burger-btn text-[#6b7280] hover:text-[#111827] focus:outline-none p-1.5 rounded-lg cursor-pointer"
+            onclick="toggleSidebar(event)">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          <h1 class="text-base font-bold text-[#111827]">Submit Excuse Slip</h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Notification Bell with Active Badge -->
+          <button id="studentNotifBtn" class="relative text-[#6b7280] hover:text-[#111827] p-1 rounded-lg transition-colors cursor-pointer" title="Notifications">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span
+              class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <!-- Student Profile Pill (1:1 Reference from attendance-history.html) -->
+          <div class="relative">
+            <div id="topbarProfileBtn" onclick="toggleProfileDropdown(event)"
+              class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-lg transition-colors">
+              <div class="w-8 h-8 rounded-full bg-[#0030c2]/10 border border-[#0030c2]/20 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-[#0030c2]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-left">
+                <p class="text-xs font-bold text-[#111827] leading-tight">Juan Dela Cruz</p>
+                <p class="text-[10px] text-[#6b7280] leading-tight mt-0.5">Student · BSIT 3A</p>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+
+            <!-- Profile Dropdown Menu -->
+            <div id="studentProfileMenu"
+              class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
+              <a href="../profile.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>Profile</span>
+              </a>
+              <a href="../settings.html"
+                class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+              </a>
+              <div class="my-1 border-t border-[#f1f5f9]"></div>
+              <button onclick="handleLogout()"
+                class="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== PAGE CONTENT ===== -->
+      <main class="flex-1 p-5 space-y-5">
+
+        <!-- Page Header (Matching attendance-history.html) -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Submit Excuse Slip</h2>
+            <p class="text-sm text-[#6b7280]">File official absence justifications and submit medical or institutional supporting proof.</p>
+          </div>
+          <!-- Date Pill matching attendance-history.html -->
+          <button id="currentDateDisplay"
+            class="flex items-center gap-2 bg-white border border-[#e5e7eb] rounded-lg px-3.5 py-2 text-xs font-medium text-[#374151] shadow-xs hover:bg-gray-50 whitespace-nowrap self-start sm:self-auto transition-colors">
+            <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
+          </button>
+        </div>
+
+        <!-- 3-Card Summary Grid (Matching attendance-history.html card tokens) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+          <!-- Card 1: Pending Requests -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
+            <div class="flex items-center gap-3.5">
+              <div class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+                <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Pending Requests</p>
+                <p class="text-2xl font-extrabold text-[#111827]">1</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#f97316] font-medium mt-2">Awaiting teacher review</p>
+          </div>
+
+          <!-- Card 2: Approved Slips -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
+            <div class="flex items-center gap-3.5">
+              <div class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
+                <svg class="w-6 h-6 text-[#16a34a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Approved Slips</p>
+                <p class="text-2xl font-extrabold text-[#111827]">2</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#16a34a] font-medium mt-2">Verified official excuses</p>
+          </div>
+
+          <!-- Card 3: Approval Ratio -->
+          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#0030c2]/50 transition-all">
+            <div class="flex items-center gap-3.5">
+              <div class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+                <svg class="w-6 h-6 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Approval Ratio</p>
+                <p class="text-2xl font-extrabold text-[#111827]">66.67%</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#0030c2] font-medium mt-2">2 approved out of 3 resolved</p>
+          </div>
+
+        </div>
+
+        <!-- Institutional Policy & Guidance Banner -->
+        <div class="bg-[#eff6ff] border border-[#bfdbfe] rounded-xl p-4 flex items-start gap-3 shadow-xs">
+          <div class="w-8 h-8 rounded-lg bg-[#0030c2] text-white flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+            </svg>
+          </div>
+          <div class="text-xs space-y-1">
+            <p class="font-bold text-[#1e3a8a] text-sm">Bestlink Student Absence Policy Guidelines</p>
+            <p class="text-[#3b82f6] leading-relaxed">
+              Excuse slips must be submitted within <strong class="text-[#1e3a8a]">48 hours</strong> following your return to classes. 
+              Medical absences require an attached medical certificate or physician consultation note. 
+              File attachments must be in <strong class="text-[#1e3a8a]">PDF, PNG, or JPG</strong> format, not exceeding 5MB.
+            </p>
+          </div>
+        </div>
+
+        <!-- ===== SUBMISSION FORM CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-5 space-y-5">
+          <div class="border-b border-[#e5e7eb] pb-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                </svg>
+              </div>
+              <h3 class="text-sm font-bold text-[#111827]">Excuse Slip Request Information</h3>
+            </div>
+            <span class="text-[11px] font-medium text-[#6b7280]">All required fields are marked *</span>
+          </div>
+
+          <form id="excuseSlipForm" class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <!-- Date of Absence -->
+              <div>
+                <label class="font-bold text-[#374151] block mb-1">Date of Absence <span class="text-red-500">*</span></label>
+                <input type="date" id="excuseDateInput" required
+                  class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+                <p class="text-[10px] text-[#6b7280] mt-1">Select the date you missed class or arrived late.</p>
+              </div>
+
+              <!-- Enrolled Subject / Whole Day -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="font-bold text-[#374151]">Enrolled Subject <span class="text-red-500">*</span></label>
+                  <label class="inline-flex items-center gap-1.5 cursor-pointer text-[11px] text-[#0030c2] font-semibold">
+                    <input type="checkbox" id="wholeDayToggle" class="rounded border-gray-300 text-[#0030c2] focus:ring-0">
+                    <span>Whole Day / All Classes</span>
+                  </label>
+                </div>
+                <select id="excuseSubjectSelect" required
+                  class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+                  <option value="">Select Enrolled Subject...</option>
+                  <option value="Introduction to Computing">Introduction to Computing (Mrs. Jane Dela Cruz)</option>
+                  <option value="Web Development">Web Development (Mr. Carlo Reyes)</option>
+                  <option value="Database Systems">Database Systems (Ms. Angela Ramos)</option>
+                  <option value="Systems Analysis">Systems Analysis (Mr. Benj Torres)</option>
+                </select>
+                <p class="text-[10px] text-[#6b7280] mt-1">Select specific subject or toggle "Whole Day".</p>
+              </div>
+
+            </div>
+
+            <!-- Reason Category -->
+            <div>
+              <label class="font-bold text-[#374151] block mb-1">Reason Category <span class="text-red-500">*</span></label>
+              <select id="excuseReasonCategory" required
+                class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827]">
+                <option value="">Select Reason Category...</option>
+                <option value="Medical Illness / Consultation">Medical Illness / Physician Consultation</option>
+                <option value="Family Emergency / Bereavement">Family Emergency / Bereavement</option>
+                <option value="Official School Activity / Event">Official School Representation / Campus Event</option>
+                <option value="Transportation / Weather Disruption">Severe Weather / Road Transportation Disruption</option>
+                <option value="Other Valid Grounds">Other Valid Grounds</option>
+              </select>
+            </div>
+
+            <!-- Detailed Explanation / Narrative -->
+            <div>
+              <label class="font-bold text-[#374151] block mb-1">Detailed Explanation &amp; Rationale <span class="text-red-500">*</span></label>
+              <textarea id="excuseExplanation" rows="3" required
+                placeholder="Provide a clear, detailed explanation of the circumstances that caused your absence or tardiness..."
+                class="w-full px-3 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]"></textarea>
+            </div>
+
+            <!-- Supporting Document Uploader Dropzone -->
+            <div>
+              <label class="font-bold text-[#374151] block mb-1">Supporting Document Proof (Optional / Highly Recommended)</label>
+              
+              <!-- Dropzone -->
+              <div id="fileDropZone"
+                class="border-2 border-dashed border-[#e5e7eb] hover:border-[#0030c2] rounded-xl p-5 text-center cursor-pointer transition-colors bg-[#fbfcfd] hover:bg-[#eff6ff]/30">
+                <input type="file" id="excuseFileInput" accept=".pdf,.png,.jpg,.jpeg" class="hidden">
+                <div class="flex flex-col items-center justify-center pointer-events-none">
+                  <div class="w-10 h-10 rounded-full bg-[#eff6ff] flex items-center justify-center text-[#0030c2] mb-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                    </svg>
+                  </div>
+                  <p class="text-xs font-semibold text-[#111827]">
+                    <span class="text-[#0030c2]">Click to upload</span> or drag and drop your file here
+                  </p>
+                  <p class="text-[10px] text-[#6b7280] mt-1">Medical Certificate, Excuse Letter, or Incident Report (PDF, PNG, JPG up to 5MB)</p>
+                </div>
+              </div>
+
+              <!-- Selected File Preview Container -->
+              <div id="filePreviewContainer" class="hidden mt-2.5 p-2.5 bg-[#eff6ff] border border-[#bfdbfe] rounded-lg flex items-center justify-between">
+                <div class="flex items-center gap-2 min-w-0">
+                  <svg class="w-4 h-4 text-[#0030c2] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                  <div class="min-w-0">
+                    <p id="fileNameText" class="font-bold text-[#111827] truncate">document.pdf</p>
+                    <p id="fileSizeText" class="text-[10px] text-[#6b7280]">124 KB</p>
+                  </div>
+                </div>
+                <button type="button" onclick="removeAttachedFile()"
+                  class="text-red-600 hover:text-red-800 p-1 rounded-md hover:bg-red-50 transition-colors cursor-pointer"
+                  title="Remove Attached File">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Form Action Buttons -->
+            <div class="pt-3 border-t border-[#e5e7eb] flex flex-col sm:flex-row items-center justify-end gap-2.5">
+              <button type="button" onclick="resetExcuseForm()"
+                class="w-full sm:w-auto px-4 py-2 border border-[#e5e7eb] rounded-lg text-xs font-semibold text-[#4b5563] hover:bg-gray-100 transition-colors cursor-pointer">
+                Reset Form
+              </button>
+              <button type="submit" id="submitExcuseBtn"
+                class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2 rounded-lg text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] shadow-sm transition-colors cursor-pointer">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+                <span>Submit Excuse Slip</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- ===== RECENT SUBMISSIONS QUICK LEDGER CARD ===== -->
+        <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+            <div>
+              <h3 class="text-sm font-bold text-[#111827]">Recent Submissions Quick Ledger</h3>
+              <p class="text-[11px] text-[#6b7280]">Recent slips submitted from your student account</p>
+            </div>
+            <a href="my-requests.html"
+              class="text-xs font-semibold text-[#0030c2] hover:underline flex items-center gap-1">
+              <span>View All Active Requests</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-[#e5e7eb] bg-[#f9fafb] text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">
+                  <th class="py-2.5 px-4">Ticket ID</th>
+                  <th class="py-2.5 px-4">Absence Date</th>
+                  <th class="py-2.5 px-4">Subject</th>
+                  <th class="py-2.5 px-4">Reason Category</th>
+                  <th class="py-2.5 px-4">Status</th>
+                  <th class="py-2.5 px-4 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#f3f4f6] text-xs">
+                <tr class="hover:bg-[#f9fafb] transition-colors">
+                  <td class="py-2.5 px-4 font-mono font-bold text-[#0030c2]">EXC-2026-003</td>
+                  <td class="py-2.5 px-4 text-[#111827]">May 26, 2025</td>
+                  <td class="py-2.5 px-4 font-medium text-[#111827]">Web Development</td>
+                  <td class="py-2.5 px-4 text-[#4b5563]">Medical Illness / Consultation</td>
+                  <td class="py-2.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse"></span>
+                      Pending Review
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-4 text-center">
+                    <button onclick="openSlipModal('EXC-2026-003')"
+                      class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-[#f9fafb] transition-colors">
+                  <td class="py-2.5 px-4 font-mono font-bold text-[#0030c2]">EXC-2026-002</td>
+                  <td class="py-2.5 px-4 text-[#111827]">May 19, 2025</td>
+                  <td class="py-2.5 px-4 font-medium text-[#111827]">Database Systems</td>
+                  <td class="py-2.5 px-4 text-[#4b5563]">Medical Illness / Consultation</td>
+                  <td class="py-2.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                      Approved
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-4 text-center">
+                    <button onclick="openSlipModal('EXC-2026-002')"
+                      class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-[#f9fafb] transition-colors">
+                  <td class="py-2.5 px-4 font-mono font-bold text-[#0030c2]">EXC-2026-001</td>
+                  <td class="py-2.5 px-4 text-[#111827]">May 21, 2025</td>
+                  <td class="py-2.5 px-4 font-medium text-[#111827]">Introduction to Computing</td>
+                  <td class="py-2.5 px-4 text-[#4b5563]">Other Valid Grounds</td>
+                  <td class="py-2.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      Rejected
+                    </span>
+                  </td>
+                  <td class="py-2.5 px-4 text-center">
+                    <button onclick="openSlipModal('EXC-2026-001')"
+                      class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="View Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ===== MODAL: EXCUSE SLIP DETAILS (Matching attendance-history.html recordDetailModal) ===== -->
+  <div id="slipDetailModal"
+    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#e7edff] flex items-center justify-center text-[#0030c2]">
+            <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#111827]">Excuse Slip Information</h3>
+            <p id="modalSlipTicketSubtitle" class="text-[11px] text-[#6b7280]">Ticket: EXC-2026-003</p>
+          </div>
+        </div>
+        <button onclick="closeSlipModal()"
+          class="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3 bg-[#f8fafc] p-4 rounded-xl border border-[#e5e7eb]">
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Ticket ID</span>
+            <span id="modalSlipTicketId" class="font-mono font-bold text-[#0030c2] text-sm">EXC-2026-003</span>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Status</span>
+            <div id="modalSlipStatusBadge" class="mt-1">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse"></span>
+                Pending Review
+              </span>
+            </div>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Subject</span>
+            <span id="modalSlipSubject" class="font-bold text-[#111827]">Web Development</span>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Assigned Teacher</span>
+            <span id="modalSlipTeacher" class="font-semibold text-[#111827]">Mr. Carlo Reyes</span>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Absence Date</span>
+            <span id="modalSlipAbsenceDate" class="font-semibold text-[#111827]">May 26, 2025</span>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Date Submitted</span>
+            <span id="modalSlipDateFiled" class="font-semibold text-[#111827]">May 26, 2025</span>
+          </div>
+          <div class="col-span-2">
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Reason Category</span>
+            <span id="modalSlipReason" class="font-semibold text-[#111827]">Medical Illness / Consultation</span>
+          </div>
+          <div class="col-span-2">
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Detailed Explanation</span>
+            <p id="modalSlipExplanation" class="font-medium text-[#374151] mt-1 bg-white p-2.5 rounded-lg border border-[#e5e7eb] leading-relaxed">
+              Medical consultation due to severe migraine and fever symptoms.
+            </p>
+          </div>
+          <div class="col-span-2">
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Attached Document</span>
+            <div id="modalSlipAttachmentBox" class="mt-1 flex items-center justify-between bg-white p-2.5 rounded-lg border border-[#e5e7eb]">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.657-8.486l-6.364 6.364a1.5 1.5 0 11-2.122-2.122l7.071-7.071" />
+                </svg>
+                <span id="modalSlipAttachmentName" class="font-semibold text-[#111827]">Medical_Cert_May26.pdf</span>
+              </div>
+              <span class="text-[10px] font-semibold text-[#0030c2] bg-[#eff6ff] px-2 py-0.5 rounded border border-[#bfdbfe]">Verified File</span>
+            </div>
+          </div>
+          <div class="col-span-2">
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Teacher / Reviewer Remarks</span>
+            <p id="modalSlipRemarks" class="font-medium text-[#374151] mt-1 bg-white p-2.5 rounded-lg border border-[#e5e7eb] leading-relaxed">
+              Pending review by instructor.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-end gap-2">
+        <button onclick="closeSlipModal()"
+          class="px-4 py-2 bg-white border border-[#e5e7eb] hover:bg-gray-100 rounded-lg text-xs font-semibold text-[#374151] transition-colors cursor-pointer">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="../../assets/js/common/sidebar.js"></script>
+  <script src="../../assets/js/common/main.js"></script>
+  <script type="module" src="../../assets/js/student/submit-excuse.js"></script>
+</body>
+
+</html>
