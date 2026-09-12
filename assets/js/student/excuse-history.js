@@ -202,17 +202,20 @@ function loadExcuseHistory() {
  */
 function updateKPICounters() {
   const total = allHistorySlips.length;
+  const pending = allHistorySlips.filter(s => s.status === 'Pending Review').length;
   const approved = allHistorySlips.filter(s => s.status === 'Approved').length;
   const rejected = allHistorySlips.filter(s => s.status === 'Rejected').length;
   const resolvedTotal = approved + rejected;
   const rate = resolvedTotal > 0 ? Math.round((approved / resolvedTotal) * 1000) / 10 : 0;
 
   const kpiTotal = document.getElementById('kpiTotalHistory');
+  const kpiPending = document.getElementById('kpiPendingHistory');
   const kpiApproved = document.getElementById('kpiApprovedHistory');
   const kpiRejected = document.getElementById('kpiRejectedHistory');
   const kpiRate = document.getElementById('kpiApprovalRate');
 
   if (kpiTotal) kpiTotal.textContent = total;
+  if (kpiPending) kpiPending.textContent = pending;
   if (kpiApproved) kpiApproved.textContent = approved;
   if (kpiRejected) kpiRejected.textContent = rejected;
   if (kpiRate) kpiRate.textContent = `${rate}%`;
@@ -253,28 +256,24 @@ function renderHistoryTable() {
     if (slip.status === 'Approved') {
       statusBadge = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span>
           Approved
         </span>
       `;
     } else if (slip.status === 'Rejected') {
       statusBadge = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dc2626]"></span>
           Rejected
         </span>
       `;
     } else if (slip.status === 'Withdrawn') {
       statusBadge = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600 border border-gray-200">
-          <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
           Withdrawn
         </span>
       `;
     } else {
       statusBadge = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse"></span>
           Pending Review
         </span>
       `;
@@ -284,31 +283,60 @@ function renderHistoryTable() {
       ? '<span class="text-amber-600 font-medium">Pending</span>'
       : `<span class="text-[#4b5563]">${escapeHtml(slip.reviewedDate || '—')}</span>`;
 
+    let attachmentHtml = '';
+    if (slip.attachmentName) {
+      attachmentHtml = `
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] max-w-[130px] truncate cursor-pointer hover:bg-[#dbeafe] transition-colors"
+          onclick="openSlipModal('${escapeHtml(slip.id)}')" title="${escapeHtml(slip.attachmentName)}">
+          <svg class="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.657-8.486l-6.364 6.364a1.5 1.5 0 11-2.122-2.122l7.071-7.071" />
+          </svg>
+          <span class="truncate">${escapeHtml(slip.attachmentName)}</span>
+        </span>
+      `;
+    } else {
+      attachmentHtml = `
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-gray-100 text-gray-500 border border-gray-200">
+          -
+        </span>
+      `;
+    }
+
     return `
-      <tr class="hover:bg-[#f8fafc] transition-colors">
-        <td class="py-3 px-4 font-mono font-bold text-[#0030c2]">${escapeHtml(slip.id)}</td>
-        <td class="py-3 px-4 font-medium text-[#4b5563]">${escapeHtml(slip.dateFiled)}</td>
-        <td class="py-3 px-4 font-semibold text-[#111827]">${escapeHtml(slip.absenceDate)}</td>
+      <tr class="hover:bg-[#f9fafb] transition-colors">
+        <!-- Ticket ID -->
+        <td class="py-3 px-4 font-mono font-bold text-[#0030c2] whitespace-nowrap">${escapeHtml(slip.id)}</td>
+
+        <!-- Date of Absence -->
+        <td class="py-3 px-4 font-semibold text-[#111827] whitespace-nowrap">${escapeHtml(slip.absenceDate)}</td>
+
+        <!-- Subject -->
         <td class="py-3 px-4 font-semibold text-[#111827]">${escapeHtml(slip.subject)}</td>
-        <td class="py-3 px-4 text-[#4b5563]">${escapeHtml(slip.teacher)}</td>
-        <td class="py-3 px-4 text-[#4b5563] truncate max-w-[180px]" title="${escapeHtml(slip.reasonCategory)}">${escapeHtml(slip.reasonCategory)}</td>
-        <td class="py-3 px-4">${statusBadge}</td>
-        <td class="py-3 px-4">${reviewedDateDisplay}</td>
-        <td class="py-3 px-4">
-          <span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] px-2 py-0.5 rounded cursor-pointer border border-[#bfdbfe] transition-colors"
-            onclick="openSlipModal('${escapeHtml(slip.id)}')" title="${escapeHtml(slip.attachmentName)}">
-            <svg class="w-3 h-3 text-[#0030c2] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.657-8.486l-6.364 6.364a1.5 1.5 0 11-2.122-2.122l7.071-7.071" />
-            </svg>
-            <span class="truncate max-w-[90px]">${escapeHtml(slip.attachmentName)}</span>
-          </span>
-        </td>
-        <td class="py-3 px-4 text-center">
-          <div class="flex items-center justify-center">
+
+        <!-- Teacher -->
+        <td class="py-3 px-4 text-[#4b5563] whitespace-nowrap">${escapeHtml(slip.teacher)}</td>
+
+        <!-- Reason Category -->
+        <td class="py-3 px-4 text-[#4b5563] truncate max-w-[160px]" title="${escapeHtml(slip.reasonCategory)}">${escapeHtml(slip.reasonCategory)}</td>
+
+        <!-- Status -->
+        <td class="py-3 px-4 whitespace-nowrap">${statusBadge}</td>
+
+        <!-- Attachment -->
+        <td class="py-3 px-4 whitespace-nowrap">${attachmentHtml}</td>
+
+        <!-- Date Filed -->
+        <td class="py-3 px-4 text-[#4b5563] whitespace-nowrap">${escapeHtml(slip.dateFiled || slip.absenceDate)}</td>
+
+        <!-- Reviewed Date -->
+        <td class="py-3 px-4 whitespace-nowrap">${reviewedDateDisplay}</td>
+
+        <!-- Actions -->
+        <td class="py-3 px-4 text-center whitespace-nowrap">
+          <div class="inline-flex items-center gap-1 justify-center">
             <button onclick="openSlipModal('${escapeHtml(slip.id)}')"
-              class="p-1.5 text-gray-500 hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors cursor-pointer"
-              title="View History Details">
+              class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+              title="View Details">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -417,28 +445,24 @@ function openSlipModal(ticketId) {
     if (slip.status === 'Approved') {
       badgeContainer.innerHTML = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span>
           Approved
         </span>
       `;
     } else if (slip.status === 'Rejected') {
       badgeContainer.innerHTML = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dc2626]"></span>
           Rejected
         </span>
       `;
     } else if (slip.status === 'Withdrawn') {
       badgeContainer.innerHTML = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600 border border-gray-200">
-          <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
           Withdrawn
         </span>
       `;
     } else {
       badgeContainer.innerHTML = `
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-pulse"></span>
           Pending Review
         </span>
       `;
@@ -679,8 +703,8 @@ function toggleProfileDropdown(event) {
 }
 
 function handleLogout() {
-  if (confirm('Are you sure you want to log out of your student account?')) {
-    window.location.href = '../../index.html';
+  if (confirm('Are you sure you want to log out?')) {
+    window.location.href = '../../login.html';
   }
 }
 
