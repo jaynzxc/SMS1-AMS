@@ -101,28 +101,26 @@ Attendance monitoring and automated notifications (including parent/guardian SMS
   - **Excuse History (`student/excuse-slip/excuse-history.html` | `assets/js/student/excuse-history.js`)**:
     - *Displays*: Permanent historical archive of all processed excuse slips with search and status filtering.
 
-### 2.7 Notifications (`student/notifications.html`)
+### 2.7 Notifications & Alerts (Topbar Bell Flyout & Full Directory)
 * **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/notifications.js`
+* **Companion Scripts**:
+  - `assets/js/common/notifications-flyout.js` (Shared Topbar Floating Flyout Component)
+  - `assets/js/student/notifications.js` (Full Directory View Controller)
 * **Purpose**: Centralized, strictly read-only notification inbox and audit feed. Provides the student with immediate visibility into attendance scans, tardiness flags, unexcused absences, parent SMS dispatches, and excuse slip approval updates.
+* **Architecture & Navigation Design**:
+  - **Sidebar Streamlined**: The redundant "Notifications" item was removed from the student sidebar navigation to minimize clutter and conform with modern web app design patterns.
+  - **Topbar Notification Bell Flyout**: Clicking or tapping `#studentNotifBtn` reveals a floating flyout popover positioned directly beneath the bell:
+    - **Header Controls (Left)**: Filter toggle buttons for `All` and `Unread` (with live dynamic unread count pill).
+    - **Header Controls (Right)**: `Mark all read` button to dismiss all unread badges at once, alongside a **Settings / Directory icon** (`#flyoutDirectoryLink`) that navigates directly to the full `notifications.html` page displayed as the main content on screen.
+    - **Body Feed**: Clean scrollable list of recent alerts with category-specific rounded icons, relative timestamps, and unread indicator dots.
+    - **Dismissal**: Closes seamlessly on outside click, item selection, or Esc key press.
+  - **Full Notification Directory Page (`student/notifications.html`)**:
+    - **Metric Stat Cards**: Total Notifications, Unread Logs, Gate Scans, Warnings & Policies, and Excuse Slips.
+    - **Category Filters**: Scans, Warnings, Excuse Slips, Campus Advisories, plus Unread Only toggle and keyword search.
+    - **Bidirectional State Sync**: Synchronizes unread/read states via `localStorage` (`student_portal_notifications`) in real time with the topbar flyout dropdown.
 * **Design Principles & Scope Boundaries**:
-  - **Pure Read-Only Ledger**: Students cannot modify, mute, or turn off system notifications or alert thresholds, ensuring full compliance with mandatory institutional attendance tracking.
-  - **Settings Link Removed**: The legacy/dead `Settings` link is removed from student dropdowns; students navigate strictly between **Notifications** (for incoming notices) and **My Profile** (for personal credentials).
-* **Planned Contents**:
-  - **Header Controls**: Unread count badge, Mark All as Read button, Date & Keyword Search filter.
-  - **Category Filter Tabs**:
-    - `All Notifications`
-    - `Attendance Scans` (RFID gate taps & classroom QR verifications)
-    - `Warnings & Policies` (Tardiness accumulation flags, 3-late threshold notices, absence alerts)
-    - `Excuse Slips` (Review status changes: Approved / Rejected / Remarks added)
-    - `Institutional Advisories` (Campus-wide notices, weather suspensions, schedule changes)
-  - **Notification Feed Cards**:
-    - Status type icon & color accents (Emerald for approvals/present scans, Amber for tardy/warnings, Rose for unexcused/SMS dispatches, Indigo for institutional notices).
-    - Timestamp (relative time e.g., *"10 mins ago"* + exact date/time).
-    - Descriptive message body with contextual metadata (Subject, Teacher, Room, Gate).
-    - **Contextual Action Buttons**:
-      - For absence notices: Direct shortcut **`[Submit Excuse Slip]`** (pre-navigates to excuse form).
-      - For excuse slip updates: Direct shortcut **`[View Excuse Details]`** (opens request details).
+  - **Pure Read-Only Ledger**: Students cannot modify, mute, or disable institutional attendance alert notifications.
+  - **Settings Link Removed**: Obsolete notification settings were eliminated; configuration is replaced by the read-only Directory view.
 
 ### 2.8 Performance Analytics (`student/performance-analytics.html`)
 * **Status**: ⏳ Planned

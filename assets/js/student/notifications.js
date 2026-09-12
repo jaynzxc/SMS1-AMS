@@ -18,6 +18,25 @@ const pageSize = 6;
 // Sample Activity Feed Notifications Data
 let notificationsData = [
   {
+    id: 'notif-demo-check',
+    category: 'scans',
+    title: 'RFID Gate Time-In Verified',
+    message: 'Tap confirmed at Gate 1 Main Entrance Turnstile A. Official attendance recorded on-time for today.',
+    timestamp: '2026-09-12T07:15:00',
+    relativeTime: 'Just now',
+    unread: true,
+    meta: {
+      location: 'Gate 1 Turnstile A',
+      status: 'On-Time (Present)',
+      checkpoint: 'ESP32 RFID Reader #01'
+    },
+    action: {
+      label: 'View Attendance',
+      url: 'my-attendance.html',
+      type: 'primary'
+    }
+  },
+  {
     id: 'notif-1',
     category: 'scans',
     title: 'RFID Gate Time-In Recorded',
@@ -272,10 +291,63 @@ function initCurrentDate() {
   }
 }
 
+const NOTIF_STORAGE_KEY = 'student_portal_notifications';
+
+/**
+ * Sync unread states from localStorage
+ */
+function syncFromLocalStorage() {
+  try {
+    const raw = localStorage.getItem(NOTIF_STORAGE_KEY);
+    if (raw) {
+      const stored = JSON.parse(raw);
+      stored.forEach(sItem => {
+        const match = notificationsData.find(n => n.id === sItem.id);
+        if (match) {
+          match.unread = !!sItem.unread;
+        }
+      });
+    } else {
+      syncToLocalStorage();
+    }
+  } catch (e) {
+    console.warn('Error reading notifications from localStorage:', e);
+  }
+}
+
+/**
+ * Persist unread states to localStorage
+ */
+function syncToLocalStorage() {
+  try {
+    const raw = localStorage.getItem(NOTIF_STORAGE_KEY);
+    if (raw) {
+      const stored = JSON.parse(raw);
+      stored.forEach(sItem => {
+        const match = notificationsData.find(n => n.id === sItem.id);
+        if (match) {
+          sItem.unread = !!match.unread;
+        }
+      });
+      localStorage.setItem(NOTIF_STORAGE_KEY, JSON.stringify(stored));
+    }
+  } catch (e) {
+    console.warn('Error syncing notifications to localStorage:', e);
+  }
+}
+
+// Global hook for notifications-flyout.js
+window.onNotificationStateChanged = function () {
+  syncFromLocalStorage();
+  updateCounts();
+  renderNotifications();
+};
+
 /**
  * Initialize Module
  */
 function initNotificationsModule() {
+  syncFromLocalStorage();
   updateCounts();
   renderNotifications();
   setupEventListeners();
@@ -298,8 +370,11 @@ function updateCounts() {
     if (unreadCount > 0) {
       topbarBadge.textContent = unreadCount;
       topbarBadge.classList.remove('hidden');
+      topbarBadge.style.display = 'flex';
     } else {
+      topbarBadge.textContent = '';
       topbarBadge.classList.add('hidden');
+      topbarBadge.style.display = 'none';
     }
   }
 
@@ -325,11 +400,14 @@ function updateCounts() {
 
   const unreadCountBadge = document.getElementById('unreadCountBadge');
   if (unreadCountBadge) {
-    unreadCountBadge.textContent = `${unreadCount} Unread`;
     if (unreadCount === 0) {
+      unreadCountBadge.textContent = '';
       unreadCountBadge.classList.add('hidden');
+      unreadCountBadge.style.display = 'none';
     } else {
+      unreadCountBadge.textContent = `${unreadCount} Unread`;
       unreadCountBadge.classList.remove('hidden');
+      unreadCountBadge.style.display = 'inline-flex';
     }
   }
 
@@ -438,8 +516,10 @@ window.markNotificationAsRead = function (notifId, event) {
   const item = notificationsData.find(n => n.id === notifId);
   if (item && item.unread) {
     item.unread = false;
+    syncToLocalStorage();
     updateCounts();
     renderNotifications();
+    if (window.updateFlyoutBadges) window.updateFlyoutBadges();
     showToast('Notification marked as read', 'info');
   }
 };
@@ -458,8 +538,10 @@ window.markAllNotificationsAsRead = function () {
     n.unread = false;
   });
 
+  syncToLocalStorage();
   updateCounts();
   renderNotifications();
+  if (window.updateFlyoutBadges) window.updateFlyoutBadges();
   showToast('All notifications marked as read', 'success');
 };
 
@@ -780,14 +862,7 @@ function generateFeedRowHTML(item) {
  * Setup Global Listeners
  */
 function setupEventListeners() {
-  const topbarNotifBtn = document.getElementById('studentNotifBtn');
-  if (topbarNotifBtn) {
-    topbarNotifBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const unreadCount = notificationsData.filter(n => n.unread).length;
-      showToast(`You have ${unreadCount} unread notification${unreadCount === 1 ? '' : 's'}.`, 'info');
-    });
-  }
+  // Notifications bell is managed by notifications-flyout.js
 }
 
 /**
