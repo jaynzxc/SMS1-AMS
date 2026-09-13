@@ -7,15 +7,9 @@ console.log('Attendance Monitoring System initialized');
 document.addEventListener('DOMContentLoaded', function() {
     
     // =============================================================
-    // NOTIFICATION BADGE
+    // NOTIFICATION BADGE & FLYOUT
     // =============================================================
-    const notificationBtn = document.querySelector('header button.relative') || document.querySelector('.notification-btn');
-    if (notificationBtn) {
-        notificationBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('You have 3 unread notifications');
-        });
-    }
+    // Handled seamlessly by assets/js/common/notifications-flyout.js
 
     // =============================================================
     // SIDEBAR DROPDOWN FUNCTIONS (for inline onclick)

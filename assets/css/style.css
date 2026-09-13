@@ -13,7 +13,8 @@ aside {
 aside.sidebar-collapsed,
 #mainSidebar.sidebar-collapsed,
 .sidebar-collapsed {
-  margin-left: -16rem !important; /* -w-64 (256px) */
+  margin-left: -16rem !important;
+  /* -w-64 (256px) */
 }
 
 /* Burger Button Motion */
@@ -285,6 +286,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     opacity: 0;
     transform: translate(-50%, 20px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, 0) scale(1);
@@ -331,8 +333,10 @@ tr.row-selected {
 .avatar-upload-label {
   position: relative;
   display: block;
-  width: 5rem; /* 80px */
-  height: 5rem; /* 80px */
+  width: 5rem;
+  /* 80px */
+  height: 5rem;
+  /* 80px */
   border-radius: 9999px;
   overflow: hidden;
   cursor: pointer;
@@ -615,5 +619,83 @@ tr.row-selected {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) !important;
 }
 
+/* =============================================================
+   STUDENT FLOATING NOTIFICATION FLYOUT
+   ============================================================= */
+#studentNotificationDropdown {
+  width: 384px !important;
+  min-width: 384px !important;
+  max-width: 384px !important;
+  box-sizing: border-box !important;
+}
 
-
+@media (max-width: 400px) {
+  #studentNotificationDropdown {
+    width: calc(100vw - 24px) !important;
+    min-width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+  }
+}
+
+#flyoutNotifList {
+  height: 255px !important;
+  min-height: 255px !important;
+  max-height: 255px !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+#flyoutNotifList::-webkit-scrollbar {
+  width: 4px;
+}
+
+#flyoutNotifList::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+#flyoutNotifList::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+#flyoutNotifList::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.flyout-notif-item {
+  height: 85px !important;
+  min-height: 85px !important;
+  max-height: 85px !important;
+  box-sizing: border-box !important;
+}
+
+.flyout-notif-msg {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.35 !important;
+  max-height: 2.7em !important;
+}
+
+.flyout-tab-container {
+  width: 140px !important;
+  min-width: 140px !important;
+  display: flex !important;
+  gap: 2px !important;
+}
+
+.flyout-tab-btn {
+  height: 28px !important;
+  min-height: 28px !important;
+  flex: 1 1 0% !important;
+  width: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  font-size: 12px !important;
+  padding: 0 6px !important;
+  white-space: nowrap !important;
+}
