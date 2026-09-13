@@ -378,22 +378,6 @@ function updateCounts() {
     }
   }
 
-  // 5 Stat Cards
-  const statTotal = document.getElementById('statTotalNotifs');
-  if (statTotal) statTotal.textContent = totalCount;
-
-  const statUnread = document.getElementById('statUnreadNotifs');
-  if (statUnread) statUnread.textContent = unreadCount;
-
-  const statScans = document.getElementById('statScanNotifs');
-  if (statScans) statScans.textContent = scanCount;
-
-  const statWarnings = document.getElementById('statWarningNotifs');
-  if (statWarnings) statWarnings.textContent = warningCount;
-
-  const statExcuse = document.getElementById('statExcuseNotifs');
-  if (statExcuse) statExcuse.textContent = excuseCount;
-
   // Header Table card badges
   const notifCountBadge = document.getElementById('notifCountBadge');
   if (notifCountBadge) notifCountBadge.textContent = `${totalCount} Logs`;
@@ -895,11 +879,10 @@ function showToast(message, type = 'info') {
   if (!container) return;
 
   const toast = document.createElement('div');
-  toast.className = `px-4 py-3 rounded-lg shadow-lg text-xs font-semibold text-white transition-all transform duration-200 pointer-events-auto flex items-center gap-2 ${
-    type === 'success' ? 'bg-emerald-600' :
-    type === 'danger' ? 'bg-rose-600' :
-    type === 'warning' ? 'bg-amber-600' : 'bg-[#0030c2]'
-  }`;
+  toast.className = `px-4 py-3 rounded-lg shadow-lg text-xs font-semibold text-white transition-all transform duration-200 pointer-events-auto flex items-center gap-2 ${type === 'success' ? 'bg-emerald-600' :
+      type === 'danger' ? 'bg-rose-600' :
+        type === 'warning' ? 'bg-amber-600' : 'bg-[#0030c2]'
+    }`;
 
   toast.innerHTML = `
     <svg class="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

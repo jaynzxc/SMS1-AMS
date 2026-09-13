@@ -13,7 +13,8 @@ aside {
 aside.sidebar-collapsed,
 #mainSidebar.sidebar-collapsed,
 .sidebar-collapsed {
-  margin-left: -16rem !important; /* -w-64 (256px) */
+  margin-left: -16rem !important;
+  /* -w-64 (256px) */
 }
 
 /* Burger Button Motion */
@@ -285,6 +286,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     opacity: 0;
     transform: translate(-50%, 20px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, 0) scale(1);
@@ -331,8 +333,10 @@ tr.row-selected {
 .avatar-upload-label {
   position: relative;
   display: block;
-  width: 5rem; /* 80px */
-  height: 5rem; /* 80px */
+  width: 5rem;
+  /* 80px */
+  height: 5rem;
+  /* 80px */
   border-radius: 9999px;
   overflow: hidden;
   cursor: pointer;
@@ -695,6 +699,3 @@ tr.row-selected {
   padding: 0 6px !important;
   white-space: nowrap !important;
 }
-
-
-
