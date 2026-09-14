@@ -402,23 +402,23 @@
             </div>
           </div>
 
-          <!-- Status Legend Strip (Matching teacher/attendance-calendar.html clean style) -->
+          <!-- Status Legend Strip -->
           <div class="flex items-center gap-2 pt-3 text-xs flex-wrap border-b border-[#f3f4f6] pb-3">
             <span class="text-[11px] font-semibold text-[#6b7280] mr-1">Status Badges on Calendar:</span>
-            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold border border-emerald-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Present (On Time)
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+              Present (On Time)
             </span>
-            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Late Arrival
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
+              Late Arrival
             </span>
-            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-rose-50 text-rose-700 text-[10px] font-semibold border border-rose-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Unexcused Absent
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
+              Unexcused Absent
             </span>
-            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Excused / Approved Slip
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
+              Excused / Approved Slip
             </span>
-            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> School Holiday / No Classes
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600 border border-gray-200">
+              School Holiday / No Classes
             </span>
           </div>
 
@@ -523,14 +523,19 @@
                     <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">RFID Badge</span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+                      Present
                     </span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
                     <button onclick="openDayViewDrawer(0)"
-                      class="px-2.5 py-1 text-xs font-semibold text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] rounded-lg transition-colors cursor-pointer">
-                      Inspect Details
+                      class="p-1.5 text-[#0030c2] hover:bg-[#eff6ff] rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="Inspect Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
                     </button>
                   </td>
                 </tr>
@@ -557,14 +562,19 @@
                     <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">Dynamic QR</span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+                      Present
                     </span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
                     <button onclick="openDayViewDrawer(1)"
-                      class="px-2.5 py-1 text-xs font-semibold text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] rounded-lg transition-colors cursor-pointer">
-                      Inspect Details
+                      class="p-1.5 text-[#0030c2] hover:bg-[#eff6ff] rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="Inspect Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
                     </button>
                   </td>
                 </tr>
@@ -591,14 +601,19 @@
                     <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">RFID Badge</span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+                      Present
                     </span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
                     <button onclick="openDayViewDrawer(2)"
-                      class="px-2.5 py-1 text-xs font-semibold text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] rounded-lg transition-colors cursor-pointer">
-                      Inspect Details
+                      class="p-1.5 text-[#0030c2] hover:bg-[#eff6ff] rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="Inspect Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
                     </button>
                   </td>
                 </tr>
@@ -625,14 +640,19 @@
                     <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">RFID Badge</span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+                      Present
                     </span>
                   </td>
                   <td class="py-3.5 px-4 text-center">
                     <button onclick="openDayViewDrawer(3)"
-                      class="px-2.5 py-1 text-xs font-semibold text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] rounded-lg transition-colors cursor-pointer">
-                      Inspect Details
+                      class="p-1.5 text-[#0030c2] hover:bg-[#eff6ff] rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                      title="Inspect Details">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
                     </button>
                   </td>
                 </tr>
@@ -647,7 +667,9 @@
                     <span class="inline-flex items-center gap-1 text-rose-600 font-bold">0 Absent</span>
                   </td>
                   <td class="py-3.5 px-4 text-center text-[#0030c2]" id="summaryPunctualityRate">100% On-Time</td>
-                  <td class="py-3.5 px-4 text-center text-xs font-semibold text-[#16a34a]" id="summaryStandingBadge">Good Standing</td>
+                  <td class="py-3.5 px-4 text-center" id="summaryStandingBadge">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">Good Standing</span>
+                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <span class="text-[10px] text-[#6b7280]">Verified Logs</span>
                   </td>
@@ -662,11 +684,13 @@
     </div>
   </div>
 
-  <!-- ===== DAY VIEW DRAWER (Slide-over Modal for Class Details) ===== -->
-  <div id="dayViewDrawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-end">
-    <div class="bg-white w-full max-w-md h-full shadow-2xl border-l border-[#e5e7eb] flex flex-col overflow-hidden animate-slide-in-right">
+  <!-- ===== DAY VIEW MODAL (Centered Modal Form for Class Details) ===== -->
+  <div id="dayViewDrawer" onclick="if(event.target === this) closeDayViewDrawer()"
+    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div
+      class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-[#e5e7eb] overflow-hidden flex flex-col max-h-[90vh]">
       
-      <!-- Drawer Header -->
+      <!-- Modal Header -->
       <div class="px-5 py-4 border-b border-[#e5e7eb] flex items-center justify-between bg-white">
         <div class="flex items-center gap-2.5 min-w-0">
           <div class="w-8 h-8 rounded-lg bg-[#eff6ff] flex items-center justify-center shrink-0 text-[#0030c2]">
@@ -680,102 +704,87 @@
             <p id="drawerDateSubtitle" class="text-[11px] text-[#6b7280] truncate">Sep 02, 2026 • Period Attendance Record</p>
           </div>
         </div>
-        <button onclick="closeDayViewDrawer()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+        <button onclick="closeDayViewDrawer()"
+          class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+          title="Close Modal">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <!-- Drawer KPI Pills -->
-      <div class="p-4 bg-[#f8fafc] border-b border-[#e5e7eb] grid grid-cols-4 gap-2 text-center">
-        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
-          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Present</p>
-          <p id="drawerPresentCount" class="text-base font-extrabold text-[#16a34a]">4</p>
-        </div>
-        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
-          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Late</p>
-          <p id="drawerLateCount" class="text-base font-extrabold text-[#f97316]">0</p>
-        </div>
-        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
-          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Absent</p>
-          <p id="drawerAbsentCount" class="text-base font-extrabold text-[#dc2626]">0</p>
-        </div>
-        <div class="p-2 bg-white rounded-lg border border-[#e5e7eb]">
-          <p class="text-[10px] text-[#6b7280] font-bold uppercase">Excused</p>
-          <p id="drawerExcusedCount" class="text-base font-extrabold text-[#0030c2]">0</p>
-        </div>
-      </div>
-
-      <!-- Drawer Content Details -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
+      <!-- Modal Body (Clean Metadata Form Layout Matching Excuse History) -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
         
-        <!-- Status Card Pill -->
-        <div class="p-3.5 rounded-xl border border-[#e5e7eb] bg-[#f8fafc] flex items-center justify-between">
+        <!-- Metadata Form Grid -->
+        <div class="grid grid-cols-2 gap-3.5 bg-[#f8fafc] p-4 rounded-xl border border-[#e5e7eb]">
           <div>
-            <span class="text-[10px] text-[#6b7280] uppercase font-bold tracking-wider block">Attendance Status</span>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Attendance Status</span>
             <div id="drawerStatusBadge" class="mt-1">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present (On Time)
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+                Present (On Time)
               </span>
             </div>
           </div>
-          <div class="text-right">
-            <span class="text-[10px] text-[#6b7280] uppercase font-bold tracking-wider block">Verification Method</span>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Verification Method</span>
             <p id="drawerMethod" class="font-bold text-[#111827] mt-1 text-xs">RFID Badge</p>
           </div>
-        </div>
-
-        <!-- Schedule & Timing Details -->
-        <div class="space-y-3 bg-white border border-[#e5e7eb] rounded-xl p-4">
-          <h4 class="font-bold text-[#111827] text-xs pb-1 border-b border-[#f3f4f6]">Session Schedule &amp; Timestamps</h4>
-          
-          <div class="grid grid-cols-2 gap-3 pt-1">
-            <div>
-              <span class="text-[10px] text-[#6b7280] block">Class Schedule:</span>
-              <p id="drawerSchedule" class="font-semibold text-[#111827]">08:00 AM – 10:00 AM</p>
-            </div>
-            <div>
-              <span class="text-[10px] text-[#6b7280] block">Actual Time In:</span>
-              <p id="drawerTimeIn" class="font-bold text-[#16a34a]">07:54 AM</p>
-            </div>
-            <div>
-              <span class="text-[10px] text-[#6b7280] block">Classroom / Facility:</span>
-              <p id="drawerRoom" class="font-semibold text-[#374151]">Lab 304</p>
-            </div>
-            <div>
-              <span class="text-[10px] text-[#6b7280] block">Punctuality Standing:</span>
-              <p id="drawerDelay" class="font-semibold text-[#16a34a]">On Time (6 mins early)</p>
-            </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Subject Code</span>
+            <span id="drawerSubjectCode" class="font-mono font-bold text-[#0030c2] text-sm">IT301</span>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Assigned Teacher</span>
+            <span id="drawerTeacher" class="font-semibold text-[#111827]">Mrs. Jane Dela Cruz</span>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Class Schedule</span>
+            <p id="drawerSchedule" class="font-semibold text-[#111827]">08:00 AM – 10:00 AM</p>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Actual Time In</span>
+            <p id="drawerTimeIn" class="font-bold text-[#16a34a]">07:54 AM</p>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Classroom / Facility</span>
+            <p id="drawerRoom" class="font-semibold text-[#374151]">Lab 304</p>
+          </div>
+          <div>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Punctuality Standing</span>
+            <p id="drawerDelay" class="font-semibold text-[#16a34a]">On Time (6 mins early)</p>
           </div>
         </div>
 
-        <!-- Instructor & Subject Info -->
-        <div class="space-y-3 bg-white border border-[#e5e7eb] rounded-xl p-4">
-          <h4 class="font-bold text-[#111827] text-xs pb-1 border-b border-[#f3f4f6]">Academic Information</h4>
-          
-          <div class="space-y-2 pt-1">
-            <div class="flex justify-between items-center">
-              <span class="text-[#6b7280]">Subject Code:</span>
-              <span id="drawerSubjectCode" class="font-mono font-bold text-[#111827]">IT301</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-[#6b7280]">Assigned Instructor:</span>
-              <span id="drawerTeacher" class="font-semibold text-[#111827]">Mrs. Jane Dela Cruz</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-[#6b7280]">Enrolled Section:</span>
-              <span class="font-semibold text-[#374151]">BSIT 3A</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Teacher Remarks -->
-        <div class="space-y-2 bg-white border border-[#e5e7eb] rounded-xl p-4">
-          <h4 class="font-bold text-[#111827] text-xs">Instructor Remarks &amp; Notes</h4>
-          <p id="drawerRemarks" class="text-[#4b5563] bg-gray-50 p-2.5 rounded-lg border border-[#e5e7eb] font-normal leading-relaxed text-[11px]">
+        <!-- Instructor Remarks & Notes -->
+        <div class="space-y-1.5">
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Instructor Remarks &amp; Notes</span>
+          <p id="drawerRemarks" class="text-[#4b5563] bg-[#f8fafc] p-3 rounded-xl border border-[#e5e7eb] font-normal leading-relaxed text-[11px]">
             Attended scheduled period and completed practical web development checkpoint.
           </p>
+        </div>
+
+        <!-- Daily Roll Call Breakdown KPI Strip -->
+        <div>
+          <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider mb-2">Daily Attendance Breakdown</span>
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="p-2.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+              <p class="text-[10px] text-[#6b7280] font-bold uppercase">Present</p>
+              <p id="drawerPresentCount" class="text-base font-extrabold text-[#16a34a]">4</p>
+            </div>
+            <div class="p-2.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+              <p class="text-[10px] text-[#6b7280] font-bold uppercase">Late</p>
+              <p id="drawerLateCount" class="text-base font-extrabold text-[#f97316]">0</p>
+            </div>
+            <div class="p-2.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+              <p class="text-[10px] text-[#6b7280] font-bold uppercase">Absent</p>
+              <p id="drawerAbsentCount" class="text-base font-extrabold text-[#dc2626]">0</p>
+            </div>
+            <div class="p-2.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+              <p class="text-[10px] text-[#6b7280] font-bold uppercase">Excused</p>
+              <p id="drawerExcusedCount" class="text-base font-extrabold text-[#0030c2]">0</p>
+            </div>
+          </div>
         </div>
 
         <!-- Excuse Slip Context Banner (If absent or late) -->
@@ -801,12 +810,14 @@
 
       </div>
 
-      <!-- Drawer Footer Action -->
+      <!-- Modal Footer -->
       <div class="p-4 border-t border-[#e5e7eb] bg-gray-50 flex items-center justify-between gap-2">
-        <button onclick="closeDayViewDrawer()" class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg cursor-pointer">
+        <button onclick="closeDayViewDrawer()"
+          class="px-4 py-2 text-xs font-semibold text-[#4b5563] hover:bg-gray-200 rounded-lg cursor-pointer transition-colors">
           Close
         </button>
-        <a href="my-attendance.html" class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-xs cursor-pointer flex items-center gap-1.5">
+        <a href="my-attendance.html"
+          class="px-4 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-xs cursor-pointer flex items-center gap-1.5 transition-colors">
           <span>Full Attendance History</span>
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
