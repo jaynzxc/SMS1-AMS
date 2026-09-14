@@ -519,44 +519,34 @@ function renderCalendar() {
     if (isWeekend) {
       badgeHtml = `<span class="text-[10px] text-gray-400 font-medium">Weekend</span>`;
     } else if (dayRecord && dayRecord.holiday) {
-      badgeHtml = `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-bold border border-blue-200">
-        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Holiday
-      </span>`;
+      badgeHtml = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-gray-100 text-gray-600 border border-gray-200">Holiday</span>`;
     } else if (dayRecord) {
       const classCount = dayRecord.classes ? dayRecord.classes.length : 0;
       if (dayRecord.status === "present") {
         badgeHtml = `
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Present
-            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">Present</span>
             <p class="text-[10px] text-[#6b7280] font-medium leading-none">${classCount} ${classCount === 1 ? 'Class' : 'Classes'} • On Time</p>
           </div>
         `;
       } else if (dayRecord.status === "late") {
         badgeHtml = `
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Late
-            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">Late</span>
             <p class="text-[10px] text-[#c2410c] font-medium leading-none">1 Late • 08:22 AM</p>
           </div>
         `;
       } else if (dayRecord.status === "absent") {
         badgeHtml = `
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 text-[10px] font-bold border border-rose-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Absent
-            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">Absent</span>
             <p class="text-[10px] text-[#dc2626] font-medium leading-none">Unexcused Missed</p>
           </div>
         `;
       } else if (dayRecord.status === "excused") {
         badgeHtml = `
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-bold border border-blue-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Excused
-            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">Excused</span>
             <p class="text-[10px] text-[#0030c2] font-medium leading-none">Verified Slip</p>
           </div>
         `;
@@ -683,26 +673,26 @@ function renderDayBreakdown() {
     let statusBadge = "";
     if (cls.status === "Present") {
       statusBadge = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+          Present
         </span>
       `;
     } else if (cls.status === "Late") {
       statusBadge = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#f97316]"></span> Late (${cls.delay})
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
+          Late (${cls.delay})
         </span>
       `;
     } else if (cls.status === "Absent") {
       statusBadge = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dc2626]"></span> Absent
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
+          Absent
         </span>
       `;
     } else if (cls.status === "Excused") {
       statusBadge = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0030c2]"></span> Excused
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
+          Excused
         </span>
       `;
     }
@@ -747,8 +737,13 @@ function renderDayBreakdown() {
       </td>
       <td class="py-3.5 px-4 text-center">
         <button onclick="openDayViewDrawer(${idx})"
-          class="px-2.5 py-1 text-xs font-semibold text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] rounded-lg transition-colors cursor-pointer">
-          Inspect Details
+          class="p-1.5 text-[#0030c2] hover:bg-[#eff6ff] rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+          title="Inspect Details">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
         </button>
       </td>
     `;
@@ -774,14 +769,14 @@ function renderDayBreakdown() {
   }
   if (summaryStandingBadge) {
     if (absentCount > 0) {
-      summaryStandingBadge.textContent = "Attendance Warning";
-      summaryStandingBadge.className = "py-3.5 px-4 text-center text-xs font-semibold text-[#dc2626]";
+      summaryStandingBadge.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">Attendance Warning</span>`;
+      summaryStandingBadge.className = "py-3.5 px-4 text-center";
     } else if (lateCount > 0) {
-      summaryStandingBadge.textContent = "Tardy Recorded";
-      summaryStandingBadge.className = "py-3.5 px-4 text-center text-xs font-semibold text-[#d97706]";
+      summaryStandingBadge.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">Tardy Recorded</span>`;
+      summaryStandingBadge.className = "py-3.5 px-4 text-center";
     } else {
-      summaryStandingBadge.textContent = "Good Standing";
-      summaryStandingBadge.className = "py-3.5 px-4 text-center text-xs font-semibold text-[#16a34a]";
+      summaryStandingBadge.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">Good Standing</span>`;
+      summaryStandingBadge.className = "py-3.5 px-4 text-center";
     }
   }
 }
@@ -829,26 +824,26 @@ function openDayViewDrawer(classIndex) {
   if (statusBadgeContainer) {
     if (cls.status === "Present") {
       statusBadgeContainer.innerHTML = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></span> Present (On Time)
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+          Present (On Time)
         </span>
       `;
     } else if (cls.status === "Late") {
       statusBadgeContainer.innerHTML = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#f97316]"></span> Late Arrival
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">
+          Late Arrival
         </span>
       `;
     } else if (cls.status === "Absent") {
       statusBadgeContainer.innerHTML = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dc2626]"></span> Unexcused Absent
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">
+          Unexcused Absent
         </span>
       `;
     } else if (cls.status === "Excused") {
       statusBadgeContainer.innerHTML = `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0030c2]"></span> Approved Excused
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
+          Approved Excused
         </span>
       `;
     }
@@ -1084,6 +1079,8 @@ window.goToCurrentMonth = goToCurrentMonth;
 window.selectCalendarDay = selectCalendarDay;
 window.openDayViewDrawer = openDayViewDrawer;
 window.closeDayViewDrawer = closeDayViewDrawer;
+window.openDayViewModal = openDayViewDrawer;
+window.closeDayViewModal = closeDayViewDrawer;
 window.handleSubjectFilterChange = handleSubjectFilterChange;
 window.handleSemesterChange = handleSemesterChange;
 window.openExportModal = openExportModal;
@@ -1091,3 +1088,11 @@ window.closeExportModal = closeExportModal;
 window.updateExportFormatSelection = updateExportFormatSelection;
 window.handleExport = handleExport;
 window.showToast = showToast;
+
+// Global Escape key handler to close modals
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeDayViewDrawer();
+    closeExportModal();
+  }
+});

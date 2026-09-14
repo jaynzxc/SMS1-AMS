@@ -504,7 +504,7 @@ window.markNotificationAsRead = function (notifId, event) {
     updateCounts();
     renderNotifications();
     if (window.updateFlyoutBadges) window.updateFlyoutBadges();
-    showToast('Notification marked as read', 'info');
+    showToast('Notification Updated', 'Marked as read.', 'info');
   }
 };
 
@@ -514,7 +514,7 @@ window.markNotificationAsRead = function (notifId, event) {
 window.markAllNotificationsAsRead = function () {
   const unreadCount = notificationsData.filter(n => n.unread).length;
   if (unreadCount === 0) {
-    showToast('All notifications are already read', 'info');
+    showToast('Up to Date', 'All notifications are already marked as read.', 'info');
     return;
   }
 
@@ -526,7 +526,7 @@ window.markAllNotificationsAsRead = function () {
   updateCounts();
   renderNotifications();
   if (window.updateFlyoutBadges) window.updateFlyoutBadges();
-  showToast('All notifications marked as read', 'success');
+  showToast('Feed Updated', 'All notifications marked as read.', 'success');
 };
 
 /**
@@ -565,12 +565,16 @@ function renderNotifications() {
     container.innerHTML = '';
     if (emptyState) {
       emptyState.classList.remove('hidden');
+      emptyState.classList.add('flex');
+      emptyState.style.display = 'flex';
       const emptyMsg = document.getElementById('emptyStateMessage');
       if (emptyMsg) {
         if (searchQuery) {
           emptyMsg.textContent = `No notifications found matching "${searchQuery}". Try searching with different keywords.`;
         } else if (showUnreadOnly) {
-          emptyMsg.textContent = `You have no unread notifications in this category.`;
+          emptyMsg.textContent = activeCategory === 'all'
+            ? 'You have no unread notifications. You are all caught up!'
+            : `You have no unread notifications in the "${getCategoryTitle(activeCategory)}" category.`;
         } else {
           emptyMsg.textContent = `There are currently no notifications in the "${getCategoryTitle(activeCategory)}" category.`;
         }
@@ -580,7 +584,11 @@ function renderNotifications() {
     return;
   }
 
-  if (emptyState) emptyState.classList.add('hidden');
+  if (emptyState) {
+    emptyState.classList.add('hidden');
+    emptyState.classList.remove('flex');
+    emptyState.style.display = 'none';
+  }
 
   // Pagination slice
   const totalPages = Math.ceil(totalFiltered / pageSize) || 1;
@@ -604,6 +612,15 @@ function updatePagination(totalCount, currentRenderCount) {
   const prevBtn = document.getElementById('prevPageBtn');
   const nextBtn = document.getElementById('nextPageBtn');
   const paginationNumbers = document.getElementById('paginationNumbers');
+  const paginationFooter = document.getElementById('notifPaginationFooter');
+
+  if (paginationFooter) {
+    if (totalCount === 0) {
+      paginationFooter.classList.add('hidden');
+    } else {
+      paginationFooter.classList.remove('hidden');
+    }
+  }
 
   if (pageShowingCount) pageShowingCount.textContent = currentRenderCount;
   if (pageTotalCount) pageTotalCount.textContent = totalCount;
@@ -872,30 +889,90 @@ document.addEventListener('click', (e) => {
 });
 
 /**
- * Toast Notification Helper
+ * Toast Notification System (Consistent with Attendance Calendar)
  */
-function showToast(message, type = 'info') {
-  const container = document.getElementById('toastContainer');
-  if (!container) return;
+function showToast(titleOrMessage, messageOrType = 'info', possibleType) {
+  let title = titleOrMessage;
+  let message = messageOrType;
+  let type = possibleType;
+
+  // Check if called as showToast(message, type) or showToast(message)
+  if (possibleType === undefined) {
+    const knownTypes = ['success', 'info', 'error', 'danger', 'warning'];
+    if (knownTypes.includes(messageOrType)) {
+      message = titleOrMessage;
+      type = messageOrType === 'danger' ? 'error' : messageOrType;
+      title = type === 'success' ? 'Success' : type === 'info' ? 'Notification' : type === 'warning' ? 'Warning' : 'Error';
+    } else {
+      type = 'info';
+    }
+  } else {
+    if (type === 'danger') type = 'error';
+  }
+
+  let toastContainer = document.getElementById('toastContainer');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toastContainer';
+    toastContainer.className = 'fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none';
+    document.body.appendChild(toastContainer);
+  }
 
   const toast = document.createElement('div');
-  toast.className = `px-4 py-3 rounded-lg shadow-lg text-xs font-semibold text-white transition-all transform duration-200 pointer-events-auto flex items-center gap-2 ${type === 'success' ? 'bg-emerald-600' :
-      type === 'danger' ? 'bg-rose-600' :
-        type === 'warning' ? 'bg-amber-600' : 'bg-[#0030c2]'
-    }`;
+  toast.className = 'custom-toast pointer-events-auto bg-white border border-[#e5e7eb] shadow-xl rounded-xl p-3.5 flex items-start gap-3 min-w-[280px] max-w-sm transition-all duration-300 transform translate-x-0';
+
+  let iconSvg = '';
+  if (type === 'success') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+    `;
+  } else if (type === 'info') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+        </svg>
+      </div>
+    `;
+  } else if (type === 'warning') {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#fff7ed] text-[#f97316] border border-[#fed7aa] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+      </div>
+    `;
+  } else {
+    iconSvg = `
+      <div class="w-8 h-8 rounded-xl bg-[#fef2f2] text-[#dc2626] border border-[#fecaca] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+        <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+    `;
+  }
 
   toast.innerHTML = `
-    <svg class="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-    </svg>
-    <span>${message}</span>
+    ${iconSvg}
+    <div class="flex-1 min-w-0">
+      <p class="text-xs font-bold text-[#111827]">${title}</p>
+      <p class="text-[11px] text-[#6b7280] mt-0.5 leading-tight">${message}</p>
+    </div>
+    <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1 transition-colors cursor-pointer shrink-0">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
   `;
 
-  container.appendChild(toast);
+  toastContainer.appendChild(toast);
 
   setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(10px)';
-    setTimeout(() => toast.remove(), 200);
-  }, 2500);
+    toast.classList.add('opacity-0', 'translate-x-full');
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
 }
+
+window.showToast = showToast;
