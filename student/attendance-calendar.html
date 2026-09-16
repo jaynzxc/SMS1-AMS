@@ -265,10 +265,12 @@
         <!-- 5 KPI Statistics Summary Cards Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
           
-          <!-- Card 1: Classes Present -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#16a34a]/50 transition-all flex flex-col justify-between overflow-hidden">
+          <!-- Card 1: Classes Present -> my-attendance.html -->
+          <a href="my-attendance.html"
+            title="Click to view My Attendance Records"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:shadow-md hover:border-[#16a34a]/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden block group cursor-pointer">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 text-[#16a34a]">
+              <div class="w-10 h-10 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50 text-[#16a34a] group-hover:scale-105 transition-transform">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -279,16 +281,23 @@
                 <p id="kpiPresentCount" class="text-xl font-extrabold text-[#111827] truncate">36 Sessions</p>
               </div>
             </div>
-            <div class="mt-2.5 flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 truncate">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
-              <span id="kpiPresentPct" class="truncate">94.7% Attendance Rate</span>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] font-medium text-emerald-600 truncate">
+              <div class="flex items-center gap-1.5 truncate">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                <span id="kpiPresentPct" class="truncate">94.7% Attendance Rate</span>
+              </div>
+              <svg class="w-3.5 h-3.5 text-[#9ca3af] group-hover:text-[#16a34a] group-hover:translate-x-0.5 transition-all shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
             </div>
-          </div>
+          </a>
 
-          <!-- Card 2: Late Arrivals -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#f97316]/50 transition-all flex flex-col justify-between overflow-hidden">
+          <!-- Card 2: Late Arrivals -> tardy-and-absence/tardy-records.html -->
+          <a href="tardy-and-absence/tardy-records.html"
+            title="Click to view Tardy Records"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:shadow-md hover:border-[#f97316]/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden block group cursor-pointer">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 text-[#f97316]">
+              <div class="w-10 h-10 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 text-[#f97316] group-hover:scale-105 transition-transform">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -299,13 +308,20 @@
                 <p id="kpiLateCount" class="text-xl font-extrabold text-amber-600 truncate">1 Time</p>
               </div>
             </div>
-            <p id="kpiLatePct" class="text-[11px] text-[#f97316] font-medium mt-2.5 truncate">2.6% Tardiness • 22m delay</p>
-          </div>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] text-[#f97316] font-medium truncate">
+              <span id="kpiLatePct" class="truncate">2.6% Tardiness • 22m delay</span>
+              <svg class="w-3.5 h-3.5 text-[#9ca3af] group-hover:text-[#f97316] group-hover:translate-x-0.5 transition-all shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+          </a>
 
-          <!-- Card 3: Unexcused Absences -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#dc2626]/50 transition-all flex flex-col justify-between overflow-hidden">
+          <!-- Card 3: Unexcused Absences -> tardy-and-absence/absence-records.html -->
+          <a href="tardy-and-absence/absence-records.html"
+            title="Click to view Absence Records"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:shadow-md hover:border-[#dc2626]/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden block group cursor-pointer">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50 text-[#dc2626]">
+              <div class="w-10 h-10 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50 text-[#dc2626] group-hover:scale-105 transition-transform">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -316,13 +332,20 @@
                 <p id="kpiAbsentCount" class="text-xl font-extrabold text-red-600 truncate">1 Day</p>
               </div>
             </div>
-            <p id="kpiAbsentPct" class="text-[11px] text-[#dc2626] font-medium mt-2.5 truncate">1 / 3 Limit Warning</p>
-          </div>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] text-[#dc2626] font-medium truncate">
+              <span id="kpiAbsentPct" class="truncate">1 / 3 Limit Warning</span>
+              <svg class="w-3.5 h-3.5 text-[#9ca3af] group-hover:text-[#dc2626] group-hover:translate-x-0.5 transition-all shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+          </a>
 
-          <!-- Card 4: Excused Slips -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#2563eb]/50 transition-all flex flex-col justify-between overflow-hidden">
+          <!-- Card 4: Excused Slips -> excuse-slip/excuse-history.html -->
+          <a href="excuse-slip/excuse-history.html"
+            title="Click to view Excuse Slip History"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:shadow-md hover:border-[#0030c2]/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden block group cursor-pointer">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 text-[#0030c2]">
+              <div class="w-10 h-10 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 text-[#0030c2] group-hover:scale-105 transition-transform">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -333,13 +356,20 @@
                 <p id="kpiExcusedCount" class="text-xl font-extrabold text-[#0030c2] truncate">1 Slip</p>
               </div>
             </div>
-            <p id="kpiExcusedPct" class="text-[11px] text-[#0030c2] font-medium mt-2.5 truncate">Verified medical/pass</p>
-          </div>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] text-[#0030c2] font-medium truncate">
+              <span id="kpiExcusedPct" class="truncate">Verified medical/pass</span>
+              <svg class="w-3.5 h-3.5 text-[#9ca3af] group-hover:text-[#0030c2] group-hover:translate-x-0.5 transition-all shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+          </a>
 
-          <!-- Card 5: Enrolled Subjects -->
-          <div class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:border-[#8b5cf6]/50 transition-all flex flex-col justify-between overflow-hidden">
+          <!-- Card 5: Enrolled Subjects -> performance-analytics.html -->
+          <a href="performance-analytics.html"
+            title="Click to view Subject Performance Analytics"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-3.5 shadow-xs hover:shadow-md hover:border-[#8b5cf6]/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden block group cursor-pointer">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-[#f5f3ff] flex items-center justify-center shrink-0 border border-[#ddd6fe]/50 text-[#8b5cf6]">
+              <div class="w-10 h-10 rounded-xl bg-[#f5f3ff] flex items-center justify-center shrink-0 border border-[#ddd6fe]/50 text-[#8b5cf6] group-hover:scale-105 transition-transform">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -350,8 +380,13 @@
                 <p id="kpiSubjectsCount" class="text-xl font-extrabold text-[#111827] truncate">4 Subjects</p>
               </div>
             </div>
-            <p class="text-[11px] text-[#8b5cf6] font-medium mt-2.5 truncate">1st Sem • AY 2026-2027</p>
-          </div>
+            <div class="mt-2.5 flex items-center justify-between text-[11px] text-[#8b5cf6] font-medium truncate">
+              <span class="truncate">1st Sem • AY 2026-2027</span>
+              <svg class="w-3.5 h-3.5 text-[#9ca3af] group-hover:text-[#8b5cf6] group-hover:translate-x-0.5 transition-all shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+          </a>
         </div>
 
         <!-- ===== MAIN INTERACTIVE CALENDAR CARD ===== -->
