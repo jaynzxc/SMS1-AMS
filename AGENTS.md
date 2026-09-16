@@ -55,11 +55,12 @@ Do not move files unless necessary.
 * Keep components readable and properly indented.
 * Use meaningful IDs and class names.
 
-## Tailwind CSS
+## Tailwind CSS & Design
 
 * Prefer utility classes.
 * Avoid unnecessary inline styles.
 * Reuse existing design patterns for consistency.
+* Follow the official design system and reference benchmarks defined in `.agent/skills/ui-ux/SKILL.md`.
 
 ## JavaScript
 
@@ -82,7 +83,7 @@ Do not move files unless necessary.
 Before changing code:
 
 1. Analyze the existing implementation.
-2. Identify affected modules.
+2. Identify affected modules across all roles using `.agent/skills/system-flow/SKILL.md`.
 3. Explain the proposed solution.
 4. Implement only the requested feature.
 5. Check for regression in related pages.
@@ -99,6 +100,7 @@ Prefer incremental modifications.
 * Sensitive authorization must be enforced in Supabase policies.
 * Never trust client-side role values alone.
 * Protect attendance records from unauthorized modification.
+* Follow all threat mitigation and defense-in-depth rules defined in `.agent/skills/security/SKILL.md`.
 
 ---
 
