@@ -33,17 +33,16 @@ When generating documentation, prioritize analysis before implementation.
 
 # Current Folder Structure
 
-* `admin/` → administrator pages and modules
-* `student/` → student pages
-* `teacher/` → teacher pages
+* `admin/` → administrator pages and submodules
+* `student/` → student pages and submodules
+* `teacher/` → teacher pages and submodules
 * `assets/css/` → Tailwind and stylesheet files
-* `assets/js/` → JavaScript modules
-* `assets/images/` → system images
-* `.agent/skills/` → reusable AI workflows
+* `assets/js/` → JavaScript modules (`admin/`, `teacher/`, `student/`, `services/`, `common/`, `config/`, `utils/`)
+* `assets/images/` → system images and logos
+* `docs/` → organized technical documentation (`architecture/`, `database/`, `modules/`, `security/`)
+* `.agent/skills/` → reusable AI workflows (14 domain skills)
 
-Preserve the existing folder structure.
-
-Do not move files unless necessary.
+See `docs/FILE_STRUCTURE_PLAN.md` for full directory details. Preserve the existing folder structure. Do not move files unless necessary.
 
 ---
 
