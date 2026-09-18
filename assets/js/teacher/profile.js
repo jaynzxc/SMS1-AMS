@@ -145,7 +145,7 @@ function handlePasswordChange(e) {
   if (!currentPass || !newPass || !confirmPass) {
     if (box) box.classList.add('checklist-warning-highlight');
     if (badge) {
-      badge.textContent = '⚠ Complete all password fields';
+      badge.textContent = 'Complete all password fields';
       badge.classList.remove('hidden');
     }
     if (!currentPass) document.getElementById('currentPassword')?.focus();
@@ -173,7 +173,7 @@ function handlePasswordChange(e) {
   if (newPass !== confirmPass) {
     if (box) box.classList.add('checklist-warning-highlight');
     if (badge) {
-      badge.textContent = '⚠ Passwords do not match';
+      badge.textContent = 'Passwords do not match';
       badge.classList.remove('hidden');
     }
     const confirmInput = document.getElementById('confirmPassword');
@@ -204,7 +204,7 @@ function highlightUnmetPasswordRules(rules) {
 
   if (badge) {
     badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
-    badge.textContent = '⚠ Requirements not met';
+    badge.textContent = 'Requirements not met';
     badge.classList.remove('hidden');
   }
 
@@ -262,7 +262,7 @@ function validatePasswordStrength() {
     }
     if (badge) {
       badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
-      badge.textContent = '✓ All requirements satisfied';
+      badge.textContent = 'All requirements satisfied';
       badge.classList.remove('hidden');
     }
   } else {
@@ -273,7 +273,7 @@ function validatePasswordStrength() {
     }
     if (badge) {
       badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
-      badge.textContent = '⚠ Requirements pending';
+      badge.textContent = 'Requirements pending';
       badge.classList.remove('hidden');
     }
   }
@@ -290,14 +290,14 @@ function updateRuleUI(ruleElementId, isValid, hasTyped = true) {
   const iconSpan = el.querySelector('.rule-icon');
   if (isValid) {
     el.className = 'flex items-center gap-1.5 rule-met-highlight transition-colors';
-    if (iconSpan) iconSpan.textContent = '✓';
+    if (iconSpan) iconSpan.innerHTML = '<svg class="w-3.5 h-3.5 text-emerald-600 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>';
   } else if (hasTyped) {
     // Yellow warning stays on unmet requirements
     el.className = 'flex items-center gap-1.5 rule-unmet-highlight transition-colors';
-    if (iconSpan) iconSpan.textContent = '⚠';
+    if (iconSpan) iconSpan.innerHTML = '<svg class="w-3.5 h-3.5 text-amber-600 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>';
   } else {
     el.className = 'flex items-center gap-1.5 text-gray-500 transition-colors';
-    if (iconSpan) iconSpan.textContent = '○';
+    if (iconSpan) iconSpan.innerHTML = '<span class="inline-block w-2.5 h-2.5 rounded-full border border-gray-400"></span>';
   }
 }
 

@@ -128,7 +128,7 @@ const itemsPerPage = 6;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📜 Excuse History Module Initialized');
+  console.log('Excuse History Module Initialized');
   initCurrentDate();
   loadExcuseHistory();
   initSearch();

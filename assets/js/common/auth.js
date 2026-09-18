@@ -71,7 +71,7 @@ export function validatePasswordRequirements(password) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🔐 Auth Module Initialized with Supabase');
+    console.log('Auth Module Initialized with Supabase');
 
     const loginForm = document.getElementById('loginForm');
     const usernameInput = document.getElementById('username');

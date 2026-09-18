@@ -4,7 +4,7 @@
 import { supabase } from '../config/supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🧑‍🏫 Teacher Dashboard Module Initialized');
+  console.log('Teacher Dashboard Module Initialized');
   initCurrentDate();
   initActionHandlers();
 });

@@ -33,17 +33,16 @@ When generating documentation, prioritize analysis before implementation.
 
 # Current Folder Structure
 
-* `admin/` → administrator pages and modules
-* `student/` → student pages
-* `teacher/` → teacher pages
+* `admin/` → administrator pages and submodules
+* `student/` → student pages and submodules
+* `teacher/` → teacher pages and submodules
 * `assets/css/` → Tailwind and stylesheet files
-* `assets/js/` → JavaScript modules
-* `assets/images/` → system images
-* `.agent/skills/` → reusable AI workflows
+* `assets/js/` → JavaScript modules (`admin/`, `teacher/`, `student/`, `services/`, `common/`, `config/`, `utils/`)
+* `assets/images/` → system images and logos
+* `docs/` → organized technical documentation (`architecture/`, `database/`, `modules/`, `security/`)
+* `.agent/skills/` → reusable AI workflows (14 domain skills)
 
-Preserve the existing folder structure.
-
-Do not move files unless necessary.
+See `docs/FILE_STRUCTURE_PLAN.md` for full directory details. Preserve the existing folder structure. Do not move files unless necessary.
 
 ---
 
@@ -76,19 +75,22 @@ Do not move files unless necessary.
 * Respect Row Level Security when designing authorization.
 * Do not modify database schema without explaining the impact first.
 
+## Code Cleanliness & Quality (Zero AI Slop)
+
+* **No AI Slop:** Write clean, purposeful, production-grade code. Avoid bloated boilerplate, redundant restatements of code in comments, hollow wrappers, or fake dummy functions.
+* **No Emojis When Generating Code:** Do NOT use emojis in code, comments, console logs, commit messages, or UI elements. Use clean, professional inline SVGs or standard text badges.
+
 ---
 
 # Development Rules
 
 Before changing code:
 
-1. Analyze the existing implementation.
-2. Identify affected modules across all roles using `.agent/skills/system-flow/SKILL.md`.
-3. Explain the proposed solution.
-4. Implement only the requested feature.
-5. Check for regression in related pages.
-
-Never rewrite an entire working module for a small change.
+1. **Always review other related files before proceeding:** Inspect related HTML views, JS controllers, shared utilities, and schema definitions before designing or touching code.
+2. **Always send an implementation plan before proceeding:** Deliver a clear, structured plan outlining affected files, database impact, and verification steps for user review before implementing changes.
+3. **Identify affected modules across all roles:** Consult `.agent/skills/system-flow/SKILL.md` to trace dependencies across Admin, Teacher, and Student portals.
+4. **Implement only the requested feature:** Never rewrite an entire working module for a small change.
+5. **Check for regression in related pages:** Validate that modifications do not break cross-panel sync or dependent views.
 
 Prefer incremental modifications.
 

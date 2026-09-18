@@ -35,7 +35,7 @@ let isSessionActive = true;
 let editingStudentId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🧑‍🏫 Teacher Daily Attendance Module Initialized');
+  console.log('Teacher Daily Attendance Module Initialized');
   initURLParams();
   initEventListeners();
   renderAttendanceTable();

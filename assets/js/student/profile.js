@@ -181,14 +181,14 @@ function validatePasswordStrength() {
       passedCount++;
       el.className = 'flex items-center gap-1.5 text-emerald-700 font-semibold text-xs';
       if (icon) {
-        icon.textContent = '✓';
-        icon.className = 'rule-icon w-3.5 h-3.5 flex items-center justify-center text-emerald-600 font-bold';
+        icon.innerHTML = '<svg class="w-3.5 h-3.5 text-emerald-600 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>';
+        icon.className = 'rule-icon w-3.5 h-3.5 flex items-center justify-center';
       }
     } else {
       el.className = 'flex items-center gap-1.5 text-[#6b7280] text-xs';
       if (icon) {
-        icon.textContent = '○';
-        icon.className = 'rule-icon w-3.5 h-3.5 flex items-center justify-center text-gray-400';
+        icon.innerHTML = '<span class="inline-block w-2.5 h-2.5 rounded-full border border-gray-400"></span>';
+        icon.className = 'rule-icon w-3.5 h-3.5 flex items-center justify-center';
       }
     }
   }
@@ -262,7 +262,7 @@ function handlePasswordChange(e) {
   if (!currentPass || !newPass || !confirmPass) {
     if (box) box.classList.add('checklist-warning-highlight');
     if (badge) {
-      badge.textContent = '⚠ Complete all fields';
+      badge.textContent = 'Complete all fields';
       badge.classList.remove('hidden');
     }
     showToast('Incomplete Form', 'Please complete all password fields.', 'warning');
@@ -273,7 +273,7 @@ function handlePasswordChange(e) {
   if (!isCriteriaMet) {
     if (box) box.classList.add('checklist-warning-highlight');
     if (badge) {
-      badge.textContent = '⚠ Criteria not satisfied';
+      badge.textContent = 'Criteria not satisfied';
       badge.classList.remove('hidden');
     }
     showToast('Weak Password', 'New password must fulfill all 5 security requirements.', 'warning');

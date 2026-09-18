@@ -337,374 +337,509 @@
           </button>
         </div>
 
-        <!-- ===== 6-CARD CLEAN SETTINGS GRID ===== -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
+        <!-- ======================================================== -->
+        <!-- SETTINGS TABBED WORKSPACE (PERSISTENT OVERVIEW + TABS)   -->
+        <!-- ======================================================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
 
-          <!-- ========================================== -->
-          <!-- 1. GENERAL SETTINGS                        -->
-          <!-- ========================================== -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between space-y-4">
-            <div class="space-y-4">
-              <!-- Header -->
-              <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
+          <!-- Left Column (1/3): Persistent Administrator & System Status Card -->
+          <div class="space-y-5 lg:sticky lg:top-20">
+
+            <!-- Administrator Identity Box -->
+            <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-6">
+              <div class="text-center">
+                <div class="relative inline-block mb-3.5">
+                  <div
+                    class="w-20 h-20 rounded-full bg-[#0030c2] text-white flex items-center justify-center font-extrabold text-2xl mx-auto shadow-xs select-none">
+                    A
+                  </div>
+                  <span
+                    class="absolute bottom-0 right-0 w-4.5 h-4.5 bg-emerald-500 border-2 border-white rounded-full"
+                    title="Active Account"></span>
+                </div>
+                <h3 id="cardAdminFullName" class="text-base font-bold text-[#111827]">Admin User</h3>
+                <div
+                  class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#0030c2]"></span>
+                  System Administrator
+                </div>
+              </div>
+
+              <div class="mt-5 border-t border-[#f1f5f9] pt-4 space-y-2.5 text-xs">
+                <div class="flex items-center justify-between text-[#6b7280]">
+                  <span>Office:</span>
+                  <span class="font-semibold text-[#111827]">IT / Registrar Office</span>
+                </div>
+                <div class="flex items-center justify-between text-[#6b7280]">
+                  <span>Email:</span>
+                  <span class="font-semibold text-[#111827]">admin@bcp.edu.ph</span>
+                </div>
+                <div class="flex items-center justify-between text-[#6b7280]">
+                  <span>Status:</span>
+                  <span
+                    class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Active · Verified
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live System Health / Environment Card -->
+            <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 space-y-3.5">
+              <div class="flex items-center gap-2.5 pb-3 border-b border-[#f1f5f9]">
                 <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-[#111827]">System Environment</h3>
+                  <p class="text-[10px] text-[#6b7280]">Real-time operational status</p>
+                </div>
+              </div>
+
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-[#f8fafc] border border-[#e5e7eb]">
+                  <span class="text-[#6b7280] text-[11px]">Hardware Readers:</span>
+                  <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 3 Kiosks Active
+                  </span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-[#f8fafc] border border-[#e5e7eb]">
+                  <span class="text-[#6b7280] text-[11px]">SMS Gateway:</span>
+                  <span class="text-[10px] font-bold text-[#0030c2] bg-[#eff6ff] px-2 py-0.5 rounded-full border border-[#bfdbfe]">
+                    Connected
+                  </span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-[#f8fafc] border border-[#e5e7eb]">
+                  <span class="text-[#6b7280] text-[11px]">Database Format:</span>
+                  <span class="text-[10px] font-bold text-[#374151] bg-white px-2 py-0.5 rounded-full border border-[#e5e7eb]">
+                    JSON Snapshot
+                  </span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-[#f8fafc] border border-[#e5e7eb]">
+                  <span class="text-[#6b7280] text-[11px]">Auto Absent Rule:</span>
+                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    Enforced (09:00 AM)
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column (2/3): Tab Navigation & Tab Panels -->
+          <div class="lg:col-span-2 space-y-5">
+
+            <!-- Horizontal Navigation Tabs with Aligned Reset Defaults -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-[#e5e7eb] gap-3 pb-2 sm:pb-0">
+              <div class="flex items-center gap-2 sm:gap-4 overflow-x-auto">
+                <!-- Tab 1 Button: General & Rules -->
+                <button id="tabGeneralBtn" onclick="switchSettingsTab('general')"
+                  class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 border-[#0030c2] text-[#0030c2] transition-all cursor-pointer whitespace-nowrap">
+                  <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
                   </svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-[#111827]">General Institution</h3>
-                  <p class="text-[11px] text-[#6b7280]">School branding and official operational schedule.</p>
-                </div>
-              </div>
+                  <span>General &amp; Rules</span>
+                </button>
 
-              <!-- Content -->
-              <div class="space-y-3">
-                <div>
-                  <label class="block text-xs font-bold text-[#374151] mb-1">School Name</label>
-                  <input type="text" id="settingSchoolName" value="Bestlink College of the Philippines"
-                    class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                </div>
-
-                <!-- Logo Preview & File -->
-                <div>
-                  <label class="block text-xs font-bold text-[#374151] mb-1">School Logo</label>
-                  <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-lg border border-[#e5e7eb] bg-[#f8fafc] flex items-center justify-center overflow-hidden shrink-0">
-                      <img id="schoolLogoPreview" src="../assets/images/bcp-logo.png" alt="Logo" class="w-full h-full object-contain p-1">
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <input type="file" id="schoolLogoInput" accept="image/*" class="w-full text-xs text-[#6b7280] file:mr-2.5 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#eff6ff] file:text-[#0030c2] hover:file:bg-[#dbeafe] cursor-pointer">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">School Entry Hour</label>
-                    <input type="time" id="settingSchoolStart" value="07:00"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">School Dismissal Hour</label>
-                    <input type="time" id="settingSchoolEnd" value="17:00"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-2 border-t border-[#f1f5f9] flex items-center justify-between text-[11px] text-[#6b7280]">
-              <span>Identity &amp; Schedule</span>
-              <span class="font-bold text-[#0030c2]">Active</span>
-            </div>
-          </div>
-
-          <!-- ========================================== -->
-          <!-- 2. ATTENDANCE & TIME RULES                 -->
-          <!-- ========================================== -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between space-y-4">
-            <div class="space-y-4">
-              <!-- Header -->
-              <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
-                <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-[#111827]">Attendance Rules</h3>
-                  <p class="text-[11px] text-[#6b7280]">Cut-off times and automatic status threshold calculations.</p>
-                </div>
-              </div>
-
-              <!-- Content -->
-              <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Present Cut-off Time</label>
-                    <input type="time" id="settingPresentCutoff" value="07:15"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                    <p class="text-[10px] text-[#6b7280] mt-1">Arrivals before are On-Time.</p>
-                  </div>
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Late Cut-off Time</label>
-                    <input type="time" id="settingLateCutoff" value="09:00"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                    <p class="text-[10px] text-[#6b7280] mt-1">Arrivals before are Tardy.</p>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Late Grace Threshold</label>
-                    <div class="flex rounded-lg border border-[#e5e7eb] overflow-hidden bg-white focus-within:border-[#0030c2]">
-                      <input type="number" id="settingLateThreshold" value="15" min="0" max="60"
-                        class="w-full px-3 py-2 text-xs text-[#111827] focus:outline-none bg-transparent">
-                      <span class="inline-flex items-center px-2.5 bg-[#f8fafc] border-l border-[#e5e7eb] text-xs text-[#6b7280] shrink-0 select-none">
-                        mins
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center justify-between p-3 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
-                    <div>
-                      <p class="text-xs font-bold text-[#111827]">Auto Absent Rule</p>
-                      <p class="text-[10px] text-[#6b7280]">Past 09:00 AM unscanned.</p>
-                    </div>
-                    <input type="checkbox" id="settingAutoAbsent" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-2 border-t border-[#f1f5f9] flex items-center justify-between text-[11px] text-[#6b7280]">
-              <span>Status Calculation</span>
-              <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Enforced</span>
-            </div>
-          </div>
-
-          <!-- ========================================== -->
-          <!-- 3. RFID & QR SCANNING SETTINGS             -->
-          <!-- ========================================== -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between space-y-4">
-            <div class="space-y-4">
-              <!-- Header -->
-              <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
-                <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <!-- Tab 2 Button: RFID & QR Scanners -->
+                <button id="tabScanningBtn" onclick="switchSettingsTab('scanning')"
+                  class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap">
+                  <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
                   </svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-[#111827]">RFID &amp; QR Settings</h3>
-                  <p class="text-[11px] text-[#6b7280]">Scanner hardware activation and dynamic QR tokens.</p>
-                </div>
-              </div>
+                  <span>RFID &amp; Scanners</span>
+                </button>
 
-              <!-- Content -->
-              <div class="space-y-3">
-                <!-- RFID Toggle & Status -->
-                <div class="flex items-center justify-between p-3 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
-                  <div>
-                    <p class="text-xs font-bold text-[#111827]">Enable RFID Hardware</p>
-                    <p class="text-[10px] text-[#6b7280]">Campus entrance card readers.</p>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 3 Kiosks Active
-                    </span>
-                    <input type="checkbox" id="settingEnableRfid" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300">
-                  </div>
-                </div>
-
-                <!-- QR Toggle & Expiration -->
-                <div class="flex items-center justify-between p-3 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
-                  <div>
-                    <p class="text-xs font-bold text-[#111827]">Enable Dynamic QR</p>
-                    <p class="text-[10px] text-[#6b7280]">Mobile rolling digital tokens.</p>
-                  </div>
-                  <input type="checkbox" id="settingEnableQr" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-bold text-[#374151] mb-1">QR Expiration Lifetime</label>
-                  <div class="flex rounded-lg border border-[#e5e7eb] overflow-hidden bg-white focus-within:border-[#0030c2]">
-                    <input type="number" id="settingQrExpiration" value="60" min="15" max="300"
-                      class="w-full px-3.5 py-2 text-xs text-[#111827] focus:outline-none bg-transparent">
-                    <span class="inline-flex items-center px-3 bg-[#f8fafc] border-l border-[#e5e7eb] text-xs text-[#6b7280] shrink-0 select-none">
-                      seconds
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-2 border-t border-[#f1f5f9] flex items-center justify-between text-[11px] text-[#6b7280]">
-              <span>Hardware Readers</span>
-              <span class="font-bold text-[#111827]">Online</span>
-            </div>
-          </div>
-
-          <!-- ========================================== -->
-          <!-- 4. NOTIFICATION & PARENT SMS SETTINGS      -->
-          <!-- ========================================== -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between space-y-4">
-            <div class="space-y-4">
-              <!-- Header -->
-              <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
-                <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <!-- Tab 3 Button: Notifications & SMS -->
+                <button id="tabNotificationsBtn" onclick="switchSettingsTab('notifications')"
+                  class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap">
+                  <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                   </svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-[#111827]">Notification Settings</h3>
-                  <p class="text-[11px] text-[#6b7280]">SMS gateway dispatch &amp; parent alert triggers.</p>
-                </div>
-              </div>
+                  <span>Notifications &amp; SMS</span>
+                </button>
 
-              <!-- Content -->
-              <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3">
-                  <div class="flex items-center justify-between p-3 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
-                    <span class="text-xs font-bold text-[#111827]">SMS Dispatch</span>
-                    <input type="checkbox" id="settingEnableSms" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300">
-                  </div>
-                  <div class="flex items-center justify-between p-3 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
-                    <span class="text-xs font-bold text-[#111827]">Email Summary</span>
-                    <input type="checkbox" id="settingEnableEmail" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300">
-                  </div>
-                </div>
-
-                <!-- Parent Notification Rules -->
-                <div class="p-3 border border-[#e5e7eb] rounded-xl space-y-2.5 bg-[#f8fafc]">
-                  <p class="text-[11px] font-bold text-[#374151]">Parent SMS Notification Rules</p>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-                    <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded-lg border border-[#e5e7eb]">
-                      <input type="checkbox" id="ruleSmsTimeIn" checked class="w-3.5 h-3.5 text-[#0030c2] rounded">
-                      <span class="font-medium text-[#111827]">Time-In Entry</span>
-                    </label>
-                    <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded-lg border border-[#e5e7eb]">
-                      <input type="checkbox" id="ruleSmsTardy" checked class="w-3.5 h-3.5 text-[#0030c2] rounded">
-                      <span class="font-medium text-[#111827]">Late Advisory</span>
-                    </label>
-                    <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded-lg border border-[#e5e7eb]">
-                      <input type="checkbox" id="ruleSmsAbsent" checked class="w-3.5 h-3.5 text-[#0030c2] rounded">
-                      <span class="font-medium text-[#111827]">Unexcused Absent</span>
-                    </label>
-                    <label class="flex items-center gap-2 cursor-pointer bg-white p-2 rounded-lg border border-[#e5e7eb]">
-                      <input type="checkbox" id="ruleSmsTimeOut" checked class="w-3.5 h-3.5 text-[#0030c2] rounded">
-                      <span class="font-medium text-[#111827]">Time-Out Exit</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-2 border-t border-[#f1f5f9] flex items-center justify-between text-[11px] text-[#6b7280]">
-              <span>SMS Gateway</span>
-              <span class="font-bold text-[#0030c2]">Connected</span>
-            </div>
-          </div>
-
-          <!-- ========================================== -->
-          <!-- 5. BACKUP & DATABASE MANAGEMENT            -->
-          <!-- ========================================== -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between space-y-4">
-            <div class="space-y-4">
-              <!-- Header -->
-              <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
-                <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <!-- Tab 4 Button: Database & Audit -->
+                <button id="tabDatabaseBtn" onclick="switchSettingsTab('database')"
+                  class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap">
+                  <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
                   </svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-[#111827]">Database Backup &amp; Restore</h3>
-                  <p class="text-[11px] text-[#6b7280]">Export database snapshot or restore from JSON archive.</p>
-                </div>
-              </div>
-
-              <!-- Content -->
-              <div class="grid grid-cols-2 gap-3 pt-1">
-                <!-- Backup Button -->
-                <button onclick="handleBackupDatabase()" id="btnBackupDb"
-                  class="btn-press p-4 bg-[#eff6ff] hover:bg-[#dbeafe] text-[#0030c2] border border-[#bfdbfe] rounded-xl flex flex-col items-center justify-center text-center transition-all cursor-pointer">
-                  <svg class="w-6 h-6 mb-1 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                  </svg>
-                  <span class="text-xs font-bold">Backup Database</span>
-                  <span class="text-[10px] text-[#6b7280] mt-0.5">Download Snapshot</span>
+                  <span>Database &amp; Audit</span>
                 </button>
+              </div>
 
-                <!-- Restore Button -->
-                <div>
-                  <input type="file" id="restoreFileInput" accept=".json" class="hidden" onchange="handleRestoreDatabase(event)">
-                  <button onclick="document.getElementById('restoreFileInput').click()"
-                    class="btn-press w-full p-4 bg-white hover:bg-gray-50 text-[#374151] border border-[#e5e7eb] rounded-xl flex flex-col items-center justify-center text-center transition-all cursor-pointer">
-                    <svg class="w-6 h-6 mb-1 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                    <span class="text-xs font-bold">Restore Database</span>
-                    <span class="text-[10px] text-[#6b7280] mt-0.5">Upload JSON File</span>
-                  </button>
-                </div>
+              <!-- Reset Defaults Button Aligned with Tabs -->
+              <div class="sm:pb-2.5 shrink-0 self-end sm:self-auto">
+                <button id="btnResetSettings" type="button" onclick="resetToDefaults()"
+                  class="btn-press px-3 py-1.5 text-xs font-semibold text-[#4b5563] bg-white border border-[#e5e7eb] rounded-lg shadow-2xs hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors cursor-pointer flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                  <span>Reset Defaults</span>
+                </button>
               </div>
             </div>
 
-            <div class="pt-2 border-t border-[#f1f5f9] flex items-center justify-between text-[11px] text-[#6b7280]">
-              <span>Storage Snapshot</span>
-              <span class="font-bold text-[#111827]">JSON Format</span>
-            </div>
-          </div>
-
-          <!-- ========================================== -->
-          <!-- 6. AUDIT LOGS & ACTIVITY HISTORY           -->
-          <!-- ========================================== -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between space-y-4">
-            <div class="space-y-4">
-              <!-- Header -->
-              <div class="flex items-center justify-between border-b border-[#f1f5f9] pb-3">
-                <div class="flex items-center gap-3">
+            <!-- ======================================================== -->
+            <!-- TAB PANEL 1: GENERAL & RULES                             -->
+            <!-- ======================================================== -->
+            <div id="panelGeneral" class="space-y-5">
+              <!-- 1. General Institution -->
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
                   <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
                     </svg>
                   </div>
                   <div>
-                    <h3 class="text-sm font-bold text-[#111827]">Audit Logs &amp; History</h3>
-                    <p class="text-[11px] text-[#6b7280]">Login history, activity, and corrections.</p>
+                    <h3 class="text-sm font-bold text-[#111827]">General Institution</h3>
+                    <p class="text-xs text-[#6b7280]">School branding and official operational schedule.</p>
                   </div>
                 </div>
-                <button onclick="exportAuditLogs()" class="text-[11px] font-bold text-[#0030c2] hover:underline cursor-pointer">Export CSV</button>
+
+                <div class="space-y-3.5">
+                  <div>
+                    <label class="block text-xs font-bold text-[#374151] mb-1">School Name</label>
+                    <input type="text" id="settingSchoolName" value="Bestlink College of the Philippines"
+                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-[#374151] mb-1">School Logo</label>
+                    <div class="flex items-center gap-3">
+                      <div class="w-11 h-11 rounded-lg border border-[#e5e7eb] bg-[#f8fafc] flex items-center justify-center overflow-hidden shrink-0">
+                        <img id="schoolLogoPreview" src="../assets/images/bcp-logo.png" alt="Logo" class="w-full h-full object-contain p-1">
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <input type="file" id="schoolLogoInput" accept="image/*" class="w-full text-xs text-[#6b7280] file:mr-2.5 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#eff6ff] file:text-[#0030c2] hover:file:bg-[#dbeafe] cursor-pointer">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">School Entry Hour</label>
+                      <input type="time" id="settingSchoolStart" value="07:00"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">School Dismissal Hour</label>
+                      <input type="time" id="settingSchoolEnd" value="17:00"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#6b7280]">
+                  <span>Identity &amp; Schedule</span>
+                  <span class="font-bold text-[#0030c2]">Active</span>
+                </div>
               </div>
 
-              <!-- Mini Audit Table -->
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
-                  <thead>
-                    <tr class="text-[10px] uppercase tracking-wider text-[#6b7280] border-b border-[#f1f5f9]">
-                      <th class="pb-1.5 font-bold">Time</th>
-                      <th class="pb-1.5 font-bold">Actor</th>
-                      <th class="pb-1.5 font-bold">Event</th>
-                      <th class="pb-1.5 font-bold text-right">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-[#f1f5f9]">
-                    <tr>
-                      <td class="py-2 text-[11px] text-[#6b7280] whitespace-nowrap">07:15 AM</td>
-                      <td class="py-2 font-semibold text-[#111827]">Admin User</td>
-                      <td class="py-2 text-[#4b5563]">Login Authenticated</td>
-                      <td class="py-2 text-right"><span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Success</span></td>
-                    </tr>
-                    <tr>
-                      <td class="py-2 text-[11px] text-[#6b7280] whitespace-nowrap">07:35 AM</td>
-                      <td class="py-2 font-semibold text-[#111827]">Mrs. Dela Cruz</td>
-                      <td class="py-2 text-[#4b5563]">Attendance Correction</td>
-                      <td class="py-2 text-right"><span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-blue-50 text-[#0030c2] border border-[#bfdbfe]">Updated</span></td>
-                    </tr>
-                    <tr>
-                      <td class="py-2 text-[11px] text-[#6b7280] whitespace-nowrap">08:00 AM</td>
-                      <td class="py-2 font-semibold text-[#111827]">System Daemon</td>
-                      <td class="py-2 text-[#4b5563]">RFID Token Sync</td>
-                      <td class="py-2 text-right"><span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Synced</span></td>
-                    </tr>
-                  </tbody>
-                </table>
+              <!-- 2. Attendance Rules -->
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#111827]">Attendance Rules</h3>
+                    <p class="text-xs text-[#6b7280]">Cut-off times and automatic status threshold calculations.</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3.5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Present Cut-off Time</label>
+                      <input type="time" id="settingPresentCutoff" value="07:15"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
+                      <p class="text-[10px] text-[#6b7280] mt-1">Arrivals before are marked On-Time.</p>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Late Cut-off Time</label>
+                      <input type="time" id="settingLateCutoff" value="09:00"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
+                      <p class="text-[10px] text-[#6b7280] mt-1">Arrivals before are marked Tardy.</p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Late Grace Threshold</label>
+                      <div class="flex rounded-lg border border-[#e5e7eb] overflow-hidden bg-white focus-within:border-[#0030c2]">
+                        <input type="number" id="settingLateThreshold" value="15" min="0" max="60"
+                          class="w-full px-3 py-2 text-xs text-[#111827] focus:outline-none bg-transparent">
+                        <span class="inline-flex items-center px-2.5 bg-[#f8fafc] border-l border-[#e5e7eb] text-xs text-[#6b7280] shrink-0 select-none">
+                          mins
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                      <div>
+                        <p class="text-xs font-bold text-[#111827]">Auto Absent Rule</p>
+                        <p class="text-[10px] text-[#6b7280]">Past 09:00 AM unscanned.</p>
+                      </div>
+                      <input type="checkbox" id="settingAutoAbsent" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 cursor-pointer">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#6b7280]">
+                  <span>Status Calculation</span>
+                  <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px]">Enforced</span>
+                </div>
               </div>
             </div>
 
-            <div class="pt-2 border-t border-[#f1f5f9] flex items-center justify-between text-[11px] text-[#6b7280]">
-              <span>System Activity Log</span>
-              <span class="font-bold text-[#0030c2]">Real-time</span>
+            <!-- ======================================================== -->
+            <!-- TAB PANEL 2: RFID & QR SCANNERS                          -->
+            <!-- ======================================================== -->
+            <div id="panelScanning" class="hidden space-y-5">
+              <!-- 3. RFID & QR Scanning Settings -->
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#111827]">RFID &amp; QR Settings</h3>
+                    <p class="text-xs text-[#6b7280]">Scanner hardware activation and dynamic QR tokens.</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3.5">
+                  <!-- RFID Toggle & Status -->
+                  <div class="flex items-center justify-between p-3.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                    <div>
+                      <p class="text-xs font-bold text-[#111827]">Enable RFID Hardware</p>
+                      <p class="text-[11px] text-[#6b7280]">Campus entrance USB/HID card readers.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 3 Kiosks Active
+                      </span>
+                      <input type="checkbox" id="settingEnableRfid" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 cursor-pointer">
+                    </div>
+                  </div>
+
+                  <!-- QR Toggle & Expiration -->
+                  <div class="flex items-center justify-between p-3.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                    <div>
+                      <p class="text-xs font-bold text-[#111827]">Enable Dynamic QR</p>
+                      <p class="text-[11px] text-[#6b7280]">Mobile rolling digital attendance tokens.</p>
+                    </div>
+                    <input type="checkbox" id="settingEnableQr" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 cursor-pointer">
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-[#374151] mb-1">QR Expiration Lifetime</label>
+                    <div class="flex rounded-lg border border-[#e5e7eb] overflow-hidden bg-white focus-within:border-[#0030c2]">
+                      <input type="number" id="settingQrExpiration" value="60" min="15" max="300"
+                        class="w-full px-3.5 py-2 text-xs text-[#111827] focus:outline-none bg-transparent">
+                      <span class="inline-flex items-center px-3 bg-[#f8fafc] border-l border-[#e5e7eb] text-xs text-[#6b7280] shrink-0 select-none">
+                        seconds
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#6b7280]">
+                  <span>Hardware Readers</span>
+                  <span class="font-bold text-[#111827]">Online</span>
+                </div>
+              </div>
             </div>
+
+            <!-- ======================================================== -->
+            <!-- TAB PANEL 3: NOTIFICATIONS & SMS                         -->
+            <!-- ======================================================== -->
+            <div id="panelNotifications" class="hidden space-y-5">
+              <!-- 4. Notification & Parent SMS Settings -->
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#111827]">Notification Settings</h3>
+                    <p class="text-xs text-[#6b7280]">SMS gateway dispatch &amp; parent alert triggers.</p>
+                  </div>
+                </div>
+
+                <div class="space-y-3.5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div class="flex items-center justify-between p-3.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                      <span class="text-xs font-bold text-[#111827]">SMS Dispatch</span>
+                      <input type="checkbox" id="settingEnableSms" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 cursor-pointer">
+                    </div>
+                    <div class="flex items-center justify-between p-3.5 bg-[#f8fafc] rounded-xl border border-[#e5e7eb]">
+                      <span class="text-xs font-bold text-[#111827]">Email Summary</span>
+                      <input type="checkbox" id="settingEnableEmail" checked class="w-4 h-4 text-[#0030c2] rounded border-gray-300 cursor-pointer">
+                    </div>
+                  </div>
+
+                  <!-- Parent Notification Rules -->
+                  <div class="p-3.5 border border-[#e5e7eb] rounded-xl space-y-2.5 bg-[#f8fafc]">
+                    <p class="text-xs font-bold text-[#374151]">Parent SMS Notification Rules</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                      <label class="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-[#e5e7eb] hover:border-[#0030c2] transition-colors">
+                        <input type="checkbox" id="ruleSmsTimeIn" checked class="w-4 h-4 text-[#0030c2] rounded cursor-pointer">
+                        <span class="font-medium text-[#111827] text-xs">Time-In Entry</span>
+                      </label>
+                      <label class="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-[#e5e7eb] hover:border-[#0030c2] transition-colors">
+                        <input type="checkbox" id="ruleSmsTardy" checked class="w-4 h-4 text-[#0030c2] rounded cursor-pointer">
+                        <span class="font-medium text-[#111827] text-xs">Late Advisory</span>
+                      </label>
+                      <label class="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-[#e5e7eb] hover:border-[#0030c2] transition-colors">
+                        <input type="checkbox" id="ruleSmsAbsent" checked class="w-4 h-4 text-[#0030c2] rounded cursor-pointer">
+                        <span class="font-medium text-[#111827] text-xs">Unexcused Absent</span>
+                      </label>
+                      <label class="flex items-center gap-2 cursor-pointer bg-white p-2.5 rounded-lg border border-[#e5e7eb] hover:border-[#0030c2] transition-colors">
+                        <input type="checkbox" id="ruleSmsTimeOut" checked class="w-4 h-4 text-[#0030c2] rounded cursor-pointer">
+                        <span class="font-medium text-[#111827] text-xs">Time-Out Exit</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#6b7280]">
+                  <span>SMS Gateway</span>
+                  <span class="font-bold text-[#0030c2]">Connected</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- TAB PANEL 4: DATABASE & AUDIT                            -->
+            <!-- ======================================================== -->
+            <div id="panelDatabase" class="hidden space-y-5">
+              <!-- 5. Database Backup & Restore -->
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-[#f1f5f9] pb-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#111827]">Database Backup &amp; Restore</h3>
+                    <p class="text-xs text-[#6b7280]">Export database snapshot or restore from JSON archive.</p>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+                  <!-- Backup Button -->
+                  <button onclick="handleBackupDatabase()" id="btnBackupDb"
+                    class="btn-press p-4 bg-[#eff6ff] hover:bg-[#dbeafe] text-[#0030c2] border border-[#bfdbfe] rounded-xl flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                    <svg class="w-6 h-6 mb-1 text-[#0030c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                    </svg>
+                    <span class="text-xs font-bold">Backup Database</span>
+                    <span class="text-[10px] text-[#6b7280] mt-0.5">Download JSON Snapshot</span>
+                  </button>
+
+                  <!-- Restore Button -->
+                  <div>
+                    <input type="file" id="restoreFileInput" accept=".json" class="hidden" onchange="handleRestoreDatabase(event)">
+                    <button onclick="document.getElementById('restoreFileInput').click()"
+                      class="btn-press w-full p-4 bg-white hover:bg-gray-50 text-[#374151] border border-[#e5e7eb] rounded-xl flex flex-col items-center justify-center text-center transition-all cursor-pointer">
+                      <svg class="w-6 h-6 mb-1 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                      <span class="text-xs font-bold">Restore Database</span>
+                      <span class="text-[10px] text-[#6b7280] mt-0.5">Upload JSON File</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#6b7280]">
+                  <span>Storage Snapshot</span>
+                  <span class="font-bold text-[#111827]">JSON Format</span>
+                </div>
+              </div>
+
+              <!-- 6. Audit Logs & Activity History -->
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-[#f1f5f9] pb-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0 border border-[#bfdbfe]">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="text-sm font-bold text-[#111827]">Audit Logs &amp; History</h3>
+                      <p class="text-xs text-[#6b7280]">Login history, activity, and corrections.</p>
+                    </div>
+                  </div>
+                  <button onclick="exportAuditLogs()" class="text-xs font-bold text-[#0030c2] hover:underline cursor-pointer">Export CSV</button>
+                </div>
+
+                <!-- Mini Audit Table -->
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-xs">
+                    <thead>
+                      <tr class="text-[10px] uppercase tracking-wider text-[#6b7280] border-b border-[#f1f5f9]">
+                        <th class="pb-2 font-bold">Time</th>
+                        <th class="pb-2 font-bold">Actor</th>
+                        <th class="pb-2 font-bold">Event</th>
+                        <th class="pb-2 font-bold text-right">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-[#f1f5f9]">
+                      <tr>
+                        <td class="py-2.5 text-xs text-[#6b7280] whitespace-nowrap">07:15 AM</td>
+                        <td class="py-2.5 font-semibold text-[#111827]">Admin User</td>
+                        <td class="py-2.5 text-[#4b5563]">Login Authenticated</td>
+                        <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Success</span></td>
+                      </tr>
+                      <tr>
+                        <td class="py-2.5 text-xs text-[#6b7280] whitespace-nowrap">07:35 AM</td>
+                        <td class="py-2.5 font-semibold text-[#111827]">Mrs. Dela Cruz</td>
+                        <td class="py-2.5 text-[#4b5563]">Attendance Correction</td>
+                        <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-[#0030c2] border border-[#bfdbfe]">Updated</span></td>
+                      </tr>
+                      <tr>
+                        <td class="py-2.5 text-xs text-[#6b7280] whitespace-nowrap">08:00 AM</td>
+                        <td class="py-2.5 font-semibold text-[#111827]">System Daemon</td>
+                        <td class="py-2.5 text-[#4b5563]">RFID Token Sync</td>
+                        <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Synced</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#6b7280]">
+                  <span>System Activity Log</span>
+                  <span class="font-bold text-[#0030c2]">Real-time</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>

@@ -72,7 +72,7 @@ let pendingEditTicketId = null;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📋 My Excuse Requests Module Initialized');
+  console.log('My Excuse Requests Module Initialized');
   initCurrentDate();
   loadExcuseSlips();
   initSearch();

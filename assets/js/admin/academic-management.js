@@ -35,7 +35,7 @@ let itemToDelete = null;
 
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🎓 Academic Management (Streamlined) Initialized');
+  console.log('Academic Management (Streamlined) Initialized');
   loadData();
   setCurrentDate();
   renderActiveTab();

@@ -41,6 +41,8 @@ When creating or modifying any page, ALWAYS consult these reference benchmark fi
     ```
 * **No Framework Injections**: Do NOT introduce React, Vue, Angular, Bootstrap, jQuery, or PHP templates.
 * **No External Icon Libraries (FontAwesome/Bootstrap Icons)**: Use clean inline SVG icons styled with Tailwind (`stroke-width="1.75"` or `2`, `fill="none"`, `stroke="currentColor"`).
+* **Strict Ban on Emojis in Generated Code & UI**: Do NOT use emojis (e.g. 👤, 📊, 📅, 🔔, 🚀, ✨) in place of icons, buttons, badges, table cells, or alert messages. Always use clean, inline vector SVGs or Tailwind text badges.
+* **Zero AI Slop & Placeholder Text**: Avoid dummy lorem ipsum text, bloated wrapper divs, or artificial filler. Use accurate Bestlink College of the Philippines context and academic data.
 
 ---
 

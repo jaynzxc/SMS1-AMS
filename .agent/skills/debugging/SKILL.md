@@ -14,11 +14,13 @@ Systematically diagnose, isolate, and resolve issues across Frontend HTML5, Comp
 
 ## 1. Core Debugging Principles
 
-1. **Root Cause Before Code:** Never write a fix without first confirming the root cause and verifying the exact point of failure.
-2. **Minimal Surgical Modifications:** Modify only the code necessary to solve the defect. Never rewrite an entire working page or module for a localized bug.
-3. **Defense-in-Depth Integrity:** Never bypass security checks (e.g. relaxing RLS policies, skipping token verification, or hardcoding IDs) as a "temporary fix".
-4. **Cross-Panel Regression Awareness:** Always check if a change in one role's module (e.g. Teacher attendance roster) impacts another role (e.g. Student dashboard or Admin analytics) as specified in `.agent/skills/system-flow/SKILL.md`.
-5. **Aesthetic & Design Preservation:** When fixing UI bugs, strictly preserve existing Tailwind utility patterns, typography, and color tokens from `.agent/skills/ui-ux/SKILL.md`. Never introduce inline style hacks or runtime Tailwind CDN scripts.
+1. **Always Review Related Files Before Proceeding:** Thoroughly inspect dependent HTML views, JS controllers, shared utilities, and Supabase schema files before proposing or applying a bug fix.
+2. **Root Cause Before Code:** Never write a fix without first confirming the root cause and verifying the exact point of failure.
+3. **Minimal Surgical Modifications (Zero AI Slop):** Modify only the code necessary to solve the defect. Avoid bloated boilerplate, unnecessary rewrites, fake functions, or hollow wrappers.
+4. **No Emojis in Code or Logs:** Do NOT use emojis in code, comments, or debug console logs (`console.log`, `console.error`). Use clean, professional text messages.
+5. **Defense-in-Depth Integrity:** Never bypass security checks (e.g. relaxing RLS policies, skipping token verification, or hardcoding IDs) as a "temporary fix".
+6. **Cross-Panel Regression Awareness:** Always check if a change in one role's module (e.g. Teacher attendance roster) impacts another role (e.g. Student dashboard or Admin analytics) as specified in `.agent/skills/system-flow/SKILL.md`.
+7. **Aesthetic & Design Preservation:** When fixing UI bugs, strictly preserve existing Tailwind utility patterns, typography, and color tokens from `.agent/skills/ui-ux/SKILL.md`. Never introduce inline style hacks or runtime Tailwind CDN scripts.
 
 ---
 
