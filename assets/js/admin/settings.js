@@ -29,7 +29,7 @@ const DEFAULT_SETTINGS = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('⚙️ System Settings Module Initialized');
+  console.log('System Settings Module Initialized');
   initCurrentDate();
   loadAdminSession();
   initLogoPreviewListener();

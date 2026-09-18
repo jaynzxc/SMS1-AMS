@@ -20,7 +20,7 @@ const teachersData = [];
 // INITIALIZATION
 // =============================================================
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('👥 User Management Module Initialized');
+  console.log('User Management Module Initialized');
   initCurrentDate();
   initSearch();
   initModalListeners();
@@ -721,11 +721,11 @@ export async function handleSaveUser(event) {
         .select();
 
       if (stuError) {
-        console.error('❌ Supabase student error:', stuError);
+        console.error('[User Management] Supabase student error:', stuError);
         showToast('Supabase Notice', `Could not save to Supabase (${stuError.message}). Please ensure tables are created.`, 'error');
       } else {
         supabaseSuccess = true;
-        console.log('✅ Student saved directly to Supabase:', data);
+        console.log('[User Management] Student saved directly to Supabase:', data);
       }
     } else {
       const teacherPayload = {
@@ -746,15 +746,15 @@ export async function handleSaveUser(event) {
         .select();
 
       if (tchError) {
-        console.error('❌ Supabase teacher error:', tchError);
+        console.error('[User Management] Supabase teacher error:', tchError);
         showToast('Supabase Notice', `Could not save to Supabase (${tchError.message}). Please ensure tables are created.`, 'error');
       } else {
         supabaseSuccess = true;
-        console.log('✅ Teacher saved directly to Supabase:', data);
+        console.log('[User Management] Teacher saved directly to Supabase:', data);
       }
     }
   } catch (dbErr) {
-    console.error('❌ Network / Supabase write error:', dbErr);
+    console.error('[User Management] Network / Supabase write error:', dbErr);
   }
 
   // 2. LOCAL DATASET UPDATE & REAL-TIME TABLE RE-RENDER
@@ -831,7 +831,7 @@ export function toggleModalPassword() {
 export async function dispatchAccountDetailsToEmail(data) {
   const { id, name, email, password, role, courseSection, rfidUid, qrCode, validationDate } = data;
 
-  console.log(`📧 Sending live email with account credentials to ${email}...`);
+  console.log(`[User Management] Sending live email with account credentials to ${email}...`);
 
   // 1. LIVE EMAIL TRANSMISSION (Using direct FormSubmit AJAX API to send real emails to Gmail)
   let liveEmailDispatched = false;
@@ -867,7 +867,7 @@ export async function dispatchAccountDetailsToEmail(data) {
       const resJson = await response.json();
       if (resJson && (resJson.success === 'true' || resJson.success === true)) {
         liveEmailDispatched = true;
-        console.log(`✅ Live email successfully dispatched to ${email}:`, resJson);
+        console.log(`[User Management] Live email successfully dispatched to ${email}:`, resJson);
       }
     }
   } catch (mailErr) {
@@ -952,7 +952,7 @@ export async function handleSaveRfid(event) {
         console.error('RFID update error:', error);
         showToast('Supabase Notice', `Could not update RFID in database: ${error.message}`, 'error');
       } else {
-        console.log('✅ RFID updated directly in Supabase:', data);
+        console.log('[User Management] RFID updated directly in Supabase:', data);
         showToast('RFID Linked', `RFID Card (${uid}) successfully linked to ${user.name} and saved to database!`, 'success');
       }
     } catch (e) {
@@ -1060,7 +1060,7 @@ export async function handleConfirmPasswordReset() {
         console.error('Password reset sync error:', error);
         showToast('Notice', `Password updated locally. (${error.message})`, 'info');
       } else {
-        console.log(`✅ Password for ${userId} updated directly in Supabase to ${tempPass}`);
+        console.log(`[User Management] Password for ${userId} updated directly in Supabase to ${tempPass}`);
       }
     } catch (e) {
       console.warn('Password reset error:', e);
@@ -1114,7 +1114,7 @@ export async function handleConfirmDelete() {
         console.error('Delete error from Supabase:', error);
         showToast('Supabase Notice', `Could not delete from database: ${error.message}`, 'error');
       } else {
-        console.log(`✅ ${userId} permanently removed from Supabase ${table} table`);
+        console.log(`[User Management] ${userId} permanently removed from Supabase ${table} table`);
       }
     } catch (e) {
       console.warn('Delete sync exception:', e);

@@ -133,7 +133,7 @@ let currentPage = 1;
 const pageSize = 10;
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📊 Student My Attendance Module Initialized');
+  console.log('Student My Attendance Module Initialized');
   initCurrentDate();
   initSearch();
   exposeGlobalFunctions();

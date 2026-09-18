@@ -73,7 +73,7 @@ const scanLogsData = [
 let filteredLogs = [...scanLogsData];
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('💳 Student RFID & QR Code Module Initialized');
+  console.log('Student RFID & QR Code Module Initialized');
   initCurrentDate();
   loadStudentProfile();
   renderScanLogsTable();

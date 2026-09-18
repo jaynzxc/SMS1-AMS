@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (includePercentages) {
           row.push(`<span class="font-black ${parseFloat(s.rate) >= 90 ? 'text-[#16a34a]' : 'text-amber-600'}">${s.rate}</span>`);
         }
-        let complianceBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#f0fdf4] text-[#15803d]">Eligible ✓</span>`;
+        let complianceBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#f0fdf4] text-[#15803d]">Eligible</span>`;
         if (s.compliance.includes('At Risk')) {
           complianceBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">Warning (20%)</span>`;
         } else if (s.compliance.includes('Critical')) {

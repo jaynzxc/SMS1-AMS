@@ -8,7 +8,7 @@ let selectedFile = null;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('📋 Submit Excuse Slip Module Initialized');
+  console.log('Submit Excuse Slip Module Initialized');
   initCurrentDate();
   parseUrlParameters();
   initDropzone();
@@ -283,9 +283,8 @@ function initFormSubmit() {
       console.warn('Could not save excuse slip to local storage:', e);
     }
 
-    // Simulated short delay for smooth UX
     setTimeout(() => {
-      alert(`🎉 Excuse Slip Submitted Successfully!\n\nReference Ticket: ${ticketNo}\nSubject: ${subjectVal}\nStatus: Pending Review\n\nYour instructor has been notified to evaluate this request.`);
+      alert(`Excuse Slip Submitted Successfully!\n\nReference Ticket: ${ticketNo}\nSubject: ${subjectVal}\nStatus: Pending Review\n\nYour instructor has been notified to evaluate this request.`);
       resetExcuseForm();
       if (submitBtn) {
         submitBtn.disabled = false;

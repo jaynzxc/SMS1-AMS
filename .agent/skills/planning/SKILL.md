@@ -14,17 +14,20 @@ Produce thorough, highly structured, and production-ready implementation plans b
 
 ## 1. Core Planning Principles
 
-1. **Planning Only — Zero Premature Coding:** Never write production code, modify database schemas, or execute destructive commands during the planning phase.
-2. **Cross-Panel Lifecycle Analysis:** Every feature must be evaluated for downstream impact across all three roles (Admin, Teacher, Student) using [`.agent/skills/system-flow/SKILL.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/.agent/skills/system-flow/SKILL.md).
-3. **Strict Technology Stack Adherence:** Plan strictly within:
+1. **Mandatory Implementation Plan Before Proceeding:** Always produce and deliver a structured implementation plan for user review before writing any production code or modifying database schemas.
+2. **Mandatory File Review Before Proceeding:** Always thoroughly inspect existing related files (HTML views, JS controllers, schema definitions, and utilities) before proposing changes.
+3. **Cross-Panel Lifecycle Analysis:** Every feature must be evaluated for downstream impact across all three roles (Admin, Teacher, Student) using [`.agent/skills/system-flow/SKILL.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/.agent/skills/system-flow/SKILL.md).
+4. **Strict Technology Stack Adherence:** Plan strictly within:
    * Semantic HTML5
    * Compiled Tailwind CSS (`assets/css/output.css` + `assets/css/style.css`)
    * Modular Vanilla JavaScript (ES6)
    * Supabase PostgreSQL with 100% Row Level Security (RLS)
    * Hardware IoT: ESP32 + RC522 13.56 MHz RFID / Web QR Scanner
    * *Do NOT introduce React, Vue, Angular, jQuery, PHP, or external UI frameworks.*
-4. **Defense-in-Depth & Security First:** Every plan must integrate RLS policy definitions, anti-XSS (`textContent`) measures, session guard verification, and audit logging via `user_activity` as defined in [`.agent/skills/security/SKILL.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/.agent/skills/security/SKILL.md).
-5. **Design System Alignment:** Plan UI components against the design benchmarks, color tokens, and layout guidelines established in [`.agent/skills/ui-ux/SKILL.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/.agent/skills/ui-ux/SKILL.md).
+5. **Zero AI Slop & Cleanliness:** Avoid unnecessary code boilerplate, hollow abstractions, or redundant filler comments that merely repeat what the syntax says. Code must be concise, robust, and directly purposeful.
+6. **No Emojis in Generated Code:** Strictly forbid the use of emojis in code, comments, console logs, commit messages, or UI elements. Use inline SVGs or text badges instead.
+7. **Defense-in-Depth & Security First:** Every plan must integrate RLS policy definitions, anti-XSS (`textContent`) measures, session guard verification, and audit logging via `user_activity` as defined in [`.agent/skills/security/SKILL.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/.agent/skills/security/SKILL.md).
+8. **Design System Alignment:** Plan UI components against the design benchmarks, color tokens, and layout guidelines established in [`.agent/skills/ui-ux/SKILL.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/.agent/skills/ui-ux/SKILL.md).
 
 ---
 

@@ -704,7 +704,7 @@ window.openCandidateDrawer = function(id) {
           <span class="w-2 h-2 rounded-full bg-[#7c3aed]"></span>
           <span class="font-bold text-xs text-[#6d28d9]">Official Recognition Conferred</span>
         </div>
-        <span class="text-[11px] font-bold text-[#7c3aed]">Approved ✓</span>
+        <span class="text-[11px] font-bold text-[#7c3aed]">Approved</span>
       `;
     }
   }
@@ -918,7 +918,7 @@ function renderHistoryTable() {
     if (batch.adminStatus === 'Approved') {
       statusBadge = `
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#f0fdf4] text-[#15803d]">
-          Approved ✓
+          Approved
         </span>
       `;
     } else {
@@ -1048,7 +1048,7 @@ window.viewBatchDetails = function(batchId) {
           </td>
           <td class="py-2 px-3 text-center">
             <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
-              ESP32 RFID ✓
+              ESP32 RFID
             </span>
           </td>
         </tr>

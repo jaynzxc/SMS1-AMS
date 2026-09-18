@@ -144,7 +144,7 @@ let filteredRecords = [...attendanceHistoryData];
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('📋 Student Attendance History Module Initialized');
+  console.log('Student Attendance History Module Initialized');
   initCurrentDate();
   await loadHistoryRecords();
   initSearch();

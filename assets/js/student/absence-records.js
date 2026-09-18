@@ -49,7 +49,7 @@ let filteredRecords = [...absenceData];
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('📋 Student Absence Records Module Initialized');
+  console.log('Student Absence Records Module Initialized');
   initCurrentDate();
   await loadAbsenceRecords();
   initSearch();

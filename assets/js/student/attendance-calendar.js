@@ -422,7 +422,7 @@ const studentDailyAttendanceData = {
 
 // Initialize DOM on Load
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("📅 Student Attendance Calendar Module Initialized");
+  console.log("Student Attendance Calendar Module Initialized");
   initCurrentDate();
   renderCalendar();
   renderDayBreakdown();

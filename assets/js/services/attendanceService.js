@@ -14,7 +14,7 @@ export async function getStudentAttendance(studentId) {
     .order('recorded_at', { ascending: false });
 
   if (error) {
-    console.error('❌ Failed to fetch attendance:', error);
+    console.error('[AttendanceService] Failed to fetch attendance:', error);
     return null;
   }
   return data;
@@ -31,7 +31,7 @@ export async function getAttendanceByDate(date) {
     .eq('date', date);
 
   if (error) {
-    console.error('❌ Failed to fetch attendance for date:', error);
+    console.error('[AttendanceService] Failed to fetch attendance for date:', error);
     return [];
   }
   return data;

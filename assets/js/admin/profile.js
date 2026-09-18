@@ -4,7 +4,7 @@
 const DEFAULT_ADMIN_PASSWORD = '#De8080';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('👤 Admin Profile Module Initialized');
+  console.log('Admin Profile Module Initialized');
   initCurrentDate();
   loadAdminProfile();
   initFormListeners();
