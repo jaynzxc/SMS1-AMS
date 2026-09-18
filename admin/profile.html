@@ -328,20 +328,25 @@
           <p class="text-sm text-[#6b7280]">Manage your administrator profile details and security credentials.</p>
         </div>
 
-        <!-- ===== ROW 1: PROFILE IDENTITY & PERSONAL INFORMATION (EQUAL HEIGHT ALIGNED) ===== -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
+        <!-- ======================================================== -->
+        <!-- PROFILE TABBED WORKSPACE (PERSISTENT OVERVIEW + TABS)     -->
+        <!-- ======================================================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
 
-          <!-- LEFT: System Administrator Identity Box -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-6 flex flex-col justify-between h-full">
-            <div>
+          <!-- Left Column (1/3): Persistent Administrator Overview & Role Switchers -->
+          <div class="space-y-5 lg:sticky lg:top-20">
+
+            <!-- Administrator Identity Box -->
+            <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-6">
               <div class="text-center">
                 <div class="relative inline-block mb-3.5">
                   <div
-                    class="w-20 h-20 rounded-full bg-[#0030c2] text-white flex items-center justify-center font-extrabold text-2xl mx-auto shadow-sm">
+                    class="w-20 h-20 rounded-full bg-[#0030c2] text-white flex items-center justify-center font-extrabold text-2xl mx-auto shadow-xs select-none">
                     A
                   </div>
                   <span
-                    class="absolute bottom-0 right-0 w-4.5 h-4.5 bg-emerald-500 border-2 border-white rounded-full"></span>
+                    class="absolute bottom-0 right-0 w-4.5 h-4.5 bg-emerald-500 border-2 border-white rounded-full"
+                    title="Active Account"></span>
                 </div>
                 <h3 id="cardAdminFullName" class="text-base font-bold text-[#111827]">Admin User</h3>
                 <div
@@ -369,75 +374,9 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- RIGHT: Personal Information Form Box -->
-          <div
-            class="lg:col-span-2 bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-5 sm:p-6 flex flex-col justify-between h-full">
-            <div>
-              <div class="flex items-center gap-2.5 pb-4 border-b border-[#f1f5f9] mb-4">
-                <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-sm font-bold text-[#111827]">Personal Information</h3>
-                  <p class="text-xs text-[#6b7280]">Update your administrator credentials and contact details.</p>
-                </div>
-              </div>
-
-              <form id="formAdminProfile" class="space-y-3.5">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Full Name <span
-                        class="text-red-500">*</span></label>
-                    <input type="text" id="adminFullName" required
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
-                  </div>
-
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Username <span
-                        class="text-red-500">*</span></label>
-                    <input type="text" id="adminUsername" required
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Email Address <span
-                        class="text-red-500">*</span></label>
-                    <input type="email" id="adminEmail" required
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
-                  </div>
-
-                  <div>
-                    <label class="block text-xs font-bold text-[#374151] mb-1">Office Location</label>
-                    <input type="text" id="adminOffice" placeholder="e.g. IT Department / Registrar"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
-                  </div>
-                </div>
-
-                <div class="flex justify-end pt-1">
-                  <button type="submit"
-                    class="btn-press px-5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-sm transition-colors cursor-pointer">
-                    Save Profile Changes
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ===== ROW 2: DIRECT ROLE SWITCHERS & SECURITY / PASSWORD (MODERATE BALANCED HEIGHT) ===== -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-
-          <!-- LEFT: Direct Role Switchers Box -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-5 flex flex-col justify-between h-full">
-            <div>
+            <!-- Direct Role Switchers Card -->
+            <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5">
               <div class="flex items-center gap-2.5 pb-3 border-b border-[#f1f5f9] mb-3.5">
                 <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -485,89 +424,172 @@
                 </a>
               </div>
             </div>
+
           </div>
 
-          <!-- RIGHT: Security & Password Box -->
-          <div class="lg:col-span-2 bg-white rounded-xl border border-[#e5e7eb] shadow-sm p-5 flex flex-col justify-between h-full">
-            <div>
-              <div class="flex items-center gap-2.5 pb-3 border-b border-[#f1f5f9] mb-3.5">
-                <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shrink-0">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-[#111827]">Security &amp; Password</h3>
-                  <p class="text-[10px] text-[#6b7280]">Ensure your administrator account uses a strong password.</p>
-                </div>
-              </div>
+          <!-- Right Column (2/3): Tab Navigation & Tab Panels -->
+          <div class="lg:col-span-2 space-y-5">
 
-              <form id="formAdminPassword" class="space-y-3">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#374151] mb-1">Current Password <span class="text-red-500">*</span></label>
-                    <input type="password" id="currentPassword" required placeholder="Current password"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                  </div>
+            <!-- Horizontal Navigation Tabs -->
+            <div class="flex items-center gap-2 sm:gap-4 border-b border-[#e5e7eb] overflow-x-auto">
+              <!-- Tab 1 Button: Personal Information -->
+              <button id="tabPersonalBtn" onclick="switchProfileTab('personal')"
+                class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 border-[#0030c2] text-[#0030c2] transition-all cursor-pointer whitespace-nowrap">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>Personal Information</span>
+              </button>
 
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#374151] mb-1">New Password <span class="text-red-500">*</span></label>
-                    <input type="password" id="newPassword" required minlength="8" placeholder="New password"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                  </div>
-
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#374151] mb-1">Confirm New Password <span class="text-red-500">*</span></label>
-                    <input type="password" id="confirmNewPassword" required minlength="8" placeholder="Repeat password"
-                      class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2]">
-                  </div>
-                </div>
-
-                <!-- Balanced Password Policy Checklist -->
-                <div class="bg-[#f8fafc] border border-[#e5e7eb] rounded-lg p-2.5 text-xs text-[#4b5563] space-y-1">
-                  <p class="font-bold text-[#111827] text-[10px] uppercase tracking-wider">Password Requirements:</p>
-                  <ul class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px]">
-                    <li id="rule-length" class="flex items-center gap-1.5 text-gray-500">
-                      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> At least 8 chars
-                    </li>
-                    <li id="rule-upper" class="flex items-center gap-1.5 text-gray-500">
-                      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Uppercase (A-Z)
-                    </li>
-                    <li id="rule-lower" class="flex items-center gap-1.5 text-gray-500">
-                      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Lowercase (a-z)
-                    </li>
-                    <li id="rule-number" class="flex items-center gap-1.5 text-gray-500">
-                      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Number (0-9)
-                    </li>
-                    <li id="rule-symbol" class="flex items-center gap-1.5 text-gray-500 sm:col-span-2">
-                      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Symbol (!@#$%...)
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="flex justify-end pt-1">
-                  <button type="submit"
-                    class="btn-press px-5 py-2 text-xs font-semibold text-white bg-[#111827] hover:bg-black rounded-lg shadow-sm transition-colors cursor-pointer">
-                    Update Password
-                  </button>
-                </div>
-              </form>
+              <!-- Tab 2 Button: Security & Password -->
+              <button id="tabSecurityBtn" onclick="switchProfileTab('security')"
+                class="btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                <span>Security &amp; Password</span>
+              </button>
             </div>
+
+            <!-- ======================================================== -->
+            <!-- TAB PANEL 1: PERSONAL INFORMATION                         -->
+            <!-- ======================================================== -->
+            <div id="panelPersonal" class="space-y-5">
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6">
+                <div class="flex items-center gap-2.5 pb-4 border-b border-[#f1f5f9] mb-4">
+                  <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#111827]">Personal Information</h3>
+                    <p class="text-xs text-[#6b7280]">Update your administrator credentials and contact details.</p>
+                  </div>
+                </div>
+
+                <form id="formAdminProfile" class="space-y-3.5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Full Name <span
+                          class="text-red-500">*</span></label>
+                      <input type="text" id="adminFullName" required
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Username <span
+                          class="text-red-500">*</span></label>
+                      <input type="text" id="adminUsername" required
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Email Address <span
+                          class="text-red-500">*</span></label>
+                      <input type="email" id="adminEmail" required
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Office Location</label>
+                      <input type="text" id="adminOffice" placeholder="e.g. IT Department / Registrar"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+                  </div>
+
+                  <div class="flex justify-end pt-1">
+                    <button type="submit"
+                      class="btn-press px-5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg shadow-xs transition-colors cursor-pointer">
+                      Save Profile Changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- TAB PANEL 2: SECURITY & PASSWORD                         -->
+            <!-- ======================================================== -->
+            <div id="panelSecurity" class="hidden space-y-5">
+              <div class="bg-white rounded-xl border border-[#e5e7eb] shadow-xs p-5 sm:p-6">
+                <div class="flex items-center gap-2.5 pb-4 border-b border-[#f1f5f9] mb-4">
+                  <div class="w-8 h-8 rounded-lg bg-[#eff6ff] text-[#0030c2] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#111827]">Security &amp; Password</h3>
+                    <p class="text-xs text-[#6b7280]">Ensure your administrator account uses a strong password.</p>
+                  </div>
+                </div>
+
+                <form id="formAdminPassword" class="space-y-4">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Current Password <span class="text-red-500">*</span></label>
+                      <input type="password" id="currentPassword" required placeholder="Current password"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">New Password <span class="text-red-500">*</span></label>
+                      <input type="password" id="newPassword" required minlength="8" placeholder="New password"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-bold text-[#374151] mb-1">Confirm New Password <span class="text-red-500">*</span></label>
+                      <input type="password" id="confirmNewPassword" required minlength="8" placeholder="Repeat password"
+                        class="w-full px-3.5 py-2 text-xs bg-white border border-[#e5e7eb] rounded-lg text-[#111827] focus:outline-none focus:border-[#0030c2] focus:ring-1 focus:ring-[#0030c2]">
+                    </div>
+                  </div>
+
+                  <!-- Balanced Password Policy Checklist -->
+                  <div class="bg-[#f8fafc] border border-[#e5e7eb] rounded-lg p-3 text-xs text-[#4b5563] space-y-1.5">
+                    <p class="font-bold text-[#111827] text-[10px] uppercase tracking-wider">Password Requirements:</p>
+                    <ul class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+                      <li id="rule-length" class="flex items-center gap-1.5 text-gray-500">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> At least 8 chars
+                      </li>
+                      <li id="rule-upper" class="flex items-center gap-1.5 text-gray-500">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Uppercase (A-Z)
+                      </li>
+                      <li id="rule-lower" class="flex items-center gap-1.5 text-gray-500">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Lowercase (a-z)
+                      </li>
+                      <li id="rule-number" class="flex items-center gap-1.5 text-gray-500">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Number (0-9)
+                      </li>
+                      <li id="rule-symbol" class="flex items-center gap-1.5 text-gray-500 sm:col-span-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Symbol (!@#$%...)
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="flex justify-end pt-1">
+                    <button type="submit"
+                      class="btn-press px-5 py-2 text-xs font-semibold text-white bg-[#111827] hover:bg-black rounded-lg shadow-xs transition-colors cursor-pointer">
+                      Update Password
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
           </div>
 
         </div>
 
-
-
-
-
+      </main>
     </div>
-
-  </div>
-
-  </main>
-  </div>
   </div>
 
   <!-- Scripts -->

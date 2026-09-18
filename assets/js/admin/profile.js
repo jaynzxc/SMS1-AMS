@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAdminProfile();
   initFormListeners();
   initPasswordLiveValidation();
+
+  // URL hash navigation support (e.g. profile.html#security)
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'security' || hash === 'personal') {
+    switchProfileTab(hash);
+  }
 });
 
 function initCurrentDate() {
@@ -233,3 +239,33 @@ function showToast(message, type = 'info') {
     setTimeout(() => toast.remove(), 300);
   }, 3500);
 }
+
+/**
+ * Switch Admin Profile Tabs (Personal Information vs Security & Password)
+ */
+function switchProfileTab(tab) {
+  const tabPersonalBtn = document.getElementById('tabPersonalBtn');
+  const tabSecurityBtn = document.getElementById('tabSecurityBtn');
+
+  const panelPersonal = document.getElementById('panelPersonal');
+  const panelSecurity = document.getElementById('panelSecurity');
+
+  const tabs = [
+    { key: 'personal', btn: tabPersonalBtn, panel: panelPersonal },
+    { key: 'security', btn: tabSecurityBtn, panel: panelSecurity }
+  ];
+
+  tabs.forEach(t => {
+    if (!t.btn || !t.panel) return;
+    if (t.key === tab) {
+      t.btn.className = 'btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 border-[#0030c2] text-[#0030c2] transition-all cursor-pointer whitespace-nowrap';
+      t.panel.classList.remove('hidden');
+    } else {
+      t.btn.className = 'btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap';
+      t.panel.classList.add('hidden');
+    }
+  });
+}
+
+// Explicit window bindings for inline HTML onclick attributes
+window.switchProfileTab = switchProfileTab;

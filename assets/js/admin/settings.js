@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAdminSession();
   initLogoPreviewListener();
   loadSettings();
+
+  // URL hash navigation support (e.g. settings.html#scanning)
+  const hash = window.location.hash.replace('#', '');
+  if (['general', 'scanning', 'notifications', 'database'].includes(hash)) {
+    switchSettingsTab(hash);
+  }
 });
 
 function initCurrentDate() {
@@ -257,3 +263,54 @@ function showToast(message, type = 'success') {
 }
 
 window.showToast = showToast;
+
+/**
+ * Switch Admin Settings Tabs (General, Scanning, Notifications, Database)
+ */
+function switchSettingsTab(tab) {
+  const tabGeneralBtn = document.getElementById('tabGeneralBtn');
+  const tabScanningBtn = document.getElementById('tabScanningBtn');
+  const tabNotificationsBtn = document.getElementById('tabNotificationsBtn');
+  const tabDatabaseBtn = document.getElementById('tabDatabaseBtn');
+
+  const panelGeneral = document.getElementById('panelGeneral');
+  const panelScanning = document.getElementById('panelScanning');
+  const panelNotifications = document.getElementById('panelNotifications');
+  const panelDatabase = document.getElementById('panelDatabase');
+
+  const tabs = [
+    { key: 'general', btn: tabGeneralBtn, panel: panelGeneral },
+    { key: 'scanning', btn: tabScanningBtn, panel: panelScanning },
+    { key: 'notifications', btn: tabNotificationsBtn, panel: panelNotifications },
+    { key: 'database', btn: tabDatabaseBtn, panel: panelDatabase }
+  ];
+
+  tabs.forEach(t => {
+    if (!t.btn || !t.panel) return;
+    if (t.key === tab) {
+      t.btn.className = 'btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-bold border-b-2 border-[#0030c2] text-[#0030c2] transition-all cursor-pointer whitespace-nowrap';
+      t.panel.classList.remove('hidden');
+    } else {
+      t.btn.className = 'btn-press flex items-center gap-2 pb-3 px-3 text-xs sm:text-sm font-medium border-b-2 border-transparent text-[#6b7280] hover:text-[#111827] hover:border-gray-300 transition-all cursor-pointer whitespace-nowrap';
+      t.panel.classList.add('hidden');
+    }
+  });
+}
+
+/**
+ * Reset all system settings to default values
+ */
+function resetToDefaults() {
+  try {
+    localStorage.setItem('systemSettings', JSON.stringify(DEFAULT_SETTINGS));
+    loadSettings();
+    showToast('System configuration restored to factory defaults.', 'success');
+  } catch (e) {
+    console.error('Error resetting settings:', e);
+    showToast('Failed to reset settings.', 'error');
+  }
+}
+
+// Window bindings for inline HTML attributes
+window.switchSettingsTab = switchSettingsTab;
+window.resetToDefaults = resetToDefaults;
