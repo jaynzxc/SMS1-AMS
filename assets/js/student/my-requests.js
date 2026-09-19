@@ -698,11 +698,11 @@ function showToast(titleOrMessage, messageOrType, type = 'success') {
  * Pagination Placeholder Stubs (Matching attendance-history.html)
  */
 function goToPreviousPage() {
-  console.log('Previous page clicked');
+  if (window.TablePagination) window.TablePagination.prevPage();
 }
 
 function goToNextPage() {
-  console.log('Next page clicked');
+  if (window.TablePagination) window.TablePagination.nextPage();
 }
 
 /**

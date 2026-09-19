@@ -247,7 +247,7 @@
       <header
         class="h-14 border-b border-[#e5e7eb] flex items-center justify-between px-4 shrink-0 sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
         <div class="flex items-center gap-3">
-          <button class="text-[#6b7280] hover:text-[#111827]">
+          <button id="mobileMenuBtn" onclick="toggleSidebar(event)" class="cursor-pointer text-[#6b7280] hover:text-[#111827]" title="Toggle Navigation Sidebar">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -256,7 +256,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <button class="relative text-[#6b7280] hover:text-[#111827]">
+          <button id="adminNotifBtn" onclick="toggleNotificationDropdown(event)" class="cursor-pointer relative text-[#6b7280] hover:text-[#111827]" title="Notifications" aria-label="Notifications">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
@@ -366,11 +366,11 @@
           </div>
 
           <!-- RFID Scans -->
-          <div
-            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all">
+          <a href="rfid-registry.html"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#f97316]/50 transition-all block group">
             <div class="flex items-center gap-3.5">
               <div
-                class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
+                class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50 group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                   stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -382,18 +382,18 @@
               </div>
             </div>
             <p class="text-[11px] text-[#f97316] font-medium mt-2">75.02% of total entry logs</p>
-          </div>
+          </a>
 
           <!-- QR Code Scans -->
-          <div
-            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#2563eb]/50 transition-all">
+          <a href="qr-management.html"
+            class="stat-card bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#2563eb]/50 transition-all block group">
             <div class="flex items-center gap-3.5">
               <div
-                class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+                class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50 group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                   stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                    d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 15.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5zM13.5 15.75h2.25v2.25H13.5V15.75zM18 15.75h2.25v2.25H18v-2.25zM13.5 19.5h2.25v1.5H13.5v-1.5zM18 19.5h2.25v1.5H18v-1.5z" />
                 </svg>
               </div>
               <div>
@@ -402,7 +402,7 @@
               </div>
             </div>
             <p class="text-[11px] text-[#2563eb] font-medium mt-2">24.56% of total entry logs</p>
-          </div>
+          </a>
 
           <!-- Failed / Flagged Scans -->
           <div
@@ -1273,6 +1273,8 @@
   <!-- JavaScript -->
   <script src="../../assets/js/common/main.js"></script>
   <script src="../../assets/js/common/sidebar.js"></script>
+  <script src="../../assets/js/common/notifications-flyout.js"></script>
+  <script src="../../assets/js/common/table-pagination.js"></script>
   <script src="../../assets/js/admin/scan-logs.js"></script>
 </body>
 

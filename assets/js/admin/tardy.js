@@ -97,6 +97,26 @@ function initTardySearch() {
   searchInput.addEventListener('input', function() {
     executeTardyFiltering();
   });
+
+  // Read incoming URL parameters (e.g. ?search=Grade or ?section=Grade 10 - A)
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchParam = urlParams.get('search');
+  const sectionParam = urlParams.get('section');
+
+  let shouldFilter = false;
+  if (searchParam) {
+    searchInput.value = searchParam;
+    shouldFilter = true;
+  }
+  const sectionFilter = document.getElementById('filterSectionSelect');
+  if (sectionParam && sectionFilter) {
+    sectionFilter.value = sectionParam;
+    shouldFilter = true;
+  }
+
+  if (shouldFilter) {
+    executeTardyFiltering();
+  }
 }
 
 function executeTardyFiltering() {

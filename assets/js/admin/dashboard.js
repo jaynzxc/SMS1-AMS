@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Admin Dashboard Module Initialized');
   initCurrentDate();
   loadDashboardData();
+  initTrendChartFilter();
 });
 
 /**
@@ -179,4 +180,97 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+/**
+ * Attendance Trend Chart Filter (Step 4)
+ */
+function initTrendChartFilter() {
+  const rangeSelect = document.getElementById('trendRangeSelect');
+  if (!rangeSelect) return;
+
+  const trendDataSets = {
+    '7': {
+      subtitle: 'Daily Attendance Rate (Last 7 Days)',
+      rates: [88, 86, 92, 90, 91, 87, 89.6],
+      labels: ['Jul 19', 'Jul 20', 'Jul 21', 'Jul 22', 'Jul 23', 'Jul 24', 'Jul 25']
+    },
+    '14': {
+      subtitle: 'Daily Attendance Rate (Last 14 Days)',
+      rates: [85, 87, 89, 86, 90, 91, 88, 86, 92, 90, 91, 87, 89.6],
+      labels: ['Jul 12', 'Jul 14', 'Jul 16', 'Jul 18', 'Jul 20', 'Jul 22', 'Jul 25']
+    },
+    '30': {
+      subtitle: 'Daily Attendance Rate (Last 30 Days)',
+      rates: [84, 88, 91, 87, 89, 93, 89.6],
+      labels: ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4', 'Wk 5', 'Wk 6', 'Current']
+    },
+    'semester': {
+      subtitle: 'Monthly Attendance Rate (This Semester)',
+      rates: [87.5, 89.2, 91.0, 88.4, 92.1, 89.6],
+      labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+    }
+  };
+
+  rangeSelect.addEventListener('change', function () {
+    const selected = this.value;
+    const config = trendDataSets[selected] || trendDataSets['7'];
+
+    const subtitleEl = document.getElementById('trendSubtitle');
+    if (subtitleEl) subtitleEl.textContent = config.subtitle;
+
+    renderSvgTrendChart(config.rates, config.labels);
+  });
+}
+
+function renderSvgTrendChart(rates, labels) {
+  const polygon = document.getElementById('trendPolygon');
+  const polyline = document.getElementById('trendPolyline');
+  const pointsGroup = document.getElementById('trendPoints');
+  const valuesGroup = document.getElementById('trendValues');
+  const labelsGroup = document.getElementById('trendXLabels');
+
+  if (!polyline || !polygon) return;
+
+  const startX = 75;
+  const endX = 645;
+  const minY = 215; // 50%
+  const maxY = 15;  // 100%
+  const heightSpan = minY - maxY; // 200
+
+  const count = rates.length;
+  const stepX = (endX - startX) / (count - 1);
+
+  const coords = rates.map((rate, i) => {
+    const x = Math.round(startX + i * stepX);
+    const pct = (rate - 50) / 50;
+    const y = Math.round(minY - pct * heightSpan);
+    return { x, y, rate };
+  });
+
+  const polylinePoints = coords.map(c => `${c.x},${c.y}`).join(' ');
+  const polygonPoints = `${coords[0].x},215 ${polylinePoints} ${coords[coords.length - 1].x},215`;
+
+  polyline.setAttribute('points', polylinePoints);
+  polygon.setAttribute('points', polygonPoints);
+
+  if (pointsGroup) {
+    pointsGroup.innerHTML = coords.map(c => `
+      <circle cx="${c.x}" cy="${c.y}" r="5" stroke="#ffffff" stroke-width="2" />
+    `).join('');
+  }
+
+  if (valuesGroup) {
+    valuesGroup.innerHTML = coords.map(c => `
+      <text x="${c.x}" y="${c.y - 12}">${c.rate}%</text>
+    `).join('');
+  }
+
+  if (labelsGroup) {
+    labelsGroup.innerHTML = labels.map((lbl, i) => {
+      const stepLbl = (endX - startX) / (labels.length - 1);
+      const x = Math.round(startX + i * stepLbl);
+      return `<text x="${x}" y="248">${lbl}</text>`;
+    }).join('');
+  }
 }

@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initCurrentDate();
   await loadAbsenceRecords();
   initSearch();
+  initURLParams();
   initModalsAndBackdrops();
   exposeGlobalFunctions();
 });
@@ -250,6 +251,30 @@ function initSearch() {
 }
 
 /**
+ * Read URL search parameters (e.g. ?search=Web)
+ */
+function initURLParams() {
+  const params = new URLSearchParams(window.location.search);
+  const searchParam = params.get('search') || params.get('subject');
+  if (searchParam) {
+    const searchInput = document.getElementById('absenceSearchInput');
+    if (searchInput) {
+      searchInput.value = searchParam;
+      const term = searchParam.toLowerCase().trim();
+      filteredRecords = allRecords.filter(item => {
+        return (
+          item.subject.toLowerCase().includes(term) ||
+          item.teacher.toLowerCase().includes(term) ||
+          item.remarks.toLowerCase().includes(term) ||
+          item.date.toLowerCase().includes(term)
+        );
+      });
+      renderTable();
+    }
+  }
+}
+
+/**
  * Filter Modal Controllers (Without redundant clear button)
  */
 function openFilterModal() {
@@ -428,8 +453,8 @@ window.handleLogout = function () {
 /**
  * Pagination dummy buttons
  */
-window.goToPreviousPage = function () {};
-window.goToNextPage = function () {};
+window.goToPreviousPage = function () { if (window.TablePagination) window.TablePagination.prevPage(); };
+window.goToNextPage = function () { if (window.TablePagination) window.TablePagination.nextPage(); };
 
 /**
  * Expose helper functions globally

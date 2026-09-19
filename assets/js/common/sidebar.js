@@ -142,29 +142,54 @@ function toggleSidebar(e) {
     const sidebar = document.getElementById('mainSidebar') || document.querySelector('aside');
     if (!sidebar) return;
 
-    sidebar.classList.toggle('sidebar-collapsed');
-
-    const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
-    try {
-        localStorage.setItem('sms_sidebar_collapsed', isCollapsed ? 'true' : 'false');
-    } catch (err) {}
+    if (window.innerWidth < 1024) {
+        // Mobile Drawer Mode
+        sidebar.classList.toggle('mobile-open');
+        let backdrop = document.getElementById('sidebarBackdrop');
+        if (sidebar.classList.contains('mobile-open')) {
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'sidebarBackdrop';
+                backdrop.className = 'fixed inset-0 bg-black/40 z-40 backdrop-blur-xs transition-opacity';
+                backdrop.addEventListener('click', function () {
+                    sidebar.classList.remove('mobile-open');
+                    if (backdrop && backdrop.parentNode) {
+                        backdrop.parentNode.removeChild(backdrop);
+                    }
+                });
+                document.body.appendChild(backdrop);
+            }
+        } else if (backdrop && backdrop.parentNode) {
+            backdrop.parentNode.removeChild(backdrop);
+        }
+    } else {
+        // Desktop Collapse Mode
+        sidebar.classList.toggle('sidebar-collapsed');
+        const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+        try {
+            localStorage.setItem('sms_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+        } catch (err) {}
+    }
 }
+
+// Global export for inline onclick handlers
+window.toggleSidebar = toggleSidebar;
 
 function initSidebarToggle() {
     const sidebar = document.getElementById('mainSidebar') || document.querySelector('aside');
     if (!sidebar) return;
 
-    // Restore saved state if previously collapsed
+    // Restore saved desktop state if previously collapsed and on desktop
     try {
-        if (localStorage.getItem('sms_sidebar_collapsed') === 'true') {
+        if (window.innerWidth >= 1024 && localStorage.getItem('sms_sidebar_collapsed') === 'true') {
             sidebar.classList.add('sidebar-collapsed');
         }
     } catch (err) {}
 
-    // Find and attach click handler to burger toggle button(s) if not already inline
-    const burgerPaths = document.querySelectorAll('header button svg path[d*="M3.75 6.75"]');
-    burgerPaths.forEach(path => {
-        const btn = path.closest('button');
+    // Attach click handler to any burger toggle button(s)
+    const burgerBtns = document.querySelectorAll('#mobileMenuBtn, header button svg path[d*="M3.75 6.75"]');
+    burgerBtns.forEach(item => {
+        const btn = item.tagName === 'BUTTON' ? item : item.closest('button');
         if (btn && !btn.hasAttribute('data-sidebar-bound')) {
             btn.setAttribute('data-sidebar-bound', 'true');
             btn.classList.add('burger-btn', 'cursor-pointer');
@@ -173,6 +198,28 @@ function initSidebarToggle() {
                 btn.addEventListener('click', function(evt) {
                     toggleSidebar(evt);
                 });
+            }
+        }
+    });
+
+    // Dismiss mobile drawer on Escape key
+    document.addEventListener('keydown', function(evt) {
+        if (evt.key === 'Escape' && sidebar.classList.contains('mobile-open')) {
+            sidebar.classList.remove('mobile-open');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (backdrop && backdrop.parentNode) {
+                backdrop.parentNode.removeChild(backdrop);
+            }
+        }
+    });
+
+    // Handle viewport resize: remove mobile classes if resized to desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1024 && sidebar.classList.contains('mobile-open')) {
+            sidebar.classList.remove('mobile-open');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (backdrop && backdrop.parentNode) {
+                backdrop.parentNode.removeChild(backdrop);
             }
         }
     });
