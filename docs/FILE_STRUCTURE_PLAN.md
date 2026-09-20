@@ -11,162 +11,154 @@ This document establishes the official file structure standard and cleanup plan 
 
 ---
 
-## 2. Issues in Current Structure
+## 2. Restructuring & Simplification Standards (Phase 2)
 
-1. **Misleading `keys/` Directory**:
-   - Contains `admin_schema.md`, `student_schema.md`, `teacher_schema.md`, and `db_schema_overview.md`.
-   - The directory name `keys` falsely implies private cryptographic keys or API secrets. Furthermore, `.gitignore` previously ignored `keys/`, which caused core database documentation to be excluded from version control.
-   - **Resolution**: Move all schema markdown files into `docs/database/` and eliminate the `keys/` directory.
+1. **Strict 10-Submodule Taxonomy**:
+   * The entire system is structured around the 10 official AMS submodules:
+     1. Daily Attendance Marking
+     2. RFID / QR Scanning
+     3. Tardy & Absence Logs
+     4. Teacher Attendance
+     5. Excuse Slip Submission
+     6. Attendance Calendar
+     7. Alerts to Parents
+     8. Analytics Dashboard
+     9. Perfect Attendance Award Tool
+     10. CSV / Excel Export
 
-2. **Flat & Disorganized `docs/` Root**:
-   - Product requirements, SQL scripts, security policies, and role specs were jumbled together in a single flat directory.
-   - **Resolution**: Organize `docs/` into 4 domain directories:
-     - `docs/architecture/` (System PRD, RFID/QR hardware workflows, overall lifecycle)
-     - `docs/database/` (Supabase DDL, schema definitions, ERD relationships)
-     - `docs/modules/` (Role specifications for Admin, Teacher, and Student portals)
-     - `docs/security/` (RLS policies, session guards, audit logging specifications)
+2. **Scope Demarcation (`academic-management` Excluded)**:
+   * `academic-management.html` is removed from AMS primary navigation. Curriculum, course syllabi, and academic program configurations belong to the upstream SMS 1 Academic Module.
 
-3. **Misplaced Environment Configuration**:
-   - `.env.local` was located inside `assets/.env.local`. Serving static files from `assets/` could inadvertently expose local environment variables.
-   - **Resolution**: Relocate `.env.local` to the workspace root (ignored by `.gitignore`) and provide a clean, sanitized `.env.example` at root.
+3. **Centralized Reports & Export Hub (Option 1)**:
+   * Redundant table-level "Export" buttons and modal boilerplate on operational views are eliminated.
+   * All CSV, Excel, and printable PDF exports (e.g. DepEd SF2, habitual tardiness lists, faculty DTR summaries) are strictly consolidated within Submodule 10 (`reports-export.html`).
 
-4. **Empty Directories & Utilities Gap**:
-   - Unused `scratch/` folder at workspace root.
-   - Absence of an `assets/js/utils/` folder for shared reusable formatting, date calculations, and export helpers.
-   - **Resolution**: Prune empty `scratch/` and establish `assets/js/utils/`.
+4. **SMS 1 Cross-Module Integration Bridges**:
+   * Documentation of data flows and bridge schemas connecting AMS to the 5 companion SMS 1 systems:
+     * Clinic Management (`excuse_slips.clinic_visit_id`)
+     * PREFECT Disciplinary Action (`absence_records.is_habitual_truancy`)
+     * Academic HR Management (`teacher_attendance.rendered_hours`)
+     * OSAS (`perfect_attendance_awards.osas_endorsement_status`)
+     * School Events (`rfid_qr_scan_logs.event_id`)
 
 ---
 
-## 3. Target File Structure
+## 3. Official File Structure
 
 ```text
 SMS1-AMS/
-├── .agent/                             # Agent Skills & Workflows
+├── .agent/                             # Agent Skills & Workflows (14 domain skills)
 │   └── skills/
-│       ├── architecture/               # System architecture & data flow
+│       ├── architecture/               # System architecture & 10-submodule taxonomy
 │       ├── database/                   # Supabase schema & SQL planning
 │       ├── debugging/                  # Systematic bug triage
 │       ├── documentation/              # Academic technical writing
 │       ├── planning/                   # Feature breakdown & planning
 │       ├── rbac/                       # Role-based access control
 │       ├── security/                   # Session lifecycle & RLS rules
-│       ├── system-flow/                # Cross-panel module connections
+│       ├── system-flow/                # Cross-panel module connections & SMS 1 flows
 │       ├── ui-ux/                      # UI design standards & benchmarks
 │       ├── ui-ux_backend_spec/         # Component query shapes & payload contracts
-│       ├── rfid-qr-hardware/          # [NEW] Hardware scanner & USB HID specifications
-│       ├── analytics-reporting/        # [NEW] Attendance calculation & Chart.js guidelines
-│       ├── parent-alerts-sms/          # [NEW] Parent SMS notification dispatch engine
-│       └── qa-seed-data/               # [NEW] Mock seed scripts & test scenarios
+│       ├── rfid-qr-hardware/          # Hardware scanner & USB HID specifications
+│       ├── analytics-reporting/        # Attendance calculation & Chart.js guidelines
+│       ├── parent-alerts-sms/          # Parent SMS notification dispatch engine
+│       └── qa-seed-data/               # Mock seed scripts & test scenarios
 │
-├── admin/                              # Administrator Views (15 modules)
-│   ├── academic-management.html
-│   ├── attendance-calendar.html
-│   ├── attendance.html
-│   ├── dashboard.html
-│   ├── parent-alerts.html
-│   ├── perfect-attendance.html
-│   ├── performance-analytics.html
-│   ├── profile.html
-│   ├── reports-export.html
-│   ├── settings.html
-│   ├── teacher-attendance.html
-│   ├── user-management.html
-│   ├── excuse-slip/                    # (pending, approved, rejected, history)
-│   ├── rfid-and-qr/                    # (rfid-registry, qr-management, scan-logs)
-│   └── tardy-and-absence/              # (absence-list, habitual-offender, tardy-list)
+├── admin/                              # Administrator Portal (10 Official Submodules)
+│   ├── dashboard.html                  # Submodule 8: Analytics Dashboard
+│   ├── performance-analytics.html      # Submodule 8: In-Depth Institutional Trends
+│   ├── attendance.html                 # Submodule 1: Daily Attendance Marking & Override
+│   ├── rfid-and-qr/                    # Submodule 2: RFID & QR Scanning Management
+│   │   ├── rfid-registry.html
+│   │   ├── qr-management.html
+│   │   └── scan-logs.html
+│   ├── tardy-and-absence/              # Submodule 3: Tardy & Absence Logs
+│   │   ├── tardy-list.html
+│   │   ├── absence-list.html
+│   │   └── habitual-offender.html
+│   ├── teacher-attendance.html         # Submodule 4: Teacher Attendance & HR DTR Audit
+│   ├── excuse-slip/                    # Submodule 5: Excuse Slip Submission & Review
+│   │   ├── pending-requests.html
+│   │   ├── approved-requests.html
+│   │   ├── rejected-requests.html
+│   │   └── excuse-history.html
+│   ├── attendance-calendar.html        # Submodule 6: Attendance Calendar
+│   ├── parent-alerts.html              # Submodule 7: Alerts to Parents (SMS Log)
+│   ├── perfect-attendance.html         # Submodule 9: Perfect Attendance Award Tool
+│   ├── reports-export.html             # Submodule 10: Centralized CSV / Excel / PDF Export
+│   ├── user-management.html            # System Role Management
+│   ├── profile.html                    # Admin Account Profile
+│   └── settings.html                   # System Preferences
 │
-├── teacher/                            # Teacher Views (13 modules)
-│   ├── attendance-calendar.html
-│   ├── class-analytics.html
-│   ├── daily-attendance.html
-│   ├── dashboard.html
-│   ├── parent-alerts.html
-│   ├── perfect-attendance.html
-│   ├── profile.html
-│   ├── reports-export.html
-│   ├── settings.html
-│   ├── teacher-attendance.html
-│   ├── excuse-slip/                    # (pending, approved, rejected, history)
-│   ├── rfid-and-qr/                    # (live-scanner, scan-logs)
-│   └── tardy-and-absence/              # (absence-list, student-attendance-history, tardy-list)
+├── teacher/                            # Teacher Portal (Assigned Classes Scope)
+│   ├── dashboard.html                  # Submodule 8: Teacher Dashboard
+│   ├── class-analytics.html            # Submodule 8: Class Performance Analytics
+│   ├── daily-attendance.html           # Submodule 1: Daily Attendance Marking
+│   ├── rfid-and-qr/                    # Submodule 2: RFID & QR Scanner
+│   │   ├── live-scanner.html           # Classroom & Event Kiosk Mode
+│   │   └── scan-logs.html
+│   ├── tardy-and-absence/              # Submodule 3: Tardy & Absence Logs
+│   │   ├── tardy-list.html
+│   │   ├── absence-list.html
+│   │   └── student-attendance-history.html
+│   ├── teacher-attendance.html         # Submodule 4: My Teacher Attendance (Personal DTR)
+│   ├── excuse-slip/                    # Submodule 5: Excuse Slip Classroom Reviews
+│   │   ├── pending-requests.html
+│   │   ├── approved-requests.html
+│   │   ├── rejected-requests.html
+│   │   └── excuse-history.html
+│   ├── attendance-calendar.html        # Submodule 6: Class Schedule Calendar
+│   ├── parent-alerts.html              # Submodule 7: Alerts to Parents
+│   ├── perfect-attendance.html         # Submodule 9: Perfect Attendance Endorsements
+│   ├── reports-export.html             # Submodule 10: Section Grading Sheet & CSV Exports
+│   ├── profile.html                    # Teacher Account Profile
+│   └── settings.html                   # Account Preferences
 │
-├── student/                            # Student Views (10 modules)
-│   ├── attendance-calendar.html
-│   ├── dashboard.html
-│   ├── my-attendance.html
-│   ├── notifications.html
-│   ├── perfect-attendance.html
-│   ├── performance-analytics.html
-│   ├── profile.html
-│   ├── rfid-and-qr.html
-│   ├── excuse-slip/                    # (submit-excuse, my-requests, excuse-history)
-│   └── tardy-and-absence/              # (absence-records, attendance-history, tardy-records)
+├── student/                            # Student Portal (Self-Service View)
+│   ├── dashboard.html                  # Submodule 8: Student Dashboard
+│   ├── performance-analytics.html      # Submodule 8: Personal Attendance Analytics
+│   ├── my-attendance.html              # Submodule 1: My Attendance Records
+│   ├── rfid-and-qr.html                # Submodule 2: Digital ID & Dynamic QR Pass
+│   ├── tardy-and-absence/              # Submodule 3: Tardy & Absence Records
+│   │   ├── tardy-records.html
+│   │   ├── absence-records.html
+│   │   └── attendance-history.html
+│   ├── excuse-slip/                    # Submodule 5: Excuse Slip Submission (Dual Option)
+│   │   ├── submit-excuse.html          # External Medical Cert vs Clinic Pass
+│   │   ├── my-requests.html
+│   │   └── excuse-history.html
+│   ├── attendance-calendar.html        # Submodule 6: Personal Attendance Calendar
+│   ├── notifications.html              # Submodule 7: Notifications & Alerts Feed
+│   ├── perfect-attendance.html         # Submodule 9: Perfect Attendance Progress & Certificate
+│   └── profile.html                    # Student Account Profile
 │
 ├── assets/
 │   ├── css/
 │   │   ├── input.css                   # Tailwind source
 │   │   ├── output.css                  # Compiled Tailwind output
-│   │   └── style.css                   # Global styles & micro-animations
+│   │   └── style.css                   # Global styles, mobile drawer & animations
+│   ├── data/
+│   │   └── sms1-integration-mock.json  # [NEW] Pre-Oral Defense SMS 1 Seed Records
 │   ├── images/
 │   │   ├── bcp-logo.png
 │   │   └── login-bg.png
 │   └── js/
-│       ├── admin/                      # Admin page-specific scripts (19 modules)
-│       ├── teacher/                    # Teacher page-specific scripts (13 modules)
-│       ├── student/                    # Student page-specific scripts (10 modules)
-│       ├── common/                     # auth-guard.js, sidebar.js, auth.js, flyout.js
-│       ├── services/                   # Supabase API services (attendance, auth, rfid)
+│       ├── admin/                      # Admin controllers
+│       ├── teacher/                    # Teacher controllers
+│       ├── student/                    # Student controllers
+│       ├── common/                     # auth.js, sidebar.js, table-pagination.js, flyout.js
+│       ├── services/                   # Supabase API services
 │       ├── config/                     # Supabase public credentials
-│       └── utils/                      # [NEW] Shared date helpers, formatters, sanitizers
+│       └── utils/                      # Shared date helpers, formatters, sanitizers
 │
-├── docs/                               # Reorganized Technical Documentation
-│   ├── FILE_STRUCTURE_PLAN.md          # This structural blueprint
-│   ├── architecture/
-│   │   ├── PRD.md                      # Capstone product requirements
-│   │   ├── system_workflow.md          # Multi-role attendance lifecycles
-│   │   └── rfid_qr_workflow.md         # Gate/room scanning sequence diagrams
-│   ├── database/
-│   │   ├── supabase_schema.sql         # Production DDL with tables & RLS
-│   │   ├── database_schema_design.md   # Schema normalization rationale
-│   │   ├── db_schema_overview.md       # Consolidated ERD (from keys/)
-│   │   ├── admin_schema.md             # Admin table references (from keys/)
-│   │   ├── teacher_schema.md           # Teacher table references (from keys/)
-│   │   └── student_schema.md           # Student table references (from keys/)
-│   ├── modules/
-│   │   ├── admin_frontend.md           # Admin screen catalog & interactions
-│   │   ├── teacher_frontend.md         # Teacher screen catalog & interactions
-│   │   └── student_frontend.md         # Student screen catalog & interactions
-│   └── security/
-│       └── security.md                 # Defense-in-depth, 2FA, session policies
-│
-├── .env.example                        # Environment template for developers
-├── .gitignore                          # Standardized git ignore rules
-├── AGENTS.md                           # Master project instructions for AI agents
-├── index.html                          # Root portal gateway & authentication
-├── package.json
-└── tailwind.config.js
+└── docs/
+    ├── FILE_STRUCTURE_PLAN.md          # Master Directory Architecture
+    ├── architecture/
+    │   ├── PRD.md                      # Product Requirements Document
+    │   ├── rfid_qr_workflow.md         # Hardware & Scanner Workflows
+    │   ├── system_workflow.md          # End-to-End Workflows
+    │   └── sms1_integration_bridges.md # [NEW] SMS 1 Cross-Module Integration Bridges
+    ├── database/                       # Schema DDL, RLS policies, ERDs
+    ├── modules/                        # Admin, Teacher, and Student frontend specifications
+    └── security/                       # Security mitigation & RLS protocols
 ```
-
----
-
-## 4. Execution & Cleanup Roadmap
-
-### Phase 1: Documentation & Schema Reorganization
-1. Create directories: `docs/architecture`, `docs/database`, `docs/modules`, `docs/security`.
-2. Move all `.md` files from `keys/` into `docs/database/`.
-3. Delete the obsolete `keys/` folder.
-4. Move root `docs/` files into their respective subdirectories.
-
-### Phase 2: Environment & Repository Hygiene
-1. Move `assets/.env.local` to root `.env.local`.
-2. Create `.env.example` at root for template reference.
-3. Update `.gitignore` to remove `keys/` and `assets/.env.local`, ensuring root `.env*` is ignored.
-4. Remove unused root `scratch/` directory.
-5. Create `assets/js/utils/` with a shared `helpers.js`.
-
-### Phase 3: Agent Skills Expansion
-1. Create `rfid-qr-hardware` skill.
-2. Create `analytics-reporting` skill.
-3. Create `parent-alerts-sms` skill.
-4. Create `qa-seed-data` skill.
-5. Update `AGENTS.md` with the new structure and skill list.

@@ -7,167 +7,96 @@ Attendance monitoring and automated notifications (including parent/guardian SMS
 
 ---
 
-## 1. Module Implementation Status Summary
+## 1. 10-Submodule Architecture Mapping (Student Self-Service)
 
-| # | Module / Page | File Path | Status | Description |
-|---|---------------|-----------|:------:|-------------|
-| 1.1 | **Student Dashboard** | `student/dashboard.html` | ✅ Fully Implemented | Attendance summary cards, today's status, quick actions, recent feeds. |
-| 1.2 | **My Attendance** | `student/my-attendance.html` | ✅ Fully Implemented | Comprehensive historical log across enrolled subjects, status filters, search. |
-| 1.3 | **RFID / QR Code** | `student/rfid-and-qr.html` | ✅ Fully Implemented | Registered RFID card status, lost card reporting, encrypted dynamic QR code modal. |
-| 1.4a | **Tardy Records** | `student/tardy-and-absence/tardy-records.html` | ✅ Fully Implemented | Late frequency, delay minutes, 3-late threshold warning banner, modal details. |
-| 1.4b | **Absence Records** | `student/tardy-and-absence/absence-records.html` | ✅ Fully Implemented | Excused vs unexcused breakdown, academic risk indicators, excuse slip links. |
-| 1.4c | **Attendance History** | `student/tardy-and-absence/attendance-history.html` | ✅ Fully Implemented | Chronological audit ledger, subject progress bars, comprehensive filter suite. |
-| 1.5 | **Attendance Calendar** | `student/attendance-calendar.html` | ✅ Fully Implemented | Color-coded interactive monthly attendance calendar with daily detail modal. |
-| 1.6a | **Submit Excuse Slip** | `student/excuse-slip/submit-excuse.html` | ✅ Fully Implemented | Submission form with proof attachment uploader, reason categories, and validation. |
-| 1.6b | **My Requests** | `student/excuse-slip/my-requests.html` | ✅ Fully Implemented | Active tracking for pending, approved, and rejected excuse slip submissions. |
-| 1.6c | **Excuse History** | `student/excuse-slip/excuse-history.html` | ✅ Fully Implemented | Complete archive of past excuse slips with reviewer remarks and attachments. |
-| 1.7 | **Notifications** | `student/notifications.html` | ✅ Fully Implemented | Read-only activity feed & audit inbox (scans, alerts, SMS logs, approvals). |
-| 1.8 | **Performance Analytics** | `student/performance-analytics.html` | ✅ Fully Implemented | Charts for monthly punctuality trends, subject compliance rates, and delay breakdown. |
-| 1.9 | **Perfect Attendance Award** | `student/perfect-attendance.html` | ✅ Fully Implemented | Real-time semester eligibility tracker, checklist criteria, and award certificates. |
-| 2.1 | **My Profile** | `student/profile.html` | ✅ Fully Implemented | Student personal details (read-only academic info, editable contact info, security). |
+| Submodule # | Submodule Name | Student File Path | Description |
+| :---: | :--- | :--- | :--- |
+| **8** | **Student Dashboard** | `student/dashboard.html` | Attendance summary cards, today's arrival status, quick actions, recent feeds. |
+| **8** | **Performance Analytics** | `student/performance-analytics.html` | Visual charts for monthly punctuality trends, subject compliance rates, and delay breakdown. |
+| **1** | **My Attendance** | `student/my-attendance.html` | Comprehensive historical log across enrolled subjects, status filters, personal CSV export. |
+| **2** | **Digital ID & QR Pass** | `student/rfid-and-qr.html` | Registered RFID card status, lost card reporting, dynamic QR pass for kiosk check-in. |
+| **3** | **Tardy & Absence Records** | `student/tardy-and-absence/` | Tardy records, absence risk counters, chronological attendance history. |
+| **5** | **Submit Excuse Slip** | `student/excuse-slip/` | Dual-option submission (External Medical vs Clinic Pass), active request tracker, archive. |
+| **6** | **Attendance Calendar** | `student/attendance-calendar.html` | Interactive monthly presence heatmap (Green/Yellow/Red/Blue) with day modal. |
+| **7** | **Notifications & Alerts** | `student/notifications.html` | Read-only audit inbox of scan events, excuse reviews, and parent SMS alerts. |
+| **9** | **Perfect Attendance** | `student/perfect-attendance.html` | Real-time semester eligibility tracker, checklist criteria, and digital award view. |
 
 ---
 
 ## 2. Detailed Module Specifications
 
-### 2.1 Student Dashboard (`student/dashboard.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/dashboard.js`
-* **Purpose**: Provide an accessible summary of the student's current attendance standing, today's arrival status, and quick shortcuts.
+### 2.1 Student Dashboard (Submodule 8)
+* **Route**: `student/dashboard.html`
+* **Purpose**: Accessible summary of the student's current attendance standing, today's arrival status, and quick shortcuts.
 * **Contents**:
   - **Summary Cards**: Overall Attendance Rate (%), Total Present Days, Late Arrivals Count, Absences Count, Excused Absences.
   - **Today's Attendance Status**: Date, Arrival Time In, Attendance Status (*Present / Late / Absent*), Method Used (*RFID Tap / QR Scan*), Checkpoint / Classroom.
   - **Recent Activity & Advisories**: Recent scan verifications, parent SMS dispatch alerts, excuse slip review updates.
   - **Quick Action Links**: View Full Attendance Records, Submit New Excuse Slip, View Attendance Calendar.
 
-### 2.2 My Attendance (`student/my-attendance.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/my-attendance.js`
+### 2.2 My Attendance (Submodule 1)
+* **Route**: `student/my-attendance.html`
 * **Purpose**: Comprehensive historical log of the student's personal attendance across all enrolled subjects.
 * **Contents**:
   - **Attendance Record Table**:
     - *Columns*: Date, Enrolled Subject, Assigned Teacher, Time In Timestamp, Status (*Present / Late / Absent / Excused*), Method (*RFID / QR Code / Manual*), Remarks.
   - **Summary Metrics**: Total Enrolled Subjects, Subject-by-Subject Attendance %, Total Excused vs Unexcused.
-  - **Filters**: Search by Date Range, Filter by Subject, Filter by Academic Month.
+  - **Export Capability**: Personal attendance ledger download (CSV format) for student self-audit.
 
-### 2.3 RFID / QR Code (`student/rfid-and-qr.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/rfid-and-qr.js`
-* **Purpose**: Digital identification center where students can view their registered RFID card status and access their contactless dynamic QR code.
+### 2.3 Digital ID & QR Pass (Submodule 2)
+* **Route**: `student/rfid-and-qr.html`
+* **Purpose**: Digital identification center where students can view their registered RFID card status and access their contactless dynamic QR pass.
 * **Contents**:
-  - **RFID Card Status**:
-    - *Displays*: Registered RFID Card Number (UID), Card Status (*Active / Inactive / Reported Lost*), Date Assigned.
-    - *Action*: Report Lost/Damaged RFID Card (alerts Administrator for immediate card deactivation and reissue).
-  - **Personal Dynamic QR Code**:
-    - *Displays*: Official Encrypted Dynamic QR Code (containing Student ID Number, Full Name, Course & Year Level, and security token).
-    - *Functions*: View Fullscreen QR for phone screen scanning at teacher webcam/camera checkpoints when the physical RFID card is unavailable, Download QR Code (PNG).
-  - **Security Notice**: Explaining that physical RFID assignment and badge replacements are handled exclusively by the Administrator.
+  - **RFID Card Status**: Registered RFID Card Number (UID), Card Status (*Active / Inactive / Reported Lost*), Date Assigned, Report Lost Card button.
+  - **Personal Dynamic QR Code**: Official Encrypted Dynamic QR Code (containing Student ID Number, Full Name, Course & Year Level, and security token), Fullscreen Modal for kiosk scanning, Download QR (PNG).
 
-### 2.4 Tardy & Absence Logs (`student/tardy-and-absence/`)
-* **Status**: ✅ Fully Implemented
+### 2.4 Tardy & Absence Logs (Submodule 3)
+* **Routes**: `student/tardy-and-absence/tardy-records.html`, `absence-records.html`, `attendance-history.html`
+* **Purpose**: Personal tardiness and absence tracking to encourage punctuality and early intervention.
 * **Sub-Modules**:
-  - **Tardy Records (`student/tardy-and-absence/tardy-records.html` | `assets/js/student/tardy-records.js`)**:
-    - *Displays*: Total late count, accumulated delay minutes, average delay per occurrence, subject frequency breakdown, and 3-late threshold warning banner (3 lates = 1 unexcused absence).
-    - *Table Columns*: Date & Day, Enrolled Subject, Teacher, Scheduled Period, Time In, Delay Duration (e.g. `+17 mins late`), Scan Method (RFID / QR), Actions (View Details).
-    - *Functions*: Search by Subject/Teacher, Filter by Subject, Delay Duration, and Academic Month; Session Details Modal with direct action to submit an excuse slip.
-  - **Absence Records (`student/tardy-and-absence/absence-records.html` | `assets/js/student/absence-records.js`)**:
-    - *Displays*: Total absences, excused absences, unexcused absences, and risk standing.
-    - *Functions*: View absence dates, excuse slip review status, and direct excuse submission link.
-  - **Attendance History (`student/tardy-and-absence/attendance-history.html` | `assets/js/student/attendance-history.js`)**:
-    - *Displays*: Comprehensive chronological attendance history ledger across all enrolled subjects with subject progress bars and audit logs.
+  - **Tardy Records (`tardy-records.html`)**: Late frequency, delay minutes, 3-late threshold warning banner (3 lates = 1 unexcused absence referral to Prefect of Discipline), session details modal.
+  - **Absence Records (`absence-records.html`)**: Excused vs unexcused breakdown, academic risk indicators, excuse slip submission links.
+  - **Attendance History (`attendance-history.html`)**: Chronological audit ledger with subject progress bars and filter suite.
 
-### 2.5 Attendance Calendar (`student/attendance-calendar.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/attendance-calendar.js`
-* **Purpose**: Visual, interactive calendar representation of personal attendance history throughout the academic semester.
+### 2.5 Submit Excuse Slip (Submodule 5)
+* **Routes**: `student/excuse-slip/submit-excuse.html`, `my-requests.html`, `excuse-history.html`
+* **Purpose**: Digital excuse filing with dual-option medical proof verification and status tracking.
 * **Contents**:
-  - **Color-Coded Calendar Grid**:
-    - 🟢 Green: Present
-    - 🟡 Yellow: Late
-    - 🔴 Red: Unexcused Absent
-    - 🔵 Blue: Excused Absent / Approved Slip
-  - **Interactive Day Modal**: Click any date to view class periods, subjects, time-in timestamps, and teacher remarks for that specific day.
-  - **Filters**: Filter by Academic Month and Semester.
+  - **Dual-Option Medical Verification**:
+    - **Option A (External Medical Certificate)**: Uploads PDF/JPEG of doctor's prescription or hospital certificate.
+    - **Option B (School Clinic Pass)**: Inputs the Clinic Consultation Slip Number issued by the BCP Campus Clinic, triggering automated verification against Clinic Management records.
+  - **Other Reason Categories**: Family Emergency, Official School Representation, Calamity.
+  - **My Requests (`my-requests.html`)**: Active status tracking for Pending, Approved, and Rejected slips with reviewer remarks.
 
-### 2.6 Excuse Slip Management (`student/excuse-slip/`)
-* **Status**: ✅ Fully Implemented
-* **Sub-Modules**:
-  - **Submit Excuse Slip (`student/excuse-slip/submit-excuse.html` | `assets/js/student/submit-excuse.js`)**:
-    - *Form Fields*: Date of Absence, Enrolled Subject(s) / Whole Day Toggle, Reason Category (Medical Illness, Family Emergency, Official School Event, Other), Detailed Explanation, Supporting Document Uploader (PDF, JPEG, PNG).
-    - *Actions*: Submit Request, Clear Form.
-  - **My Requests (`student/excuse-slip/my-requests.html` | `assets/js/student/my-requests.js`)**:
-    - *Displays*: Real-time tracking of active excuse slips categorized into Pending Review, Approved, and Rejected.
-    - *Functions*: View Request Details Modal, Preview Attachment, View Teacher/Admin Feedback Remarks.
-  - **Excuse History (`student/excuse-slip/excuse-history.html` | `assets/js/student/excuse-history.js`)**:
-    - *Displays*: Permanent historical archive of all processed excuse slips with search and status filtering.
-
-### 2.7 Notifications & Alerts (Topbar Bell Flyout & Full Directory)
-* **Status**: ✅ Fully Implemented
-* **Companion Scripts**:
-  - `assets/js/common/notifications-flyout.js` (Shared Topbar Floating Flyout Component)
-  - `assets/js/student/notifications.js` (Full Directory View Controller)
-* **Purpose**: Centralized, strictly read-only notification inbox and audit feed. Provides the student with immediate visibility into attendance scans, tardiness flags, unexcused absences, parent SMS dispatches, and excuse slip approval updates.
-* **Architecture & Navigation Design**:
-  - **Sidebar Streamlined**: The redundant "Notifications" item was removed from the student sidebar navigation to minimize clutter and conform with modern web app design patterns.
-  - **Topbar Notification Bell Flyout**: Clicking or tapping `#studentNotifBtn` reveals a floating flyout popover positioned directly beneath the bell:
-    - **Header Controls (Left)**: Filter toggle buttons for `All` and `Unread` (with live dynamic unread count pill).
-    - **Header Controls (Right)**: `Mark all read` button to dismiss all unread badges at once, alongside a **Settings / Directory icon** (`#flyoutDirectoryLink`) that navigates directly to the full `notifications.html` page displayed as the main content on screen.
-    - **Body Feed**: Clean scrollable list of recent alerts with category-specific rounded icons, relative timestamps, and unread indicator dots.
-    - **Dismissal**: Closes seamlessly on outside click, item selection, or Esc key press.
-  - **Full Notification Directory Page (`student/notifications.html`)**:
-    - **Metric Stat Cards**: Total Notifications, Unread Logs, Gate Scans, Warnings & Policies, and Excuse Slips.
-    - **Category Filters**: Scans, Warnings, Excuse Slips, Campus Advisories, plus Unread Only toggle and keyword search.
-    - **Bidirectional State Sync**: Synchronizes unread/read states via `localStorage` (`student_portal_notifications`) in real time with the topbar flyout dropdown.
-* **Design Principles & Scope Boundaries**:
-  - **Pure Read-Only Ledger**: Students cannot modify, mute, or disable institutional attendance alert notifications.
-  - **Settings Link Removed**: Obsolete notification settings were eliminated; configuration is replaced by the read-only Directory view.
-
-### 2.8 Performance Analytics (`student/performance-analytics.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/performance-analytics.js`
-* **Purpose**: Self-monitoring analytics dashboard showing personal attendance trends, punctuality patterns, subject compliance, and policy threshold limits.
-* **UI/UX Design Alignment**: Modeled identically after **Class Analytics** in the Teacher Panel (`teacher/class-analytics.html`) using pure responsive SVG visualizations and unified color tokens.
+### 2.6 Attendance Calendar (Submodule 6)
+* **Route**: `student/attendance-calendar.html`
+* **Purpose**: Interactive monthly attendance calendar showing daily status distributions.
 * **Contents**:
-  - **Summary Metrics (5 KPI Cards)**: Overall Attendance Rate (%), Punctuality Rate (%), Late % & Accumulated Delay Minutes, Absent % & Risk Level Indicator (*Low Risk / Moderate / Critical*), Excused % & Approved Excuse Slips.
-  - **Filter Controls**: Enrolled Subject Filter (All Enrolled Subjects vs individual courses), Academic Period Selector (Full Semester vs Monthly View).
-  - **Visual SVG Charts**:
-    - *Daily Attendance & Punctuality Trends*: Interactive SVG line polyline chart with hover tooltips displaying date, attendance rate, and punctuality status.
-    - *Subject Attendance Compliance*: Progress compliance bars measuring each enrolled subject against the institutional 80% passing threshold.
-    - *Session Distribution*: Responsive SVG Donut chart displaying percentages for On-Time, Minor Tardiness (<15m), Excused Absences, and Unexcused Absences.
-  - **Policy Threshold & Standing Monitor**: Real-time tracking of institutional disciplinary limits:
-    - 3-Lates Rule: Progress bar tracking tardies accumulated towards 1 unexcused absence penalty.
-    - Maximum Absence Cap: 5-absence allowable cap before losing course credit.
-    - Perfect Attendance Standing: Eligibility status toward semester honor recognition.
-  - **Enrolled Subjects Compliance Ledger & Monthly Breakdown**: Detailed ledger breakdown with quick CSV export modal and dynamic Attendance-Calendar-consistent toast notifications.
+  - **Visual Color-Coded Grid**:
+    - Present: Green badge
+    - Late: Orange badge
+    - Unexcused Absent: Red badge
+    - Excused Absent: Blue badge
+  - **Interactive Day Modal**: View class periods, subjects, arrival timestamps, and teacher remarks for any selected day.
 
-### 2.9 Perfect Attendance Status (`student/perfect-attendance.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/perfect-attendance.js`
-* **Purpose**: Track real-time eligibility progress, checklist criteria, course compliance audit, and view official records of conferred attendance honors.
-* **Role Distinction & Scope**: Student panel is strictly **read-only and for viewing details**. Students cannot print, download, or distribute certificates, as official certificates with authentic administrative signatures and dry seals are exclusively distributed in person by subject teachers and the Dean's Office.
-* **UI/UX Design Alignment**: Strict 1:1 reference parity with `student/attendance-calendar.html` for shell layout (topbar, sidebar, toast system) and interactive summary cards.
+### 2.7 Notifications & Alerts (Submodule 7)
+* **Route**: `student/notifications.html`
+* **Purpose**: Transparent audit inbox for all attendance-related communications.
 * **Contents**:
-  - **Summary Metrics (5 KPI Cards)**: Award Standing (*Eligible / Conferred*), Attendance Rate (%), Tardiness Tally (*≤2 cap*), Unexcused Absences (*flawless zero*), Conferred Honors Count (*distributed copies*).
-  - **Milestone Progress & Criteria Tracker**: Term completion progress bar and simplified 4-point institutional qualification criteria cards (Zero Absences, Punctuality Compliance, Hardware/QR Scans, Approved Clearance).
-  - **Subject Compliance Audit Ledger**: Course-by-course audit table with filter controls, instructor schedules, sessions attended, delay tallies, qualification pill badges, and session inspection modal.
-  - **My Conferred Honors (Verification Record)**: Gallery of past earned semester awards with distribution notices and an interactive high-fidelity **Award Verification Record Modal** displaying official college credentials, signatory lines, and dry seal notice (read-only verification, print/download excluded).
+  - Outbound parent SMS dispatch notices (timestamp, guardian number, delivery status).
+  - Excuse slip approval and rejection notifications with teacher feedback.
+  - Truancy advisory notices.
+
+### 2.8 Perfect Attendance Award (Submodule 9)
+* **Route**: `student/perfect-attendance.html`
+* **Purpose**: Real-time progress monitoring toward semester Perfect Attendance honors.
+* **Contents**:
+  - 4-Point Eligibility Checklist: 100% Attendance Rate, 0 Unexcused Cuts, Max 2 Late arrivals, Active Enrolled Status.
+  - Conferred Award Credential view with official serial hash and QR verification.
 
 ---
 
-## 3. Topbar Profile Dropdown Modules
+## 3. Topbar Profile Dropdown
 
-To maintain a clean and streamlined user interface, student settings/configurations are eliminated:
-
-### 3.1 My Profile (`student/profile.html`)
-* **Status**: ✅ Fully Implemented
-* **Companion Script**: `assets/js/student/profile.js`
-* **Purpose**: View student institutional records and update personal contact credentials.
-* **Contents**:
-  - **Academic Information (Read-Only)**: Student ID Number, Full Name, Program (e.g., BSIT), Year Level, Assigned Section. *Managed exclusively by Administration.*
-  - **Contact Information (Editable)**: Personal Email, Mobile Contact Number, Guardian Name, Guardian Contact Number.
-  - **Account Security**: Change Password with real-time requirements validation, Update Profile Picture Avatar.
-* **Topbar Dropdown Clean-up**:
-  - In student pages, the dropdown contains strictly:
-    1. **My Profile** (`profile.html`)
-    2. **Sign Out** (`auth.js: handleLogout()`)
-  - *(`Settings` option is completely removed across all student headers).*
+### My Profile (`student/profile.html`)
+* Student official details (Student ID, Program & Strand, Section, Enrolled Subjects), editable contact phone and guardian contact, password change with policy validation.

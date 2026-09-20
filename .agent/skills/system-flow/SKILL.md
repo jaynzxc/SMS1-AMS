@@ -1,14 +1,13 @@
 ---
-
 name: system-flow
 description: End-to-end system flows, cross-panel module connections, database table mappings, and lifecycles linking Admin, Teacher, and Student roles in the Bestlink College of the Philippines Attendance Monitoring System. Use when connecting modules, verifying data consistency, or validating that all roles are properly wired together.
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 # End-to-End System Flow Skill (SMS1-AMS)
 
 ## Goal
 
-Provide a definitive, unified map of the entire attendance monitoring system so developers and AI agents understand how data flows across **Admin**, **Teacher**, and **Student** panels. This eliminates guesswork, prevents orphaned modules, and ensures every feature is connected end-to-end.
+Provide a definitive, unified map of the entire attendance monitoring system so developers and AI agents understand how data flows across **Admin**, **Teacher**, and **Student** panels, and how AMS connects with the 5 companion systems in the SMS 1 master architecture. This eliminates guesswork, prevents orphaned modules, and ensures every feature is connected end-to-end.
 
 ---
 
@@ -19,18 +18,19 @@ Provide a definitive, unified map of the entire attendance monitoring system so 
   │                           SYSTEM LIFECYCLE OVERVIEW                         │
   └─────────────────────────────────────────────────────────────────────────────┘
 
-  [1. PROVISIONING & SETUP]
-       Admin creates Users (Students/Teachers), Assigns RFID UIDs & QR Codes, 
-       Configures Academic Terms, Sections, and Schedules.
+  [1. PROVISIONING & MASTER DIRECTORY (SMS 1 SHARED LAYER)]
+       Shared SMS 1 directory provisions Users (Students/Teachers), RFID UIDs, 
+       QR Code hashes, and the Academic Calendar (Semesters, Terms, Holidays).
                                       │
                                       ▼
-  [2. ATTENDANCE CAPTURE]
-       Student/Teacher scans via ESP32 IoT RFID or Web Camera QR Scanner.
-       Teacher conducts Daily Attendance roster & submits session to Admin.
+  [2. ATTENDANCE CAPTURE (AMS CORE)]
+       Student/Teacher taps via ESP32 IoT RFID or Web Camera QR Scanner.
+       Teacher conducts Daily Attendance roster & submits session.
+       Scanner supports dual context: Classroom check-in vs. Campus Event check-in.
                                       │
                                       ▼
-  [3. DATABASE COMMIT & AUTOMATION]
-       Supabase PostgreSQL commits record -> triggers Parent SMS Alert -> 
+  [3. DATABASE COMMIT & REAL-TIME DISPATCH]
+       Supabase PostgreSQL commits record -> triggers automated Parent SMS Alert -> 
        updates daily tallies (Present, Late, Absent, Excused).
                                       │
                                       ▼
@@ -40,42 +40,78 @@ Provide a definitive, unified map of the entire attendance monitoring system so 
        └─► ADMIN: Sees campus-wide counters, kiosk scan logs, & audit trail.
                                       │
                                       ▼
-  [5. EXCEPTIONS & ADJUSTMENTS (EXCUSE SLIPS)]
-       Student files Excuse Slip with proof -> Teacher verifies (First Line) -> 
-       Admin audits/approves (Final) -> Attendance status auto-updates to "Excused".
+  [5. EXCEPTIONS & ADJUSTMENTS (DUAL-OPTION EXCUSE SLIPS)]
+       Student submits excuse slip:
+       - Option A: External medical certificate / doctor prescription upload.
+       - Option B: Campus Clinic Pass reference with automatic clinic verification.
+       Teacher verifies (First Line) -> Admin audits/approves (Final) -> 
+       Status auto-updates to "Excused".
                                       │
                                       ▼
-  [6. ANALYTICS & HONORS CONFERMENT]
-       Attendance rates aggregated -> Performance Analytics updated across roles -> 
-       Perfect Attendance candidates flagged -> Teachers endorse -> Admin confers -> 
-       Student views official award verification record.
+  [6. SMS 1 CROSS-MODULE DOWNSTREAM INTEGRATION]
+       ├─► CLINIC: Receives verified medical excuses & bed rest attendance status.
+       ├─► PREFECT: Receives automated Habitual Truancy escalations (>3 absences / >5 lates).
+       ├─► ACADEMIC HR: Receives Faculty DTR logs & RFID gate entry/exit hours.
+       ├─► OSAS: Receives Perfect Attendance candidates for graduation clearance & convocation.
+       └─► SCHOOL EVENTS: Receives real-time attendee headcounts from event kiosk scans.
+                                      │
+                                      ▼
+  [7. CENTRALIZED REPORTING & EXPORTS (SUBMODULE 10)]
+       All compliance reports (DepEd/CHED Form 137/SF2, chronic tardy summaries, 
+       faculty DTR logs, audit history) are generated and exported exclusively 
+       through Submodule 10 (reports-export.html). Table-level export clutter is eliminated.
 ```
 
 ---
 
-## 2. Cross-Panel Module Connection Matrix
+## 2. Cross-Panel 10-Submodule Connection Matrix
 
-Every page in the system corresponds to complementary views in the other panels:
+Every page in the system corresponds to complementary views in the other panels matching the **10 Official Submodules**:
 
-| Domain / Lifecycle | Admin Panel (`admin/`) | Teacher Panel (`teacher/`) | Student Panel (`student/`) | Shared Supabase Table(s) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Authentication & Profile** | `profile.html` | `profile.html` | `profile.html` | `profiles`, `admin_details`, `teachers`, `students` |
-| **Dashboard** | `dashboard.html` (Campus-wide) | `dashboard.html` (Assigned classes) | `dashboard.html` (Personal) | View aggregates, `attendance`, `excuse_slips` |
-| **Daily Attendance** | `attendance.html` (Audit & Override) | `daily-attendance.html` (Class Roster & Submit) | `my-attendance.html` (Personal Log) | `attendance`, `classes`, `schedules` |
-| **Calendar View** | `attendance-calendar.html` (Institution-wide) | `attendance-calendar.html` (Class Schedule Calendar) | `attendance-calendar.html` (Personal Attendance Grid) | `attendance`, `academic_calendar` |
-| **Hardware RFID & QR** | `rfid-and-qr/rfid-registry.html`, `qr-management.html` | `rfid-and-qr/live-scanner.html`, `scan-logs.html` | `rfid-and-qr.html` (View ID / Dynamic QR) | `rfid_cards`, `qr_codes`, `scan_logs` |
-| **Tardy Records** | `tardy-and-absence/tardy-list.html` (Chronic tardy alerts) | `tardy-and-absence/tardy-list.html` (Subject late list) | `tardy-and-absence/tardy-records.html` (Delay breakdown) | `attendance`, `tardy_logs` |
-| **Absence Records** | `tardy-and-absence/absence-list.html` (Habitual offender list) | `tardy-and-absence/absence-list.html` (Subject absences) | `tardy-and-absence/absence-records.html` (Risk tracker) | `attendance`, `absence_records` |
-| **Attendance History** | `attendance.html` (All filters) | `tardy-and-absence/student-attendance-history.html` | `tardy-and-absence/attendance-history.html` | `attendance` |
-| **Excuse Slips** | `excuse-slip/all-requests.html` (Final review & appeals) | `excuse-slip/pending-requests.html` (Classroom approval) | `excuse-slip/submit-excuse.html`, `my-requests.html` | `excuse_slips`, `excuse_attachments` |
-| **Faculty Attendance** | `teacher-attendance.html` (HR/Campus DTR) | `teacher-attendance.html` (Personal Faculty DTR) | *N/A (Students do not track faculty)* | `teacher_attendance` |
-| **Analytics** | `performance-analytics.html` (Campus trends) | `class-analytics.html` (Section performance) | `performance-analytics.html` (Personal metrics) | Aggregates from `attendance` |
-| **Perfect Attendance** | `perfect-attendance.html` (Conferment & threshold setup) | `perfect-attendance.html` (Nominee review & endorsement) | `perfect-attendance.html` (Eligibility & Award Record) | `award_nominations`, `conferred_awards` |
-| **Parent Alerts** | `parent-alerts.html` (SMS gateway logs) | *Triggered automatically on Late/Absent* | `notifications.html` (Read-only alert feed) | `sms_logs`, `notifications` |
+| Submodule # | Official Submodule Name | Admin Portal (`admin/`) | Teacher Portal (`teacher/`) | Student Portal (`student/`) | Shared Supabase Table(s) |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **8** | **Analytics Dashboard** | `dashboard.html`, `performance-analytics.html` | `dashboard.html`, `class-analytics.html` | `dashboard.html`, `performance-analytics.html` | Daily view aggregates, `attendance`, `excuse_slips` |
+| **1** | **Daily Attendance Marking** | `attendance.html` (Campus audit & override) | `daily-attendance.html` (Class roster & batch submit) | `my-attendance.html` (Personal subject log) | `attendance`, `classes`, `schedules` |
+| **2** | **RFID / QR Scanning** | `rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html` | `rfid-and-qr/live-scanner.html` (Classroom/Event kiosk), `scan-logs.html` | `rfid-and-qr.html` (Dynamic QR badge & card UID) | `rfid_cards`, `qr_codes`, `scan_logs` |
+| **3** | **Tardy & Absence Logs** | `tardy-and-absence/tardy-list.html`, `absence-list.html`, `habitual-offender.html` | `tardy-and-absence/tardy-list.html`, `absence-list.html` | `tardy-and-absence/tardy-records.html`, `absence-records.html` | `attendance`, `tardy_records`, `absence_records` |
+| **4** | **Teacher Attendance** | `teacher-attendance.html` (HR campus DTR) | `teacher-attendance.html` (Personal faculty DTR) | *N/A (Staff-only)* | `teacher_attendance` |
+| **5** | **Excuse Slip Submission** | `excuse-slip/pending-requests.html`, `approved-requests.html`, `rejected-requests.html` | `excuse-slip/pending-requests.html`, `approved-requests.html` | `excuse-slip/submit-excuse.html` (Dual medical option), `my-requests.html` | `excuse_slips`, `excuse_attachments` |
+| **6** | **Attendance Calendar** | `attendance-calendar.html` (Institutional schedule) | `attendance-calendar.html` (Class schedule calendar) | `attendance-calendar.html` (Personal presence heatmap) | `attendance`, `academic_calendar` |
+| **7** | **Alerts to Parents** | `parent-alerts.html` (SMS dispatch queue & log) | `parent-alerts.html` (Classroom absence notification log) | `notifications.html` (Read-only alert feed) | `parent_alerts`, `sms_logs` |
+| **9** | **Perfect Attendance** | `perfect-attendance.html` (Threshold setup & conferment) | `perfect-attendance.html` (Section nominee review & endorsement) | `perfect-attendance.html` (Eligibility criteria checklist & certificate) | `perfect_attendance_awards` |
+| **10** | **CSV / Excel Export** | `reports-export.html` (Institutional reporting hub) | `reports-export.html` (Section grading sheet exports) | *Integrated into My Attendance (Personal CSV)* | Multi-table reporting views |
+
+*Note: `academic-management.html` is permanently excluded from AMS navigation as curriculum management resides upstream in SMS 1 Academic Module.*
 
 ---
 
-## 3. Detailed End-to-End Workflows
+## 3. SMS 1 Master Architecture Integration Bridges
+
+AMS maintains 5 standardized data bridges connecting to the wider SMS 1 ecosystem:
+
+### Bridge 1: Clinic Management System
+* **Data Flow**: When student submits a medical excuse slip with "Campus Clinic Pass", AMS queries `clinic_visit_logs`.
+* **Action**: Verifies clinic admission timestamp against class schedule. Automatically assigns status `Excused (Clinic Verified)`.
+
+### Bridge 2: PREFECT Disciplinary Action System
+* **Data Flow**: When `absence_records` reaches 3 consecutive cuts or `tardy_records` exceeds 5 instances in a term, AMS sets `is_habitual_truancy = true`.
+* **Action**: Injects record into `prefect_incident_referrals` table with student ID, section, and violation summary for parent summon.
+
+### Bridge 3: Academic HR Management System
+* **Data Flow**: Faculty RFID gate entries and teaching room check-ins committed to `teacher_attendance`.
+* **Action**: Feeds `hr_faculty_dtr` daily. Deducts undertime from payroll records or checks approved leaves in `hr_leave_applications`.
+
+### Bridge 4: OSAS (Office of Student Affairs and Services)
+* **Data Flow**: Submodule 9 compiles students maintaining 100% attendance and zero unexcused cuts into `perfect_attendance_qualifiers`.
+* **Action**: OSAS endorses recipients for honors convocation and clears student conduct status for graduation clearance.
+
+### Bridge 5: School Event Management System
+* **Data Flow**: Submodule 2 (`live-scanner.html`) toggles `scan_context = 'EVENT_VENUE'` referencing `school_events.id`.
+* **Action**: Logs event attendee check-in and provides real-time headcounts to event organizers.
+
+---
+
+## 4. Detailed End-to-End Workflows
 
 ### Flow A: Attendance Capture & Multi-Panel Sync
 
@@ -103,11 +139,9 @@ sequenceDiagram
     Database->>Student: Appears in My Attendance & Attendance Calendar instantly
 ```
 
-* **Data Consistency Rule**: If a student is marked "Late" on `teacher/daily-attendance.html`, `student/tardy-and-absence/tardy-records.html` must increment immediately, and `admin/tardy-and-absence/tardy-list.html` must reflect the occurrence.
-
 ---
 
-### Flow B: Excuse Slip Submission & Multi-Level Review
+### Flow B: Dual-Option Excuse Slip Submission & Review
 
 ```mermaid
 sequenceDiagram
@@ -115,98 +149,61 @@ sequenceDiagram
     actor Student
     participant StudentUI as student/excuse-slip/submit-excuse.html
     participant DB as Supabase (excuse_slips table)
+    participant Clinic as SMS1 Clinic Module
     participant TeacherUI as teacher/excuse-slip/pending-requests.html
-    participant AdminUI as admin/excuse-slip/all-requests.html
+    participant AdminUI as admin/excuse-slip/pending-requests.html
 
-    Student->>StudentUI: Fills dates, reason category, attaches medical cert/proof
-    StudentUI->>DB: INSERT into excuse_slips (status = 'Pending')
-    DB->>TeacherUI: Shows in Pending Requests (First-line reviewer)
+    Student->>StudentUI: Selects Excuse Reason & Document Source
+    alt Option A: External Medical Certificate
+        Student->>StudentUI: Uploads doctor prescription / medical certificate PDF
+        StudentUI->>DB: INSERT excuse_slips (type='EXTERNAL_MEDICAL', status='Pending')
+    else Option B: School Clinic Pass
+        Student->>StudentUI: Enters Clinic Pass / Slip Number
+        StudentUI->>Clinic: Query clinic_visit_logs
+        Clinic-->>DB: Verified clinic pass attached
+        StudentUI->>DB: INSERT excuse_slips (type='CLINIC_PASS', status='Pending')
+    end
+    DB->>TeacherUI: Display in Pending Requests with source badge
     alt Teacher Approves
-        TeacherUI->>DB: UPDATE excuse_slips (status = 'Approved', reviewer = teacher_id)
-        DB-->>DB: UPDATE attendance SET status = 'Excused' for matching dates
+        TeacherUI->>DB: UPDATE excuse_slips (status = 'Approved')
+        DB-->>DB: UPDATE attendance SET status = 'Excused'
         DB->>StudentUI: my-requests.html shows "Approved" badge
         DB->>AdminUI: Marked as Verified in audit ledger
     else Teacher Rejects
         TeacherUI->>DB: UPDATE excuse_slips (status = 'Rejected', remarks = 'Invalid proof')
         DB->>StudentUI: my-requests.html shows "Rejected" with reason
-        Student->>AdminUI: (Optional) Student files institutional appeal
     end
 ```
 
-* **Data Consistency Rule**: Approving an excuse slip **must** mutate the corresponding `attendance.status` from `Absent` to `Excused`. This automatically updates:
-  - `student/my-attendance.html` (Status changes to Excused).
-  - `student/attendance-calendar.html` (Date badge turns Blue).
-  - `student/perfect-attendance.html` (Unexcused count decreases, eligibility preserved).
-  - `teacher/daily-attendance.html` (Status displays Excused).
-  - `admin/attendance.html` (Reflects approved excuse with audit remarks).
-
 ---
 
-### Flow C: Perfect Attendance Award Nomination & Conferment
+### Flow C: Habitual Truancy Escalation to PREFECT
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Admin as Admin Panel (admin/perfect-attendance.html)
+    participant AMS as AMS Engine (tardy_records & absence_records)
     participant DB as Supabase Database
-    participant Student as Student Panel (student/perfect-attendance.html)
-    participant Teacher as Teacher Panel (teacher/perfect-attendance.html)
+    participant Prefect as PREFECT Disciplinary System
+    participant ParentSMS as Parent SMS Dispatch
 
-    Admin->>DB: Configures Criteria (100% Rate, Max 2 Lates, 0 Unexcused Cuts)
-    DB-->>Student: Real-time 4-Point Checklist validates eligibility (PASS/FAIL)
-    Note over Student: Student tracks progress during Week 1 to 18
-    Teacher->>DB: Reviews eligible nominees in assigned section & submits endorsement
-    Admin->>DB: Confers Semester Awards & registers Official Credential Serial ID
-    DB->>Student: student/perfect-attendance.html displays Conferred Award Card
-    Teacher->>Student: Teacher prints official hardcopy with dry seal & hands to student in convocation
-    Student->>Student: Student uses "View Details" modal as read-only verification
-```
-
-* **Data Consistency Rule**:
-  - `admin/perfect-attendance.html` = Criteria Authority & Final Conferment.
-  - `teacher/perfect-attendance.html` = Section Evaluator & Endorser.
-  - `student/perfect-attendance.html` = Read-Only Candidate Tracker & Verification Ledger (no self-printing).
-
----
-
-### Flow D: Unified Hardware RFID/QR & Role Resolution Flow
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User as Student OR Teacher
-    participant Kiosk as ESP32 + RC522 Reader / Web Scanner
-    participant DB as Supabase (rfid_cards & profiles)
-    participant Attendance as attendance OR teacher_attendance
-
-    User->>Kiosk: Taps RFID Card
-    Kiosk->>DB: Query card_uid in rfid_cards
-    DB-->>Kiosk: Resolves role ("student" or "teacher")
-    alt Role == "student"
-        Kiosk->>Attendance: Commit to `attendance` table
-        Attendance-->>Attendance: Validate class schedule slot
-        Attendance->>DB: Trigger Parent SMS Alert if Late/Absent
-    else Role == "teacher"
-        Kiosk->>Attendance: Commit to `teacher_attendance` table
-        Attendance-->>Attendance: Determine Time-In or Time-Out & calculate duty hours
-        Attendance->>DB: Update Faculty DTR log for HR/Admin
-    end
+    AMS->>DB: Student accumulates 3 consecutive unexcused absences OR 5 tardies
+    DB-->>AMS: Truancy Threshold Exceeded
+    AMS->>DB: Flag is_habitual_truancy = true
+    AMS->>Prefect: Injects pending disciplinary referral into prefect_incident_referrals
+    AMS->>ParentSMS: Dispatch Urgent SMS Notice: "Parent conference required for student truancy"
+    DB->>AMS: Appears on admin/tardy-and-absence/habitual-offender.html
 ```
 
 ---
 
-## 4. End-to-End Checklist for Developers & Agents
+## 5. End-to-End Quality Checklist
 
-Before implementing or connecting any module, verify:
+Before submitting code or documentation changes:
 
-1. **Upstream Source Identified**: Where does the initial data come from? (e.g., RFID tap, teacher manual entry, student request).
-2. **Database Commit Verified**: What table stores this? (`attendance`, `excuse_slips`, `rfid_cards`, `teacher_attendance`).
-3. **Downstream Reflection Checked**:
-   - [ ] Does it update the **Student** view?
-   - [ ] Does it update the **Teacher** view?
-   - [ ] Does it update the **Admin** view?
-4. **Role Permissions Respected**:
-   - [ ] Is the Student strictly read-only where appropriate?
-   - [ ] Does the Teacher have access only to their assigned sections?
-   - [ ] Does the Admin have global audit and override rights?
-5. **UI Consistency**: Does the new or connected page adhere to `.agent/skills/ui-ux/SKILL.md`?
+1. **Strict 10-Submodule Mapping:** Does the feature align with the 10 official submodules?
+2. **Zero Table-Level Export Clutter:** Are all table-level export buttons eliminated in favor of Submodule 10?
+3. **Dual Medical Excuse Compatibility:** Can the module handle both external medical uploads and clinic passes?
+4. **SMS 1 Bridge Compliance:** Are the relevant foreign keys and payload shapes referenced accurately?
+5. **No Academic-Management Navigation:** Is `academic-management.html` absent from AMS menus?
+6. **Cross-Panel Reflection:** Does an action taken by a teacher or student immediately reflect across Admin and Student views?

@@ -8,8 +8,8 @@
 ## 1. Document Control & Metadata
 * **Institution:** Bestlink College of the Philippines (BCP)
 * **Program:** Bachelor of Science in Information Technology
-* **Document Version:** 1.0.0
-* **Status:** Approved Draft for Capstone Defense & System Architecture
+* **Document Version:** 2.0.0 (Phase 2 Restructured & SMS 1 Aligned)
+* **Status:** Approved for Pre-Oral Defense & System Architecture
 * **Target Audience:** Capstone Advisers, Defense Panel, Lead System Developers, Database Administrators
 
 ---
@@ -24,7 +24,9 @@ Bestlink College of the Philippines manages thousands of students and faculty me
 4. **Data Inconsistency:** Absence records, excuse slips, and honor awards are tracked in disparate silos.
 
 ### 2.2 Solution Overview
-The **BCP Attendance Monitoring System (SMS1-AMS)** is a web-based, multi-role management platform integrated with **IoT RFID hardware (ESP32 + RC522)**, **dynamic camera-based QR scanning**, **automated parental SMS alerting**, **data-driven performance analytics**, and **Row Level Security (RLS)** powered by Supabase PostgreSQL.
+The **BCP Attendance Monitoring System (SMS1-AMS)** is a web-based, multi-role management platform integrated with **IoT RFID hardware (ESP32 + RC522)**, **dynamic camera-based QR scanning**, **automated parental SMS alerting**, **data-driven performance analytics**, and **Row Level Security (RLS)** powered by Supabase PostgreSQL. 
+
+The system is strictly partitioned into **10 official submodules**, centralizes all data exports into Submodule 10 (**Option 1 Standard**), and operates 5 standardized data bridges connecting to the wider **SMS 1 Master Architecture** (Clinic Management, PREFECT Disciplinary Action, Academic HR, OSAS, and School Events).
 
 ---
 
@@ -36,242 +38,118 @@ To design and develop an institutional Attendance Monitoring System for Bestlink
 ### 3.2 Specific Objectives
 1. Implement a **dual-method identification pipeline** supporting physical Mifare RFID card tapping and dynamic time-bounded QR code scanning.
 2. Automate **parental SMS advisories** dispatched immediately upon late arrivals or unexcused absences.
-3. Establish a **3-role authorization framework** (**Admin**, **Teacher**, **Student**) with tailored views and database-enforced permissions.
-4. Digitize the **excuse slip lifecycle** with supporting proof uploads, teacher first-line reviews, and administrative audits.
+3. Establish a **3-role authorization framework** (**Admin**, **Teacher**, **Student**) strictly mapped to the 10 official submodules.
+4. Digitize the **excuse slip lifecycle** supporting both external medical certificate uploads and campus clinic pass references.
 5. Provide **real-time performance analytics** (punctuality trends, subject attendance compliance against the 80% institutional threshold, and chronic tardiness warnings).
 6. Automate the **Perfect Attendance Award verification ledger**, establishing end-to-end criteria tracking without allowing unauthorized self-generation of credentials.
-7. Fortify the system with enterprise security: **Bcrypt hashing**, **2FA/OTP**, **concurrent session mismatch detection**, **input validation**, **anti-XSS**, and **immutable audit logging (`user_activity`)**.
+7. Centralize all compliance and academic exports (DepEd SF2, habitual truancy lists, faculty DTR summaries) in Submodule 10, eliminating table-level export clutter.
+8. Establish **SMS 1 ecosystem integration bridges** connecting attendance data with Clinic, Prefect, Academic HR, OSAS, and School Events.
 
 ---
 
-## 4. User Personas & Role-Based Access Control (RBAC)
+## 4. The 10 Official Submodules Taxonomy
 
-```mermaid
-graph TD
-    User([System Users]) --> Admin[Administrator]
-    User --> Teacher[Faculty Teacher]
-    User --> Student[Enrolled Student]
+The system architecture and user navigation strictly align with the 10 official AMS submodules:
 
-    Admin --> A1[Campus-Wide Analytics & Reports]
-    Admin --> A2[User & Credential Management]
-    Admin --> A3[System Settings & Audit Logs]
-    Admin --> A4[Final Excuse Slip & Award Conferment]
-
-    Teacher --> T1[Class Session Attendance Roster]
-    Teacher --> T2[Classroom Live Scanner Kiosk]
-    Teacher --> T3[First-Line Excuse Slip Review]
-    Teacher --> T4[Personal Faculty Attendance DTR]
-
-    Student --> S1[Personal Attendance Ledger & Calendar]
-    Student --> S2[Personal Dynamic QR Identification]
-    Student --> S3[Submit Excuse Slips with Attachments]
-    Student --> S4[Award Eligibility Tracker & Verification]
+```
++---------------------------------------------------------------------------------+
+|                       10 OFFICIAL AMS SUBMODULES                                |
++---------------------------------------------------------------------------------+
+| 1. Daily Attendance Marking       | 6. Attendance Calendar                      |
+| 2. RFID / QR Scanning             | 7. Alerts to Parents                        |
+| 3. Tardy & Absence Logs           | 8. Analytics Dashboard                      |
+| 4. Teacher Attendance             | 9. Perfect Attendance Award Tool            |
+| 5. Excuse Slip Submission         | 10. CSV / Excel Export                      |
++---------------------------------------------------------------------------------+
 ```
 
-### 4.1 Role Matrix
+### Role-Based Access Matrix
 
-| Capability / Module | Administrator | Teacher | Student |
-| :--- | :---: | :---: | :---: |
-| **System Dashboard** | Campus-Wide | Assigned Classes | Personal Record Only |
-| **Daily Attendance Entry** | Global Override & Audit | Class Roster Commit | **Read-Only** |
-| **RFID / QR Management** | Assign / Reissue Cards | Operate Classroom Scanner | View Personal ID & QR |
-| **Tardy & Absence Tracking** | Habitual Offender List | Section Tardy Ledger | Personal Delay Metrics |
-| **Excuse Slip Workflow** | Institutional Oversight/Appeals | Approve / Reject Section Slips | Submit Slip & Track Status |
-| **Teacher Attendance (DTR)** | Campus HR Oversight | View Personal Hours Rendered | **No Access** |
-| **Performance Analytics** | Campus Punctuality Trends | Section Compliance Gauges | Personal Trend Charts |
-| **Perfect Attendance Honors** | Define Rules & Confer Awards | Endorse Nominees | Read-Only Eligibility & Verification |
-| **Security Audit Logs** | View `user_activity` & SMS Logs | **No Access** | **No Access** |
+| Submodule # | Submodule Name | Admin Portal (`admin/`) | Teacher Portal (`teacher/`) | Student Portal (`student/`) |
+| :---: | :--- | :--- | :--- | :--- |
+| **8** | **Analytics Dashboard** | Campus-wide KPI Dashboard | Class Performance Analytics | Personal Analytics & Streak |
+| **1** | **Daily Attendance** | Master Audit & Override | Class Roster Roll Call & Submit | Personal Attendance Records |
+| **2** | **RFID / QR Scanning** | RFID Registry & QR Manager | Live Kiosk (Class & Event Mode) | Dynamic QR Pass & RFID Card |
+| **3** | **Tardy & Absence Logs** | Campus Tardy/Absence Lists | Section Late & Truancy Lists | Personal Delay & Risk Ledger |
+| **4** | **Teacher Attendance** | HR Campus DTR Review | Personal Faculty DTR Log | *Staff Only (No Access)* |
+| **5** | **Excuse Slip Submission** | Institutional Oversight/Appeals| First-Line Section Approval | Dual-Option Excuse Submission |
+| **6** | **Attendance Calendar** | Campus Presence Heatmap | Class Schedule Calendar | Personal Attendance Calendar |
+| **7** | **Alerts to Parents** | Outbound SMS Queue & Audit | Class Absence Notification Feed | In-App Alert Inbox |
+| **9** | **Perfect Attendance** | Threshold Setup & Conferment | Section Nominee Endorsement | Eligibility Criteria & Record |
+| **10** | **Reports & Export** | Full Institutional Reports Hub | Section Grading Sheets | Personal CSV Transcript Only |
+
+*(Rule: Curriculum and syllabus management belongs to the SMS 1 Academic Module; `academic-management.html` is omitted from AMS navigation).*
 
 ---
 
-## 5. System Architecture & Tech Stack
+## 5. Functional Requirements (FR)
 
-### 5.1 Technology Selection
-* **Frontend Structure:** Pure Semantic HTML5.
-* **Frontend Styling:** Vanilla CSS + Compiled Tailwind CSS (`assets/css/output.css` and `assets/css/style.css`). *Zero runtime Tailwind CDN scripts.*
-* **Client Logic:** Vanilla JavaScript (ES6 Modules).
-* **Database & Auth:** Supabase PostgreSQL with Row Level Security (RLS) and Supabase Auth.
-* **IoT Hardware:** ESP32 Microcontroller (NodeMCU DevKit) + MFRC522 (RC522 13.56 MHz RFID Reader) communicating via Wi-Fi HTTP POST/WebSockets.
-* **Backup Scanner:** HTML5 Camera Web API (`live-scanner.html`).
+### 5.1 Submodule 1: Daily Attendance Marking
+* **FR-1.1:** Teachers shall conduct daily classroom roll calls by subject and section, recording student statuses: *Present*, *Late*, *Absent*, or *Excused*.
+* **FR-1.2:** Teachers shall have options to save local drafts before final submission to Administration.
+* **FR-1.3:** Administrators shall retain master override authority with mandatory audit remarks committed to `user_activity`.
 
-### 5.2 Folder Structure Standard
-```
-SMS1-AMS/
-├── admin/                         # Administrator pages
-├── teacher/                       # Teacher pages
-├── student/                       # Student pages
-├── assets/
-│   ├── css/                       # output.css, style.css
-│   ├── js/                        # ES6 modular controllers (common, student, teacher, admin)
-│   └── images/                    # Institutional logos and system assets
-├── docs/                          # Architectural and technical documentation
-└── .agent/skills/                 # AI automation skills (ui-ux, system-flow, security, etc.)
-```
+### 5.2 Submodule 2: RFID / QR Scanning
+* **FR-2.1:** Hardware kiosks shall capture Mifare 13.56 MHz RFID UIDs via ESP32 microcontrollers with a 3-second hardware debounce.
+* **FR-2.2:** The in-browser camera scanner (`live-scanner.html`) shall decode dynamic QR codes and support **Dual-Context Scanning**:
+  * `CLASSROOM_PERIOD`: Standard class schedule validation.
+  * `EVENT_VENUE`: Institutional school event check-in referencing `school_events.id`.
+
+### 5.3 Submodule 3: Tardy & Absence Logs
+* **FR-3.1:** The system shall aggregate late arrival minutes and cumulative unexcused cuts.
+* **FR-3.2:** When a student reaches **3 consecutive unexcused absences** or **5 late arrivals**, the system automatically flags `is_habitual_truancy = true` and escalates a disciplinary referral to the **PREFECT Disciplinary Action System**.
+
+### 5.4 Submodule 4: Teacher Attendance
+* **FR-4.1:** Faculty members shall log gate arrivals and room presence via contactless RFID badges.
+* **FR-4.2:** The system automatically calculates rendered teaching hours and syncs with the **Academic HR Daily Time Record (DTR)**.
+
+### 5.5 Submodule 5: Excuse Slip Submission (Dual-Option Medical Verification)
+* **FR-5.1:** Students shall submit excuse slips selecting from two medical verification modes:
+  * **Option A (External Medical Certificate):** Uploads doctor's prescription / hospital slip (PDF, JPG, PNG <= 5MB).
+  * **Option B (School Clinic Pass):** Inputs Clinic Slip Number issued by the BCP Campus Clinic, verified automatically against `clinic_visit_logs`.
+* **FR-5.2:** Teacher approval automatically transitions roll call status from *Absent* to *Excused*.
+
+### 5.6 Submodule 6: Attendance Calendar
+* **FR-6.1:** Monthly calendar views shall display daily status heatmaps (Green = Present, Orange = Late, Red = Absent, Blue = Excused).
+* **FR-6.2:** The calendar automatically syncs with the institutional academic calendar to black out official holidays and calamity suspensions.
+
+### 5.7 Submodule 7: Alerts to Parents
+* **FR-7.1:** Outbound transactional SMS notifications shall dispatch immediately to registered guardian numbers upon late arrivals or unexcused cuts.
+* **FR-7.2:** Rate-limiting restricts dispatches to a maximum of 2 SMS per student per day to prevent credit exhaustion.
+
+### 5.8 Submodule 8: Analytics Dashboard
+* **FR-8.1:** Interactive dashboards shall display institutional and section-level attendance trends, punctuality rates, and drop-out risk distributions.
+
+### 5.9 Submodule 9: Perfect Attendance Award Tool
+* **FR-9.1:** The system shall evaluate semester eligibility against 4 criteria (100% attendance, zero unexcused cuts, maximum 2 late arrivals, active enrollment).
+* **FR-9.2:** Endorsed candidates are transmitted to **OSAS** for honors convocation and graduation clearance.
+* **FR-9.3:** Students have read-only access to view their conferred award record and verification hash; self-printing is strictly prohibited.
+
+### 5.10 Submodule 10: Centralized CSV / Excel Export (Option 1 Standard)
+* **FR-10.1:** All data exports (CSV, Excel `.xlsx`, printable PDF) must be centralized in Submodule 10. Individual operational tables must NOT render local export buttons.
+* **FR-10.2:** Centralized report generators shall include Daily Master Attendance, DepEd/CHED Form 137 / SF2 summaries, Habitual Truancy lists, and Faculty DTR reports.
 
 ---
 
-## 6. Functional Requirements & Feature Breakdown
+## 6. SMS 1 Ecosystem Cross-Module Integration Touchpoints
 
-### 6.1 Module 1: Authentication, 2FA & Session Lifecycle
-* **FR-1.1:** System shall authenticate users via Email/Username and Password validated against Bcrypt hashes in Supabase `auth.users`.
-* **FR-1.2:** System shall support Two-Factor Authentication (OTP 2FA) generating a 6-digit numeric token with a 5-minute time-to-live (TTL), rate-limited to 3 dispatches per hour.
-* **FR-1.3:** System shall enforce single active sessions by comparing the current access token hash with `profiles.active_session_id`. If a user logs in from Device B, Device A must be superseded and redirected to login.
-* **FR-1.4:** Unauthenticated users attempting to access protected panel routes shall be immediately redirected to `/login.html?reason=unauthorized`.
-* **FR-1.5:** Authenticated users attempting to access unauthorized cross-role panels (e.g., student loading `/admin/`) shall be routed back to their respective portal home.
-
-### 6.2 Module 2: Contactless Attendance Scanning (RFID & Dynamic QR)
-* **FR-2.1:** The ESP32 hardware station shall capture card UIDs, validate timestamps, and transmit payloads to the Supabase endpoint via Wi-Fi.
-* **FR-2.2:** The system shall enforce a **5-minute anti-passback rule** preventing duplicate scans for the same identity at the same checkpoint.
-* **FR-2.3:** The web application shall provide a fallback camera QR scanner (`live-scanner.html`) capable of decoding student and teacher QR tokens.
-* **FR-2.4:** Student QR codes must be dynamically rendered and refreshed with salted HMAC hashes to prevent proxy attendance via static screenshots.
-* **FR-2.5:** When a late arrival or absence occurs, the system shall format and queue an automated SMS advisory to the registered parent/guardian phone number.
-
-### 6.3 Module 3: Daily Attendance Rosters & Multi-Panel Sync
-* **FR-3.1:** Teachers shall select their assigned subject, section, and date to generate the student attendance roster.
-* **FR-3.2:** Teachers shall have options to mark students as *Present*, *Late*, *Absent*, or *Excused*, save drafts locally, and execute final submission to Admin.
-* **FR-3.3:** Final submission locks the session record and propagates data immediately to the Student and Admin dashboards.
-* **FR-3.4:** Administrators retain institutional override authority with mandatory audit remarks recorded in `user_activity`.
-
-### 6.4 Module 4: Tardy, Absence & Policy Threshold Monitoring
-* **FR-4.1:** The system shall automatically aggregate delay minutes and total tardiness counts.
-* **FR-4.2:** The system shall enforce the **3-Lates = 1 Unexcused Absence rule**, displaying alert banners to students approaching the threshold.
-* **FR-4.3:** The system shall track the **5-Absence allowable cap**, alerting faculty and guidance staff when a student is at risk of losing course credits.
-* **FR-4.4:** Teachers and Administrators shall be able to export filtered tardy and absence ledgers into standard CSV format.
-
-### 6.5 Module 5: Excuse Slip Management Workflow
-* **FR-5.1:** Students shall submit excuse slips specifying absence dates, reason categories (*Medical Illness, Family Emergency, Official School Event, Other*), detailed explanations, and supporting document uploads.
-* **FR-5.2:** Supported attachment file formats must be strictly restricted to `image/jpeg`, `image/png`, and `application/pdf` with a 5 MB maximum size limit.
-* **FR-5.3:** Subject teachers shall serve as first-line approvers; approved slips automatically mutate corresponding attendance records from *Absent* to *Excused*.
-* **FR-5.4:** Date cells on the Student Attendance Calendar must turn **Blue** upon excuse slip approval.
-* **FR-5.5:** Administrators hold final review and institutional appeal authority over rejected requests.
-
-### 6.6 Module 6: Performance Analytics & Visual Reporting
-* **FR-6.1:** Students shall view interactive SVG charts illustrating monthly attendance rates, punctuality trends, delay distributions, and subject compliance against the 80% passing threshold.
-* **FR-6.2:** Teachers shall access section-wide attendance distributions, identifying students at risk of drop-out or failure.
-* **FR-6.3:** Administrators shall access campus-wide analytics tracking daily presence, college department attendance rates, and IoT terminal uptime.
-
-### 6.7 Module 7: Perfect Attendance Award Verification
-* **FR-7.1:** The system shall calculate eligibility in real time against 4 institutional criteria: (1) Zero unexcused absences, (2) Punctuality (≤ 2 late arrivals), (3) Verified hardware scans, and (4) Disciplinary clearance.
-* **FR-7.2:** Teachers evaluate and endorse qualified nominees in their assigned sections.
-* **FR-7.3:** Administrators validate nominees and officially confer the semester honors, issuing a unique serial credential ID (`BCP-AMS-CERT-YYYY-XXXXXX`).
-* **FR-7.4:** Students shall have read-only access to view their **Award Verification Record** modal confirming official conferment. Self-service printing or downloading is strictly prohibited; physical certificates with institutional dry seals and ink signatures are distributed in person during school convocations.
+```
++---------------------------------------------------------------------------------+
+|                       SMS 1 COMPANION SYSTEM BRIDGES                            |
++---------------------------------------------------------------------------------+
+| 1. CLINIC MANAGEMENT    | excuse_slips.clinic_visit_id                          |
+| 2. PREFECT DISCIPLINE   | absence_records.prefect_referral_id                   |
+| 3. ACADEMIC HR          | teacher_attendance.rendered_hours -> hr_faculty_dtr   |
+| 4. OSAS HONORS          | perfect_attendance_awards.osas_endorsement_status     |
+| 5. SCHOOL EVENTS        | rfid_qr_scan_logs.event_id                            |
++---------------------------------------------------------------------------------+
+```
 
 ---
 
 ## 7. Non-Functional Requirements (NFR)
 
-### 7.1 Security & Data Privacy
-* **NFR-1.1 (Row Level Security):** All Supabase tables must have RLS active. Students must have zero `UPDATE` or `DELETE` capabilities on `attendance` tables.
-* **NFR-1.2 (Service-Role Key Isolation):** The `service_role` key must never be included in client code. Only `anonKey` is permitted.
-* **NFR-1.3 (Anti-XSS):** All dynamic strings rendered in the DOM must utilize `textContent` or sanitized nodes. Raw `innerHTML` on user input is forbidden.
-* **NFR-1.4 (Audit Logging):** All authentication, attendance modifications, excuse reviews, and credential registrations must write an immutable row to `user_activity`.
-
-### 7.2 Performance & Responsiveness
-* **NFR-2.1 (Scan Latency):** RFID hardware taps must resolve role, validate schedules, and return LED/buzzer feedback in $< 1.5\text{ seconds}$.
-* **NFR-2.2 (Page Rendering):** Frontend dashboards must achieve initial contentful paint in $< 1.0\text{ second}$ on modern desktop and mobile browsers.
-* **NFR-2.3 (Responsive Design):** The UI must fully adapt across desktop displays (1920x1080), laptops (1366x768), tablets (768x1024), and mobile screens (375x812).
-
-### 7.3 Reliability & Maintainability
-* **NFR-3.1 (No Framework Bloat):** Codebase must remain in native HTML5, compiled Tailwind CSS, and Vanilla JS for long-term maintainability without build-tool fragility.
-* **NFR-3.2 (Design System Consistency):** All modules must conform to the design tokens and component anatomy defined in `.agent/skills/ui-ux/SKILL.md`.
-
----
-
-## 8. Database Schema Overview
-
-```mermaid
-erDiagram
-    PROFILES ||--o| STUDENTS : has
-    PROFILES ||--o| TEACHERS : has
-    PROFILES ||--o{ USER_ACTIVITY : logs
-    STUDENTS ||--o{ ATTENDANCE : records
-    STUDENTS ||--o{ EXCUSE_SLIPS : submits
-    STUDENTS ||--o{ CONFERRED_AWARDS : receives
-    TEACHERS ||--o{ TEACHER_ATTENDANCE : logs
-    TEACHERS ||--o{ EXCUSE_SLIPS : reviews
-    RFID_CARDS ||--o| PROFILES : assigned_to
-
-    PROFILES {
-        uuid id PK
-        string email UK
-        string role "admin, teacher, student"
-        string full_name
-        string status "Active, Inactive"
-        string active_session_id
-        timestamp created_at
-    }
-
-    STUDENTS {
-        uuid id PK
-        uuid user_id FK
-        string student_id UK
-        string course
-        string section
-        string guardian_name
-        string guardian_contact
-    }
-
-    TEACHERS {
-        uuid id PK
-        uuid user_id FK
-        string teacher_id UK
-        string department
-    }
-
-    ATTENDANCE {
-        uuid id PK
-        string student_id FK
-        date date
-        time time_in
-        time time_out
-        string status "Present, Late, Absent, Excused"
-        string method "RFID, QR Code, Manual"
-        string remarks
-        timestamp recorded_at
-    }
-
-    EXCUSE_SLIPS {
-        uuid id PK
-        uuid student_id FK
-        date absence_date
-        string reason_category
-        text explanation
-        string attachment_url
-        string status "Pending, Approved, Rejected"
-        uuid reviewed_by FK
-        timestamp reviewed_at
-    }
-
-    USER_ACTIVITY {
-        uuid id PK
-        uuid user_id FK
-        string role
-        string action
-        string target_resource
-        string ip_address
-        text user_agent
-        jsonb details
-        timestamp created_at
-    }
-```
-
----
-
-## 9. Assumptions & Constraints
-
-### 9.1 Confirmed Assumptions
-1. Bestlink College of the Philippines provides reliable campus Wi-Fi infrastructure for IoT ESP32 RFID terminals.
-2. Official certificate paper, dry seals, and institutional ink signatures are handled offline by the Registrar and Dean's Office during semester convocations.
-3. Every student has access to an Android/iOS smartphone or computer to check attendance records and display their dynamic QR backup badge.
-
-### 9.2 Technical Constraints
-1. No external frameworks (React, Vue, Angular, Laravel) may be introduced to preserve system performance and conform to capstone repository rules.
-2. Web camera QR scanning requires client browser permissions for video capture over HTTPS.
-
----
-
-## 10. Future Enhancements (Post-Capstone Roadmap)
-* Facial recognition integration as a tertiary biometric verification layer.
-* Turnstile hardware gate integration with electromagnetic locks.
-* Push notification capabilities via Progressive Web App (PWA) service workers.
-* Machine learning algorithms for predictive attendance intervention and student attrition forecasting.
+* **NFR-1 (100% RLS):** All PostgreSQL tables must have Row Level Security active. Students have strictly read-only access to attendance and awards.
+* **NFR-2 (No Framework Bloat):** Codebase must remain in native HTML5, compiled Tailwind CSS, and Vanilla JavaScript (ES6).
+* **NFR-3 (Zero Emojis):** No emojis in code, comments, logs, commit messages, or UI badges.
+* **NFR-4 (Defense-in-Depth):** Session token guards, single-session concurrency matching (`profiles.active_session_id`), and immutable audit logging (`user_activity`).

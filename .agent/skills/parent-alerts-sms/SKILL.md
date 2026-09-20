@@ -7,19 +7,19 @@ description: Guidelines, trigger logic, message templates, rate limiting, and ga
 
 ## Goal
 
-Provide structured standards for dispatching immediate, reliable SMS and in-app alerts to parents/guardians regarding student tardiness, chronic unexcused absences, and campus gate time-in/out events.
+Provide structured standards for dispatching immediate, reliable SMS and in-app alerts to parents/guardians regarding student tardiness, chronic unexcused absences, and campus gate time-in/out events, with automated escalation to the **PREFECT Disciplinary Action** module.
 
 ---
 
 ## 1. Alert Trigger Matrix
 
-| Event Type | Condition for Alert | Delivery Channel | Priority |
-| :--- | :--- | :--- | :--- |
-| **Late / Tardy Entry** | Tap-in time is > 15 minutes after official class start schedule | SMS + In-App | Medium |
-| **First-Day Unexcused Absence** | Class period concludes with status = `Absent` and no pending excuse slip | SMS + In-App | High |
-| **Chronic Absence Alert (3 Days)** | Accumulated 3 consecutive or cumulative unexcused absences | Urgent SMS + In-App Banner | Critical |
-| **Excuse Slip Approved/Rejected** | Teacher or Admin updates excuse slip status | In-App (Student & Parent) | Normal |
-| **Campus Gate Tap-In / Tap-Out** | Student RFID badge tapped at main campus gate turnstile | SMS (Optional/Opt-in) | Low |
+| Event Type | Condition for Alert | Delivery Channel | Priority | Downstream Integration |
+| :--- | :--- | :--- | :--- | :--- |
+| **Late / Tardy Entry** | Tap-in time is > 15 minutes after official class start schedule | SMS + In-App | Medium | Logged in `tardy_records` |
+| **First-Day Unexcused Absence** | Class period concludes with status = `Absent` and no pending excuse slip | SMS + In-App | High | Logged in `absence_records` |
+| **Chronic Absence Alert (3 Days)** | Accumulated 3 consecutive or cumulative unexcused absences | Urgent SMS + In-App Banner | Critical | **PREFECT Disciplinary Referral** (`prefect_incident_referrals`) |
+| **Excuse Slip Approved/Rejected** | Teacher or Admin updates excuse slip status | In-App (Student & Notification Feed) | Normal | Syncs daily roster to `Excused` |
+| **Campus Gate Tap-In / Tap-Out** | Student RFID badge tapped at main campus gate turnstile | SMS (Optional/Opt-in) | Low | Feeds real-time campus headcount |
 
 ---
 
@@ -36,7 +36,7 @@ Keep character counts $\le 160$ to minimize multi-part SMS credit usage:
 ```
 
 ```text
-[BCP AMS] NOTICE: Your child {Student_Name} has reached 3 UNEXCUSED ABSENCES in {Subject_Code}. Please report to the Guidance Office.
+[BCP AMS] NOTICE: Your child {Student_Name} has reached 3 UNEXCUSED ABSENCES in {Subject_Code}. A parent conference with the PREFECT of Discipline is required.
 ```
 
 ---

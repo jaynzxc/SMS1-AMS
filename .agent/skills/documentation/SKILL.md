@@ -1,8 +1,7 @@
 ---
-
 name: documentation
 description: Write academic technical documentation for the Bestlink College of the Philippines Attendance Monitoring System including module descriptions, workflows, system architecture, methodology, and implementation documentation. Use for capstone documentation and technical writing.
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 # Documentation Skill (SMS1-AMS)
 
@@ -16,17 +15,31 @@ Produce rigorous, standardized, and professional academic technical documentatio
 
 1. **Academic Tone:** Use formal academic English (or formal Filipino if explicitly requested). Maintain an objective, third-person perspective (e.g. *"The system implements..."* rather than *"I made..."* or *"We did..."*).
 2. **Authority Sources:** All documentation must be derived from and remain consistent with confirmed project specifications:
-   * [`docs/PRD.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/PRD.md) — Product Requirements Document
-   * [`docs/system_workflow.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/system_workflow.md) — Multi-Panel System Flows & Sequence Diagrams
-   * [`docs/database_schema_design.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/database_schema_design.md) & [`docs/supabase_schema_setup.sql`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/supabase_schema_setup.sql) — Database Schema & RLS Matrix
-   * [`docs/implemented_security.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/implemented_security.md) — Security Architecture & Compliance
-   * Front-end specifications: [`docs/admin_frontend.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/admin_frontend.md), [`docs/teacher_frontend.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/teacher_frontend.md), [`docs/student_frontend.md`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring/SMS1-AMS/docs/student_frontend.md)
-3. **Zero Hallucination / No Phantom Features:** Never invent database tables, APIs, hardware sensors, or features not present in the repository or confirmed by the user.
-4. **Strict Demarcation of Assumptions:** If a section requires operational assumptions (e.g. network latency or kiosk mounting dimensions), clearly label it under a dedicated **"Assumptions & Limitations"** heading.
-5. **Clear Actor Boundaries:** Accurately characterize the three system roles:
+   * `docs/architecture/PRD.md` — Product Requirements Document
+   * `docs/architecture/system_workflow.md` — Multi-Panel System Flows & Sequence Diagrams
+   * `docs/architecture/sms1_integration_bridges.md` — SMS 1 Cross-Module Integration Bridges
+   * `docs/database/database_schema_design.md` & `docs/database/supabase_schema.sql` — Database Schema & RLS Matrix
+   * Front-end specifications: `docs/modules/admin_frontend.md`, `docs/modules/teacher_frontend.md`, `docs/modules/student_frontend.md`
+   * Master file structure: `docs/FILE_STRUCTURE_PLAN.md`
+3. **Strict 10-Submodule Taxonomy:** All system features, documentation sections, and manual chapters must strictly align with the 10 official submodules:
+   1. Daily Attendance Marking
+   2. RFID / QR Scanning
+   3. Tardy & Absence Logs
+   4. Teacher Attendance
+   5. Excuse Slip Submission
+   6. Attendance Calendar
+   7. Alerts to Parents
+   8. Analytics Dashboard
+   9. Perfect Attendance Award Tool
+   10. CSV / Excel Export
+4. **Scope Demarcation (`academic-management` Excluded):** Maintain clear boundaries: curriculum and syllabus management belong to the upstream SMS 1 Academic Module and are intentionally omitted from AMS.
+5. **Centralized Reports Standard (Option 1):** Document that all export and reporting features are unified in Submodule 10, eliminating table-level export clutter.
+6. **Zero Hallucination / No Phantom Features:** Never invent database tables, APIs, hardware sensors, or features not present in the repository or confirmed by the user.
+7. **Strict Demarcation of Assumptions:** If a section requires operational assumptions (e.g. network latency or kiosk mounting dimensions), clearly label it under a dedicated **"Assumptions & Limitations"** heading.
+8. **Clear Actor Boundaries:** Accurately characterize the three system roles:
    * **Administrator:** Campus oversight, user provisioning, master policies, audit logs, and official award conferment.
    * **Teacher:** Class attendance roster, live kiosk scanner, first-line excuse review, faculty DTR, and award nomination.
-   * **Student:** Strictly read-only personal attendance, calendar, dynamic QR badge, and excuse submission (certificate print/download is prohibited).
+   * **Student:** Strictly read-only personal attendance, calendar, dynamic QR badge, and dual-option excuse submission (certificate print/download is prohibited).
 
 ---
 
@@ -41,18 +54,21 @@ Use this structure when documenting an individual module (e.g., RFID Kiosk, Excu
 4. **Functional Workflow & Process:** Step-by-step lifecycle from trigger to completion.
 5. **System Architecture & Data Flow:** Diagram (Mermaid sequence or flowchart) showing data movement across layers.
 6. **Database Interactions & Schema:** Tables accessed, keys, queries executed, and RLS policies enforced.
-7. **Security & Validation Measures:** Input sanitation (anti-XSS), anti-passback cooldown, file validation, audit logging.
-8. **Limitations & Future Work:** Acknowledged operational constraints and proposed future expansions.
+7. **SMS 1 Integration Touchpoints:** Connections to Clinic, Prefect, Academic HR, OSAS, or School Events.
+8. **Security & Validation Measures:** Input sanitation (anti-XSS), anti-passback cooldown, file validation, audit logging.
+9. **Limitations & Future Work:** Acknowledged operational constraints and proposed future expansions.
 
 ### Structure B: System Architecture & Workflow Chapter
 Use this structure when creating or revising major manuscript chapters (e.g., Chapter 3 Methodology / System Design):
 
 1. **System Overview:** Architectural summary (HTML5, Compiled Tailwind, Vanilla JS ES6, Supabase PostgreSQL, ESP32 + RC522).
-2. **Hardware & Scanning Subsystem:** ESP32 integration, 13.56 MHz RFID protocol, camera QR scanning, anti-passback logic.
+2. **Hardware & Scanning Subsystem:** ESP32 integration, 13.56 MHz RFID protocol, camera QR scanning, anti-passback logic, dual-context event mode.
 3. **Software & Role Panels:** Detailed specifications of `/admin/`, `/teacher/`, and `/student/` interfaces.
-4. **Security & Compliance Architecture:** 2FA/OTP, active session tracking, 100% RLS enforcement, immutable audit logging.
-5. **End-to-End Sequence Diagrams:** Inter-panel synchronization flows (e.g. Ingestion -> Roster -> Parent SMS -> Student Portal).
-6. **Data Dictionary & Entity Relationships:** Formal entity relationship definitions and indexing strategies.
+4. **SMS 1 Integration Bridges:** Interoperability with Clinic, Prefect of Discipline, Academic HR, OSAS, and School Events.
+5. **Centralized Reporting Engine:** Standardized exports (DepEd SF2, habitual truancy lists, faculty DTR summaries).
+6. **Security & Compliance Architecture:** 2FA/OTP, active session tracking, 100% RLS enforcement, immutable audit logging.
+7. **End-to-End Sequence Diagrams:** Inter-panel synchronization flows.
+8. **Data Dictionary & Entity Relationships:** Formal entity relationship definitions and indexing strategies.
 
 ---
 
@@ -81,6 +97,7 @@ Use this structure when creating or revising major manuscript chapters (e.g., Ch
 When generating documentation:
 - [ ] Confirmed project title: *Design and Development of an Attendance Monitoring System for Bestlink College of the Philippines with Performance Analytics and RFID/QR Scanning*.
 - [ ] Technology stack accurately represented (no unauthorized frameworks like React or PHP).
-- [ ] Complete database tables referenced match confirmed schema (`profiles`, `students`, `teachers`, `admin_details`, `attendance`, `teacher_attendance`, `rfid_cards`, `sms_logs`, `excuse_slips`, `conferred_awards`, `user_activity`).
+- [ ] Complete database tables referenced match confirmed schema (`profiles`, `students`, `teachers`, `admin_details`, `attendance`, `teacher_attendance`, `rfid_cards`, `sms_logs`, `excuse_slips`, `perfect_attendance_awards`, `user_activity`).
 - [ ] RLS and security compliance explicitly addressed.
 - [ ] Assumptions clearly distinguished from implemented features.
+- [ ] No emojis in code snippets, tables, or text.
