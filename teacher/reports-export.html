@@ -609,7 +609,7 @@
           </div>
 
           <!-- 3 Format Cards Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
 
             <!-- CSV Format -->
             <label
@@ -648,6 +648,30 @@
                   <h3 class="text-xs font-bold text-[#111827] mb-0.5">Microsoft Excel (.xlsx)</h3>
                   <p class="text-[11px] text-[#6b7280] leading-relaxed">
                     Formatted workbook with section headers and auto-styled columns ready for departmental submission.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="radio-circle w-4 h-4 rounded-full border-2 border-[#d1d5db] flex items-center justify-center shrink-0 mt-0.5 bg-white">
+                <div class="w-1.5 h-1.5 rounded-full bg-white hidden"></div>
+              </div>
+            </label>
+
+            
+            <!-- Word Document Format -->
+            <label
+              class="format-card border border-[#e5e7eb] bg-white rounded-xl p-4 hover:border-[#0030c2]/50 hover:bg-[#f8fafc] cursor-pointer transition-all flex items-start justify-between relative shadow-2xs"
+              onclick="selectFormatOption(this, 'Word')">
+              <input type="radio" name="exportFormatOption" value="Word" class="hidden">
+              <div class="flex items-start gap-3.5">
+                <div
+                  class="w-10 h-10 rounded-lg bg-[#eff6ff] text-[#2563eb] flex items-center justify-center font-black text-xs shrink-0">
+                  DOCX
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-[#111827] mb-0.5">Word</h3>
+                  <p class="text-[11px] text-[#6b7280] leading-relaxed">
+                    Export data as Microsoft Word document (.docx). Best for formal narratives and official documentation.
                   </p>
                 </div>
               </div>

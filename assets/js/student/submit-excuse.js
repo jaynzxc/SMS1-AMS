@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   parseUrlParameters();
   initDropzone();
   initWholeDayToggle();
+  initMedicalSourceControls();
   initFormSubmit();
   initModalListeners();
   exposeGlobalFunctions();
@@ -91,6 +92,84 @@ function initWholeDayToggle() {
       subjectSelect.classList.remove('bg-gray-100', 'cursor-not-allowed', 'opacity-60');
     }
   });
+}
+
+/**
+ * Initialize Medical Proof Source Controls (External Medical vs School Clinic Pass)
+ */
+function initMedicalSourceControls() {
+  const reasonCategory = document.getElementById('excuseReasonCategory');
+  const medicalSection = document.getElementById('medicalProofSourceSection');
+  const radioExternal = document.getElementById('radioExternalMedical');
+  const radioClinic = document.getElementById('radioClinicPass');
+  const optExternalLabel = document.getElementById('optExternalLabel');
+  const optClinicLabel = document.getElementById('optClinicLabel');
+  const clinicPassContainer = document.getElementById('clinicPassInputContainer');
+  const supportingDocLabel = document.getElementById('supportingDocLabel');
+  const fileUploadHint = document.getElementById('fileUploadHintText');
+
+  if (!reasonCategory || !medicalSection) return;
+
+  // Toggle visibility of medical proof section based on reason category
+  reasonCategory.addEventListener('change', () => {
+    if (reasonCategory.value === 'Medical Illness / Consultation') {
+      medicalSection.classList.remove('hidden');
+      updateMedicalSourceUI();
+    } else {
+      medicalSection.classList.add('hidden');
+      if (supportingDocLabel) {
+        supportingDocLabel.textContent = 'Supporting Document Proof (Upload PDF or Image)';
+      }
+      if (fileUploadHint) {
+        fileUploadHint.textContent = 'Medical Certificate, Excuse Letter, or Incident Report (PDF, PNG, JPG up to 5MB)';
+      }
+    }
+  });
+
+  function updateMedicalSourceUI() {
+    const isClinic = radioClinic && radioClinic.checked;
+
+    if (isClinic) {
+      if (optClinicLabel) {
+        optClinicLabel.classList.remove('border-[#e5e7eb]', 'bg-white');
+        optClinicLabel.classList.add('border-2', 'border-[#0030c2]', 'bg-[#eff6ff]');
+      }
+      if (optExternalLabel) {
+        optExternalLabel.classList.remove('border-2', 'border-[#0030c2]', 'bg-[#eff6ff]');
+        optExternalLabel.classList.add('border', 'border-[#e5e7eb]', 'bg-white');
+      }
+      if (clinicPassContainer) clinicPassContainer.classList.remove('hidden');
+      if (supportingDocLabel) {
+        supportingDocLabel.textContent = 'Additional Clinic Slip Photo / Doctor Note (Optional)';
+      }
+      if (fileUploadHint) {
+        fileUploadHint.textContent = 'Attach optional photo of physical clinic slip (PDF, PNG, JPG up to 5MB)';
+      }
+    } else {
+      if (optExternalLabel) {
+        optExternalLabel.classList.remove('border-[#e5e7eb]', 'bg-white');
+        optExternalLabel.classList.add('border-2', 'border-[#0030c2]', 'bg-[#eff6ff]');
+      }
+      if (optClinicLabel) {
+        optClinicLabel.classList.remove('border-2', 'border-[#0030c2]', 'bg-[#eff6ff]');
+        optClinicLabel.classList.add('border', 'border-[#e5e7eb]', 'bg-white');
+      }
+      if (clinicPassContainer) clinicPassContainer.classList.add('hidden');
+      if (supportingDocLabel) {
+        supportingDocLabel.textContent = 'External Medical Certificate / Doctor Note (Required Attachment)';
+      }
+      if (fileUploadHint) {
+        fileUploadHint.textContent = 'Physician Medical Certificate or Hospital Slip (PDF, PNG, JPG up to 5MB)';
+      }
+    }
+  }
+
+  if (radioExternal) {
+    radioExternal.addEventListener('change', updateMedicalSourceUI);
+  }
+  if (radioClinic) {
+    radioClinic.addEventListener('change', updateMedicalSourceUI);
+  }
 }
 
 /**
@@ -221,6 +300,17 @@ function initFormSubmit() {
       return;
     }
 
+    // Medical source validation
+    const isMedical = reasonVal === 'Medical Illness / Consultation';
+    const isClinicPass = isMedical && document.querySelector('input[name="medicalSourceType"]:checked')?.value === 'CLINIC_PASS';
+    const clinicPassNo = isClinicPass ? document.getElementById('clinicPassNumberInput')?.value.trim() : null;
+
+    if (isClinicPass && !clinicPassNo) {
+      alert('Please enter your School Clinic Pass / Consultation Slip Number.');
+      document.getElementById('clinicPassNumberInput')?.focus();
+      return;
+    }
+
     // Set submitting loading state
     if (submitBtn) {
       submitBtn.disabled = true;
@@ -234,6 +324,10 @@ function initFormSubmit() {
     }
 
     const ticketNo = `EXC-2026-00${Math.floor(Math.random() * 90) + 10}`;
+    const proofLabel = isClinicPass 
+      ? `School Clinic Pass: ${clinicPassNo}` 
+      : (selectedFile ? selectedFile.name : (isMedical ? 'External Medical Note' : null));
+    const proofBadge = isClinicPass ? 'School Clinic Verified' : (isMedical ? 'External Medical' : 'Verified Document');
 
     // Attempt Supabase insert with resilient fallback
     try {
@@ -247,8 +341,11 @@ function initFormSubmit() {
             subject: subjectVal,
             reason: reasonVal,
             explanation: explanationVal,
-            has_attachment: selectedFile !== null,
-            attachment_name: selectedFile ? selectedFile.name : null,
+            medical_source: isMedical ? (isClinicPass ? 'CLINIC_PASS' : 'EXTERNAL_MEDICAL') : null,
+            clinic_pass_no: clinicPassNo,
+            proof_badge: proofBadge,
+            has_attachment: selectedFile !== null || isClinicPass,
+            attachment_name: proofLabel,
             status: 'Pending Review',
             submitted_at: new Date().toISOString()
           }
@@ -273,7 +370,10 @@ function initFormSubmit() {
         teacher: getTeacherForSubject(subjectVal),
         reasonCategory: reasonVal,
         explanation: explanationVal,
-        attachmentName: selectedFile ? selectedFile.name : null,
+        medicalSource: isMedical ? (isClinicPass ? 'CLINIC_PASS' : 'EXTERNAL_MEDICAL') : null,
+        clinicPassNumber: clinicPassNo,
+        proofBadge: proofBadge,
+        attachmentName: proofLabel,
         status: 'Pending Review'
       };
 
@@ -284,7 +384,8 @@ function initFormSubmit() {
     }
 
     setTimeout(() => {
-      alert(`Excuse Slip Submitted Successfully!\n\nReference Ticket: ${ticketNo}\nSubject: ${subjectVal}\nStatus: Pending Review\n\nYour instructor has been notified to evaluate this request.`);
+      const clinicMsg = isClinicPass ? `\nClinic Verification: Slip #${clinicPassNo} pre-linked to Campus Clinic.` : '';
+      alert(`Excuse Slip Submitted Successfully!\n\nReference Ticket: ${ticketNo}\nSubject: ${subjectVal}\nStatus: Pending Review${clinicMsg}\n\nYour instructor has been notified to evaluate this request.`);
       resetExcuseForm();
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -319,6 +420,22 @@ function resetExcuseForm() {
   const form = document.getElementById('excuseSlipForm');
   if (form) form.reset();
   removeAttachedFile();
+  const medicalSection = document.getElementById('medicalProofSourceSection');
+  if (medicalSection) medicalSection.classList.add('hidden');
+  const clinicContainer = document.getElementById('clinicPassInputContainer');
+  if (clinicContainer) clinicContainer.classList.add('hidden');
+  const radioExternal = document.getElementById('radioExternalMedical');
+  if (radioExternal) radioExternal.checked = true;
+  const optExternal = document.getElementById('optExternalLabel');
+  const optClinic = document.getElementById('optClinicLabel');
+  if (optExternal) {
+    optExternal.classList.remove('border-[#e5e7eb]', 'bg-white');
+    optExternal.classList.add('border-2', 'border-[#0030c2]', 'bg-[#eff6ff]');
+  }
+  if (optClinic) {
+    optClinic.classList.remove('border-2', 'border-[#0030c2]', 'bg-[#eff6ff]');
+    optClinic.classList.add('border', 'border-[#e5e7eb]', 'bg-white');
+  }
   const subjectSelect = document.getElementById('excuseSubjectSelect');
   if (subjectSelect) {
     subjectSelect.disabled = false;

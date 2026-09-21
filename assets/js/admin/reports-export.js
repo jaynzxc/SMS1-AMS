@@ -853,11 +853,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.downloadReportFile = function () {
     const dataset = buildDynamicDataset(activeReportType || 'daily', activeFilters);
-    const filename = `${dataset.title.replace(/\s+/g, '_')}_${activeFormat.toLowerCase()}.${activeFormat.toLowerCase() === 'excel' ? 'xlsx' : activeFormat.toLowerCase()}`;
+    const format = (activeFormat || 'CSV').toUpperCase();
+    const cleanTitle = dataset.title.replace(/[\s\/]+/g, '_');
+    const dateStr = formatDisplayDate(activeFilters.date);
+
+    if (format === 'CSV') {
+      const headerLines = [
+        `"BESTLINK COLLEGE OF THE PHILIPPINES"`,
+        `"ATTENDANCE MONITORING SYSTEM - OFFICIAL REPORT EXPORT"`,
+        `"Report Title:","${dataset.title}"`,
+        `"Academic Date:","${dateStr}"`,
+        `"Filter Department:","${activeFilters.course === 'all' ? 'All Departments' : activeFilters.course}"`,
+        `"Filter Section:","${activeFilters.section === 'all' ? 'All Sections' : activeFilters.section}"`,
+        `"Total Records:","${dataset.rows.length}"`,
+        `""`
+      ];
+      const plainHeaders = dataset.columns.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',');
+      const plainRows = dataset.rows.map(row => {
+        return row.map(cell => `"${String(cell).replace(/<[^>]+>/g, '').replace(/"/g, '""').trim()}"`).join(',');
+      }).join('\r\n');
+
+      const csvContent = '\uFEFF' + headerLines.join('\r\n') + '\r\n' + plainHeaders + '\r\n' + plainRows;
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      triggerBrowserDownload(blob, `${cleanTitle}_${Date.now()}.csv`);
+
+    } else if (format === 'EXCEL') {
+      const tableHeadHtml = dataset.columns.map(c => `<th style="background:#0030c2;color:#ffffff;padding:8px;border:1px solid #ddd;font-family:sans-serif;font-size:12px;">${c}</th>`).join('');
+      const tableBodyHtml = dataset.rows.map(row => {
+        return `<tr>${row.map(cell => `<td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:sans-serif;font-size:11px;">${String(cell).replace(/<[^>]+>/g, '').trim()}</td>`).join('')}</tr>`;
+      }).join('');
+
+      const excelHtml = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+        <head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>${cleanTitle.substring(0, 30)}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
+        <body style="font-family:sans-serif;">
+          <div style="margin-bottom:12px;">
+            <h2 style="color:#0030c2;margin:0 0 4px 0;">BESTLINK COLLEGE OF THE PHILIPPINES</h2>
+            <p style="margin:0;font-size:12px;color:#4b5563;">Attendance Monitoring System · Institutional Reports</p>
+            <p style="margin:4px 0 0 0;font-size:11px;color:#6b7280;"><strong>Report:</strong> ${dataset.title} | <strong>Date:</strong> ${dateStr} | <strong>Total:</strong> ${dataset.rows.length} records</p>
+          </div>
+          <table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse;width:100%;">
+            <thead><tr>${tableHeadHtml}</tr></thead>
+            <tbody>${tableBodyHtml}</tbody>
+          </table>
+        </body>
+        </html>
+      `;
+      const blob = new Blob([excelHtml], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+      triggerBrowserDownload(blob, `${cleanTitle}_${Date.now()}.xls`);
+
+    } else if (format === 'WORD') {
+      const tableHeadHtml = dataset.columns.map(c => `<th style="background:#0030c2;color:#ffffff;padding:8px;border:1px solid #ddd;font-family:Calibri,sans-serif;font-size:11pt;text-align:left;">${c}</th>`).join('');
+      const tableBodyHtml = dataset.rows.map(row => {
+        return `<tr>${row.map(cell => `<td style="padding:6px 8px;border:1px solid #cbd5e1;font-family:Calibri,sans-serif;font-size:10pt;">${String(cell).replace(/<[^>]+>/g, '').trim()}</td>`).join('')}</tr>`;
+      }).join('');
+
+      const wordHtml = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+        <head><meta charset="utf-8">
+          <style>
+            body { font-family: Calibri, Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #0030c2; padding-bottom: 12px; margin-bottom: 16px; }
+            .school-name { font-size: 16pt; font-weight: bold; color: #0030c2; }
+            .sub-title { font-size: 11pt; color: #4b5563; }
+            .doc-title { font-size: 13pt; font-weight: bold; margin-top: 8px; color: #111827; }
+            table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+            .sig-section { margin-top: 40px; width: 100%; border: none; }
+            .sig-box { width: 50%; border: none; vertical-align: top; }
+            .sig-line { border-top: 1px solid #000; width: 220px; margin-top: 45px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="school-name">BESTLINK COLLEGE OF THE PHILIPPINES</div>
+            <div class="sub-title">Attendance Monitoring System · Institutional Record</div>
+            <div class="doc-title">${dataset.title}</div>
+            <div class="sub-title"><strong>Scope:</strong> ${activeFilters.section === 'all' ? 'All Sections' : activeFilters.section} | <strong>Date:</strong> ${dateStr} | <strong>Records:</strong> ${dataset.rows.length}</div>
+          </div>
+          <table border="1" cellpadding="6" cellspacing="0">
+            <thead><tr>${tableHeadHtml}</tr></thead>
+            <tbody>${tableBodyHtml}</tbody>
+          </table>
+          <table class="sig-section" style="border:none;margin-top:40px;">
+            <tr style="border:none;">
+              <td class="sig-box" style="border:none;">
+                <p>Prepared & Generated by:</p>
+                <div class="sig-line"></div>
+                <p><strong>System Administrator</strong><br><span style="font-size:9pt;color:#6b7280;">Office of the Registrar</span></p>
+              </td>
+              <td class="sig-box" style="border:none;">
+                <p>Verified & Approved by:</p>
+                <div class="sig-line"></div>
+                <p><strong>Academic Dean / Vice President</strong><br><span style="font-size:9pt;color:#6b7280;">Academic Affairs</span></p>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `;
+      const blob = new Blob(['\ufeff' + wordHtml], { type: 'application/msword;charset=utf-8;' });
+      triggerBrowserDownload(blob, `${cleanTitle}_${Date.now()}.doc`);
+
+    } else if (format === 'PDF') {
+      window.closeReportPreviewModal();
+      setTimeout(() => {
+        window.print();
+      }, 300);
+      return;
+    }
 
     window.closeReportPreviewModal();
-    showToast("File Download Started", `Your report "${filename}" (${dataset.rows.length} rows) has been generated and downloaded.`, "success");
+    showToast("File Download Started", `Your report "${cleanTitle}" (${dataset.rows.length} rows) has been generated as ${format}.`, "success");
   };
+
+  function triggerBrowserDownload(blob, filename) {
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
 
   // Toast Notification System
   function showToast(title, message, type = 'info') {
