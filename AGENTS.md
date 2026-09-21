@@ -91,6 +91,7 @@ Before changing code:
 3. **Identify affected modules across all roles:** Consult `.agent/skills/system-flow/SKILL.md` to trace dependencies across Admin, Teacher, and Student portals.
 4. **Implement only the requested feature:** Never rewrite an entire working module for a small change.
 5. **Check for regression in related pages:** Validate that modifications do not break cross-panel sync or dependent views.
+6. **Continuous Skill & Spec Synchronization:** When we change something in UI/UX, update the related agent skills specifications (`.agent/skills/ui-ux/SKILL.md`, `.agent/skills/analytics-reporting/SKILL.md`, etc.) so future design decisions and agent actions remain 100% aligned with recent visual and behavioral changes.
 
 Prefer incremental modifications.
 

@@ -234,3 +234,14 @@ Before finishing any UI change or creating a new page:
 - [ ] Font is Inter (`font-family: 'Inter', sans-serif`).
 - [ ] Status badges match the institutional color tokens.
 - [ ] Zero emojis in generated HTML, comments, or UI badges.
+- [ ] Related agent skills specifications updated to align with any UI/UX changes made.
+
+---
+
+## 9. Continuous UI/UX Spec Alignment Rule
+
+Whenever making modifications, improvements, or refinements to UI/UX components (e.g., chart styling, pill bars, card geometries, hover interactions, progressive color hierarchies):
+
+1. **Always Update Related Agent Skill Specs:** Immediately update `.agent/skills/ui-ux/SKILL.md`, `.agent/skills/analytics-reporting/SKILL.md`, or other relevant skills to reflect the new visual tokens, container bounds, SVG viewBox scales, and interactive behaviors.
+2. **Preserve Visual Continuity:** Ensure all subsequent tasks align with the updated specifications to prevent accidental regressions to legacy templates or outdated layouts.
+

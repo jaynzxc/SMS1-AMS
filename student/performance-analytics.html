@@ -407,178 +407,220 @@
         </div>
 
         <!-- ===== CHARTS ROW (2 EQUAL COLUMNS MATCHING TEACHER/CLASS-ANALYTICS.HTML EXACTLY) ===== -->
+        <!-- ===== CHARTS ROW (2 CARDS SIDE-BY-SIDE) ===== -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-          <!-- Left Card: Daily Attendance Trends (Line Chart) -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-sm font-bold text-[#111827]">Daily Attendance Trends</h3>
-              <div class="flex items-center gap-2 text-xs text-[#6b7280]">
-                <span class="w-2.5 h-2.5 rounded-sm bg-[#0030c2] inline-block"></span>
-                <span>Attendance Rate (%)</span>
+          <!-- Left Card: Daily Attendance Trends - Modern Area Chart with Natural Spline -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm flex flex-col justify-between">
+            <!-- Header Section (Referencing line_chartUI.md with border divider and time range select) -->
+            <div class="flex items-center justify-between pb-3 mb-2 border-b border-[#e5e7eb]">
+              <div>
+                <h3 class="text-sm font-bold text-[#111827]">Daily Attendance Trends</h3>
+                <p class="text-xs text-[#6b7280] mt-0.5">Personal daily attendance monitoring &amp; trends</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <select id="trendTimeRange" aria-label="Select time range" class="text-xs font-medium text-[#374151] bg-[#f9fafb] hover:bg-[#f3f4f6] border border-[#e5e7eb] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#0030c2] transition-colors cursor-pointer">
+                  <option value="30d" selected>Last 30 days</option>
+                  <option value="14d">Last 14 days</option>
+                  <option value="7d">Last 7 days</option>
+                </select>
               </div>
             </div>
 
-            <!-- SVG Line Chart -->
-            <div class="relative mt-2" id="trendChartContainer">
-              <svg viewBox="0 0 600 240" class="w-full h-64 overflow-visible">
-                <!-- Background Grid Lines -->
+            <!-- SVG Line Chart Container -->
+            <div id="trendChartContainer" class="relative mt-2 w-full">
+              <!-- Contained Glassmorphic Tooltip Overlay (Simplified: Date + Indicator Dot + Rate Only) -->
+              <div id="trendChartTooltip"
+                class="absolute opacity-0 pointer-events-none z-20 transition-opacity duration-150 rounded-lg px-3 py-2 min-w-[120px] text-center"
+                style="background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.35);">
+                <p id="trendTooltipDate" class="text-[11px] font-medium text-gray-300">Jul 25, 2026</p>
+                <p class="text-xs font-bold text-white mt-0.5 flex items-center justify-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-[#60a5fa] inline-block shrink-0"></span>
+                  <span>Rate: <span id="trendTooltipRate" class="text-[#60a5fa]">97.20%</span></span>
+                </p>
+              </div>
+
+              <svg id="trendSvg" viewBox="0 0 600 226" class="w-full h-56 sm:h-60 overflow-visible cursor-crosshair">
+                <defs>
+                  <linearGradient id="trendAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stop-color="#0030c2" stop-opacity="0.3" />
+                    <stop offset="95%" stop-color="#0030c2" stop-opacity="0.01" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Background Grid Lines (Horizontal Only, CartesianGrid vertical={false}) -->
                 <g stroke="#f1f5f9" stroke-width="1">
-                  <line x1="35" y1="20" x2="580" y2="20" />
-                  <line x1="35" y1="65" x2="580" y2="65" />
-                  <line x1="35" y1="110" x2="580" y2="110" />
-                  <line x1="35" y1="155" x2="580" y2="155" />
-                  <line x1="35" y1="200" x2="580" y2="200" />
+                  <line x1="36" y1="20" x2="590" y2="20" />
+                  <line x1="36" y1="63.75" x2="590" y2="63.75" />
+                  <line x1="36" y1="107.5" x2="590" y2="107.5" />
+                  <line x1="36" y1="151.25" x2="590" y2="151.25" />
+                  <line x1="36" y1="195" x2="590" y2="195" />
                 </g>
 
-                <!-- Y-Axis Labels -->
-                <g font-size="10" fill="#9ca3af" font-weight="500">
-                  <text x="5" y="24">100%</text>
-                  <text x="11" y="69">90%</text>
-                  <text x="11" y="114">80%</text>
-                  <text x="11" y="159">70%</text>
-                  <text x="11" y="204">60%</text>
+                <!-- Y-Axis Labels (Right-aligned against grid line) -->
+                <g font-size="10" fill="#9ca3af" font-weight="500" text-anchor="end">
+                  <text x="30" y="24">100%</text>
+                  <text x="30" y="67.5">90%</text>
+                  <text x="30" y="111.5">80%</text>
+                  <text x="30" y="155">70%</text>
+                  <text x="30" y="198.5">60%</text>
                 </g>
 
-                <!-- Polyline Trend Line -->
-                <polyline id="lineChartPolyline" fill="none" stroke="#0030c2" stroke-width="2.5" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  points="45,69.5 79,78.5 113,51.5 147,56 181,74 215,47 249,56 283,42.5 317,60.5 351,56 385,31.2 419,42.5 453,31.2 487,31.2 521,35.7 555,56" />
+                <!-- Magnetic Snapping Vertical Line -->
+                <line id="trendMagneticLine" x1="0" y1="20" x2="0" y2="195" stroke="#0030c2" stroke-width="1.5" stroke-dasharray="3,3" opacity="0" class="pointer-events-none transition-opacity duration-150" />
 
-                <!-- Data Points (Circles) -->
-                <g id="lineChartCircles" fill="#0030c2" stroke="#ffffff" stroke-width="2">
-                  <circle cx="45" cy="69.5" r="4" />
-                  <circle cx="79" cy="78.5" r="4" />
-                  <circle cx="113" cy="51.5" r="4" />
-                  <circle cx="147" cy="56" r="4" />
-                  <circle cx="181" cy="74" r="4" />
-                  <circle cx="215" cy="47" r="4" />
-                  <circle cx="249" cy="56" r="4" />
-                  <circle cx="283" cy="42.5" r="4" />
-                  <circle cx="317" cy="60.5" r="4" />
-                  <circle cx="351" cy="56" r="4" />
-                  <circle cx="385" cy="31.2" r="5" fill="#0030c2" stroke="#ffffff" stroke-width="2" />
-                  <circle cx="419" cy="42.5" r="4" />
-                  <circle cx="453" cy="31.2" r="4" />
-                  <circle cx="487" cy="31.2" r="4" />
-                  <circle cx="521" cy="35.7" r="4" />
-                  <circle cx="555" cy="56" r="4" />
+                <!-- Natural Cubic Spline Area Fill (Rendered via JS) -->
+                <path id="trendAreaPath" fill="url(#trendAreaGradient)" class="transition-all duration-300" d="" />
+
+                <!-- Natural Cubic Spline Line Stroke -->
+                <path id="trendLinePath" fill="none" stroke="#0030c2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-all duration-300" d="" />
+
+                <!-- Data Points (Circles) with Snapping Coordinates -->
+                <g id="trendPointsGroup" fill="#0030c2" stroke="#ffffff" stroke-width="2">
                 </g>
 
-                <!-- X-Axis Labels -->
-                <g font-size="10" fill="#6b7280" font-weight="500">
-                  <text x="37" y="222">Sep 1</text>
-                  <text x="105" y="222">Sep 6</text>
-                  <text x="173" y="222">Sep 11</text>
-                  <text x="275" y="222">Sep 16</text>
-                  <text x="343" y="222">Sep 21</text>
-                  <text x="445" y="222">Sep 26</text>
-                  <text x="547" y="222">Sep 30</text>
+                <!-- X-Axis Labels (Rendered via JS) -->
+                <g id="trendXAxisLabels" font-size="10" fill="#6b7280" font-weight="500">
                 </g>
               </svg>
-
-              <!-- Tooltip Overlay (Identical to teacher/class-analytics.html) -->
-              <div id="chartTooltip"
-                class="absolute top-28 right-16 bg-white border border-[#e5e7eb] shadow-md rounded-lg p-2 text-center pointer-events-none z-10 min-w-[130px]">
-                <p class="text-[10px] font-medium text-[#6b7280]" id="tooltipDate">Sep 25, 2026</p>
-                <p class="text-xs font-bold text-[#111827] mt-0.5">Attendance Rate: <span
-                    class="text-[#0030c2]" id="tooltipValue">94.20%</span></p>
-              </div>
             </div>
           </div>
 
-          <!-- Right Card: Monthly Comparison (Bar Chart) -->
-          <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-sm font-bold text-[#111827]">Monthly Comparison</h3>
-              <div class="flex items-center gap-2 text-xs text-[#6b7280]">
-                <span class="w-2.5 h-2.5 rounded-sm bg-[#0030c2] inline-block"></span>
-                <span>Attendance Rate (%)</span>
+          <!-- Right Card: Monthly Attendance Comparison (12-Month Annual View) -->
+          <div class="bg-white rounded-xl border border-[#e5e7eb] p-5 shadow-sm flex flex-col justify-between">
+            <!-- Header Section (Symmetrically aligned with Attendance Trend header) -->
+            <div class="flex items-center justify-between pb-3 mb-2 border-b border-[#e5e7eb]">
+              <div>
+                <h3 class="text-sm font-bold text-[#111827]">Monthly Comparison</h3>
+                <p class="text-xs text-[#6b7280] mt-0.5">Annual Attendance Overview (12 Months - A.Y. 2025-2026)</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-medium text-[#374151] bg-[#f9fafb] border border-[#e5e7eb] rounded-lg px-3 py-1.5 inline-block">A.Y. 2025-2026</span>
               </div>
             </div>
 
             <!-- Bar Chart SVG Container -->
-            <div class="relative mt-2">
-              <svg viewBox="0 0 600 240" class="w-full h-64 overflow-visible">
-                <!-- Background Grid Lines -->
+            <div id="barChartContainer" class="relative mt-2 w-full">
+              <!-- Contained Glassmorphic Tooltip Overlay (Simplified: Month & Rate Only) -->
+              <div id="barChartTooltip"
+                class="absolute opacity-0 pointer-events-none z-20 transition-opacity duration-150 rounded-lg px-3 py-2 min-w-[120px] text-center"
+                style="background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.35);">
+                <p id="barTooltipMonth" class="text-[11px] font-medium text-gray-300">July 2026</p>
+                <div id="barTooltipStats">
+                  <p class="text-xs font-bold text-white mt-0.5">Rate: <span id="barTooltipRate" class="text-[#60a5fa]">92.10%</span></p>
+                </div>
+                <!-- Zero-details empty state for upcoming months -->
+                <div id="barTooltipEmpty" class="hidden text-[10px] text-gray-400 mt-0.5 italic">
+                  No records
+                </div>
+              </div>
+
+              <svg id="barSvg" viewBox="0 0 600 226" class="w-full h-56 sm:h-60 overflow-visible cursor-pointer">
+                <!-- Background Grid Lines (Horizontal Only, matching trendSvg grid tiers) -->
                 <g stroke="#f1f5f9" stroke-width="1">
-                  <line x1="35" y1="20" x2="580" y2="20" />
-                  <line x1="35" y1="65" x2="580" y2="65" />
-                  <line x1="35" y1="110" x2="580" y2="110" />
-                  <line x1="35" y1="155" x2="580" y2="155" />
-                  <line x1="35" y1="200" x2="580" y2="200" />
+                  <line x1="36" y1="20" x2="590" y2="20" />
+                  <line x1="36" y1="63.75" x2="590" y2="63.75" />
+                  <line x1="36" y1="107.5" x2="590" y2="107.5" />
+                  <line x1="36" y1="151.25" x2="590" y2="151.25" />
+                  <line x1="36" y1="195" x2="590" y2="195" />
                 </g>
 
-                <!-- Y-Axis Labels -->
-                <g font-size="10" fill="#9ca3af" font-weight="500">
-                  <text x="5" y="24">100%</text>
-                  <text x="11" y="69">75%</text>
-                  <text x="11" y="114">50%</text>
-                  <text x="11" y="159">25%</text>
-                  <text x="17" y="204">0%</text>
+                <!-- Magnetic Column Highlight Behind Active Bar -->
+                <rect id="barMagneticColumn" x="0" y="20" width="38" height="175" rx="8" fill="#0030c2" fill-opacity="0.06" opacity="0" class="pointer-events-none transition-all duration-150" />
+
+                <!-- Y-Axis Reference Labels (Right-aligned matching trendSvg) -->
+                <g font-size="10" fill="#9ca3af" font-weight="500" text-anchor="end">
+                  <text x="30" y="24">100%</text>
+                  <text x="30" y="67.5">75%</text>
+                  <text x="30" y="111.5">50%</text>
+                  <text x="30" y="155">25%</text>
+                  <text x="30" y="198.5">0%</text>
                 </g>
 
-                <!-- Monthly Bars (12 Months) -->
-                <g>
-                  <!-- Feb: 89.20% -->
-                  <rect x="45" y="41.3" width="26" height="158.7" rx="4" fill="#93b4ff" />
-                  <text x="42" y="35" font-size="9" fill="#6b7280" font-weight="600">89.20%</text>
+                <!-- Monthly Bars (12 Months: Jan - Dec) Fitted 26px Pill Bars -->
+                <g id="barChartGroup">
+                  <!-- Jan: 88.5% (past) -->
+                  <g class="bar-item cursor-pointer" data-status="past" data-center="60" data-month="January 2026" data-rate="88.50%">
+                    <rect x="47" y="40.0" width="26" height="155.0" rx="7" ry="7" fill="#60a5fa" class="transition-all duration-150 hover:fill-[#3b82f6]" />
+                    <text x="60" y="32.0" font-size="10" fill="#374151" font-weight="600" text-anchor="middle" class="pointer-events-none select-none">88.5%</text>
+                  </g>
 
-                  <!-- Mar: 90.15% -->
-                  <rect x="90" y="39.2" width="26" height="160.8" rx="4" fill="#93b4ff" />
-                  <text x="87" y="33" font-size="9" fill="#6b7280" font-weight="600">90.15%</text>
+                  <!-- Feb: 89.20% (past) -->
+                  <g class="bar-item cursor-pointer" data-status="past" data-center="106" data-month="February 2026" data-rate="89.20%">
+                    <rect x="93" y="38.9" width="26" height="156.1" rx="7" ry="7" fill="#60a5fa" class="transition-all duration-150 hover:fill-[#3b82f6]" />
+                    <text x="106" y="30.9" font-size="10" fill="#374151" font-weight="600" text-anchor="middle" class="pointer-events-none select-none">89.2%</text>
+                  </g>
 
-                  <!-- Apr: 91.00% -->
-                  <rect x="135" y="37.8" width="26" height="162.2" rx="4" fill="#93b4ff" />
-                  <text x="132" y="31" font-size="9" fill="#6b7280" font-weight="600">91.00%</text>
+                  <!-- Mar: 90.15% (past) -->
+                  <g class="bar-item cursor-pointer" data-status="past" data-center="152" data-month="March 2026" data-rate="90.15%">
+                    <rect x="139" y="37.2" width="26" height="157.8" rx="7" ry="7" fill="#60a5fa" class="transition-all duration-150 hover:fill-[#3b82f6]" />
+                    <text x="152" y="29.2" font-size="10" fill="#374151" font-weight="600" text-anchor="middle" class="pointer-events-none select-none">90.2%</text>
+                  </g>
 
-                  <!-- May: 91.80% -->
-                  <rect x="180" y="36.1" width="26" height="163.9" rx="4" fill="#93b4ff" />
-                  <text x="177" y="29" font-size="9" fill="#6b7280" font-weight="600">91.80%</text>
+                  <!-- Apr: 91.00% (past) -->
+                  <g class="bar-item cursor-pointer" data-status="past" data-center="198" data-month="April 2026" data-rate="91.00%">
+                    <rect x="185" y="35.7" width="26" height="159.3" rx="7" ry="7" fill="#60a5fa" class="transition-all duration-150 hover:fill-[#3b82f6]" />
+                    <text x="198" y="27.7" font-size="10" fill="#374151" font-weight="600" text-anchor="middle" class="pointer-events-none select-none">91.0%</text>
+                  </g>
 
-                  <!-- Jun: 90.50% -->
-                  <rect x="225" y="37.8" width="26" height="162.2" rx="4" fill="#93b4ff" />
-                  <text x="222" y="31" font-size="9" fill="#6b7280" font-weight="600">90.50%</text>
+                  <!-- May: 91.80% (past) -->
+                  <g class="bar-item cursor-pointer" data-status="past" data-center="244" data-month="May 2026" data-rate="91.80%">
+                    <rect x="231" y="34.3" width="26" height="160.7" rx="7" ry="7" fill="#60a5fa" class="transition-all duration-150 hover:fill-[#3b82f6]" />
+                    <text x="244" y="26.3" font-size="10" fill="#374151" font-weight="600" text-anchor="middle" class="pointer-events-none select-none">91.8%</text>
+                  </g>
 
-                  <!-- Jul: 92.10% -->
-                  <rect x="270" y="35.5" width="26" height="164.5" rx="4" fill="#93b4ff" />
-                  <text x="267" y="29" font-size="9" fill="#6b7280" font-weight="600">92.10%</text>
+                  <!-- Jun: 90.50% (past) -->
+                  <g class="bar-item cursor-pointer" data-status="past" data-center="290" data-month="June 2026" data-rate="90.50%">
+                    <rect x="277" y="36.6" width="26" height="158.4" rx="7" ry="7" fill="#60a5fa" class="transition-all duration-150 hover:fill-[#3b82f6]" />
+                    <text x="290" y="28.6" font-size="10" fill="#374151" font-weight="600" text-anchor="middle" class="pointer-events-none select-none">90.5%</text>
+                  </g>
 
-                  <!-- Aug: 92.40% -->
-                  <rect x="315" y="34.1" width="26" height="165.9" rx="4" fill="#93b4ff" />
-                  <text x="312" y="28" font-size="9" fill="#6b7280" font-weight="600">92.40%</text>
+                  <!-- Jul: 92.10% (current) -->
+                  <g class="bar-item cursor-pointer" data-status="current" data-center="336" data-month="July 2026" data-rate="92.10%">
+                    <rect x="323" y="33.8" width="26" height="161.2" rx="7" ry="7" fill="#0030c2" class="transition-all duration-150 hover:fill-[#002594]" />
+                    <text x="336" y="25.8" font-size="10" fill="#0030c2" font-weight="700" text-anchor="middle" class="pointer-events-none select-none">92.1%</text>
+                  </g>
 
-                  <!-- Sep: 94.20% (Highlighted Active Month) -->
-                  <rect x="360" y="31.9" width="26" height="168.1" rx="4" fill="#0030c2" />
-                  <text x="357" y="24" font-size="9" fill="#0030c2" font-weight="700">94.20%</text>
+                  <!-- Aug: Future (Ghost Pillar) -->
+                  <g class="bar-item cursor-default" data-status="future" data-center="382" data-month="August 2026">
+                    <rect x="369" y="65" width="26" height="130" rx="7" ry="7" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" class="transition-all duration-150" />
+                  </g>
 
-                  <!-- Oct (Future / Projection) -->
-                  <rect x="405" y="52" width="26" height="148" rx="4" fill="#e2e8f0" />
+                  <!-- Sep: Future (Ghost Pillar) -->
+                  <g class="bar-item cursor-default" data-status="future" data-center="428" data-month="September 2026">
+                    <rect x="415" y="65" width="26" height="130" rx="7" ry="7" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" class="transition-all duration-150" />
+                  </g>
 
-                  <!-- Nov -->
-                  <rect x="450" y="68" width="26" height="132" rx="4" fill="#e2e8f0" />
+                  <!-- Oct: Future (Ghost Pillar) -->
+                  <g class="bar-item cursor-default" data-status="future" data-center="474" data-month="October 2026">
+                    <rect x="461" y="65" width="26" height="130" rx="7" ry="7" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" class="transition-all duration-150" />
+                  </g>
 
-                  <!-- Dec -->
-                  <rect x="495" y="75" width="26" height="125" rx="4" fill="#e2e8f0" />
+                  <!-- Nov: Future (Ghost Pillar) -->
+                  <g class="bar-item cursor-default" data-status="future" data-center="520" data-month="November 2026">
+                    <rect x="507" y="65" width="26" height="130" rx="7" ry="7" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" class="transition-all duration-150" />
+                  </g>
 
-                  <!-- Jan -->
-                  <rect x="540" y="65" width="26" height="135" rx="4" fill="#e2e8f0" />
+                  <!-- Dec: Future (Ghost Pillar) -->
+                  <g class="bar-item cursor-default" data-status="future" data-center="566" data-month="December 2026">
+                    <rect x="553" y="65" width="26" height="130" rx="7" ry="7" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" class="transition-all duration-150" />
+                  </g>
                 </g>
 
-                <!-- X-Axis Labels -->
-                <g font-size="10" fill="#6b7280" font-weight="500">
-                  <text x="51" y="222">Feb</text>
-                  <text x="96" y="222">Mar</text>
-                  <text x="142" y="222">Apr</text>
-                  <text x="186" y="222">May</text>
-                  <text x="232" y="222">Jun</text>
-                  <text x="278" y="222">Jul</text>
-                  <text x="322" y="222">Aug</text>
-                  <text x="368" y="222" font-weight="700" fill="#0030c2">Sep</text>
-                  <text x="413" y="222">Oct</text>
-                  <text x="457" y="222">Nov</text>
-                  <text x="502" y="222">Dec</text>
-                  <text x="548" y="222">Jan</text>
+                <!-- X-Axis Labels (12 Months: Jan - Dec) -->
+                <g font-size="10" fill="#6b7280" font-weight="500" class="pointer-events-none select-none">
+                  <text x="60" y="216" text-anchor="middle">Jan</text>
+                  <text x="106" y="216" text-anchor="middle">Feb</text>
+                  <text x="152" y="216" text-anchor="middle">Mar</text>
+                  <text x="198" y="216" text-anchor="middle">Apr</text>
+                  <text x="244" y="216" text-anchor="middle">May</text>
+                  <text x="290" y="216" text-anchor="middle">Jun</text>
+                  <text x="336" y="216" text-anchor="middle" font-weight="700" fill="#0030c2">Jul</text>
+                  <text x="382" y="216" text-anchor="middle" fill="#9ca3af">Aug</text>
+                  <text x="428" y="216" text-anchor="middle" fill="#9ca3af">Sep</text>
+                  <text x="474" y="216" text-anchor="middle" fill="#9ca3af">Oct</text>
+                  <text x="520" y="216" text-anchor="middle" fill="#9ca3af">Nov</text>
+                  <text x="566" y="216" text-anchor="middle" fill="#9ca3af">Dec</text>
                 </g>
               </svg>
             </div>

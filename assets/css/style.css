@@ -722,3 +722,30 @@ tr.row-selected {
   padding: 0 6px !important;
   white-space: nowrap !important;
 }
+
+/* SVG Chart Height Standardization */
+.h-56 {
+  height: 14rem !important; /* 224px */
+}
+
+@media (min-width: 640px) {
+  .sm\:h-60 {
+    height: 15rem !important; /* 240px */
+  }
+}
+
+/* Admin Dashboard Attendance Trend & Twin-Card Dimensions */
+#trendChartSvg {
+  width: 100% !important;
+  height: 226px !important;
+  max-height: 226px !important;
+}
+
+/* Padding-top utility fallbacks */
+.pt-4 {
+  padding-top: 1rem !important; /* 16px */
+}
+.pt-3\.5 {
+  padding-top: 0.875rem !important; /* 14px */
+}
+

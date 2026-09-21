@@ -86,3 +86,47 @@ When generating printable reports via `window.print()` or PDF exporters:
    * *Prepared by:* Subject Teacher / Adviser
    * *Verified by:* Department Head / Dean
    * *Noted by:* Office of Student Affairs / Prefect of Discipline
+
+---
+
+## 5. Monthly Attendance Bar Chart Lifecycle Specification (12-Month View)
+
+To ensure visual, structural, and behavioral consistency across all performance analytics modules (`admin/performance-analytics.html`, `teacher/class-analytics.html`, and `student/performance-analytics.html`):
+
+1. **3-Tier Progressive Color Lifecycle & Unified ViewBox (`0 0 600 226`):**
+   - **Header Layout:** Clean card header separated by a border divider (`border-b border-[#e5e7eb] pb-3 mb-2`), containing Title, Subtitle, and right-aligned badge (`A.Y. 2025-2026`) to achieve 100% pixel-height symmetry with the adjacent Daily Attendance Trend card.
+   - **Unified Scale:** Uses `viewBox="0 0 600 226"` and `class="w-full h-56 sm:h-60 overflow-visible cursor-pointer"`, perfectly matching the line chart's Cartesian grid lines (`x1="36" x2="590"`), Y-axis baseline (`195`), and right-aligned percentages (`x="30"`).
+   - **Past Months:** Light Blue (`#60a5fa`) with rounded pill corners (`rx="7"`), displaying attendance rate percentage directly centered on top.
+   - **Present Month:** Dark Primary Blue (`#0030c2`) with active highlight glow and bold percentage centered on top.
+   - **Future Months:** Neutral Gray (`#f1f5f9` ghost pill pillar with `#cbd5e1` dashed stroke). **NO percentage labels above future bars** (leaving top space clean and uncluttered).
+
+2. **Interactive Hover Rules (Anti-Bounce Simplified Date & Rate Tooltip):**
+   - **Past & Present:** Magnetic snapping guide + floating glassmorphism tooltip clamped strictly within the card frame (`#trendChartTooltip` and `#barChartTooltip`). The content is kept hyper-clean and simplified to display **only the Date/Month and Attendance Rate (%)** (e.g. `Rate: 97.20%`). Extra badges, headcount numbers, and on-time counters are omitted to prevent visual clutter and distraction.
+   - **Anti-Bounce Stabilization:** Bar chart tooltip is anchored at a stable `top: 8px` and centered horizontally on the active bar's SVG center coordinate (`(closest.center / 600) * containerRect.width`), preventing vertical flip jitter when hovering tall bars. All SVG text labels above bars must have `pointer-events-none select-none` to prevent mouse event collision and hover flickering.
+   - **Future Months:** When the cursor hovers over future gray bars, **NO attendance details are displayed** (displays only the month and an italicized `No records` notice, with zero rates or metrics).
+
+3. **Continuous Spec Alignment Rule:**
+   - Whenever any UI/UX component or interaction is modified, immediately synchronize related agent skill specifications (`analytics-reporting`, `ui-ux`, `system-flow`) to keep all future AI workflows perfectly aligned.
+
+---
+
+## 6. Daily Attendance Trend Line Chart Specification (Interactive Natural Spline)
+
+Referencing modern UI benchmarks (`line_chartUI.md`), the daily attendance trend line chart must adhere to the following standards:
+
+1. **Card Header with Horizontal Divider & Time Range Filter:**
+   - **Title & Description:** Clear card title (`Attendance Trend`) with descriptive subtitle (`Daily attendance monitoring & trends`).
+   - **Divider:** Standard border divider (`border-b border-[#e5e7eb] pb-4 mb-3`) separating header controls cleanly from the chart canvas.
+   - **Time Range Selector:** Clean dropdown select (`#trendTimeRange`) supporting `Last 30 days`, `Last 14 days`, and `Last 7 days`. Changing selection dynamically recalibrates coordinates and re-renders the curve, data points, and X-axis ticks without full-page reloads.
+
+2. **Smooth Natural Cubic Spline (`type="natural"`):**
+   - Must use cubic Bezier curves (`M ... C ...`) rather than sharp, jagged polyline vectors to ensure organic fluid visual curves.
+   - Closed area fill (`#trendAreaPath`) using soft luminous vertical gradient (`#trendAreaGradient` with 0.3 opacity at crest tapering to 0.01 at base).
+   - Minimal Cartesian horizontal-only grid lines (`vertical={false}`).
+
+3. **Interactive Cursor & Tooltip Specification:**
+   - Vertical dashed snapping magnetic guide snaps immediately to the closest data point.
+   - Active data point dynamically enlarges (`r="6"`) for immediate feedback.
+   - Tooltip contains **Date**, **Indicator Dot** (matching metric color), and **Attendance Rate** (e.g., `* Rate: 97.20%`), clamped strictly within container bounds to prevent overflow.
+
+
