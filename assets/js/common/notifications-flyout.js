@@ -1,94 +1,187 @@
 /**
- * Attendance Monitoring System - Student Portal
+ * Attendance Monitoring System
  * notifications-flyout.js - Shared Topbar Floating Notification Dropdown
- * Handles flyout toggle, All/Unread filtering, Mark All Read, and Directory Link.
+ * Handles flyout toggle, All/Unread filtering, Mark All Read, and Directory Link
+ * Supports Admin, Teacher, and Student portals with role-tailored notification feeds.
  */
 
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'student_portal_notifications';
+  // Detect current portal role
+  const pathname = window.location.pathname.replace(/\\/g, '/');
+  let currentPortal = 'student';
+  if (pathname.includes('/admin/')) {
+    currentPortal = 'admin';
+  } else if (pathname.includes('/teacher/')) {
+    currentPortal = 'teacher';
+  }
 
-  // Seed default notifications if none exist in localStorage
-  const defaultFlyoutNotifications = [
-    {
-      id: 'notif-demo-check',
-      category: 'scans',
-      title: 'RFID Gate Time-In Verified',
-      message: 'Tap confirmed at Gate 1 Main Entrance Turnstile A. Official attendance recorded on-time for today.',
-      timestamp: '2026-09-12T07:15:00',
-      relativeTime: 'Just now',
-      unread: true,
-      iconType: 'scan',
-      targetUrl: 'my-attendance.html'
-    },
-    {
-      id: 'notif-1',
-      category: 'scans',
-      title: 'RFID Gate Time-In Recorded',
-      message: 'Your physical RFID card tap was successfully verified at Gate 1 Main Entrance turnstile checkpoint.',
-      timestamp: '2026-09-10T07:18:00',
-      relativeTime: '12 mins ago',
-      unread: true,
-      iconType: 'scan',
-      targetUrl: 'my-attendance.html'
-    },
-    {
-      id: 'notif-2',
-      category: 'warnings',
-      title: 'Tardiness Warning Flagged',
-      message: 'You were marked Late (+18 mins delay) during daily roll call for CS201 (Data Structures and Algorithms).',
-      timestamp: '2026-09-09T08:18:00',
-      relativeTime: 'Yesterday, 8:18 AM',
-      unread: true,
-      iconType: 'warning',
-      targetUrl: 'tardy-and-absence/tardy-records.html'
-    },
-    {
-      id: 'notif-3',
-      category: 'warnings',
-      title: 'Unexcused Absence & Parent SMS Dispatched',
-      message: 'An unexcused absence was recorded in IT302. An automated SMS advisory was successfully dispatched to your guardian.',
-      timestamp: '2026-09-08T10:30:00',
-      relativeTime: '2 days ago',
-      unread: true,
-      iconType: 'absence',
-      targetUrl: 'excuse-slip/submit-excuse.html'
-    },
-    {
-      id: 'notif-4',
-      category: 'excuse',
-      title: 'Excuse Slip Approved',
-      message: 'Your excuse request for Sept 02 (Medical Consultation) has been APPROVED by Prof. Maria Santos.',
-      timestamp: '2026-09-07T14:45:00',
-      relativeTime: '3 days ago',
-      unread: true,
-      iconType: 'approved',
-      targetUrl: 'excuse-slip/my-requests.html'
-    },
-    {
-      id: 'notif-5',
-      category: 'scans',
-      title: 'Classroom Dynamic QR Verified',
-      message: 'Your encrypted dynamic QR code was verified at the classroom camera scanner for IT301.',
-      timestamp: '2026-09-07T07:35:00',
-      relativeTime: '3 days ago',
-      unread: false,
-      iconType: 'scan',
-      targetUrl: 'my-attendance.html'
-    },
-    {
-      id: 'notif-6',
-      category: 'advisories',
-      title: 'Institutional Weather Suspension Advisory',
-      message: 'Metro Manila Disaster Risk Reduction Council announced suspension of in-person collegiate classes due to severe weather.',
-      timestamp: '2026-09-04T06:00:00',
-      relativeTime: '6 days ago',
-      unread: false,
-      iconType: 'advisory',
-      targetUrl: 'notifications.html'
-    }
-  ];
+  const STORAGE_KEY = `${currentPortal}_portal_notifications`;
+
+  // Role-specific default notifications
+  const defaultFlyoutNotifications = {
+    student: [
+      {
+        id: 'notif-demo-check',
+        category: 'scans',
+        title: 'RFID Gate Time-In Verified',
+        message: 'Tap confirmed at Gate 1 Main Entrance Turnstile A. Official attendance recorded on-time for today.',
+        timestamp: '2026-09-12T07:15:00',
+        relativeTime: 'Just now',
+        unread: true,
+        iconType: 'scan',
+        targetUrl: 'my-attendance.html'
+      },
+      {
+        id: 'notif-1',
+        category: 'scans',
+        title: 'RFID Gate Time-In Recorded',
+        message: 'Your physical RFID card tap was successfully verified at Gate 1 Main Entrance turnstile checkpoint.',
+        timestamp: '2026-09-10T07:18:00',
+        relativeTime: '12 mins ago',
+        unread: true,
+        iconType: 'scan',
+        targetUrl: 'my-attendance.html'
+      },
+      {
+        id: 'notif-2',
+        category: 'warnings',
+        title: 'Tardiness Warning Flagged',
+        message: 'You were marked Late (+18 mins delay) during daily roll call for CS201 (Data Structures and Algorithms).',
+        timestamp: '2026-09-09T08:18:00',
+        relativeTime: 'Yesterday, 8:18 AM',
+        unread: true,
+        iconType: 'warning',
+        targetUrl: 'tardy-and-absence/tardy-records.html'
+      },
+      {
+        id: 'notif-3',
+        category: 'warnings',
+        title: 'Unexcused Absence & Parent SMS Dispatched',
+        message: 'An unexcused absence was recorded in IT302. An automated SMS advisory was successfully dispatched to your guardian.',
+        timestamp: '2026-09-08T10:30:00',
+        relativeTime: '2 days ago',
+        unread: true,
+        iconType: 'absence',
+        targetUrl: 'excuse-slip/submit-excuse.html'
+      },
+      {
+        id: 'notif-4',
+        category: 'excuse',
+        title: 'Excuse Slip Approved',
+        message: 'Your excuse request for Sept 02 (Medical Consultation) has been APPROVED by Prof. Maria Santos.',
+        timestamp: '2026-09-07T14:45:00',
+        relativeTime: '3 days ago',
+        unread: true,
+        iconType: 'approved',
+        targetUrl: 'excuse-slip/my-requests.html'
+      },
+      {
+        id: 'notif-5',
+        category: 'scans',
+        title: 'Classroom Dynamic QR Verified',
+        message: 'Your encrypted dynamic QR code was verified at the classroom camera scanner for IT301.',
+        timestamp: '2026-09-07T07:35:00',
+        relativeTime: '3 days ago',
+        unread: false,
+        iconType: 'scan',
+        targetUrl: 'my-attendance.html'
+      }
+    ],
+    admin: [
+      {
+        id: 'admin-notif-1',
+        category: 'sms',
+        title: 'Parent SMS Advisory Broadcast Completed',
+        message: 'Automated SMS broadcast successfully dispatched to 28 guardians for unexcused morning absences.',
+        timestamp: '2026-09-19T09:15:00',
+        relativeTime: '15 mins ago',
+        unread: true,
+        iconType: 'advisory',
+        targetUrl: 'parent-alerts.html'
+      },
+      {
+        id: 'admin-notif-2',
+        category: 'warnings',
+        title: 'Habitual Tardiness Threshold Flagged',
+        message: 'Student Erika Joy Mendoza (BSCS 2A) reached 3 consecutive tardy offenses this month.',
+        timestamp: '2026-09-19T08:45:00',
+        relativeTime: '45 mins ago',
+        unread: true,
+        iconType: 'warning',
+        targetUrl: 'tardy-and-absence/habitual-offender.html'
+      },
+      {
+        id: 'admin-notif-3',
+        category: 'excuse',
+        title: 'Excuse Slip Awaiting Verification',
+        message: 'Signed physician certificate submitted for Christian Paul Tan requires administrative sign-off.',
+        timestamp: '2026-09-19T08:20:00',
+        relativeTime: '1 hr ago',
+        unread: true,
+        iconType: 'approved',
+        targetUrl: 'excuse-slip/pending-requests.html'
+      },
+      {
+        id: 'admin-notif-4',
+        category: 'scans',
+        title: 'Kiosk 2 Turnstile Scanner Online',
+        message: 'Hardware checkpoint health check passed. USB RFID reader and optical QR scanner operational.',
+        timestamp: '2026-09-19T07:00:00',
+        relativeTime: '2 hrs ago',
+        unread: false,
+        iconType: 'scan',
+        targetUrl: 'rfid-and-qr/scan-logs.html'
+      }
+    ],
+    teacher: [
+      {
+        id: 'teacher-notif-1',
+        category: 'excuse',
+        title: 'Medical Certificate Submitted',
+        message: 'John David Cruz (BSIT 3A) submitted a medical consultation excuse slip for your approval.',
+        timestamp: '2026-09-19T08:15:00',
+        relativeTime: '20 mins ago',
+        unread: true,
+        iconType: 'approved',
+        targetUrl: 'excuse-slip/pending-requests.html'
+      },
+      {
+        id: 'teacher-notif-2',
+        category: 'scans',
+        title: 'Roll Call Attendance Pending',
+        message: 'Attendance for Web Development (BSIT 2B) has not yet been finalized and submitted.',
+        timestamp: '2026-09-19T09:30:00',
+        relativeTime: '30 mins ago',
+        unread: true,
+        iconType: 'warning',
+        targetUrl: 'daily-attendance.html'
+      },
+      {
+        id: 'teacher-notif-3',
+        category: 'advisories',
+        title: 'Guardian Notification Delivered',
+        message: 'Automated absence advisory SMS confirmed delivered to guardian of Samantha Keith Lopez.',
+        timestamp: '2026-09-19T07:45:00',
+        relativeTime: '1 hr ago',
+        unread: true,
+        iconType: 'advisory',
+        targetUrl: 'parent-alerts.html'
+      },
+      {
+        id: 'teacher-notif-4',
+        category: 'scans',
+        title: 'Morning Gate Checkpoints Synced',
+        message: '92 assigned students marked present via campus gate checkpoints.',
+        timestamp: '2026-09-19T07:15:00',
+        relativeTime: '2 hrs ago',
+        unread: false,
+        iconType: 'scan',
+        targetUrl: 'daily-attendance.html'
+      }
+    ]
+  };
 
   let currentFlyoutFilter = 'all'; // 'all' | 'unread'
 
@@ -104,29 +197,35 @@
     } catch (e) {
       console.warn('Error reading notifications from localStorage:', e);
     }
-    // Initialize default
-    saveNotifications(defaultFlyoutNotifications);
-    return defaultFlyoutNotifications;
+    const seed = defaultFlyoutNotifications[currentPortal] || defaultFlyoutNotifications.student;
+    saveNotifications(seed);
+    return seed;
   }
 
   /**
    * Save notifications to localStorage
    */
-  function saveNotifications(data) {
+  function saveNotifications(notifications) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
     } catch (e) {
       console.warn('Error saving notifications to localStorage:', e);
     }
   }
 
   /**
-   * Compute relative path to a student page based on current URL path
+   * Compute relative path based on current URL path
    */
-  function getRelativeStudentPath(targetFile) {
-    const pathname = window.location.pathname.replace(/\\/g, '/');
-    if (pathname.includes('/excuse-slip/') || pathname.includes('/tardy-and-absence/')) {
-      if (targetFile.startsWith('excuse-slip/') || targetFile.startsWith('tardy-and-absence/')) {
+  function getRelativePortalPath(targetFile) {
+    const currentPath = window.location.pathname.replace(/\\/g, '/');
+    const isSubfolder = currentPath.includes('/excuse-slip/') || 
+                        currentPath.includes('/tardy-and-absence/') || 
+                        currentPath.includes('/rfid-and-qr/');
+
+    if (isSubfolder) {
+      if (targetFile.startsWith('excuse-slip/') || 
+          targetFile.startsWith('tardy-and-absence/') || 
+          targetFile.startsWith('rfid-and-qr/')) {
         return '../' + targetFile;
       }
       return '../' + targetFile;
@@ -149,9 +248,9 @@
         `;
       case 'warning':
         return `
-          <div class="w-8 h-8 rounded-xl bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]/60 flex items-center justify-center shrink-0">
+          <div class="w-8 h-8 rounded-xl bg-[#fff7ed] text-[#ea580c] border border-[#fed7aa]/60 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
             </svg>
           </div>
         `;
@@ -159,7 +258,7 @@
         return `
           <div class="w-8 h-8 rounded-xl bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]/60 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
         `;
@@ -171,9 +270,10 @@
             </svg>
           </div>
         `;
+      case 'advisory':
       default:
         return `
-          <div class="w-8 h-8 rounded-xl bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]/60 flex items-center justify-center shrink-0">
+          <div class="w-8 h-8 rounded-xl bg-[#f5f3ff] text-[#7c3aed] border border-[#ddd6fe]/60 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
             </svg>
@@ -183,7 +283,7 @@
   }
 
   /**
-   * Escape HTML utility
+   * Escape HTML to prevent XSS injection
    */
   function escapeHtml(str) {
     if (!str) return '';
@@ -196,7 +296,7 @@
   }
 
   /**
-   * Update all badge counters across the page (topbar & flyout header)
+   * Update all unread badges
    */
   function updateBadges() {
     const list = getNotifications();
@@ -216,8 +316,10 @@
       }
     }
 
-    // Update any badge spans inside #studentNotifBtn
-    const notifBtn = document.getElementById('studentNotifBtn');
+    // Update any badge spans inside active notification button
+    const notifBtn = document.getElementById('studentNotifBtn') || 
+                     document.getElementById('adminNotifBtn') || 
+                     document.getElementById('teacherNotifBtn');
     if (notifBtn) {
       const badgeSpans = notifBtn.querySelectorAll('span');
       badgeSpans.forEach(span => {
@@ -233,7 +335,7 @@
       });
     }
 
-    // Flyout header unread pill (completely remove when zero, show only when > 0)
+    // Flyout header unread pill
     const flyoutUnreadCountEl = document.getElementById('flyoutUnreadCount');
     if (flyoutUnreadCountEl) {
       if (unreadCount > 0) {
@@ -284,13 +386,13 @@
     container.innerHTML = displayList.map(item => {
       const isUnread = !!item.unread;
       const unreadBg = isUnread ? 'bg-[#eff6ff]/40' : 'bg-white';
-      const targetUrl = item.targetUrl ? getRelativeStudentPath(item.targetUrl) : '';
+      const targetUrl = item.targetUrl ? getRelativePortalPath(item.targetUrl) : '';
 
       return `
         <div class="flyout-notif-item p-2.5 ${unreadBg} hover:bg-gray-50 transition-colors cursor-pointer flex items-start gap-3 relative group shrink-0"
              style="height: 85px; min-height: 85px; max-height: 85px; box-sizing: border-box;"
              onclick="window.handleFlyoutItemClick('${escapeHtml(item.id)}', '${escapeHtml(targetUrl)}')">
-          ${getCategoryIconSvg(item.iconType || 'info')}
+          ${getCategoryIconSvg(item.iconType || 'advisory')}
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between gap-1.5">
               <p class="text-xs font-bold ${isUnread ? 'text-[#111827]' : 'text-[#374151]'} truncate">
@@ -371,7 +473,6 @@
     updateBadges();
     renderFlyoutList();
 
-    // Notify full notifications page if active
     if (window.onNotificationStateChanged) {
       window.onNotificationStateChanged();
     }
@@ -424,13 +525,19 @@
       event.stopPropagation();
     }
 
-    // Close profile menu if open
-    const profileMenu = document.getElementById('studentProfileMenu');
-    if (profileMenu && !profileMenu.classList.contains('hidden')) {
-      profileMenu.classList.add('hidden');
-    }
+    // Close any open profile menus
+    const profileMenus = [
+      document.getElementById('studentProfileMenu'),
+      document.getElementById('topbarProfileMenu')
+    ];
+    profileMenus.forEach(menu => {
+      if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
 
-    const dropdown = document.getElementById('studentNotificationDropdown');
+    const dropdown = document.getElementById('topbarNotificationDropdown') || 
+                     document.getElementById('studentNotificationDropdown');
     if (!dropdown) return;
 
     const isHidden = dropdown.classList.contains('hidden');
@@ -449,7 +556,8 @@
    * Close floating notification dropdown
    */
   window.closeNotificationDropdown = function () {
-    const dropdown = document.getElementById('studentNotificationDropdown');
+    const dropdown = document.getElementById('topbarNotificationDropdown') || 
+                     document.getElementById('studentNotificationDropdown');
     if (dropdown && !dropdown.classList.contains('hidden')) {
       dropdown.classList.add('hidden');
       dropdown.classList.remove('flex');
@@ -460,7 +568,9 @@
    * Mount and attach flyout HTML structure to topbar bell
    */
   function setupNotificationFlyout() {
-    const notifBtn = document.getElementById('studentNotifBtn');
+    const notifBtn = document.getElementById('studentNotifBtn') || 
+                     document.getElementById('adminNotifBtn') || 
+                     document.getElementById('teacherNotifBtn');
     if (!notifBtn) return;
 
     // Wrap button in relative container if not already wrapped
@@ -477,7 +587,6 @@
     notifBtn.setAttribute('onclick', 'toggleNotificationDropdown(event)');
     notifBtn.classList.add('cursor-pointer');
 
-    // Remove legacy anchor tag behavior if button was an <a> tag
     if (notifBtn.tagName === 'A') {
       notifBtn.removeAttribute('href');
     }
@@ -489,22 +598,34 @@
     }
 
     // Check if dropdown already exists
-    let dropdown = document.getElementById('studentNotificationDropdown');
+    let dropdown = document.getElementById('topbarNotificationDropdown') || 
+                   document.getElementById('studentNotificationDropdown');
     if (!dropdown) {
       dropdown = document.createElement('div');
-      dropdown.id = 'studentNotificationDropdown';
+      dropdown.id = 'topbarNotificationDropdown';
       dropdown.style.width = '384px';
-      dropdown.style.minWidth = '384px';
-      dropdown.style.maxWidth = '384px';
+      dropdown.style.minWidth = '320px';
+      dropdown.style.maxWidth = 'calc(100vw - 2rem)';
       dropdown.style.boxSizing = 'border-box';
       dropdown.className = 'hidden absolute right-0 top-full mt-2 bg-white rounded-2xl border border-[#e5e7eb] shadow-2xl z-50 overflow-hidden flex flex-col transition-all';
 
-      const directoryUrl = getRelativeStudentPath('notifications.html');
+      // Directory target based on portal
+      let directoryTarget = 'notifications.html';
+      let directoryTitle = 'View All Notifications';
+      if (currentPortal === 'admin') {
+        directoryTarget = 'parent-alerts.html';
+        directoryTitle = 'View All Alerts & SMS Logs';
+      } else if (currentPortal === 'teacher') {
+        directoryTarget = 'excuse-slip/pending-requests.html';
+        directoryTitle = 'View All Excuse Slips';
+      }
+
+      const directoryUrl = getRelativePortalPath(directoryTarget);
 
       dropdown.innerHTML = `
         <!-- Flyout Header -->
         <div class="p-3 border-b border-[#e5e7eb] flex items-center justify-between bg-white shrink-0">
-          <!-- Left: All / Unread Filter Tabs (Strictly Equal 50/50 Sizing) -->
+          <!-- Left: All / Unread Filter Tabs -->
           <div class="flyout-tab-container w-36 flex items-center gap-0.5 bg-[#f3f4f6] p-0.5 rounded-lg"
                style="width: 140px; min-width: 140px; box-sizing: border-box; display: flex; gap: 2px;">
             <button id="flyoutTabAll" onclick="setFlyoutFilter('all', event)"
@@ -532,10 +653,10 @@
               </svg>
             </button>
 
-            <!-- Directory / Full Notifications Center Settings Icon -->
+            <!-- Directory Link -->
             <a id="flyoutDirectoryLink" href="${directoryUrl}"
               class="p-1.5 text-[#6b7280] hover:text-[#0030c2] hover:bg-[#e7edff] rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
-              title="Notification Directory (Main View)">
+              title="${directoryTitle}">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.85">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.6 6.6 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 010-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
@@ -545,7 +666,7 @@
           </div>
         </div>
 
-        <!-- Flyout Body: Scrollable Feed (Max 3 items visible, scrollable beyond 3) -->
+        <!-- Flyout Body: Scrollable Feed -->
         <div id="flyoutNotifList"
              style="height: 255px; min-height: 255px; max-height: 255px; overflow-y: auto; -webkit-overflow-scrolling: touch;"
              class="divide-y divide-[#f3f4f6]">

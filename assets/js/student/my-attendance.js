@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Student My Attendance Module Initialized');
   initCurrentDate();
   initSearch();
+  initURLParams();
   exposeGlobalFunctions();
 });
 
@@ -157,9 +158,60 @@ function initCurrentDate() {
       <span>${monthDayYear} (${dayOfWeek})</span>
     `;
 
+    dateBtn.setAttribute('title', 'View Attendance Calendar');
     dateBtn.addEventListener('click', () => {
-      showToast('Academic Calendar', 'Current Academic Term: 2nd Semester · AY 2025-2026', 'info');
+      window.location.href = 'attendance-calendar.html';
     });
+  }
+}
+
+/**
+ * Read URL parameters (e.g. ?status=Late) to auto-select filters
+ */
+function initURLParams() {
+  const params = new URLSearchParams(window.location.search);
+  const statusParam = params.get('status');
+  const subjectParam = params.get('subject');
+  const dateParam = params.get('date');
+  const methodParam = params.get('method');
+
+  let applied = false;
+
+  const statusSelect = document.getElementById('filterStatusSelect');
+  if (statusParam && statusSelect) {
+    const opt = Array.from(statusSelect.options).find(o => o.value.toLowerCase() === statusParam.toLowerCase());
+    if (opt) {
+      statusSelect.value = opt.value;
+      applied = true;
+    }
+  }
+
+  const subjectSelect = document.getElementById('filterSubjectSelect');
+  if (subjectParam && subjectSelect) {
+    const opt = Array.from(subjectSelect.options).find(o => o.value.toLowerCase().includes(subjectParam.toLowerCase()));
+    if (opt) {
+      subjectSelect.value = opt.value;
+      applied = true;
+    }
+  }
+
+  const dateInput = document.getElementById('filterDateInput');
+  if (dateParam && dateInput) {
+    dateInput.value = dateParam;
+    applied = true;
+  }
+
+  const methodSelect = document.getElementById('filterMethodSelect');
+  if (methodParam && methodSelect) {
+    const opt = Array.from(methodSelect.options).find(o => o.value.toLowerCase() === methodParam.toLowerCase());
+    if (opt) {
+      methodSelect.value = opt.value;
+      applied = true;
+    }
+  }
+
+  if (applied) {
+    applyModalFilters();
   }
 }
 
@@ -435,11 +487,11 @@ function closeRecordModal() {
  * Simplified Pagination helpers
  */
 function goToPreviousPage() {
-  console.log('Previous page clicked');
+  if (window.TablePagination) window.TablePagination.prevPage();
 }
 
 function goToNextPage() {
-  console.log('Next page clicked');
+  if (window.TablePagination) window.TablePagination.nextPage();
 }
 
 /**

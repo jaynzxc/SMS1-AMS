@@ -1,0 +1,269 @@
+{
+  "system_metadata": {
+    "institution": "Bestlink College of the Philippines",
+    "project": "Attendance Monitoring System (SMS1-AMS)",
+    "version": "2.0.0",
+    "academic_year": "2024-2025",
+    "semester": "2nd Semester",
+    "purpose": "Pre-Oral Defense Integration Seed Data for SMS 1 Ecosystem Bridges"
+  },
+  "clinic_records": [
+    {
+      "pass_no": "CLN-2025-089",
+      "student_id": "2023-01445",
+      "student_name": "John David Cruz",
+      "section": "BSIT 3A",
+      "visit_date": "2026-09-02",
+      "time_in": "08:15 AM",
+      "time_out": "09:30 AM",
+      "chief_complaint": "Acute Febrile Illness & Severe Migraine",
+      "vital_signs": {
+        "temperature": "38.6 C",
+        "blood_pressure": "110/75 mmHg",
+        "pulse_rate": "88 bpm"
+      },
+      "attending_personnel": "Nurse R. Villanueva, RN",
+      "recommendation": "Prescribed rest for remainder of class day. Excused from laboratory sessions.",
+      "verification_status": "VERIFIED_ON_CAMPUS",
+      "linked_excuse_ticket": "EXC-2026-001"
+    },
+    {
+      "pass_no": "CLN-2025-094",
+      "student_id": "2022-00244",
+      "student_name": "Evelyn Ramos",
+      "section": "BSIT 3B",
+      "visit_date": "2026-09-01",
+      "time_in": "09:40 AM",
+      "time_out": "10:20 AM",
+      "chief_complaint": "Dysmenorrhea and severe abdominal pain",
+      "vital_signs": {
+        "temperature": "36.8 C",
+        "blood_pressure": "100/70 mmHg",
+        "pulse_rate": "76 bpm"
+      },
+      "attending_personnel": "Nurse M. Soriano, RN",
+      "recommendation": "Rest in clinic infirmary for 1 hour. Excused from morning lecture period.",
+      "verification_status": "VERIFIED_ON_CAMPUS",
+      "linked_excuse_ticket": "EXC-2026-089"
+    },
+    {
+      "pass_no": "CLN-2025-102",
+      "student_id": "2023-02319",
+      "student_name": "Erika Joy Mendoza",
+      "section": "BSCS 2A",
+      "visit_date": "2026-09-03",
+      "time_in": "01:10 PM",
+      "time_out": "02:00 PM",
+      "chief_complaint": "Asthmatic episode following physical activity",
+      "vital_signs": {
+        "temperature": "36.9 C",
+        "blood_pressure": "115/80 mmHg",
+        "pulse_rate": "92 bpm"
+      },
+      "attending_personnel": "Dr. A. Castillo, MD",
+      "recommendation": "Nebulization administered. Sent home with guardian; excused for afternoon classes.",
+      "verification_status": "VERIFIED_ON_CAMPUS",
+      "linked_excuse_ticket": "EXC-2026-092"
+    }
+  ],
+  "prefect_referrals": [
+    {
+      "referral_id": "POD-REF-2026-012",
+      "student_id": "2022-00388",
+      "student_name": "Ian Christopher Reyes",
+      "section": "BSCS 2A",
+      "unexcused_absences_count": 5,
+      "consecutive_absences": 3,
+      "academic_term": "2nd Semester, A.Y. 2024-2025",
+      "referral_date": "2026-09-01",
+      "escalation_level": "LEVEL_2_CASE_CONFERENCE",
+      "counseling_status": "SCHEDULED",
+      "case_officer": "Prefect Officer G. Bautista",
+      "parent_notification": {
+        "sms_dispatched": true,
+        "sms_timestamp": "2026-09-01 10:15 AM",
+        "contact_number": "+63 917 555 1289",
+        "guardian_name": "Mrs. T. Reyes"
+      },
+      "hearing_date": "2026-09-08 02:00 PM",
+      "action_required": "Mandatory parent-teacher-prefect conference and attendance contract signing."
+    },
+    {
+      "referral_id": "POD-REF-2026-018",
+      "student_id": "2022-00301",
+      "student_name": "Joshua Santos",
+      "section": "BSIT 3B",
+      "unexcused_absences_count": 3,
+      "consecutive_absences": 2,
+      "academic_term": "2nd Semester, A.Y. 2024-2025",
+      "referral_date": "2026-09-02",
+      "escalation_level": "LEVEL_1_WARNING",
+      "counseling_status": "UNDER_EVALUATION",
+      "case_officer": "Prefect Officer M. Valenzuela",
+      "parent_notification": {
+        "sms_dispatched": true,
+        "sms_timestamp": "2026-09-02 11:30 AM",
+        "contact_number": "+63 918 444 8877",
+        "guardian_name": "Mr. R. Santos"
+      },
+      "hearing_date": "2026-09-09 10:00 AM",
+      "action_required": "First formal written reminder on 20 percent institutional absence limit threshold."
+    }
+  ],
+  "academic_hr_dtr": [
+    {
+      "dtr_id": "DTR-2026-0501",
+      "faculty_id": "FAC-2018-042",
+      "faculty_name": "Mrs. Jane Dela Cruz, LPT",
+      "department": "College of Computer Studies",
+      "employment_status": "Regular Full-Time",
+      "dtr_date": "2026-09-01",
+      "scheduled_shift": "07:30 AM - 04:30 PM",
+      "biometric_time_in": "07:18 AM",
+      "biometric_time_out": "04:35 PM",
+      "rendered_hours": 8.0,
+      "late_minutes": 0,
+      "undertime_minutes": 0,
+      "dtr_status": "ON_TIME",
+      "attendance_compliance": "100%",
+      "verified_by_dean": true
+    },
+    {
+      "dtr_id": "DTR-2026-0502",
+      "faculty_id": "FAC-2020-077",
+      "faculty_name": "Mr. Carlo Reyes, MIT",
+      "department": "College of Computer Studies",
+      "employment_status": "Regular Full-Time",
+      "dtr_date": "2026-09-01",
+      "scheduled_shift": "08:00 AM - 05:00 PM",
+      "biometric_time_in": "08:12 AM",
+      "biometric_time_out": "05:05 PM",
+      "rendered_hours": 7.8,
+      "late_minutes": 12,
+      "undertime_minutes": 0,
+      "dtr_status": "TARDY",
+      "attendance_compliance": "97.5%",
+      "verified_by_dean": true
+    },
+    {
+      "dtr_id": "DTR-2026-0503",
+      "faculty_id": "FAC-2019-061",
+      "faculty_name": "Ms. Angela Ramos, MSCS",
+      "department": "College of Computer Studies",
+      "employment_status": "Regular Full-Time",
+      "dtr_date": "2026-09-01",
+      "scheduled_shift": "08:00 AM - 05:00 PM",
+      "biometric_time_in": "07:45 AM",
+      "biometric_time_out": "05:00 PM",
+      "rendered_hours": 8.0,
+      "late_minutes": 0,
+      "undertime_minutes": 0,
+      "dtr_status": "ON_TIME",
+      "attendance_compliance": "100%",
+      "verified_by_dean": true
+    }
+  ],
+  "osas_awards": [
+    {
+      "nomination_id": "OSAS-PA-2026-001",
+      "student_id": "2022-00210",
+      "student_name": "David Lim",
+      "program": "Bachelor of Science in Information Technology",
+      "year_level": "3rd Year",
+      "section": "BSIT 3A",
+      "total_school_days": 108,
+      "days_present": 108,
+      "days_tardy": 0,
+      "days_excused": 0,
+      "days_absent": 0,
+      "attendance_rate": "100.0%",
+      "good_moral_verified": true,
+      "award_category": "Institutional Perfect Attendance Award - High Distinction",
+      "citation": "Zero recorded tardiness and zero absences across all registered lecture and laboratory modules for AY 2024-2025 2nd Semester.",
+      "osas_director_endorsement": "RECOMMENDED_FOR_COMMENCEMENT_HONOR"
+    },
+    {
+      "nomination_id": "OSAS-PA-2026-002",
+      "student_id": "2022-00278",
+      "student_name": "Francis Torres",
+      "program": "Bachelor of Science in Information Technology",
+      "year_level": "3rd Year",
+      "section": "BSIT 3B",
+      "total_school_days": 108,
+      "days_present": 108,
+      "days_tardy": 0,
+      "days_excused": 0,
+      "days_absent": 0,
+      "attendance_rate": "100.0%",
+      "good_moral_verified": true,
+      "award_category": "Institutional Perfect Attendance Award - High Distinction",
+      "citation": "Exemplary consistency and full attendance recorded via dual biometric RFID validation.",
+      "osas_director_endorsement": "RECOMMENDED_FOR_COMMENCEMENT_HONOR"
+    },
+    {
+      "nomination_id": "OSAS-PA-2026-003",
+      "student_id": "2022-00350",
+      "student_name": "Hannah Nicole Cruz",
+      "program": "Bachelor of Science in Computer Science",
+      "year_level": "2nd Year",
+      "section": "BSCS 2A",
+      "total_school_days": 108,
+      "days_present": 108,
+      "days_tardy": 0,
+      "days_excused": 0,
+      "days_absent": 0,
+      "attendance_rate": "100.0%",
+      "good_moral_verified": true,
+      "award_category": "Institutional Perfect Attendance Award - High Distinction",
+      "citation": "Flawless semester-long attendance adherence across all CS curriculum components.",
+      "osas_director_endorsement": "RECOMMENDED_FOR_COMMENCEMENT_HONOR"
+    }
+  ],
+  "school_events": [
+    {
+      "scan_id": "EVT-SCAN-2026-101",
+      "event_id": "EVT-2026-FOUNDATION",
+      "event_name": "BCP 24th Foundation Anniversary & Academic Fair",
+      "venue": "BCP Main Campus Gymnasium",
+      "event_date": "2026-09-04",
+      "session": "Morning Plenary Session",
+      "student_id": "2023-01445",
+      "student_name": "John David Cruz",
+      "section": "BSIT 3A",
+      "scan_timestamp": "2026-09-04 07:42:15",
+      "kiosk_gate_id": "GATE_A_MAIN_LOBBY",
+      "verification_method": "RFID_MIFARE_SCAN",
+      "status": "VALIDATED_ENTRY"
+    },
+    {
+      "scan_id": "EVT-SCAN-2026-102",
+      "event_id": "EVT-2026-FOUNDATION",
+      "event_name": "BCP 24th Foundation Anniversary & Academic Fair",
+      "venue": "BCP Main Campus Gymnasium",
+      "event_date": "2026-09-04",
+      "session": "Morning Plenary Session",
+      "student_id": "2022-00210",
+      "student_name": "David Lim",
+      "section": "BSIT 3A",
+      "scan_timestamp": "2026-09-04 07:35:08",
+      "kiosk_gate_id": "GATE_A_MAIN_LOBBY",
+      "verification_method": "RFID_MIFARE_SCAN",
+      "status": "VALIDATED_ENTRY"
+    },
+    {
+      "scan_id": "EVT-SCAN-2026-103",
+      "event_id": "EVT-2026-INTRAMS",
+      "event_name": "CCS Intramurals & Esports Championship 2026",
+      "venue": "BCP Sports Complex",
+      "event_date": "2026-09-05",
+      "session": "Opening Ceremony & Elimination Round",
+      "student_id": "2023-01874",
+      "student_name": "Christian Paul Tan",
+      "section": "BSIT 3B",
+      "scan_timestamp": "2026-09-05 08:05:44",
+      "kiosk_gate_id": "GATE_C_SPORTS_COMPLEX",
+      "verification_method": "QR_CAMERA_SCAN",
+      "status": "VALIDATED_ENTRY"
+    }
+  ]
+}

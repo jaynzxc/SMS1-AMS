@@ -7,14 +7,37 @@ aside.sidebar-fixed,
 #mainSidebar,
 aside {
   transition: margin-left 0.32s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease !important;
-  will-change: margin-left;
+  will-change: margin-left, transform;
 }
 
-aside.sidebar-collapsed,
-#mainSidebar.sidebar-collapsed,
-.sidebar-collapsed {
-  margin-left: -16rem !important;
-  /* -w-64 (256px) */
+/* Desktop Collapse Mode (width >= 1024px) */
+@media (min-width: 1024px) {
+  aside.sidebar-collapsed,
+  #mainSidebar.sidebar-collapsed,
+  .sidebar-collapsed {
+    margin-left: -16rem !important;
+    /* -w-64 (256px) */
+  }
+}
+
+/* Mobile Drawer Mode (width < 1024px) */
+@media (max-width: 1023px) {
+  aside.sidebar-fixed,
+  #mainSidebar,
+  aside {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    margin-left: 0 !important;
+    transform: translateX(-100%) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+  aside.mobile-open,
+  #mainSidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
 }
 
 /* Burger Button Motion */
@@ -699,3 +722,30 @@ tr.row-selected {
   padding: 0 6px !important;
   white-space: nowrap !important;
 }
+
+/* SVG Chart Height Standardization */
+.h-56 {
+  height: 14rem !important; /* 224px */
+}
+
+@media (min-width: 640px) {
+  .sm\:h-60 {
+    height: 15rem !important; /* 240px */
+  }
+}
+
+/* Admin Dashboard Attendance Trend & Twin-Card Dimensions */
+#trendChartSvg {
+  width: 100% !important;
+  height: 226px !important;
+  max-height: 226px !important;
+}
+
+/* Padding-top utility fallbacks */
+.pt-4 {
+  padding-top: 1rem !important; /* 16px */
+}
+.pt-3\.5 {
+  padding-top: 0.875rem !important; /* 14px */
+}
+

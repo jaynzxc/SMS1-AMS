@@ -923,7 +923,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileFormat = (activeFormat || 'CSV').toUpperCase();
     const timestamp = '20250527';
     const cleanTitle = dataset.title.replace(/[\s\/]+/g, '_');
-    const filename = `BCP_${cleanTitle}_${activeFilters.section === 'all' ? 'AllClasses' : activeFilters.section}_${timestamp}.${fileFormat === 'EXCEL' ? 'xlsx' : fileFormat.toLowerCase()}`;
+    const ext = fileFormat === 'EXCEL' ? 'xlsx' : fileFormat === 'WORD' ? 'doc' : fileFormat.toLowerCase();
+    const filename = `BCP_${cleanTitle}_${activeFilters.section === 'all' ? 'AllClasses' : activeFilters.section}_${timestamp}.${ext}`;
 
     if (fileFormat === 'CSV') {
       // Generate clean CSV content with institutional header
@@ -975,6 +976,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const blob = new Blob([excelHtml], { type: 'application/vnd.ms-excel;charset=utf-8;' });
       triggerBrowserDownload(blob, filename);
+    } else if (fileFormat === 'WORD') {
+      const tableHeadHtml = dataset.columns.map(c => `<th style="background:#0030c2;color:#ffffff;padding:8px;border:1px solid #ddd;font-family:Calibri,sans-serif;font-size:11pt;text-align:left;">${c}</th>`).join('');
+      const tableBodyHtml = dataset.rows.map(row => {
+        return `<tr>${row.map(cell => `<td style="padding:6px 8px;border:1px solid #cbd5e1;font-family:Calibri,sans-serif;font-size:10pt;">${String(cell).replace(/<[^>]+>/g, '').trim()}</td>`).join('')}</tr>`;
+      }).join('');
+
+      const wordHtml = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+        <head><meta charset="utf-8">
+          <style>
+            body { font-family: Calibri, Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #0030c2; padding-bottom: 12px; margin-bottom: 16px; }
+            .school-name { font-size: 16pt; font-weight: bold; color: #0030c2; }
+            .sub-title { font-size: 11pt; color: #4b5563; }
+            .doc-title { font-size: 13pt; font-weight: bold; margin-top: 8px; color: #111827; }
+            table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+            .sig-section { margin-top: 40px; width: 100%; border: none; }
+            .sig-box { width: 50%; border: none; vertical-align: top; }
+            .sig-line { border-top: 1px solid #000; width: 220px; margin-top: 45px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="school-name">BESTLINK COLLEGE OF THE PHILIPPINES</div>
+            <div class="sub-title">College of Computer Studies · Attendance Monitoring System</div>
+            <div class="doc-title">${dataset.title}</div>
+            <div class="sub-title"><strong>Faculty:</strong> Mrs. Jane Dela Cruz, LPT | <strong>Section:</strong> ${activeFilters.section === 'all' ? 'All Assigned Sections' : activeFilters.section} | <strong>Term:</strong> 2nd Sem, A.Y. 2024-2025</div>
+          </div>
+          <table border="1" cellpadding="6" cellspacing="0">
+            <thead><tr>${tableHeadHtml}</tr></thead>
+            <tbody>${tableBodyHtml}</tbody>
+          </table>
+          <table class="sig-section" style="border:none;margin-top:40px;">
+            <tr style="border:none;">
+              <td class="sig-box" style="border:none;">
+                <p>Submitted by:</p>
+                <div class="sig-line"></div>
+                <p><strong>Mrs. Jane Dela Cruz, LPT</strong><br><span style="font-size:9pt;color:#6b7280;">Faculty Instructor</span></p>
+              </td>
+              <td class="sig-box" style="border:none;">
+                <p>Noted & Received by:</p>
+                <div class="sig-line"></div>
+                <p><strong>Dean, College of Computer Studies</strong><br><span style="font-size:9pt;color:#6b7280;">Academic Department</span></p>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob(['\ufeff' + wordHtml], { type: 'application/msword;charset=utf-8;' });
+      triggerBrowserDownload(blob, filename);
     } else if (fileFormat === 'PDF') {
       // For PDF format, open preview modal and trigger browser print dialog
       openReportPreviewModal(dataset);
@@ -990,8 +1043,8 @@ document.addEventListener('DOMContentLoaded', () => {
       subjectSection: activeFilters.section === 'all' ? 'All Assigned Classes' : activeFilters.section,
       dateGenerated: 'May 27, 2025 · Just Now',
       format: fileFormat,
-      formatClass: fileFormat === 'PDF' ? 'bg-[#fee2e2] text-[#dc2626]' : 'bg-[#dcfce7] text-[#16a34a]',
-      fileSize: fileFormat === 'PDF' ? '184 KB' : fileFormat === 'EXCEL' ? '46 KB' : '22 KB',
+      formatClass: fileFormat === 'PDF' ? 'bg-[#fee2e2] text-[#dc2626]' : fileFormat === 'WORD' ? 'bg-[#eff6ff] text-[#2563eb]' : 'bg-[#dcfce7] text-[#16a34a]',
+      fileSize: fileFormat === 'PDF' ? '184 KB' : fileFormat === 'WORD' ? '52 KB' : fileFormat === 'EXCEL' ? '46 KB' : '22 KB',
       rawDatasetType: activeReportType || 'master'
     };
 

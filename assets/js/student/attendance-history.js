@@ -573,11 +573,11 @@ function handleLogout() {
 }
 
 function goToPreviousPage() {
-  console.log('Previous page clicked');
+  if (window.TablePagination) window.TablePagination.prevPage();
 }
 
 function goToNextPage() {
-  console.log('Next page clicked');
+  if (window.TablePagination) window.TablePagination.nextPage();
 }
 
 /**

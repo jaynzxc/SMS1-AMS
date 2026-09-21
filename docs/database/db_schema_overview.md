@@ -20,4 +20,4 @@ This document captures the finalized Supabase PostgreSQL schema design for the A
 
 ## SQL Setup
 The full SQL deployment script is located at:
-[`docs/supabase_schema_setup.sql`](file:///c:/Users/jaync/Desktop/Attendance%20Monitoring%20System/SMS1-AMS/docs/supabase_schema_setup.sql)
+[`docs/database/supabase_schema.sql`](file:///c:/Users/ADMIN/OneDrive/Desktop/ATTENDANCE%20MONITORING%20SYSTEM/SMS1-AMS/docs/database/supabase_schema.sql)

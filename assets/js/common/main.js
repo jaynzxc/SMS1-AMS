@@ -47,5 +47,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // =============================================================
+    // HEADER CURRENT DATE DISPLAY NAVIGATION
+    // =============================================================
+    const dateDisplayBtn = document.getElementById('currentDateDisplay');
+    if (dateDisplayBtn && !dateDisplayBtn.dataset.bound) {
+        dateDisplayBtn.dataset.bound = 'true';
+        dateDisplayBtn.classList.add('cursor-pointer');
+        dateDisplayBtn.setAttribute('title', 'View Attendance Calendar');
+        dateDisplayBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const currentPath = window.location.pathname.replace(/\\/g, '/');
+            if (currentPath.endsWith('attendance-calendar.html')) {
+                if (typeof window.goToToday === 'function') {
+                    window.goToToday();
+                } else if (typeof window.renderCalendar === 'function') {
+                    window.renderCalendar();
+                }
+            } else {
+                let target = 'attendance-calendar.html';
+                if (currentPath.includes('/excuse-slip/') || 
+                    currentPath.includes('/rfid-and-qr/') || 
+                    currentPath.includes('/tardy-and-absence/')) {
+                    target = '../attendance-calendar.html';
+                }
+                window.location.href = target;
+            }
+        });
+    }
+
     console.log('Main.js loaded successfully');
 });

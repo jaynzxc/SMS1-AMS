@@ -1,142 +1,106 @@
 # Administrator Role Modules & Contents Documentation
 
 ## Overview
-The **Administrator Panel** serves as the central management, configuration, and monitoring hub for the Bestlink College of the Philippines Attendance Monitoring System. The administrator has institution-wide oversight of attendance records, hardware scanner tokens, user credentials, parent SMS alerts, and analytics.
+The **Administrator Panel** serves as the central management, configuration, and monitoring hub for the Bestlink College of the Philippines Attendance Monitoring System (AMS). The administrator has institution-wide oversight of attendance records, hardware scanner tokens, user credentials, parent SMS alerts, and analytics.
 
 ---
 
-## 1. Sidebar Navigation Modules
+## 1. Sidebar Navigation Modules (The 10 Official Submodules)
 
-### 1.1 Admin Dashboard
-* **Purpose**: Provide a comprehensive high-level summary of campus-wide attendance, faculty presence, scanner activities, and quick actions.
+### 1.1 Analytics Dashboard (Submodule 8)
+* **Routes**: `admin/dashboard.html`, `admin/performance-analytics.html`
+* **Purpose**: Provide a comprehensive high-level summary of campus-wide attendance, faculty presence, scanner activities, and institutional trend charts.
 * **Contents**:
   - **Summary Cards**: Total Enrolled Students, Total Faculty Teachers, Present Count Today, Late Count Today, Absent Count Today, Excused Count Today, Overall Attendance Rate (%).
-  - **Live Counters**: Students currently scanned today across all kiosks.
-  - **Activity Feeds**: Recent real-time attendance scans, recent excuse slip submissions, system notifications.
-  - **Quick Actions**: Add Student, Add Teacher, Register RFID Token, Generate Attendance Report, View Performance Analytics.
+  - **Dynamic Charts**: Interactive multi-period attendance trends (Last 7 Days, 30 Days, Semester), departmental breakdown, at-risk student distribution.
+  - **Live Counters**: Real-time headcount of students and teachers currently scanned today.
+  - **Recent Feeds**: Live audit stream of kiosk taps, newly submitted excuse slips, and critical truancy alerts.
 
-### 1.2 Daily Attendance Monitoring
+### 1.2 Daily Attendance Monitoring (Submodule 1)
+* **Route**: `admin/attendance.html`
 * **Purpose**: Real-time institution-wide monitoring of student attendance records submitted by teachers and hardware kiosks, with administrative correction capabilities.
 * **Contents**:
-  - **Attendance Records Table Columns**: Date, Subject, Section, Assigned Teacher, Student Name, Time In, Attendance Status (Present / Late / Absent / Excused), Attendance Method (RFID Tap / QR Code / Manual Entry), Remarks.
-  - **Functions**: Search by student name/ID, Multi-filter by Date, Section, Teacher, Subject; View Detailed Record; Administrative Record Correction (Mark Present, Late, Absent, Excused with audit logging); Delete/Restore Invalid Records; Lock Attendance Records after verification.
-  - **Authority**: Institutional override and audit verification.
+  - **Attendance Records Table**: Date, Subject, Section, Assigned Teacher, Student Name, Time In, Attendance Status (Present / Late / Absent / Excused), Method (RFID / QR / Manual), Remarks.
+  - **Controls Bar**: Student search, Date filter, Section filter, Subject filter, Status filter, Administrative Override Modal.
+  - **Design Note**: In accordance with Option 1 (Full Centralization), local table export buttons are omitted. All data extraction is handled in Submodule 10 (`reports-export.html`).
 
-### 1.3 RFID / QR Scanning Management
+### 1.3 RFID / QR Scanning Management (Submodule 2)
+* **Routes**: `admin/rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html`
 * **Purpose**: Hardware and digital identity credential management and real-time checkpoint scan auditing for both students and faculty members.
 * **Contents**:
-  - **RFID Registry**:
-    - *Columns*: User ID, Full Name, Role (Student / Teacher), Course & Section / Department, RFID Card UID, Card Status (Active / Inactive / Lost / Damaged), Date Registered.
-    - *Functions*: Register RFID Card (Student / Teacher), Replace Lost/Damaged RFID, Toggle Card Status (Activate / Deactivate), View Scan History.
-  - **QR Code Management**:
-    - *Features*: Batch Generate Dynamic Student/Teacher QR Codes, Regenerate Compromised QR Codes, Single & Batch Download QR (PNG), Print Official Identification QR Badges, Monitor QR Expiration Status.
-  - **Scan Logs**:
-    - *Columns*: Full Name, ID Number, Role (Student / Teacher), Date, Time In/Out, Scan Type (RFID Tap / QR Scan), Result (Success / Failed / Invalid Token / Late Flag), Checkpoint / IoT Device Station.
-    - *Functions*: Search, Filter by Role/Checkpoint/Date/Status, Export Scan Logs to CSV.
+  - **RFID Registry**: Card UID linking, status toggle (Active / Inactive / Lost / Damaged), registration date, user role.
+  - **QR Code Management**: Dynamic QR generation, credential renewal, badge printing preview.
+  - **Scan Logs**: Real-time audit log of all gate taps, classroom check-ins, and campus event entries.
 
-### 1.4 Tardy & Absence Logs
-* **Purpose**: Monitor chronic tardiness and unexcused absences, and identify habitual offenders across all year levels.
+### 1.4 Tardy & Absence Logs (Submodule 3)
+* **Routes**: `admin/tardy-and-absence/tardy-list.html`, `absence-list.html`, `habitual-offender.html`
+* **Purpose**: Monitor chronic tardiness and unexcused absences, and identify habitual truancy offenders across all year levels.
 * **Contents**:
-  - **Tardy List**:
-    - *Columns*: Student Name, Student ID, Section, Total Late Count, Last Late Timestamp, Class Adviser, Delay Duration.
-    - *Functions*: View Tardy Timeline, Reset Late Counter (Admin Authorized), Export Tardy Summary.
-  - **Absence List**:
-    - *Columns*: Student Name, Student ID, Section, Total Absences, Excused Absences, Unexcused Absences, Class Adviser.
-    - *Functions*: View Detailed Attendance History, Correct Record Status, Export Absence List.
-  - **Habitual Offender Monitoring**:
-    - *Automated Flagging Thresholds*: Students exceeding 3 Late arrivals, 5 Late arrivals, 5 Absences, or 10 Absences.
-    - *Actions*: View Intervention History, Issue Guidance Advisory, Log Guardian Notification.
+  - **Tardy List**: Student ID, Name, Section, Cumulative Late Minutes, Late Occurrences, Delay Timestamps.
+  - **Absence List**: Unexcused absences, Excused absences, Cumulative missed sessions, Risk category.
+  - **Habitual Truancy Escalation**: Automated flagging for students with >3 consecutive absences or >5 tardies, with direct referral bridge to the PREFECT Disciplinary Action Module.
 
-### 1.5 Teacher Attendance Monitoring
-* **Purpose**: Monitor faculty attendance, duty schedules, arrival punctuality, and rendered duty hours captured via the unified ESP32 RFID/QR stations.
+### 1.5 Teacher Attendance Monitoring (Submodule 4)
+* **Route**: `admin/teacher-attendance.html`
+* **Purpose**: Monitor faculty attendance, arrival punctuality, and rendered duty hours captured via gate RFID/QR stations, supplying Daily Time Records (DTR) to Academic HR.
 * **Contents**:
-  - **Attendance Log Columns**: Teacher ID, Faculty Name, Department, Time In, Time Out, Rendered Duty Hours, Status (Present / Late / Absent / On Leave), Date.
-  - **Functions*: Search by Teacher/Department, Filter by Date Range, View Faculty Attendance History, Manual Administrative Correction, Export Faculty Attendance DTR Report.
-  - **Summary Statistics**: Monthly Faculty Attendance Rate, Total On-Campus Faculty Today, Total Late Occurrences, Total Absences.
+  - **Faculty Log Table**: Teacher ID, Faculty Name, Department, Time In, Time Out, Rendered Duty Hours, Status (Present / Late / Absent / On Leave), Date.
+  - **Integration Bridge**: Directly syncs verified teaching hours to Academic HR Management (`hr_faculty_dtr`).
 
-### 1.6 Excuse Slip Management
+### 1.6 Excuse Slip Management (Submodule 5)
+* **Routes**: `admin/excuse-slip/pending-requests.html`, `approved-requests.html`, `rejected-requests.html`, `excuse-history.html`
 * **Purpose**: Institutional oversight, review, and final appeal authority for student excuse slips.
 * **Contents**:
-  - **Workflow Context**: Subject teachers act as first-line approvers; administrators handle institution-wide oversight, appeals, and system audit history.
-  - **Pending Requests**:
-    - *Columns*: Student Name, Section, Submission Date, Absence Date, Reason Category, Attached Medical/Official Proof (Image/PDF).
-    - *Functions*: Preview Proof Attachment, Approve Request, Reject Request, Request Revision with Remarks.
-  - **Approved Requests**: Student Name, Approver (Teacher or Admin), Approval Date, Verification Remarks.
-  - **Rejected Requests**: Student Name, Rejection Justification, Review Date.
-  - **Excuse Slip History**: Complete searchable archive of all processed excuse slips with attached documentation.
+  - **Dual Medical Verification Support**:
+    - *External Medical Certificate*: View uploaded doctor prescription / medical slip attachment.
+    - *School Clinic Pass*: Cross-referenced with Clinic Management consultation records (`clinic_visit_logs`).
+  - **Review Actions**: Approve Excuse (mutates attendance to Excused), Reject Excuse with justification remarks, Request Revision.
 
-### 1.7 Attendance Calendar
-* **Purpose**: Interactive monthly and weekly calendar interface for date-based attendance breakdown and daily summaries.
+### 1.7 Attendance Calendar (Submodule 6)
+* **Route**: `admin/attendance-calendar.html`
+* **Purpose**: Interactive monthly calendar interface displaying campus-wide presence heatmaps, academic terms, and holiday/calamity suspensions.
 * **Contents**:
-  - **Interactive Calendar Grid**: Color-coded day markers for attendance volume and status distributions.
-  - **Day View Modal / Drawer**: Students Present, Students Late, Students Absent, Excused Slips, Faculty Attendance.
-  - **Filters**: Academic Department, Course, Section, Subject Teacher.
-  - **Functions**: View Daily Attendance Breakdown, Print Daily Attendance Roster, Export Daily Ledger.
+  - **Monthly Heatmap Grid**: Visual color codes (Green = High Attendance, Orange = Moderate, Red = Low).
+  - **Day View Drawer**: Detailed daily breakdown of present, late, absent, and excused students.
+  - **Shared Calendar Sync**: Connects with SMS 1 Institutional Academic Calendar.
 
-### 1.8 Parent Alerts Monitoring
-* **Purpose**: Real-time monitoring and dispatch logs for automated outbound SMS notifications sent to parents and guardians.
-* **Scope Boundary**: No parent portal exists; communication is strictly outbound transactional SMS alerts.
+### 1.8 Alerts to Parents (Submodule 7)
+* **Route**: `admin/parent-alerts.html`
+* **Purpose**: Outbound SMS broadcast queue and delivery audit log for automated parent notifications.
 * **Contents**:
-  - **SMS Dispatch Columns**: Student Name, Parent/Guardian Name, Registered Mobile Number, Alert Type (Time-In Entry, Late Advisory, Unexcused Absence, Time-Out Exit, Excuse Slip Status), Timestamp, Gateway Status (Delivered / Pending / Failed).
-  - **Statistics**: Total Alerts Dispatched, Successful Deliveries, Failed Deliveries, SMS Gateway Balance.
-  - **Functions**: Resend Failed SMS Alert, Filter by Alert Type and Date, View Guardian Notification History.
+  - **SMS Dispatch Table**: Student Name, Guardian Name, Registered Mobile Number, Alert Type (Time-In, Late Advisory, Unexcused Absence, Truancy Warning), Delivery Timestamp, Gateway Status.
+  - **Gateway Metrics**: Total SMS sent, Delivery success rate, Gateway balance credit.
 
-### 1.9 Performance Analytics Dashboard
-* **Purpose**: Institutional data analytics and visual trend reporting for attendance performance across departments.
+### 1.9 Perfect Attendance Award Tool (Submodule 9)
+* **Route**: `admin/perfect-attendance.html`
+* **Purpose**: Automated evaluation and certificate conferment for students maintaining 100% attendance and zero infractions.
 * **Contents**:
-  - **Summary Metrics**: Campus-wide Attendance Rate (%), Present %, Late %, Absent %, Excused %.
-  - **Visual Charts**: Daily Attendance Trend (Multi-line chart), Monthly Attendance Comparison (Bar chart), Section-by-Section Comparison, Course-by-Course Attendance Ranks.
-  - **Leaderboards & Risk Analysis**: Top Performing Students (Highest Attendance %), Students at Risk (High Tardiness/Absence threshold).
-  - **Filters & Export**: Filter by School Year, Semester, Month, Course, Section; Export to PDF, Excel, and CSV.
+  - **Configurable Criteria**: Attendance percentage threshold, allowed tardy minutes, zero unexcused cuts.
+  - **Awardee Roster**: Qualified students, section, semester attendance record, conferment status.
+  - **Integration Bridge**: Transmits endorsed qualifier lists to OSAS for honors convocation and graduation clearance.
 
-### 1.10 Perfect Attendance Award Tool
-* **Purpose**: Automated evaluation and certificate generation for students meeting institutional perfect attendance criteria.
+### 1.10 Reports & Export (Submodule 10)
+* **Route**: `admin/reports-export.html`
+* **Purpose**: Centralized institutional reporting engine for all official documentation, audits, and compliance exports.
 * **Contents**:
-  - **Configurable Criteria**: Minimum Attendance % (e.g. 100%), Maximum Allowed Late Occurrences (e.g. 0 or 1), Allowed Excused Absences.
-  - **Awardee Roster Table**: Student Name, ID, Course & Section, Final Attendance %, Late Count, Absence Count, Verification Status.
-  - **Functions**: Generate Awardee List, Review & Approve Candidates, Remove Non-Qualifying Students, Batch Generate Printable Certificates, Export Awardee Registry.
-  - **Historical Archive**: Repository of previous semester and school year award recipients.
-
-### 1.11 Reports & Export
-* **Purpose**: Centralized report generation hub supporting compliance, academic reporting, and administrative audits.
-* **Contents**:
-  - **Available Reports**: Daily Master Attendance, Weekly Summary, Monthly Departmental Attendance, Individual Student Attendance Ledger, Faculty Attendance Summary, Tardy Analysis, Absence Roster, Excuse Slip Audit, Parent Notification Summary.
-  - **Supported Formats**: CSV, Microsoft Excel (.xlsx), PDF.
-  - **Multi-Level Filters**: Date Range, Academic Term, Course, Section, Teacher, Specific Student.
-
-### 1.12 User Management
-* **Purpose**: Institutional administration of user accounts, role-based privileges, and credential provisioning.
-* **Contents**:
-  - **Student Accounts**: Create Student, Edit Profile, Archive/Deactivate, Reset Password, Link RFID Token, Generate QR Code.
-  - **Teacher Accounts**: Create Faculty Account, Edit Department, Assign Subjects & Sections, Reset Password.
-  - **Administrator Accounts**: Provision Admin Account, Edit Roles, Update System Permissions.
-  - **Search & Filtering**: Real-time search by ID Number, Full Name, Role, or Department.
-
-### 1.13 Academic Management
-* **Purpose**: Manage the core academic structure supporting class attendance tracking and analytics.
-* **Contents**:
-  - **Terms & Semesters**: Manage Academic Years, Active Semester selection, Term Start/End dates.
-  - **Courses & Sections**: Manage Course Programs (e.g. BSIT, BSCS, BSIS), Section definitions (e.g. 1A, 2A, 3B).
-  - **Subject Catalog**: Manage Curricular Subjects (e.g. Web Development, Database Management Systems).
+  - **Report Categories**: Daily Master Attendance, DepEd / CHED Form 137 / SF2 Attendance Component, Habitual Truancy Summaries, Faculty DTR Logs, Parent SMS Delivery Audit, Excuse Slip Ledger.
+  - **Export Formats**: CSV, Microsoft Excel (.xlsx), and Printable Official PDF with institutional headers and signature lines.
+  - **Multi-Parameter Filtering**: Date range, academic year, semester, department, course, section, status.
 
 ---
 
-## 2. Topbar Profile Dropdown Modules
-*To maintain sidebar cleanliness and usability, personal account settings and system-wide configurations are accessible exclusively via the Topbar Profile Dropdown.*
+## 2. Institutional Administration Item
 
-### 2.1 My Profile (`admin/profile.html`)
-* **Purpose**: Personal administrator account management and security configuration.
-* **Contents**:
-  - **Administrator Information**: Full Name, Username, Official Email, Department/Office, Role Badge (*System Administrator*).
-  - **Security Management**: Change Password with 5-rule real-time password policy validation (min 8 chars, uppercase, lowercase, digit, symbol).
-  - **Session Details**: Last login timestamp, active browser session.
+### User Management (`admin/user-management.html`)
+* **Purpose**: Role assignment, student/faculty credential provisioning, and password resets.
+* **Contents**: Student Accounts, Faculty Accounts, Administrator Accounts, Role Permissions, Account Status (Active / Suspended).
 
-### 2.2 System Settings (`admin/settings.html`)
-* **Purpose**: Global institutional rules, scanner policies, SMS trigger automation, backup management, and audit logs.
-* **Contents**:
-  - **General Configuration**: Institution Name (*Bestlink College of the Philippines*), Official School Logo uploader & preview, School Entry & Dismissal Hours.
-  - **Attendance Rules**: Present Cut-off Time, Late Threshold (Grace Period in minutes), Late Cut-off Time, Automatic Absent Rule toggle.
-  - **RFID & QR Settings**: RFID Hardware Kiosks toggle & live device status, Dynamic QR Code toggle, QR Lifetime Expiration in seconds.
-  - **Notification Rules**: Outbound SMS/Email gateway toggles, Parent SMS Trigger Rules (Time-In Entry, Late Advisory, Unexcused Absence, Time-Out Exit).
-  - **Database Backup & Recovery**: Symmetrical 1-click JSON snapshot download and JSON file restore.
-  - **Audit Logs & History**: Real-time system activity table (Timestamp, Actor, Action Description, Status) and CSV export.
+---
+
+## 3. Topbar Profile Dropdown Modules
+
+### 3.1 My Profile (`admin/profile.html`)
+* Administrator account details, official email, department, real-time password change with 5-rule policy.
+
+### 3.2 System Settings (`admin/settings.html`)
+* Institutional rules, grace period cut-offs, RFID hardware device registry, outbound SMS gateway toggles, database backup/restore.

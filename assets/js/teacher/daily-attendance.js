@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function initURLParams() {
   const params = new URLSearchParams(window.location.search);
   const subjectParam = params.get('subject');
+  const statusParam = params.get('status');
+  const dateParam = params.get('date');
+  const sectionParam = params.get('section');
 
   const subjectSelect = document.getElementById('subjectSelect');
   if (subjectParam && subjectSelect) {
@@ -58,14 +61,33 @@ function initURLParams() {
     updateScheduleBadge();
   }
 
-  // Set today's date if date input exists
+  const sectionSelect = document.getElementById('sectionSelect');
+  if (sectionParam && sectionSelect) {
+    sectionSelect.value = sectionParam;
+    updateScheduleBadge();
+  }
+
+  // Pre-select status filter if provided in query URL
+  if (statusParam) {
+    activeStatusFilter = statusParam.toLowerCase();
+    const statusSelect = document.getElementById('filterStatusSelect');
+    if (statusSelect) {
+      statusSelect.value = activeStatusFilter;
+    }
+  }
+
+  // Set date from URL or default to today
   const dateInput = document.getElementById('attendanceDateInput');
-  if (dateInput && !dateInput.value) {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    dateInput.value = `${yyyy}-${mm}-${dd}`;
+  if (dateInput) {
+    if (dateParam) {
+      dateInput.value = dateParam;
+    } else if (!dateInput.value) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      dateInput.value = `${yyyy}-${mm}-${dd}`;
+    }
   }
 }
 
