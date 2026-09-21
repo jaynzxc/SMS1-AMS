@@ -106,13 +106,9 @@
           </button>
 
           <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
-            <a href="../tardy-and-absence/tardy-list.html"
+            <a href="../tardy-and-absence/tardy-and-absence.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Tardy List
-            </a>
-            <a href="../tardy-and-absence/absence-list.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Absence List
+              Tardy &amp; Absence Logs
             </a>
             <a href="../tardy-and-absence/habitual-offender.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
@@ -151,19 +147,7 @@
           <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
             <a href="../excuse-slip/pending-requests.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Pending Requests
-            </a>
-            <a href="../excuse-slip/approved-requests.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Approved Requests
-            </a>
-            <a href="../excuse-slip/rejected-requests.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Rejected Requests
-            </a>
-            <a href="../excuse-slip/excuse-history.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
-              Excuse Slip History
+              Excuse Slips
             </a>
           </div>
         </div>
@@ -431,7 +415,7 @@
             <div class="flex flex-wrap items-center gap-2.5">
               <!-- Search -->
               <div class="relative min-w-[220px]">
-                <input type="text" id="scanSearch" placeholder="Search student, ID, or gate..."
+                <input type="text" id="scanSearch" placeholder="Search student or ID..."
                   class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-[#e5e7eb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2] text-[#111827] placeholder-[#9ca3af]">
                 <svg class="w-4 h-4 text-[#9ca3af] absolute left-2.5 top-1/2 -translate-y-1/2" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -474,7 +458,6 @@
                   <th class="py-3 px-4">Date &amp; Time</th>
                   <th class="py-3 px-4">Scan Type</th>
                   <th class="py-3 px-4">Result</th>
-                  <th class="py-3 px-4">Checkpoint / Reader</th>
                   <th class="py-3 px-4 text-center">Actions</th>
                 </tr>
               </thead>
@@ -482,8 +465,7 @@
 
                 <!-- Row 1: Maria Santos (RFID - Success) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1001" data-scan-type="RFID"
-                  data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIT"
-                  data-date="July 25, 2026">
+                  data-result="Success" data-course="BSIT" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1001</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -510,13 +492,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-present">Success</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Gate 1 - Main Entrance <span class="text-[10px] text-[#6b7280] block font-mono">Kiosk RFID-01</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Santos, Maria', id: '2026-1001', courseYear: 'BSIT - 3rd Year', scanType: 'RFID Tap', uid: 'RFID-000123', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 07:20:15 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 917 555 0192) at 07:20 AM'})"
+                        onclick="openViewScanModal({student: 'Santos, Maria', id: '2026-1001', courseYear: 'BSIT - 3rd Year', scanType: 'RFID Tap', uid: 'RFID-000123', reader: 'ESP32 RFID Reader (RC522)', timestamp: 'July 25, 2026 · 07:20:15 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 917 555 0192) at 07:20 AM'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -539,8 +518,7 @@
 
                 <!-- Row 2: Juan Garcia (QR - Success) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1002" data-scan-type="QR"
-                  data-result="Success" data-checkpoint="Gate 2 - North Entrance" data-course="BSCS"
-                  data-date="July 25, 2026">
+                  data-result="Success" data-course="BSCS" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1002</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -566,14 +544,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-present">Success</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Gate 2 - North Entrance <span class="text-[10px] text-[#6b7280] block font-mono">QR Scanner
-                      02</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Garcia, Juan', id: '2026-1002', courseYear: 'BSCS - 2nd Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1002', checkpoint: 'Gate 2 - North Entrance (QR Reader 02)', timestamp: 'July 25, 2026 · 07:24:40 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 918 555 4910) at 07:24 AM'})"
+                        onclick="openViewScanModal({student: 'Garcia, Juan', id: '2026-1002', courseYear: 'BSCS - 2nd Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1002', reader: 'ESP32 Camera Scanner (OV2640)', timestamp: 'July 25, 2026 · 07:24:40 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 918 555 4910) at 07:24 AM'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -596,8 +570,7 @@
 
                 <!-- Row 3: Anna Reyes (RFID - Failed / Inactive Card) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1003" data-scan-type="RFID"
-                  data-result="Failed" data-checkpoint="Gate 1 - Main Entrance" data-course="BSIS"
-                  data-date="July 25, 2026">
+                  data-result="Failed" data-course="BSIS" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1003</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -622,14 +595,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-absent">Failed</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Gate 1 - Main Entrance <span class="text-[10px] text-red-600 block font-mono">Card Inactive /
-                      Flagged</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Reyes, Anna', id: '2026-1003', courseYear: 'BSIS - 1st Year', scanType: 'RFID Tap', uid: 'RFID-000456', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 07:35:12 AM', logType: 'Time-In (Rejected)', result: 'Failed', smsStatus: 'Security Flag Dispatched (Inactive RFID Token)'})"
+                        onclick="openViewScanModal({student: 'Reyes, Anna', id: '2026-1003', courseYear: 'BSIS - 1st Year', scanType: 'RFID Tap', uid: 'RFID-000456', reader: 'ESP32 RFID Reader (RC522)', timestamp: 'July 25, 2026 · 07:35:12 AM', logType: 'Time-In (Rejected)', result: 'Failed', smsStatus: 'Security Flag Dispatched (Inactive RFID Token)'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -652,8 +621,7 @@
 
                 <!-- Row 4: John Dela Cruz (QR - Success) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1004" data-scan-type="QR"
-                  data-result="Success" data-checkpoint="Gate 3 - Gym & Quadrangle" data-course="BSIT"
-                  data-date="July 25, 2026">
+                  data-result="Success" data-course="BSIT" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1004</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -679,14 +647,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-present">Success</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Gate 3 - Gym &amp; Quadrangle <span class="text-[10px] text-[#6b7280] block font-mono">QR Kiosk
-                      03</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Dela Cruz, John', id: '2026-1004', courseYear: 'BSIT - 4th Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1004', checkpoint: 'Gate 3 - Gym & Quadrangle', timestamp: 'July 25, 2026 · 07:41:08 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 920 555 8312) at 07:41 AM'})"
+                        onclick="openViewScanModal({student: 'Dela Cruz, John', id: '2026-1004', courseYear: 'BSIT - 4th Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1004', reader: 'ESP32 Camera Scanner (OV2640)', timestamp: 'July 25, 2026 · 07:41:08 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 920 555 8312) at 07:41 AM'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -709,8 +673,7 @@
 
                 <!-- Row 5: Luis Rivera (RFID - Success) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1005" data-scan-type="RFID"
-                  data-result="Success" data-checkpoint="Gate 1 - Main Entrance" data-course="BMMA"
-                  data-date="July 25, 2026">
+                  data-result="Success" data-course="BMMA" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1005</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -737,13 +700,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-present">Success</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Gate 1 - Main Entrance <span class="text-[10px] text-[#6b7280] block font-mono">Kiosk RFID-01</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Rivera, Luis', id: '2026-1005', courseYear: 'BMMA - 2nd Year', scanType: 'RFID Tap', uid: 'RFID-000789', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 07:48:33 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 922 555 1904) at 07:48 AM'})"
+                        onclick="openViewScanModal({student: 'Rivera, Luis', id: '2026-1005', courseYear: 'BMMA - 2nd Year', scanType: 'RFID Tap', uid: 'RFID-000789', reader: 'ESP32 RFID Reader (RC522)', timestamp: 'July 25, 2026 · 07:48:33 AM', logType: 'Time-In (Morning Entry)', result: 'Success', smsStatus: 'Delivered to Guardian (+63 922 555 1904) at 07:48 AM'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -766,8 +726,7 @@
 
                 <!-- Row 6: Chloe Bautista (RFID - Late / Tardy) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1006" data-scan-type="RFID"
-                  data-result="Late" data-checkpoint="Gate 1 - Main Entrance" data-course="BSCS"
-                  data-date="July 25, 2026">
+                  data-result="Late" data-course="BSCS" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1006</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -792,13 +751,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-late">Late</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Gate 1 - Main Entrance <span class="text-[10px] text-[#6b7280] block font-mono">Kiosk RFID-01</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Bautista, Chloe', id: '2026-1006', courseYear: 'BSCS - 3rd Year', scanType: 'RFID Tap', uid: 'RFID-000892', checkpoint: 'Gate 1 - Main Entrance (Kiosk 01)', timestamp: 'July 25, 2026 · 08:14:02 AM', logType: 'Time-In (Flagged Late)', result: 'Late', smsStatus: 'Tardy Advisory Dispatched to Guardian (+63 927 555 9931)'})"
+                        onclick="openViewScanModal({student: 'Bautista, Chloe', id: '2026-1006', courseYear: 'BSCS - 3rd Year', scanType: 'RFID Tap', uid: 'RFID-000892', reader: 'ESP32 RFID Reader (RC522)', timestamp: 'July 25, 2026 · 08:14:02 AM', logType: 'Time-In (Flagged Late)', result: 'Late', smsStatus: 'Tardy Advisory Dispatched to Guardian (+63 927 555 9931)'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -821,7 +777,7 @@
 
                 <!-- Row 7: David Tan (QR - Success) -->
                 <tr class="hover:bg-[#f9fafb] transition-colors" data-student-id="2026-1007" data-scan-type="QR"
-                  data-result="Success" data-checkpoint="Library Kiosk" data-course="BSIS" data-date="July 25, 2026">
+                  data-result="Success" data-course="BSIS" data-date="July 25, 2026">
                   <td class="py-3.5 px-4 font-mono font-medium text-[#6b7280]">2026-1007</td>
                   <td class="py-3.5 px-4 font-medium text-[#111827]">
                     <div class="flex items-center gap-2.5">
@@ -847,13 +803,10 @@
                   <td class="py-3.5 px-4">
                     <span class="status-badge status-badge-present">Success</span>
                   </td>
-                  <td class="py-3.5 px-4 font-medium text-[#374151]">
-                    Library Terminal <span class="text-[10px] text-[#6b7280] block font-mono">QR Kiosk LIB-01</span>
-                  </td>
                   <td class="py-3.5 px-4 text-center">
                     <div class="flex items-center justify-center gap-1.5">
                       <button
-                        onclick="openViewScanModal({student: 'Tan, David', id: '2026-1007', courseYear: 'BSIS - 2nd Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1007', checkpoint: 'Library Terminal (LIB-01)', timestamp: 'July 25, 2026 · 08:22:50 AM', logType: 'Building Entry', result: 'Success', smsStatus: 'Logged to Student Portal & SMS Hub'})"
+                        onclick="openViewScanModal({student: 'Tan, David', id: '2026-1007', courseYear: 'BSIS - 2nd Year', scanType: 'QR Code Scan', uid: 'QR-SEC-2026-1007', reader: 'ESP32 Camera Scanner (OV2640)', timestamp: 'July 25, 2026 · 08:22:50 AM', logType: 'Building Entry', result: 'Success', smsStatus: 'Logged to Student Portal & SMS Hub'})"
                         class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center"
                         title="View Full Scan Details">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -962,17 +915,6 @@
           </select>
         </div>
         <div>
-          <label class="font-bold text-[#374151] block mb-1">Checkpoint / Gate</label>
-          <select id="filterCheckpointSelect"
-            class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
-            <option value="">All Checkpoints</option>
-            <option value="Gate 1">Gate 1 - Main Entrance</option>
-            <option value="Gate 2">Gate 2 - North Entrance</option>
-            <option value="Gate 3">Gate 3 - Gym & Quadrangle</option>
-            <option value="Library">Library Terminal</option>
-          </select>
-        </div>
-        <div>
           <label class="font-bold text-[#374151] block mb-1">Student Department / Course</label>
           <select id="filterCourseSelect"
             class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
@@ -1059,8 +1001,8 @@
             <p id="modalDeviceUid" class="font-semibold text-[#111827] font-mono mt-1">RFID-000123</p>
           </div>
           <div class="col-span-2">
-            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Checkpoint Terminal</span>
-            <p id="modalCheckpoint" class="font-semibold text-[#111827] mt-0.5">Gate 1 - Main Entrance (Kiosk 01)</p>
+            <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Scanner Hardware</span>
+            <p id="modalCheckpoint" class="font-semibold text-[#111827] mt-0.5">ESP32 RFID Reader (RC522)</p>
           </div>
           <div>
             <span class="text-[#6b7280] block text-[10px] uppercase font-bold tracking-wider">Exact Timestamp</span>
@@ -1151,14 +1093,12 @@
             </select>
           </div>
           <div>
-            <label class="font-bold text-[#374151] block mb-1">Checkpoint Gate <span
+            <label class="font-bold text-[#374151] block mb-1">Hardware Reader <span
                 class="text-red-500">*</span></label>
             <select id="simCheckpoint"
               class="w-full px-3 py-2 border border-[#e5e7eb] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0030c2]/20 focus:border-[#0030c2]">
-              <option value="Gate 1 - Main Entrance">Gate 1 - Main Entrance</option>
-              <option value="Gate 2 - North Entrance">Gate 2 - North Entrance</option>
-              <option value="Gate 3 - Gym & Quadrangle">Gate 3 - Gym &amp; Quadrangle</option>
-              <option value="Library Terminal">Library Terminal</option>
+              <option value="ESP32 RFID Reader (RC522)">ESP32 RFID Reader (RC522)</option>
+              <option value="ESP32 Camera Scanner (OV2640)">ESP32 Camera Scanner (OV2640)</option>
             </select>
           </div>
         </div>

@@ -785,9 +785,123 @@ function initProfileDropdown() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const profileMenu = document.getElementById('studentProfileMenu');
+}
+
+/**
+ * Modal Listeners for Click-Outside and Escape key
+ */
+function initModalListeners() {
+  const slipModal = document.getElementById('slipDetailModal');
+  const filterModal = document.getElementById('filterModal');
+  const withdrawModal = document.getElementById('withdrawModal');
+  const editSlipModal = document.getElementById('editSlipModal');
+
+  [slipModal, filterModal, withdrawModal, editSlipModal].forEach(m => {
+    if (m) {
+      m.addEventListener('click', (e) => {
+        if (e.target === m) {
+          m.classList.remove('flex');
+          m.classList.add('hidden');
+          if (m === editSlipModal) pendingEditTicketId = null;
+          if (m === withdrawModal) pendingWithdrawTicketId = null;
+        }
+      });
+    }
+  });
+
+  // Replacement file upload change preview
+  const fileInput = document.getElementById('editAttachmentFileInput');
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const label = document.getElementById('editCurrentAttachmentName');
+        const badge = document.getElementById('editAttachmentStatusBadge');
+        if (label) label.textContent = file.name;
+        if (badge) {
+          badge.textContent = 'Replacement File';
+          badge.className = 'text-[10px] font-semibold text-[#16a34a] bg-[#f0fdf4] px-2 py-0.5 rounded border border-[#bbf7d0] shrink-0';
+        }
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSlipModal();
+      closeFilterModal();
+      closeWithdrawModal();
+      closeEditModal();
+    }
+  });
+}
+
+/**
+ * Topbar Profile Dropdown and Logout Handlers (1:1 Reference from attendance-history.html)
+ */
+function toggleProfileDropdown(event) {
+  if (event) event.stopPropagation();
+  const menu = document.getElementById('studentProfileMenu');
+  if (menu) {
+    menu.classList.toggle('hidden');
+  }
+}
+
+function handleLogout() {
+  if (confirm('Are you sure you want to log out?')) {
+    window.location.href = '../../login.html';
+  }
+}
+
+function initProfileDropdown() {
+  document.addEventListener('click', (e) => {
+    const profileBtn = document.getElementById('topbarProfileBtn');
+    const profileMenu = document.getElementById('studentProfileMenu');
+    if (profileMenu && !profileMenu.classList.contains('hidden')) {
+      if (!profileBtn?.contains(e.target) && !profileMenu.contains(e.target)) {
+        profileMenu.classList.add('hidden');
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const profileMenu = document.getElementById('studentProfileMenu');
       if (profileMenu) profileMenu.classList.add('hidden');
     }
   });
+}
+
+let currentStatusTab = 'All';
+
+function filterByTab(status) {
+  currentStatusTab = status;
+  
+  const tabBtns = {
+    'All': document.getElementById('tabBtnAll'),
+    'Pending Review': document.getElementById('tabBtnPending'),
+    'Approved': document.getElementById('tabBtnApproved'),
+    'Rejected': document.getElementById('tabBtnRejected')
+  };
+
+  const normalizedStatus = (status === 'Pending') ? 'Pending Review' : status;
+
+  Object.entries(tabBtns).forEach(([key, btn]) => {
+    if (!btn) return;
+    if (key === normalizedStatus) {
+      btn.className = 'px-4 py-2.5 text-xs font-bold border-b-2 border-[#0030c2] text-[#0030c2] flex items-center gap-2 cursor-pointer transition-colors';
+    } else {
+      btn.className = 'px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors';
+    }
+  });
+
+  if (normalizedStatus === 'All') {
+    filteredSlips = [...allSlips];
+  } else {
+    filteredSlips = allSlips.filter(s => s.status === normalizedStatus);
+  }
+
+  renderRequestsTable();
 }
 
 /**
@@ -811,4 +925,5 @@ function exposeGlobalFunctions() {
   window.goToNextPage = goToNextPage;
   window.toggleProfileDropdown = toggleProfileDropdown;
   window.handleLogout = handleLogout;
+  window.filterByTab = filterByTab;
 }

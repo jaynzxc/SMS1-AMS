@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (historyModal) historyModal.classList.add('hidden');
   };
 
-  // Export Modal Functions (Matching tardy-list.html)
+  // Export Modal Functions (Matching tardy-and-absence.html)
   const exportModal = document.getElementById('exportModal');
 
   window.openExportModal = function () {

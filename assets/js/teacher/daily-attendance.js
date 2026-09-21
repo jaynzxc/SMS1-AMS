@@ -516,7 +516,7 @@ window.confirmSubmitAttendance = function() {
 };
 
 /**
- * Open View Student Details Modal (from tardy-list.html pattern)
+ * Open View Student Details Modal (from tardy-and-absence.html pattern)
  */
 window.openViewStudentModal = function(studentId) {
   const student = currentRoster.find(s => s.id === studentId);
@@ -557,7 +557,7 @@ window.closeViewStudentModal = function() {
 };
 
 /**
- * Filter Modal Controls (from tardy-list.html)
+ * Filter Modal Controls (from tardy-and-absence.html)
  */
 window.openFilterModal = function() {
   const modal = document.getElementById('filterModal');
@@ -598,7 +598,7 @@ window.resetModalFilters = function() {
 };
 
 /**
- * Export Modal Controls (from tardy-list.html)
+ * Export Modal Controls (from tardy-and-absence.html)
  */
 window.openExportModal = function() {
   const modal = document.getElementById('exportModal');

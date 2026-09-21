@@ -1,6 +1,8 @@
 // assets/js/excuse-slip.js
 // Interactive features for Excuse Slip Management
 
+let currentExcuseTab = 'pending';
+
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Excuse Slip Management module initialized');
 
@@ -9,9 +11,93 @@ document.addEventListener('DOMContentLoaded', function() {
   initTableSearch('approvedSearch', 'approvedTable');
   initTableSearch('rejectedSearch', 'rejectedTable');
   initTableSearch('historySearch', 'historyTable');
+  initTableSearch('excuseSearchInput', 'pendingTable');
 });
 
-// Export Modal Controls (Matching tardy-list.html standard)
+// Tab switching handler
+function switchExcuseTab(tabName) {
+  currentExcuseTab = tabName;
+  const tabs = ['pending', 'approved', 'rejected', 'history'];
+  const titles = {
+    pending: 'Pending Requests',
+    approved: 'Approved Requests',
+    rejected: 'Rejected Requests',
+    history: 'All Excuse History'
+  };
+  const counts = {
+    pending: '12',
+    approved: '48',
+    rejected: '7',
+    history: '67'
+  };
+
+  tabs.forEach(t => {
+    const pane = document.getElementById(`pane-${t}`);
+    const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+    const card = document.getElementById(`statCard${t.charAt(0).toUpperCase() + t.slice(1)}`);
+
+    if (pane) {
+      if (t === tabName) {
+        pane.classList.remove('hidden');
+        pane.classList.add('block');
+      } else {
+        pane.classList.add('hidden');
+        pane.classList.remove('block');
+      }
+    }
+
+    if (btn) {
+      if (t === tabName) {
+        btn.className = 'px-4 py-2.5 text-xs font-bold border-b-2 border-[#0030c2] text-[#0030c2] flex items-center gap-2 cursor-pointer transition-colors';
+      } else {
+        btn.className = 'px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors';
+      }
+    }
+
+    if (card) {
+      if (t === tabName) {
+        card.classList.add('border-2', 'border-[#0030c2]', 'ring-2', 'ring-[#0030c2]/20');
+        card.classList.remove('border-[#e5e7eb]');
+      } else {
+        card.classList.remove('border-2', 'border-[#0030c2]', 'ring-2', 'ring-[#0030c2]/20');
+        card.classList.add('border-[#e5e7eb]');
+      }
+    }
+  });
+
+  const titleEl = document.getElementById('tableSectionTitle');
+  if (titleEl) titleEl.textContent = titles[tabName] || 'Excuse Requests';
+
+  const countBadge = document.getElementById('tableSectionCountBadge');
+  if (countBadge) countBadge.textContent = counts[tabName] || '';
+
+  const searchInput = document.getElementById('excuseSearchInput');
+  if (searchInput && searchInput.value) {
+    handleExcuseSearch(searchInput.value);
+  }
+}
+
+// Global search for active tab
+function handleExcuseSearch(term) {
+  const tableMap = {
+    pending: 'pendingTable',
+    approved: 'approvedTable',
+    rejected: 'rejectedTable',
+    history: 'historyTable'
+  };
+  const tableId = tableMap[currentExcuseTab] || 'pendingTable';
+  const table = document.getElementById(tableId);
+  if (!table) return;
+
+  const query = (term || '').toLowerCase().trim();
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const text = row.innerText.toLowerCase();
+    row.style.display = text.includes(query) ? '' : 'none';
+  });
+}
+
+// Export Modal Controls (Matching tardy-and-absence.html standard)
 function openExportModal() {
   const modal = document.getElementById('exportModal');
   if (modal) {
@@ -57,29 +143,28 @@ function handleExport(event) {
   const format = document.querySelector('input[name="exportFormat"]:checked')?.value || 'CSV';
   const specificDate = document.getElementById('exportDate')?.value || '2026-07-25';
 
-  // Determine prefix and table based on current page filename or title
   let filename = 'Excuse_Slip_Report';
   let tableId = '';
   let headers = [];
-  let colIndices = []; // indices of cells to export
-  
-  const path = window.location.pathname;
-  if (path.includes('pending-requests')) {
+  let colIndices = [];
+
+  const tab = currentExcuseTab || 'pending';
+  if (tab === 'pending') {
     filename = 'Pending_Requests';
     tableId = 'pendingTable';
     headers = ["Student ID", "Student Name", "Section", "Submitted Date", "Absence Date", "Reason"];
     colIndices = [0, 1, 2, 3, 4, 5];
-  } else if (path.includes('approved-requests')) {
+  } else if (tab === 'approved') {
     filename = 'Approved_Requests';
     tableId = 'approvedTable';
     headers = ["Student ID", "Student Name", "Section", "Absence Date", "Approved By", "Approval Date", "Remarks"];
     colIndices = [0, 1, 2, 3, 4, 5, 6];
-  } else if (path.includes('rejected-requests')) {
+  } else if (tab === 'rejected') {
     filename = 'Rejected_Requests';
     tableId = 'rejectedTable';
     headers = ["Student ID", "Student Name", "Section", "Absence Date", "Reason for Rejection", "Rejected Date"];
     colIndices = [0, 1, 2, 3, 4, 5];
-  } else if (path.includes('excuse-history')) {
+  } else if (tab === 'history') {
     filename = 'Excuse_History';
     tableId = 'historyTable';
     headers = ["Student ID", "Student Name", "Section", "Absent Date", "Reason", "Status", "Submitted Date"];

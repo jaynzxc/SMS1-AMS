@@ -99,8 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Tardy & Absence Dropdown - auto-expand if on Tardy pages
     const isTardyPage = path.includes('/tardy-and-absence/') || 
-                        filename === 'tardy-list.html' || 
-                        filename === 'absence-list.html' || 
+                        filename === 'tardy-and-absence.html' || 
                         filename === 'habitual-offender.html';
     
     if (isTardyPage) {
@@ -113,9 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Excuse Slip Dropdown - auto-expand if on Excuse Slip pages
     const isExcusePage = path.includes('/excuse-slip/') || 
                          filename === 'pending-requests.html' || 
-                         filename === 'approved-requests.html' || 
-                         filename === 'rejected-requests.html' || 
-                         filename === 'excuse-history.html';
+                         filename === 'my-requests.html' || 
+                         filename === 'submit-excuse.html';
     
     if (isExcusePage) {
         const dropdown = document.querySelector('.excuse-dropdown-menu');
@@ -366,8 +364,7 @@ document.addEventListener('click', function(event) {
         // Tardy dropdown - close unless on Tardy page
         if (tardyDropdown && tardyToggle) {
             const isTardyPage = path.includes('/tardy-and-absence/') || 
-                                filename === 'tardy-list.html' || 
-                                filename === 'absence-list.html' || 
+                                filename === 'tardy-and-absence.html' || 
                                 filename === 'habitual-offender.html';
             if (!isTardyPage) {
                 tardyDropdown.classList.add('hidden');
@@ -380,9 +377,8 @@ document.addEventListener('click', function(event) {
         if (excuseDropdown && excuseToggle) {
             const isExcusePage = path.includes('/excuse-slip/') || 
                                  filename === 'pending-requests.html' || 
-                                 filename === 'approved-requests.html' || 
-                                 filename === 'rejected-requests.html' || 
-                                 filename === 'excuse-history.html';
+                                 filename === 'my-requests.html' || 
+                                 filename === 'submit-excuse.html';
             if (!isExcusePage) {
                 excuseDropdown.classList.add('hidden');
                 const arrow = document.querySelector('.excuse-dropdown-arrow');

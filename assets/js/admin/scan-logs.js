@@ -106,7 +106,6 @@ function executeScanFiltering() {
   const searchInput = document.getElementById('scanSearch');
   const typeFilter = document.getElementById('filterScanTypeSelect');
   const resultFilter = document.getElementById('filterResultSelect');
-  const checkpointFilter = document.getElementById('filterCheckpointSelect');
   const courseFilter = document.getElementById('filterCourseSelect');
   const dateFilter = document.getElementById('filterDateInput');
   const table = document.getElementById('scanLogsTable');
@@ -116,7 +115,6 @@ function executeScanFiltering() {
   const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
   const selectedType = typeFilter ? typeFilter.value.toLowerCase().trim() : '';
   const selectedResult = resultFilter ? resultFilter.value.toLowerCase().trim() : '';
-  const selectedCheckpoint = checkpointFilter ? checkpointFilter.value.toLowerCase().trim() : '';
   const selectedCourse = courseFilter ? courseFilter.value.toLowerCase().trim() : '';
   const selectedDate = dateFilter ? dateFilter.value.trim() : '';
 
@@ -127,18 +125,16 @@ function executeScanFiltering() {
     const rowText = row.innerText.toLowerCase();
     const typeCell = row.getAttribute('data-scan-type') || (row.querySelector('[data-scan-type]') ? row.querySelector('[data-scan-type]').getAttribute('data-scan-type') : '');
     const resultCell = row.getAttribute('data-result') || (row.querySelector('[data-result]') ? row.querySelector('[data-result]').getAttribute('data-result') : '');
-    const checkpointCell = row.getAttribute('data-checkpoint') || (row.querySelector('[data-checkpoint]') ? row.querySelector('[data-checkpoint]').getAttribute('data-checkpoint') : '');
     const courseCell = row.getAttribute('data-course') || '';
     const dateCell = row.getAttribute('data-date') || '';
 
     const matchesSearch = !searchTerm || rowText.includes(searchTerm);
     const matchesType = !selectedType || selectedType === 'all' || typeCell.toLowerCase().includes(selectedType) || rowText.includes(selectedType);
     const matchesResult = !selectedResult || selectedResult === 'all' || resultCell.toLowerCase().includes(selectedResult) || rowText.includes(selectedResult);
-    const matchesCheckpoint = !selectedCheckpoint || selectedCheckpoint === 'all' || checkpointCell.toLowerCase().includes(selectedCheckpoint) || rowText.includes(selectedCheckpoint);
     const matchesCourse = !selectedCourse || selectedCourse === 'all' || courseCell.toLowerCase().includes(selectedCourse) || rowText.includes(selectedCourse);
     const matchesDate = !selectedDate || dateCell.includes(selectedDate) || rowText.includes(selectedDate);
 
-    if (matchesSearch && matchesType && matchesResult && matchesCheckpoint && matchesCourse && matchesDate) {
+    if (matchesSearch && matchesType && matchesResult && matchesCourse && matchesDate) {
       row.style.display = '';
       visibleCount++;
     } else {
@@ -149,7 +145,7 @@ function executeScanFiltering() {
   // Update visible count in table header badge
   const countBadge = document.getElementById('scanRecordCount');
   if (countBadge) {
-    const hasFilter = searchTerm || selectedType || selectedResult || selectedCheckpoint || selectedCourse || selectedDate;
+    const hasFilter = searchTerm || selectedType || selectedResult || selectedCourse || selectedDate;
     countBadge.textContent = hasFilter ? `${visibleCount} Found` : `4,825 Logs`;
   }
 }
@@ -182,7 +178,6 @@ function applyFilters() {
 function resetFilters() {
   if (document.getElementById('filterScanTypeSelect')) document.getElementById('filterScanTypeSelect').value = '';
   if (document.getElementById('filterResultSelect')) document.getElementById('filterResultSelect').value = '';
-  if (document.getElementById('filterCheckpointSelect')) document.getElementById('filterCheckpointSelect').value = '';
   if (document.getElementById('filterCourseSelect')) document.getElementById('filterCourseSelect').value = '';
   if (document.getElementById('filterDateInput')) document.getElementById('filterDateInput').value = '';
   if (document.getElementById('scanSearch')) document.getElementById('scanSearch').value = '';
@@ -205,7 +200,7 @@ function openViewScanModal(data) {
   if (document.getElementById('modalCourseYear')) document.getElementById('modalCourseYear').textContent = data.courseYear || 'BSIT - 3rd Year';
   if (document.getElementById('modalScanType')) document.getElementById('modalScanType').textContent = data.scanType || 'RFID Tap';
   if (document.getElementById('modalDeviceUid')) document.getElementById('modalDeviceUid').textContent = data.uid || 'RFID-000123';
-  if (document.getElementById('modalCheckpoint')) document.getElementById('modalCheckpoint').textContent = data.checkpoint || 'Gate 1 - Main Entrance (Kiosk A)';
+  if (document.getElementById('modalCheckpoint')) document.getElementById('modalCheckpoint').textContent = data.reader || data.checkpoint || 'ESP32 RFID Reader (RC522)';
   if (document.getElementById('modalTimestamp')) document.getElementById('modalTimestamp').textContent = data.timestamp || 'July 25, 2026 · 07:20:15 AM';
   if (document.getElementById('modalLogType')) document.getElementById('modalLogType').textContent = data.logType || 'Time-In (Morning Entry)';
   if (document.getElementById('modalSmsStatus')) document.getElementById('modalSmsStatus').textContent = data.smsStatus || 'Delivered to Guardian (+63 917 555 0192) at 07:20 AM';
@@ -318,7 +313,7 @@ function handleExport(event) {
       if (table) {
         const visibleRows = Array.from(table.querySelectorAll('tbody tr')).filter(row => row.style.display !== 'none');
         const csvRows = [
-          ["Student ID", "Student Name", "Date", "Time", "Scan Type", "Result", "Checkpoint"]
+          ["Student ID", "Student Name", "Date", "Time", "Scan Type", "Result"]
         ];
 
         visibleRows.forEach(row => {
@@ -329,7 +324,6 @@ function handleExport(event) {
           const time = cells[2]?.querySelector('div:last-of-type')?.textContent.trim() || '';
           const scanType = row.getAttribute('data-scan-type') || '';
           const result = row.getAttribute('data-result') || '';
-          const checkpoint = row.getAttribute('data-checkpoint') || '';
           
           csvRows.push([
             `"${id}"`,
@@ -337,8 +331,7 @@ function handleExport(event) {
             `"${date}"`,
             `"${time}"`,
             `"${scanType}"`,
-            `"${result}"`,
-            `"${checkpoint}"`
+            `"${result}"`
           ]);
         });
 
@@ -380,7 +373,7 @@ function handleSimulateScan(event) {
 
   const studentSelect = document.getElementById('simStudentSelect');
   const scanType = document.getElementById('simScanType')?.value || 'RFID';
-  const checkpoint = document.getElementById('simCheckpoint')?.value || 'Gate 1 - Main Entrance';
+  const reader = document.getElementById('simCheckpoint')?.value || (scanType === 'RFID' ? 'ESP32 RFID Reader (RC522)' : 'ESP32 Camera Scanner (OV2640)');
   const result = document.getElementById('simResult')?.value || 'Success';
 
   let studentName = 'Santos, Maria';
@@ -409,7 +402,6 @@ function handleSimulateScan(event) {
       tr.setAttribute('data-student-id', studentId);
       tr.setAttribute('data-scan-type', scanType);
       tr.setAttribute('data-result', result);
-      tr.setAttribute('data-checkpoint', checkpoint);
       tr.setAttribute('data-course', courseYear.split(' - ')[0] || 'BSIT');
       tr.setAttribute('data-date', dateStr);
 
@@ -443,10 +435,9 @@ function handleSimulateScan(event) {
         </td>
         <td class="py-3.5 px-4">${badgeHtml}</td>
         <td class="py-3.5 px-4">${resultBadgeHtml}</td>
-        <td class="py-3.5 px-4 font-medium text-[#374151]">${checkpoint}</td>
         <td class="py-3.5 px-4 text-center">
           <div class="flex items-center justify-center gap-1.5">
-            <button onclick="openViewScanModal({student: '${studentName}', id: '${studentId}', courseYear: '${courseYear}', scanType: '${scanType} Tap', uid: '${uid}', checkpoint: '${checkpoint}', timestamp: '${dateStr} · ${timeStr}', logType: 'Time-In (Simulated)', result: '${result}', smsStatus: 'Simulated Parent Alert Sent'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
+            <button onclick="openViewScanModal({student: '${studentName}', id: '${studentId}', courseYear: '${courseYear}', scanType: '${scanType} Tap', uid: '${uid}', reader: '${reader}', timestamp: '${dateStr} · ${timeStr}', logType: 'Time-In (Simulated)', result: '${result}', smsStatus: 'Simulated Parent Alert Sent'})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors inline-flex items-center justify-center" title="View Full Scan Details">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638-0-8.573-3.007-9.963-7.178z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

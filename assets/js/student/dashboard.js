@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Student Dashboard Module Initialized');
   initCurrentDate();
   initActionHandlers();
+  initAttendanceTrendChart();
 });
 
 /**
@@ -42,4 +43,109 @@ function initActionHandlers() {
       console.log('Student notifications clicked');
     });
   }
+}
+
+/**
+ * Initialize 30-Day Attendance & Punctuality Trend Chart
+ */
+function initAttendanceTrendChart() {
+  const canvas = document.getElementById('studentAttendanceTrendChart');
+  if (!canvas || typeof Chart === 'undefined') return;
+
+  const ctx = canvas.getContext('2d');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Current Week'],
+      datasets: [
+        {
+          label: 'Present Rate (%)',
+          data: [95.0, 97.5, 96.0, 100.0, 96.8],
+          borderColor: '#0030c2',
+          backgroundColor: 'rgba(0, 48, 194, 0.06)',
+          borderWidth: 2.5,
+          tension: 0.35,
+          fill: true,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#0030c2',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2
+        },
+        {
+          label: 'Punctuality (%)',
+          data: [90.0, 92.5, 95.0, 97.0, 95.5],
+          borderColor: '#f97316',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [4, 4],
+          tension: 0.35,
+          fill: false,
+          pointRadius: 3.5,
+          pointHoverRadius: 5.5,
+          pointBackgroundColor: '#f97316',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          backgroundColor: '#111827',
+          titleColor: '#ffffff',
+          bodyColor: '#e5e7eb',
+          padding: 10,
+          cornerRadius: 8,
+          callbacks: {
+            label: function(context) {
+              return `${context.dataset.label}: ${context.parsed.y}%`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            font: {
+              family: "'Inter', sans-serif",
+              size: 11
+            },
+            color: '#6b7280'
+          }
+        },
+        y: {
+          min: 80,
+          max: 100,
+          ticks: {
+            stepSize: 5,
+            callback: function(val) {
+              return val + '%';
+            },
+            font: {
+              family: "'Inter', sans-serif",
+              size: 11
+            },
+            color: '#6b7280'
+          },
+          grid: {
+            color: '#f3f4f6'
+          }
+        }
+      }
+    }
+  });
 }

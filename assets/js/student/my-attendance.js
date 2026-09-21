@@ -483,6 +483,201 @@ function closeRecordModal() {
   }
 }
 
+      methodCol = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe]">
+          RFID
+        </span>
+      `;
+    } else if (item.method === 'QR Code') {
+      methodCol = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+          QR Code
+        </span>
+      `;
+    } else {
+      methodCol = `<span class="text-[#9ca3af]">-</span>`;
+    }
+
+    return `
+      <tr class="hover:bg-[#f9fafb] transition-colors">
+        <td class="py-3 px-4 font-semibold text-[#111827] whitespace-nowrap">${item.date}</td>
+        <td class="py-3 px-4 font-semibold text-[#111827]">${item.subject}</td>
+        <td class="py-3 px-4 text-[#374151]">${item.teacher}</td>
+        <td class="py-3 px-4 text-[#6b7280] font-mono">${item.timeIn}</td>
+        <td class="py-3 px-4">${statusPill}</td>
+        <td class="py-3 px-4">${methodCol}</td>
+        <td class="py-3 px-4 text-[#6b7280]">${item.remarks}</td>
+        <td class="py-3 px-4 text-center">
+          <button onclick="openRecordModal(${item.id})" class="p-1.5 text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer" title="View details">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+/**
+ * Toggle date sorting
+ */
+function toggleDateSort() {
+  isAscending = !isAscending;
+  filteredRecords.sort((a, b) => {
+    const d1 = new Date(a.dateRaw);
+    const d2 = new Date(b.dateRaw);
+    return isAscending ? d1 - d2 : d2 - d1;
+  });
+  renderTable();
+}
+
+/**
+ * Filter modal functions
+ */
+function openFilterModal() {
+  const modal = document.getElementById('filterModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeFilterModal() {
+  const modal = document.getElementById('filterModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function applyModalFilters() {
+  const dateInput = document.getElementById('filterDateInput').value;
+  const subjectVal = document.getElementById('filterSubjectSelect').value;
+  const statusVal = document.getElementById('filterStatusSelect').value;
+  const methodVal = document.getElementById('filterMethodSelect').value;
+
+  filteredRecords = attendanceData.filter(item => {
+    let match = true;
+    if (dateInput && item.dateRaw !== dateInput) match = false;
+    if (subjectVal && item.subject !== subjectVal) match = false;
+    if (statusVal && item.status !== statusVal) match = false;
+    if (methodVal && item.method !== methodVal) match = false;
+    return match;
+  });
+
+  const clearBtn = document.getElementById('clearFiltersBtn');
+  if (clearBtn) {
+    const hasFilter = dateInput || subjectVal || statusVal || methodVal;
+    clearBtn.classList.toggle('hidden', !hasFilter);
+    clearBtn.classList.toggle('flex', !!hasFilter);
+  }
+
+  renderTable();
+  closeFilterModal();
+  showToast('Applied filters', `Applied filters. ${filteredRecords.length} record(s) matching.`, 'success');
+}
+
+function resetModalFilters() {
+  document.getElementById('filterDateInput').value = '';
+  document.getElementById('filterSubjectSelect').value = '';
+  document.getElementById('filterStatusSelect').value = '';
+  document.getElementById('filterMethodSelect').value = '';
+}
+
+function resetAllFilters() {
+  resetModalFilters();
+  const searchInput = document.getElementById('attendanceSearchInput');
+  if (searchInput) searchInput.value = '';
+  const clearBtn = document.getElementById('clearFiltersBtn');
+  if (clearBtn) {
+    clearBtn.classList.add('hidden');
+    clearBtn.classList.remove('flex');
+  }
+  filteredRecords = [...attendanceData];
+  renderTable();
+  closeFilterModal();
+  showToast('Filters Reset', 'Filters have been reset', 'info');
+}
+
+/**
+ * Record details modal
+ */
+function openRecordModal(id) {
+  const record = attendanceData.find(item => item.id === id);
+  if (!record) return;
+
+  const subjectEl = document.getElementById('modalSubjectTitle') || document.getElementById('modalSubjectName');
+  if (subjectEl) subjectEl.textContent = record.subject;
+
+  const instructorEl = document.getElementById('modalInstructorName');
+  if (instructorEl) instructorEl.textContent = record.teacher;
+
+  const dateEl = document.getElementById('modalDateVal') || document.getElementById('modalDateValue');
+  if (dateEl) dateEl.textContent = record.date;
+
+  const timeInEl = document.getElementById('modalTimeInVal') || document.getElementById('modalTimeInValue');
+  if (timeInEl) timeInEl.textContent = record.timeIn;
+
+  const scheduleEl = document.getElementById('modalScheduleVal') || document.getElementById('modalScheduleValue');
+  if (scheduleEl) scheduleEl.textContent = record.schedule;
+
+  const remarksEl = document.getElementById('modalRemarksVal') || document.getElementById('modalRemarksValue');
+  if (remarksEl) remarksEl.textContent = record.remarks;
+
+  const sectionEl = document.getElementById('modalSectionName');
+  if (sectionEl) sectionEl.textContent = 'BSIT 2A';
+
+  const methodContainer = document.getElementById('modalMethodVal') || document.getElementById('modalMethodValue');
+  if (methodContainer) {
+    if (record.method === 'RFID') {
+      methodContainer.innerHTML = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe]">
+          RFID
+        </span>
+      `;
+    } else if (record.method === 'QR Code') {
+      methodContainer.innerHTML = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">
+          QR Code
+        </span>
+      `;
+    } else {
+      methodContainer.innerHTML = `<span class="text-[#9ca3af]">-</span>`;
+    }
+  }
+
+  const badgeContainer = document.getElementById('modalStatusBadgeContainer');
+  if (badgeContainer) {
+    let badgeHtml = '';
+    if (record.status === 'Present') {
+      badgeHtml = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">Present</span>`;
+    } else if (record.status === 'Late') {
+      badgeHtml = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">Late</span>`;
+    } else if (record.status === 'Absent') {
+      badgeHtml = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">Absent</span>`;
+    } else if (record.status === 'Excused') {
+      badgeHtml = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#eff6ff] text-[#0030c2] border border-[#bfdbfe]">Excused</span>`;
+    }
+    badgeContainer.innerHTML = badgeHtml;
+  }
+
+  const modal = document.getElementById('recordDetailModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeRecordModal() {
+  const modal = document.getElementById('recordDetailModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
 /**
  * Simplified Pagination helpers
  */
@@ -578,6 +773,38 @@ function showToast(titleOrMessage, messageOrType, type = 'success') {
   }, 4000);
 }
 
+
+
+/**
+ * Filter records by status tab
+ */
+function filterByTab(status) {
+  const tabs = {
+    'All': document.getElementById('tabStatusAll'),
+    'Present': document.getElementById('tabStatusPresent'),
+    'Late': document.getElementById('tabStatusLate'),
+    'Absent': document.getElementById('tabStatusAbsent'),
+    'Excused': document.getElementById('tabStatusExcused')
+  };
+
+  Object.keys(tabs).forEach(key => {
+    const el = tabs[key];
+    if (!el) return;
+    if (key === status) {
+      el.className = 'px-3 py-1 text-xs font-semibold rounded-lg transition-colors bg-white text-[#0030c2] shadow-xs cursor-pointer';
+    } else {
+      el.className = 'px-3 py-1 text-xs font-semibold rounded-lg transition-colors text-[#6b7280] hover:text-[#111827] cursor-pointer';
+    }
+  });
+
+  if (status === 'All') {
+    filteredRecords = [...attendanceData];
+  } else {
+    filteredRecords = attendanceData.filter(item => item.status.toLowerCase() === status.toLowerCase());
+  }
+  renderTable();
+}
+
 /**
  * Expose functions to window object for inline HTML event handlers
  */
@@ -592,4 +819,5 @@ function exposeGlobalFunctions() {
   window.goToPreviousPage = goToPreviousPage;
   window.goToNextPage = goToNextPage;
   window.showToast = showToast;
+  window.filterByTab = filterByTab;
 }

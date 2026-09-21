@@ -828,3 +828,31 @@ function initChartTooltips() {
   }
 }
 
+/**
+ * Export Perfect Attendance Candidates List (CSV)
+ */
+function exportPerfectAttendanceList() {
+  const candidates = [
+    ["Student ID", "Student Name", "Section", "Attendance Rate", "Unexcused Absences", "Tardiness", "Honors Status"],
+    ["2023-01102", "Dela Cruz, Mark", "BSIT 3A", "100.0%", "0 Days", "0 Late", "Eligible (Dean's Lister)"],
+    ["2023-01458", "Santos, Maria Elena", "BSCS 2A", "100.0%", "0 Days", "0 Late", "Eligible (Dean's Lister)"],
+    ["2023-01890", "Reyes, Joshua Paul", "BSIT 3B", "99.50%", "0 Days", "1 Late", "Honors Candidate"],
+    ["2023-02031", "Bautista, Angel Mae", "BSIT 4A", "98.80%", "0 Days", "1 Late", "Honors Candidate"]
+  ];
+
+  const csvContent = "data:text/csv;charset=utf-8," + candidates.map(e => e.map(x => `"${x}"`).join(",")).join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `Perfect_Attendance_Candidates_${new Date().toISOString().split('T')[0]}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  if (typeof showToast === 'function') {
+    showToast('Candidates Exported', 'Perfect Attendance candidate list exported successfully (CSV)', 'success');
+  }
+}
+
+window.exportPerfectAttendanceList = exportPerfectAttendanceList;
+
