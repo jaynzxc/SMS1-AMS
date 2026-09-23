@@ -32,6 +32,7 @@ When creating or modifying any page, ALWAYS consult these reference benchmark fi
     ```html
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
@@ -247,26 +248,41 @@ All interfaces follow the Bestlink College of the Philippines institutional desi
 
 ---
 
-## 8. Developer Pre-Flight Checklist
+## 8. UI/UX Modernization Standard (`--preset b1Z5bagIi`)
+
+The user interface across all three portals adheres to the **Vega** minimal dashboard architecture decoded from `--preset b1Z5bagIi`:
+
+1. **Aesthetic Identity**: `vega` (Clean SaaS layout, crisp 1px borders, minimal visual friction, subtle micro-elevations).
+2. **Typography**: Google Font **Inter** (`font-family: 'Inter', sans-serif`). Highly legible, neutral, modern sans-serif typeface.
+3. **Neutral Canvas**: Canvas background `#f8fafc`, container cards pure `#ffffff`, borders `#e5e7eb`.
+4. **Brand Primary Accent**: `#0030c2` with soft tint `#eff6ff` for active states and badges.
+5. **Corner Radius Hierarchy**:
+   * Controls, buttons, table search/filter pills: `rounded-lg` (8px).
+   * Metric cards, KPI tiles, table wrappers: `rounded-xl` (12px).
+   * Modal dialogs, scanner preview frames: `rounded-2xl` (16px).
+6. **Subtle Navigation**: Navigation items use soft tint highlights (`bg-[#eff6ff]` with `#0030c2` text) rather than solid high-saturation fills.
+
+---
+
+## 9. Developer Pre-Flight Checklist
 
 Before finishing any UI change or creating a new page:
-- [ ] Navigation strictly adheres to the 10 official AMS submodules.
-- [ ] No `academic-management.html` link exists in navigation.
-- [ ] Operational table headers do NOT contain table-level export buttons.
-- [ ] No duplicated `#exportModal` code exists on operational pages.
+- [ ] Navigation strictly adheres to the official AMS submodules.
+- [ ] Operational table headers feature contextual table-level Export buttons triggering `#bcpUniversalExportModal`.
 - [ ] Excuse slip form includes the dual-option medical toggle.
 - [ ] Stylesheet links point to `output.css` and `style.css` (NO Tailwind CDN script).
-- [ ] Font is Inter (`font-family: 'Inter', sans-serif`).
-- [ ] Status badges match the institutional color tokens.
+- [ ] Font is Inter (`font-family: 'Inter', sans-serif`) with Google Fonts preconnect.
+- [ ] Status badges match the official 4-color palette in `docs/COLOR_PALETTE.md`.
 - [ ] Zero emojis in generated HTML, comments, or UI badges.
 - [ ] Related agent skills specifications updated to align with any UI/UX changes made.
 
 ---
 
-## 9. Continuous UI/UX Spec Alignment Rule
+## 10. Continuous UI/UX Spec Alignment Rule
 
 Whenever making modifications, improvements, or refinements to UI/UX components (e.g., chart styling, pill bars, card geometries, hover interactions, progressive color hierarchies):
 
 1. **Always Update Related Agent Skill Specs:** Immediately update `.agent/skills/ui-ux/SKILL.md`, `.agent/skills/analytics-reporting/SKILL.md`, or other relevant skills to reflect the new visual tokens, container bounds, SVG viewBox scales, and interactive behaviors.
 2. **Preserve Visual Continuity:** Ensure all subsequent tasks align with the updated specifications to prevent accidental regressions to legacy templates or outdated layouts.
+
 

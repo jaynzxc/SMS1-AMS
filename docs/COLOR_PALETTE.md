@@ -73,3 +73,35 @@ The neutral scale provides contrast, structure, and readability across data tabl
 | Color Name | Role | Hex Code | Soft Tint BG | Border Accent | Tailwind Class |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Honor / Purple** | Perfect attendance awards, certificates, conferred recognitions | `#7c3aed` | `#f5f3ff` | `#ddd6fe` | `text-[#7c3aed]`, `bg-[#7c3aed]` |
+
+---
+
+## 5. Typography Standard (Inter)
+
+The system is standardized on the **Inter** font family across all roles, dashboards, data tables, and print outputs:
+
+* **Primary Font Family:** `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
+* **Google Fonts Import:** `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap`
+* **Weights in Active Use:**
+  * `400 (Regular)`: Table body text, explanatory helper text, modal descriptions.
+  * `500 (Medium)`: Input fields, breadcrumbs, secondary meta labels.
+  * `600 (SemiBold)`: Card titles, table column headers (`thead th`), interactive buttons, status badges.
+  * `700 (Bold)`: KPI summary statistics, page main `<h1>` headers, modal dialog titles.
+  * `800 (ExtraBold)`: Key metrics, CHED accreditation headers, brand wordmark.
+
+---
+
+## 6. UI/UX Modernization Specification (`--preset b1Z5bagIi`)
+
+The system implements the **Vega** minimal dashboard architectural style decoded from `--preset b1Z5bagIi`:
+
+* **Style Identity:** `vega` (Sleek SaaS dashboard layout, crisp 1px borders, minimal visual friction).
+* **Base Surface Canvas:** `#f8fafc` (Slate neutral background canvas).
+* **Card Elevation:** Pure `#ffffff` container cards wrapped in `border border-[#e5e7eb] rounded-xl shadow-xs`.
+* **Corner Radius Standards:**
+  * Small inputs, badges, buttons: `rounded-lg` (`8px`)
+  * Container cards, summary stat tiles: `rounded-xl` (`12px`)
+  * Modal dialog cards, scanner viewports: `rounded-2xl` (`16px`)
+* **Menu Accent:** `subtle` navigation active indicators (`bg-[#eff6ff]` with `#0030c2` text and left accent bar).
+* **Iconography:** Pure vector inline SVGs (Lucide icon set, strictly zero emojis).
+
