@@ -27,7 +27,7 @@ Design and maintain a clean, resilient, and scalable architecture using **HTML5*
    9. Perfect Attendance Award Tool
    10. CSV / Excel Export
 4. **Scope Boundary (`academic-management` Excluded):** Curriculum, syllabus, and course catalog management belong to the upstream SMS 1 Academic Module. AMS navigation strictly omits `academic-management.html` to eliminate scope overlap.
-5. **Centralized Reporting Engine (Option 1):** Table-level export buttons and redundant modal markup on individual module pages are eliminated. All data extraction, CSV, Excel, and printable PDF compliance sheets are strictly centralized in Submodule 10 (`reports-export.html`).
+5. **Universal Table-Level Export & Multi-Format Modal Standard (`export-modal.js`):** Dedicated `reports-export.html` pages are retired. Every operational table features a contextual Export button triggering a standardized modal (`assets/js/common/export-modal.js`) supporting 4 formats (CSV, EXCEL, PDF, WORD) formatted to official CHED collegiate compliance standards.
 6. **Strict Role-Based Directory Boundaries:**
    * `admin/`: Campus-wide administration, policy setup, audits, master logs, conferment, and user management.
    * `teacher/`: Daily attendance roster, live classroom kiosk scanner, first-line excuse reviews, faculty DTR.

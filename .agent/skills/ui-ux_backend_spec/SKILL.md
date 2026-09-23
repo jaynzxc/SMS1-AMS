@@ -166,35 +166,92 @@ To ensure pages function seamlessly during testing, local `file:///` previews, o
 
 ---
 
-### PART C: Centralized Reporting Engine (`admin/reports-export.html` & `teacher/reports-export.html`)
+### PART C: Administrator Portal (`admin/`)
 
-In accordance with **Option 1 (Full Centralization)**, operational tables DO NOT execute individual export queries. All CSV, Excel, and PDF downloads are handled exclusively through Submodule 10.
+#### Screen A1: Analytics Dashboard (`admin/dashboard.html`)
+* **UI Purpose:** Campus-wide 2-tier dashboard featuring 4 KPI metric cards, interactive SVG Spline Ingestion Chart with Bezier smoothing and magnetic snap line, Summary Card, Master Attendance Table with search/status filters, and Quick Actions card.
+* **Backend Function:** `adminDashboardService.getDashboardMetrics(period)`
+* **Supabase Queries:**
+  ```javascript
+  // 1. Campus-wide attendance counts
+  const { data: todayCounts } = await supabase
+    .from('attendance')
+    .select('status')
+    .eq('date', new Date().toISOString().split('T')[0]);
 
-* **Backend Function:** `reportsExportService.generateDataset(filters)`
-* **Filter Contract:**
-  ```json
-  {
-    "report_type": "DAILY_MASTER_ATTENDANCE",
-    "academic_year": "2026-2027",
-    "semester": "1ST_SEMESTER",
-    "start_date": "2026-09-01",
-    "end_date": "2026-09-20",
-    "department_id": "CITE",
-    "course_strand": "BSIT",
-    "section": "3A",
-    "export_format": "CSV"
-  }
+  // 2. Active RFID/QR readers count
+  const { count: activeReaders } = await supabase
+    .from('hardware_devices')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'ONLINE');
+
+  // 3. 7-day ingestion spline time-series
+  const { data: scanTrends } = await supabase
+    .from('rfid_qr_scan_logs')
+    .select('scan_timestamp, scan_status')
+    .gte('scan_timestamp', sevenDaysAgoISO);
   ```
-* **Supported Report Generators:**
-  1. `DAILY_MASTER_ATTENDANCE` (Aggregated student rosters by date)
-  2. `HABITUAL_TRUANCY_LIST` (Students exceeding late/absence thresholds)
-  3. `FACULTY_DTR_SUMMARY` (Teacher attendance, duty hours, late arrivals for Academic HR)
-  4. `PARENT_SMS_DISPATCH_AUDIT` (SMS delivery logs, timestamps, gateway statuses)
-  5. `EXCUSE_SLIP_LEDGER` (Medical certificates, clinic passes, review audits)
+
+#### Screen A2: Device Management (`admin/rfid-and-qr/device-management.html`)
+* **UI Purpose:** Hardware reader fleet monitor, live throughput SVG spline chart, fleet health breakdown, reader table with IP/MAC mapping and zone filters, ESP32 pinout modal, and reader provisioning modal.
+* **Backend Function:** `deviceManagementService.getHardwareFleet()`
+* **Supabase Queries:**
+  ```javascript
+  // 1. Hardware device fleet records
+  const { data: devices, error } = await supabase
+    .from('hardware_devices')
+    .select('id, device_code, device_name, reader_type, zone, ip_address, mac_address, firmware_version, status, last_ping_at, total_scans_today')
+    .order('device_code', { ascending: true });
+
+  // 2. Scan throughput telemetry
+  const { data: telemetry } = await supabase
+    .from('rfid_qr_scan_logs')
+    .select('scan_timestamp, device_id')
+    .gte('scan_timestamp', currentRangeISO);
+  ```
+
+#### Screen A3: Audit Logs (`admin/audit-logs.html`)
+* **UI Purpose:** Immutable administrative security audit ledger, mutation activity SVG spline chart, action distribution card, audit ledger table with before/after state diff inspection modal.
+* **Backend Function:** `auditLogService.getAuditTrail(filters)`
+* **Supabase Queries:**
+  ```javascript
+  // 1. Immutable mutation activity log
+  const { data: logs, count } = await supabase
+    .from('user_activity')
+    .select('id, created_at, actor_name, actor_role, action, entity_type, entity_id, ip_address, status, old_state, new_state')
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+  ```
 
 ---
 
-### PART D: SMS 1 Ecosystem Integration Bridges
+### PART D: Universal Table-Level Export & Multi-Format Modal Engine (`assets/js/common/export-modal.js`)
+
+#### 1. Invocation Contract
+```javascript
+openExportModal({
+  tableId: 'attendanceTable',
+  title: 'Daily Attendance Master',
+  filename: 'BCP_Daily_Attendance_Master',
+  chedMetadata: {
+    department: 'College of Computer Studies',
+    course: 'Bachelor of Science in Information Technology',
+    section: 'All Sections',
+    subject: 'Collegiate Master Attendance',
+    semester: '1st Semester, A.Y. 2026-2027',
+    instructor: 'Institutional Master Ledger',
+    remarks: 'Official Attendance Record in Compliance with CHED CMO Standards'
+  }
+});
+```
+
+#### 2. Export Formats & Payloads
+- **CSV (`.csv`)**: Pure UTF-8 CSV string with properly escaped values and carriage-returns.
+- **EXCEL (`.xlsx`)**: Formatted XML spreadsheet with native XML schema, bold table headers, and auto-width columns.
+- **PDF (`.pdf`)**: Vector-styled printable document featuring official BCP institutional header, CHED collegiate metadata table, attendance data rows, and signatory blocks (Instructor, Department Head, College Dean, Registrar).
+- **WORD (`.doc`)**: Native HTML Word document layout with document margins, institutional letterhead, and bordered tabular ledger.
+
+### PART E: SMS 1 Ecosystem Integration Bridges
 
 #### Bridge 1: Clinic Consultation Verification
 ```javascript

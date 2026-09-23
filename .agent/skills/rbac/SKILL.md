@@ -66,7 +66,7 @@ The system strictly supports **three (3)** confirmed roles. No other roles may b
 | **`sms_logs`** | Full `ALL` (Dispatch/View)| `SELECT` class alerts | **NO ACCESS** |
 | **`excuse_slips`** | Full `ALL` (Final Escalations)| `SELECT`, `UPDATE` (Recommend/Reject)| `SELECT`, `INSERT` own slips |
 | **`perfect_attendance_awards`** | Full `ALL` (Confer/Revoke)| `SELECT`, `INSERT` (Nominees) | `SELECT` ONLY own awards |
-| **`reports-export.html`** | Full Institutional Reports | Section Grading Reports | Personal Attendance Log ONLY |
+| **Table-Level Export Modal** | Full Institutional Scope (CSV, EXCEL, PDF, WORD) | Assigned Classes Scope (CSV, EXCEL, PDF, WORD) | Personal Records Scope (CSV, EXCEL, PDF, WORD) |
 | **Table-Level Exports** | **PROHIBITED** (Option 1) | **PROHIBITED** (Option 1) | **PROHIBITED** (Option 1) |
 | **`academic-management`** | **EXCLUDED FROM AMS** | **EXCLUDED FROM AMS** | **EXCLUDED FROM AMS** |
 

@@ -29,9 +29,11 @@ This document establishes the official file structure standard and cleanup plan 
 2. **Scope Demarcation (`academic-management` Excluded)**:
    * `academic-management.html` is removed from AMS primary navigation. Curriculum, course syllabi, and academic program configurations belong to the upstream SMS 1 Academic Module.
 
-3. **Centralized Reports & Export Hub (Option 1)**:
-   * Redundant table-level "Export" buttons and modal boilerplate on operational views are eliminated.
-   * All CSV, Excel, and printable PDF exports (e.g. DepEd SF2, habitual tardiness lists, faculty DTR summaries) are strictly consolidated within Submodule 10 (`reports-export.html`).
+3. **Universal Table-Level Export Standard (`export-modal.js`)**:
+   * Dedicated `reports-export.html` pages have been eliminated across all portals.
+   * Every operational table includes a contextual **Export** button triggering an interactive modal form (`#bcpUniversalExportModal`).
+   * Supports 4 standard formats: **CSV**, **EXCEL** (`.xlsx`), **PDF** (Printable CHED Collegiate Sheet), and **WORD** (`.doc`).
+   * Institutional documentation strictly adheres to **CHED (Commission on Higher Education)** collegiate compliance standards (Colleges/Departments, Degree Programs, Semester/Academic Year, and formal collegiate signatories).
 
 4. **SMS 1 Cross-Module Integration Bridges**:
    * Documentation of data flows and bridge schemas connecting AMS to the 5 companion SMS 1 systems:
@@ -71,7 +73,8 @@ SMS1-AMS/
 │   ├── rfid-and-qr/                    # Submodule 2: RFID & QR Scanning Management
 │   │   ├── rfid-registry.html
 │   │   ├── qr-management.html
-│   │   └── scan-logs.html
+│   │   ├── scan-logs.html
+│   │   └── device-management.html      # IoT Terminal & Hardware Fleet Management
 │   ├── tardy-and-absence/              # Submodule 3: Tardy & Absence Logs
 │   │   ├── tardy-list.html
 │   │   ├── absence-list.html
@@ -85,7 +88,7 @@ SMS1-AMS/
 │   ├── attendance-calendar.html        # Submodule 6: Attendance Calendar
 │   ├── parent-alerts.html              # Submodule 7: Alerts to Parents (SMS Log)
 │   ├── perfect-attendance.html         # Submodule 9: Perfect Attendance Award Tool
-│   ├── reports-export.html             # Submodule 10: Centralized CSV / Excel / PDF Export
+│   ├── audit-logs.html                 # Immutable Security & Mutation Audit Ledger
 │   ├── user-management.html            # System Role Management
 │   ├── profile.html                    # Admin Account Profile
 │   └── settings.html                   # System Preferences
@@ -110,7 +113,6 @@ SMS1-AMS/
 │   ├── attendance-calendar.html        # Submodule 6: Class Schedule Calendar
 │   ├── parent-alerts.html              # Submodule 7: Alerts to Parents
 │   ├── perfect-attendance.html         # Submodule 9: Perfect Attendance Endorsements
-│   ├── reports-export.html             # Submodule 10: Section Grading Sheet & CSV Exports
 │   ├── profile.html                    # Teacher Account Profile
 │   └── settings.html                   # Account Preferences
 │
@@ -153,6 +155,7 @@ SMS1-AMS/
 │
 └── docs/
     ├── FILE_STRUCTURE_PLAN.md          # Master Directory Architecture
+    ├── COLOR_PALETTE.md                # Institutional 4-Color Palette Specification
     ├── architecture/
     │   ├── PRD.md                      # Product Requirements Document
     │   ├── rfid_qr_workflow.md         # Hardware & Scanner Workflows

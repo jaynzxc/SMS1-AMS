@@ -47,59 +47,67 @@ When creating or modifying any page, ALWAYS consult these reference benchmark fi
 
 ## 3. Sidebar Navigation Standards (The 10 Official Submodules)
 
-All sidebars across all 3 portals strictly follow the **10 Official Submodules** structure:
+All sidebars across all 3 portals strictly follow the **9 Core Submodules** structure:
 
 ### Admin Portal Navigation Menu
 1. **Analytics Dashboard** (`admin/dashboard.html` / `performance-analytics.html`)
 2. **Daily Attendance** (`admin/attendance.html`)
 3. **RFID & QR Management** (`admin/rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html`)
-4. **Tardy & Absence Logs** (`admin/tardy-and-absence/tardy-list.html`, `absence-list.html`, `habitual-offender.html`)
+4. **Tardy & Absence Logs** (`admin/tardy-and-absence/tardy-and-absence.html`, `habitual-offender.html`)
 5. **Teacher Attendance** (`admin/teacher-attendance.html`)
-6. **Excuse Slip Management** (`admin/excuse-slip/pending-requests.html`, `approved-requests.html`, `rejected-requests.html`)
+6. **Excuse Slip Management** (`admin/excuse-slip/pending-requests.html`)
 7. **Attendance Calendar** (`admin/attendance-calendar.html`)
 8. **Parent Alerts** (`admin/parent-alerts.html`)
 9. **Perfect Attendance** (`admin/perfect-attendance.html`)
-10. **Reports & Export** (`admin/reports-export.html`)
 *Footer Item:* **User Management** (`admin/user-management.html`)
 
-*(Rule: `academic-management.html` is strictly omitted from the navigation menu as academic curriculum belongs to the upstream SMS 1 Academic Module).*
+*(Rule: `academic-management.html` is strictly omitted from the navigation menu as academic curriculum belongs to the upstream SMS 1 Academic Module. The standalone `reports-export.html` module is retired in favor of universal table-level export modals).*
 
 ### Teacher Portal Navigation Menu
 1. **Class Analytics** (`teacher/dashboard.html` / `class-analytics.html`)
 2. **Daily Attendance** (`teacher/daily-attendance.html`)
 3. **RFID & QR Scanner** (`teacher/rfid-and-qr/live-scanner.html`, `scan-logs.html`)
-4. **Tardy & Absence Logs** (`teacher/tardy-and-absence/tardy-list.html`, `absence-list.html`)
+4. **Tardy & Absence Logs** (`teacher/tardy-and-absence/tardy-and-absence.html`)
 5. **My Teacher Attendance** (`teacher/teacher-attendance.html`)
 6. **Excuse Slip Reviews** (`teacher/excuse-slip/pending-requests.html`)
 7. **Attendance Calendar** (`teacher/attendance-calendar.html`)
 8. **Alerts to Parents** (`teacher/parent-alerts.html`)
 9. **Perfect Attendance** (`teacher/perfect-attendance.html`)
-10. **Reports & Export** (`teacher/reports-export.html`)
 
 ### Student Portal Navigation Menu
 1. **Dashboard** (`student/dashboard.html` / `performance-analytics.html`)
 2. **My Attendance** (`student/my-attendance.html`)
 3. **Digital ID & QR Pass** (`student/rfid-and-qr.html`)
-4. **Tardy & Absence Records** (`student/tardy-and-absence/tardy-records.html`, `absence-records.html`)
-5. **Submit Excuse Slip** (`student/excuse-slip/submit-excuse.html`, `my-requests.html`)
-6. **Attendance Calendar** (`student/attendance-calendar.html`)
-7. **Notifications & Alerts** (`student/notifications.html`)
-8. **Perfect Attendance** (`student/perfect-attendance.html`)
+4. **Submit Excuse Slip** (`student/excuse-slip/submit-excuse.html`, `my-requests.html`)
+5. **Attendance Calendar** (`student/attendance-calendar.html`)
+6. **Notifications & Alerts** (`student/notifications.html`)
+7. **Perfect Attendance** (`student/perfect-attendance.html`)
 
 ---
 
-## 4. Centralized Reports & Export Standard (Option 1)
+## 4. Universal Table-Level Export & Multi-Format Modal Standard (`export-modal.js`)
 
-To ensure razor-sharp separation of concerns, zero code bloat, and maximum UI clarity:
+To ensure intuitive accessibility, consistent data extraction, and institutional accreditation compliance:
 
-1. **NO Table-Level Export Buttons**:
-   * Individual operational tables (`attendance.html`, `tardy-list.html`, `absence-list.html`, `teacher-attendance.html`, `scan-logs.html`) MUST NOT contain "Export CSV", "Export Excel", or "Export PDF" action buttons.
-   * Table headers are dedicated solely to **Search Bar**, **Filter Dropdowns**, and operational actions (e.g. Add, Verify, Mark).
-2. **NO Redundant Export Modals**:
-   * Inline `#exportModal` markup and modal handler scripts (`openExportModal()`, `closeExportModal()`, `handleExport()`) must NOT be duplicated in operational pages.
-3. **Dedicated Reporting Hub (`reports-export.html`)**:
-   * All CSV, Excel (.xlsx), and printable PDF downloads are centralized in Submodule 10.
-   * The reporting interface provides modular templates for every data category (Daily Master Attendance, Habitual Tardiness Roster, Faculty DTR Logs, Excuse Slip Ledger, and Parent SMS Delivery Audit).
+1. **Contextual Table-Level Export Buttons**:
+   * Every operational table across Admin, Teacher, and Student portals features an **Export** button in its control header right alongside Search and Filter controls.
+   * Clicking the button invokes `openExportModal(options)` with module-specific metadata (table ID, document title, default filename, and CHED compliance attributes).
+2. **Interactive Multi-Format Modal Selector**:
+   * Standard modal dialog rendered dynamically via `assets/js/common/export-modal.js` (`#bcpUniversalExportModal`).
+   * Provides 4 format selection tiles with custom radios:
+     * **CSV** (`.csv`): Raw, UTF-8 encoded comma-separated values for database imports and statistical tooling.
+     * **EXCEL** (`.xlsx`): Formatted XML spreadsheet with native header styling, auto-filter capabilities, and auto-width columns.
+     * **PDF** (`.pdf`): High-resolution vector printable document formatted with official Bestlink College of the Philippines institutional header, CHED compliance metadata, tabular grid, and collegiate signatory blocks (Instructor, Department Head, Dean, Registrar).
+     * **WORD** (`.doc`): Formal Microsoft Word document layout with letterhead, institutional metadata table, and audit trail.
+3. **CHED Collegiate Compliance Standard**:
+   * Bestlink College of the Philippines is a higher-education institution under the **Commission on Higher Education (CHED)**.
+   * All formal documents strictly implement collegiate nomenclature:
+     * **College / Academic Department** (e.g., *College of Computer Studies*)
+     * **Degree Program** (e.g., *Bachelor of Science in Information Technology*)
+     * **Semester & Academic Year** (e.g., *1st Semester, A.Y. 2026-2027*)
+     * **Course Code & Descriptive Title** (e.g., *IT201 - Web Development*)
+     * **Institutional Signatories**: Instructor, Prefect of Discipline / Department Head, College Dean, and College Registrar.
+   * Basic education (DepEd SF2) terminology is strictly prohibited.
 
 ---
 
@@ -155,7 +163,7 @@ All interfaces follow the Bestlink College of the Philippines institutional desi
 | :--- | :--- | :--- | :--- |
 | **Primary Brand** | `text-[#0030c2]`, `bg-[#0030c2]` | `#0030c2` | Primary buttons, active nav pills, key highlights, progress bars. |
 | **Primary Hover** | `hover:bg-[#002699]` | `#002699` | Button hover state. |
-| **Primary Soft Tint** | `bg-[#eff6ff]`, `bg-[#e7edff]` | `#eff6ff` / `#e7edff` | Active menu backgrounds, primary icon badge backgrounds. |
+| **Primary Soft Tint** | `bg-[#eff6ff]`, `hover:bg-[#dbeafe]`, `border-[#bfdbfe]` | `#eff6ff` | Filter buttons, active pills, icon badge backgrounds. |
 | **Body Background** | `bg-[#f8fafc]` | `#f8fafc` | Page canvas background. |
 | **Surface / Card** | `bg-white` | `#ffffff` | Main cards, tables, headers, sidebar, modals. |
 | **Card Borders** | `border-[#e5e7eb]` | `#e5e7eb` | Standard card, table, header, and input borders. |
@@ -167,6 +175,23 @@ All interfaces follow the Bestlink College of the Philippines institutional desi
 | **Warning / Late** | `text-[#f97316]`, `bg-[#fff7ed]`, `border-[#fed7aa]` | `#f97316` | Late arrivals, at-risk warnings, pending review. |
 | **Danger / Absent** | `text-[#dc2626]`, `bg-[#fef2f2]`, `border-[#fecaca]` | `#dc2626` | Unexcused absences, critical warnings, disqualified, sign out. |
 | **Honor / Purple** | `text-[#7c3aed]`, `bg-[#f5f3ff]`, `border-[#ddd6fe]` | `#7c3aed` | Perfect attendance awards, conferred status, certificates. |
+
+---
+
+### Standard Interactive Button Specifications
+
+1. **Filter / Soft Tint Pill Button**:
+   ```html
+   class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#eff6ff] hover:bg-[#dbeafe] border border-[#bfdbfe] rounded-lg transition-colors shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0030c2]/30"
+   ```
+2. **Neutral Table Control Button (Export / Reset / Action)**:
+   ```html
+   class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 hover:text-[#0030c2] hover:border-[#0030c2] rounded-lg transition-colors shadow-xs cursor-pointer focus:outline-none"
+   ```
+3. **Solid Primary Call-to-Action**:
+   ```html
+   class="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg transition-colors shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0030c2]/40"
+   ```
 
 ---
 

@@ -56,15 +56,15 @@ Provide a definitive, unified map of the entire attendance monitoring system so 
        └─► SCHOOL EVENTS: Receives real-time attendee headcounts from event kiosk scans.
                                       │
                                       ▼
-  [7. CENTRALIZED REPORTING & EXPORTS (SUBMODULE 10)]
-       All compliance reports (DepEd/CHED Form 137/SF2, chronic tardy summaries, 
-       faculty DTR logs, audit history) are generated and exported exclusively 
-       through Submodule 10 (reports-export.html). Table-level export clutter is eliminated.
+  [7. UNIVERSAL TABLE-LEVEL EXPORTS & MULTI-FORMAT MODAL (CHED COMPLIANT)]
+        All operational tables provide direct data extraction via export-modal.js.
+        Outputs include CSV, EXCEL (.xlsx), PDF (Printable CHED Collegiate Sheet),
+        and WORD (.doc) with official academic department, course, and signatory metadata.
 ```
 
 ---
 
-## 2. Cross-Panel 10-Submodule Connection Matrix
+## 2. Cross-Panel 9-Core-Submodule Connection Matrix
 
 Every page in the system corresponds to complementary views in the other panels matching the **10 Official Submodules**:
 
@@ -72,14 +72,15 @@ Every page in the system corresponds to complementary views in the other panels 
 | :---: | :--- | :--- | :--- | :--- | :--- |
 | **8** | **Analytics Dashboard** | `dashboard.html`, `performance-analytics.html` | `dashboard.html`, `class-analytics.html` | `dashboard.html`, `performance-analytics.html` | Daily view aggregates, `attendance`, `excuse_slips` |
 | **1** | **Daily Attendance Marking** | `attendance.html` (Campus audit & override) | `daily-attendance.html` (Class roster & batch submit) | `my-attendance.html` (Personal subject log) | `attendance`, `classes`, `schedules` |
-| **2** | **RFID / QR Scanning** | `rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html` | `rfid-and-qr/live-scanner.html` (Classroom/Event kiosk), `scan-logs.html` | `rfid-and-qr.html` (Dynamic QR badge & card UID) | `rfid_cards`, `qr_codes`, `scan_logs` |
+| **2** | **RFID / QR Scanning** | `rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html`, `device-management.html` | `rfid-and-qr/live-scanner.html` (Classroom/Event kiosk), `scan-logs.html` | `rfid-and-qr.html` (Dynamic QR badge & card UID) | `rfid_cards`, `qr_codes`, `scan_logs`, `hardware_devices` |
 | **3** | **Tardy & Absence Logs** | `tardy-and-absence/tardy-list.html`, `absence-list.html`, `habitual-offender.html` | `tardy-and-absence/tardy-list.html`, `absence-list.html` | `tardy-and-absence/tardy-records.html`, `absence-records.html` | `attendance`, `tardy_records`, `absence_records` |
 | **4** | **Teacher Attendance** | `teacher-attendance.html` (HR campus DTR) | `teacher-attendance.html` (Personal faculty DTR) | *N/A (Staff-only)* | `teacher_attendance` |
 | **5** | **Excuse Slip Submission** | `excuse-slip/pending-requests.html`, `approved-requests.html`, `rejected-requests.html` | `excuse-slip/pending-requests.html`, `approved-requests.html` | `excuse-slip/submit-excuse.html` (Dual medical option), `my-requests.html` | `excuse_slips`, `excuse_attachments` |
 | **6** | **Attendance Calendar** | `attendance-calendar.html` (Institutional schedule) | `attendance-calendar.html` (Class schedule calendar) | `attendance-calendar.html` (Personal presence heatmap) | `attendance`, `academic_calendar` |
 | **7** | **Alerts to Parents** | `parent-alerts.html` (SMS dispatch queue & log) | `parent-alerts.html` (Classroom absence notification log) | `notifications.html` (Read-only alert feed) | `parent_alerts`, `sms_logs` |
 | **9** | **Perfect Attendance** | `perfect-attendance.html` (Threshold setup & conferment) | `perfect-attendance.html` (Section nominee review & endorsement) | `perfect-attendance.html` (Eligibility criteria checklist & certificate) | `perfect_attendance_awards` |
-| **10** | **CSV / Excel Export** | `reports-export.html` (Institutional reporting hub) | `reports-export.html` (Section grading sheet exports) | *Integrated into My Attendance (Personal CSV)* | Multi-table reporting views |
+| **Service** | **Table-Level Multi-Format Export** | Contextual Export buttons across all tables (`export-modal.js` - CSV, EXCEL, PDF, WORD with CHED compliance) | Contextual Export buttons across all tables (`export-modal.js` - CSV, EXCEL, PDF, WORD with CHED compliance) | Personal attendance and request export buttons (`export-modal.js`) | Direct tabular data extraction from active dataset |
+| **Gov** | **System Audit & Governance** | `audit-logs.html` (Mutation ledger & diff inspection) | *N/A (Admin only)* | *N/A (Admin only)* | `user_activity` |
 
 *Note: `academic-management.html` is permanently excluded from AMS navigation as curriculum management resides upstream in SMS 1 Academic Module.*
 

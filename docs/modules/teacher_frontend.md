@@ -27,7 +27,7 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
     - Real-time Student Search within the active class.
     - Save Local Draft (temporary persistence without administrative commit).
     - Submit Attendance to Administration (locks session and commits records to database).
-  - **Design Note**: In accordance with Option 1 (Full Centralization), local table export buttons are omitted. All report generation is handled in Submodule 10 (`reports-export.html`).
+  - **Design Note**: Every class operational table features a contextual Export button powered by the Universal Export Modal (`assets/js/common/export-modal.js`), providing CSV, EXCEL, PDF, and WORD formats with CHED collegiate compliance headers.
 
 ### 1.3 RFID / QR Scanning (Submodule 2)
 * **Routes**: `teacher/rfid-and-qr/live-scanner.html`, `teacher/rfid-and-qr/scan-logs.html`
@@ -86,13 +86,12 @@ The **Teacher Panel** empowers faculty members to record, manage, and verify stu
   - **Candidate List**: Student Name, Section, Attendance %, Late Count (0), Absence Count (0), Qualification Status.
   - **Actions**: View Criteria Compliance, Recommend Candidate to Admin.
 
-### 1.10 Reports & Export (Submodule 10)
-* **Route**: `teacher/reports-export.html`
-* **Purpose**: Centralized reporting hub for generating and downloading class attendance sheets and grading records.
-* **Contents**:
-  - **Available Reports**: Class Master Attendance Sheet, Weekly Roll Call, Monthly Section Summary, Student-by-Student Attendance Summary, Subject Tardy/Absence Report.
-  - **Supported Formats**: CSV, Microsoft Excel (.xlsx), PDF.
-  - **Filters**: Subject, Section, Date Range, Student.
+### 1.10 Universal Table-Level Export Service
+* **Component**: `assets/js/common/export-modal.js`
+* **Access**: Contextual Export button on class operational tables
+* **Purpose**: Class and teacher data extraction service directly accessible on every operational table view.
+* **Supported Formats**: CSV, Microsoft Excel (.xlsx), Printable Official PDF, Microsoft Word (.doc).
+* **Compliance Standards**: Commission on Higher Education (CHED) collegiate metadata, academic departments, degree programs, semester/A.Y., and collegiate signatory blocks (Instructor, Department Head, Dean, Registrar).
 
 ---
 

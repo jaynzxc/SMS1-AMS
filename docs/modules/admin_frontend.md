@@ -22,15 +22,16 @@ The **Administrator Panel** serves as the central management, configuration, and
 * **Contents**:
   - **Attendance Records Table**: Date, Subject, Section, Assigned Teacher, Student Name, Time In, Attendance Status (Present / Late / Absent / Excused), Method (RFID / QR / Manual), Remarks.
   - **Controls Bar**: Student search, Date filter, Section filter, Subject filter, Status filter, Administrative Override Modal.
-  - **Design Note**: In accordance with Option 1 (Full Centralization), local table export buttons are omitted. All data extraction is handled in Submodule 10 (`reports-export.html`).
+  - **Design Note**: Every operational table features a contextual Export button powered by the Universal Export Modal (`assets/js/common/export-modal.js`), providing CSV, EXCEL, PDF, and WORD formats with CHED collegiate compliance headers.
 
 ### 1.3 RFID / QR Scanning Management (Submodule 2)
-* **Routes**: `admin/rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html`
-* **Purpose**: Hardware and digital identity credential management and real-time checkpoint scan auditing for both students and faculty members.
+* **Routes**: `admin/rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html`, `device-management.html`
+* **Purpose**: Hardware and digital identity credential management, IoT device health telemetry, and real-time checkpoint scan auditing for both students and faculty members.
 * **Contents**:
   - **RFID Registry**: Card UID linking, status toggle (Active / Inactive / Lost / Damaged), registration date, user role.
   - **QR Code Management**: Dynamic QR generation, credential renewal, badge printing preview.
   - **Scan Logs**: Real-time audit log of all gate taps, classroom check-ins, and campus event entries.
+  - **Device Management**: ESP32 RFID terminal fleet telemetry, MAC address / IP mapping, online ping latency, firmware versions, heartbeat monitor, and pinout wiring diagnostics.
 
 ### 1.4 Tardy & Absence Logs (Submodule 3)
 * **Routes**: `admin/tardy-and-absence/tardy-list.html`, `absence-list.html`, `habitual-offender.html`
@@ -79,21 +80,26 @@ The **Administrator Panel** serves as the central management, configuration, and
   - **Awardee Roster**: Qualified students, section, semester attendance record, conferment status.
   - **Integration Bridge**: Transmits endorsed qualifier lists to OSAS for honors convocation and graduation clearance.
 
-### 1.10 Reports & Export (Submodule 10)
-* **Route**: `admin/reports-export.html`
-* **Purpose**: Centralized institutional reporting engine for all official documentation, audits, and compliance exports.
-* **Contents**:
-  - **Report Categories**: Daily Master Attendance, DepEd / CHED Form 137 / SF2 Attendance Component, Habitual Truancy Summaries, Faculty DTR Logs, Parent SMS Delivery Audit, Excuse Slip Ledger.
-  - **Export Formats**: CSV, Microsoft Excel (.xlsx), and Printable Official PDF with institutional headers and signature lines.
-  - **Multi-Parameter Filtering**: Date range, academic year, semester, department, course, section, status.
+### 1.10 Universal Table-Level Export Service
+* **Component**: `assets/js/common/export-modal.js`
+* **Access**: Contextual Export button on all operational tables
+* **Purpose**: Institutional data extraction service directly accessible on every operational table view.
+* **Supported Formats**: CSV, Microsoft Excel (.xlsx), Printable Official PDF, Microsoft Word (.doc).
+* **Compliance Standards**: Commission on Higher Education (CHED) collegiate metadata, academic departments, degree programs, semester/A.Y., and collegiate signatory blocks (Instructor, Department Head, Dean, Registrar).
 
 ---
 
-## 2. Institutional Administration Item
+## 2. Institutional Administration Items
 
-### User Management (`admin/user-management.html`)
+### 2.1 User Management (`admin/user-management.html`)
 * **Purpose**: Role assignment, student/faculty credential provisioning, and password resets.
 * **Contents**: Student Accounts, Faculty Accounts, Administrator Accounts, Role Permissions, Account Status (Active / Suspended).
+
+### 2.2 Audit Logs (`admin/audit-logs.html`)
+* **Purpose**: Immutable security audit ledger tracking administrative mutations, manual overrides, logins, role modifications, and policy adjustments.
+* **Contents**:
+  - **Mutation Activity Metrics**: Total events recorded, security-critical changes, administrative actors, 30-day activity trend spline chart.
+  - **Audit Ledger Table**: Event Timestamp, Actor (Admin Name / Role), Action Type (OVERRIDE, CREATE, UPDATE, DELETE, LOGIN), Target Entity, IP Address, Status Badge, Side-by-Side Before/After Diff Inspector Modal.
 
 ---
 

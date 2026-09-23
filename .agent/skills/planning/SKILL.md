@@ -27,7 +27,7 @@ Produce thorough, highly structured, and production-ready implementation plans b
    8. Analytics Dashboard
    9. Perfect Attendance Award Tool
    10. CSV / Excel Export
-5. **Centralized Reports & Export Rule (Option 1):** Never plan or add table-level export buttons, dropdowns, or modals on operational tables (`attendance.html`, `tardy-list.html`, `absence-list.html`, etc.). All data extraction and export features must strictly reside in Submodule 10 (`reports-export.html`).
+5. **Universal Table-Level Export Standard (`export-modal.js`):** Operational tables must include contextual Export buttons wired to `openExportModal(options)`. Do not create separate standalone report pages; use the universal multi-format modal form (CSV, EXCEL, PDF, WORD) with CHED collegiate compliance headers.
 6. **Scope Demarcation (`academic-management` Excluded):** Do not plan curriculum, syllabus, or course catalog management within AMS (`academic-management.html` is omitted from AMS navigation as it belongs to SMS 1 Academic Module).
 7. **SMS 1 Cross-Module Integration Bridges:** Evaluate and plan data integration touchpoints with Clinic Management, PREFECT Disciplinary Action, Academic HR, OSAS, and School Events.
 8. **Strict Technology Stack Adherence:** Plan strictly within:

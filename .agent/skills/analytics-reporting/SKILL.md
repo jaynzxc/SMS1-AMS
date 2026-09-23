@@ -1,35 +1,39 @@
 ---
 name: analytics-reporting
-description: Standards for Chart.js visualizations, attendance KPI aggregation formulas, attendance rate calculations, habitual tardiness indexes, CSV downloads, and print/PDF export styling for the Bestlink College of the Philippines Attendance Monitoring System. Use when working on dashboards, reports-export, performance analytics, or class analytics.
+description: Standards for Chart.js visualizations, attendance KPI aggregation formulas, attendance rate calculations, habitual tardiness indexes, CSV, Excel, PDF, and Word exports with CHED compliance for the Bestlink College of the Philippines Attendance Monitoring System. Use when working on dashboards, data exports, performance analytics, or class analytics.
 ---
 
-# Performance Analytics & Centralized Reporting Skill (SMS1-AMS)
+# Performance Analytics & Universal Table-Level Export Skill (SMS1-AMS)
 
 ## Goal
 
-Standardize analytical computations, KPI metrics, chart color aesthetics, and institutional export formats across Admin, Teacher, and Student portals to ensure 100% data consistency, adhering strictly to **Option 1 (Full Centralization of Reports & Export)**.
+Standardize analytical computations, KPI metrics, chart color aesthetics, and institutional export formats across Admin, Teacher, and Student portals to ensure 100% data consistency, adhering strictly to the **Universal Table-Level Export & Multi-Format Modal Standard** with **CHED Collegiate Compliance**.
 
 ---
 
-## 1. Centralized Reporting Architecture (Option 1 Standard)
+## 1. Universal Table-Level Export Architecture (`export-modal.js`)
 
-To maintain clean separation of concerns and eliminate code bloat:
+To ensure intuitive accessibility, consistent UX, and institutional accreditation compliance:
 
-1. **NO Table-Level Export Actions:**
-   * Individual operational tables (`attendance.html`, `tardy-list.html`, `absence-list.html`, `teacher-attendance.html`, `scan-logs.html`) MUST NOT render local "Export CSV" or "Export Excel" buttons.
-   * Tables focus exclusively on operational search, multi-parameter filtering, and record verification.
-2. **Dedicated Reporting Engine (`reports-export.html`):**
-   * Submodule 10 is the single institutional source of truth for all data exports.
-   * Supports 5 standardized reporting templates:
-     1. **Daily Master Attendance Report**: Detailed roster of daily presences, lates, absences, and excused slips by section and date.
-     2. **Official DepEd / CHED Form 137 / SF2 Attendance Component**: Official monthly consolidated attendance summary formatted for institutional compliance.
-     3. **Habitual Truancy & Tardiness Roster**: Students exceeding institutional absence/tardy thresholds for intervention by the PREFECT Disciplinary module.
-     4. **Faculty Daily Time Record (DTR) Summary**: Teacher check-in/out timestamps, late minutes, and rendered teaching hours for Academic HR payroll.
-     5. **Parent SMS Notification Audit**: Complete log of outbound alerts dispatched to guardians, delivery timestamps, and gateway statuses.
-3. **Supported Formats:**
-   * **CSV**: Raw structured data dump for spreadsheet analysis.
-   * **Microsoft Excel (`.xlsx`)**: Formatted workbook with bold headers, autofit columns, and institutional metadata.
-   * **Printable PDF**: High-resolution official printable layout with institutional headers, DepEd/CHED compliance text, and signatory blocks.
+1. **Table-Level Export Buttons:**
+   * Every operational table across Admin, Teacher, and Student portals features an **Export** button in its control header.
+   * Invokes `openExportModal(options)` with module-specific metadata (table ID, document title, default filename, and CHED compliance attributes).
+2. **Interactive Multi-Format Modal Selector (`#bcpUniversalExportModal`):**
+   * Shared modal dynamically rendered via `assets/js/common/export-modal.js`.
+   * Supports 4 standardized formats:
+     1. **CSV (`.csv`)**: Clean UTF-8 comma-separated text dump for statistical processing.
+     2. **Microsoft Excel (`.xlsx`)**: Formatted XML spreadsheet with bold headers, autofit columns, and auto-filters.
+     3. **Printable PDF (`.pdf`)**: High-resolution vector printable document formatted with official Bestlink College of the Philippines header, CHED compliance metadata, tabular grid, and collegiate signatory blocks (Instructor, Department Head, Dean, Registrar).
+     4. **Microsoft Word (`.doc`)**: Formal Word document with institutional letterhead, metadata summary, and tabular layout.
+3. **CHED Collegiate Compliance Standard:**
+   * Bestlink College of the Philippines is a higher-education institution under the **Commission on Higher Education (CHED)**.
+   * All exported reports strictly use collegiate nomenclature:
+     * **College / Academic Department** (e.g., *College of Computer Studies*)
+     * **Degree Program** (e.g., *Bachelor of Science in Information Technology*)
+     * **Semester & Academic Year** (e.g., *1st Semester, A.Y. 2026-2027*)
+     * **Course Code & Descriptive Title** (e.g., *IT201 - Web Development*)
+     * **Institutional Signatories**: Instructor, Prefect of Discipline / Department Head, College Dean, and College Registrar.
+   * Basic education (DepEd SF2) terminology is strictly prohibited.
 
 ---
 

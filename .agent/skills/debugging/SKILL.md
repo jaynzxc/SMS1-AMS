@@ -19,7 +19,7 @@ Systematically diagnose, isolate, and resolve issues across Frontend HTML5, Comp
 4. **No Emojis in Code or Logs:** Do NOT use emojis in code, comments, or debug console logs (`console.log`, `console.error`). Use clean, professional text messages.
 5. **Defense-in-Depth Integrity:** Never bypass security checks (e.g. relaxing RLS policies, skipping token verification, or hardcoding IDs) as a "temporary fix".
 6. **Cross-Panel Regression Awareness:** Always check if a change in one role's module (e.g. Teacher attendance roster) impacts another role (e.g. Student dashboard or Admin analytics) as specified in `.agent/skills/system-flow/SKILL.md`.
-7. **Option 1 Centralized Export Compliance:** Never re-introduce table-level export buttons or inline export modals when fixing table views. All exports belong in Submodule 10 (`reports-export.html`).
+7. **Universal Table-Level Export Compliance:** Operational tables should trigger `openExportModal(options)` using `assets/js/common/export-modal.js`. Do not recreate standalone `reports-export.html` pages or duplicate inline modal markup.
 8. **Aesthetic & Design Preservation:** When fixing UI bugs, strictly preserve existing Tailwind utility patterns, typography, and color tokens from `.agent/skills/ui-ux/SKILL.md`. Never introduce inline style hacks or runtime Tailwind CDN scripts.
 
 ---
@@ -78,7 +78,7 @@ Systematically diagnose, isolate, and resolve issues across Frontend HTML5, Comp
 
 ### 5. Uncaught ReferenceError on `openExportModal()`
 * **Cause:** Remnant inline export button calling removed modal scripts on an operational table.
-* **Resolution:** Remove the export button and modal invocation from the operational table. In Option 1, all export operations are centralized in Submodule 10 (`reports-export.html`).
+* **Resolution:** Ensure the export button properly calls `openExportModal(options)` and that `assets/js/common/export-modal.js` is imported as an ES module.
 
 ### 6. Navigation Link Pointing to `academic-management.html`
 * **Cause:** Out-of-scope link retained in Admin sidebar.

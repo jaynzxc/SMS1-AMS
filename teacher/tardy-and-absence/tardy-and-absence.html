@@ -172,15 +172,6 @@
           <span>Class Analytics</span>
         </a>
 
-        <!-- Reports & Export -->
-        <a href="../reports-export.html"
-          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-          </svg>
-          <span>Reports &amp; Export</span>
-        </a>
       </nav>
     </aside>
 
@@ -404,14 +395,12 @@
                 <option value="CS 211 - Data Structures">CS 211 - Data Structures</option>
               </select>
 
-              <!-- Export Button -->
-              <button onclick="handleExport()"
-                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#0030c2] bg-[#e7edff] hover:bg-[#d8e3ff] rounded-lg transition-colors cursor-pointer">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+              <!-- Export Button (CHED Compliant Multi-Format Modal) -->
+              <button onclick="openExportModal({ tableId: 'teacherLogsTable', title: 'Class Punctuality & Absence Ledger', filename: 'BCP_Teacher_Tardy_Absence', chedMetadata: { department: 'College of Computer Studies', course: 'BS Information Technology', section: 'Teacher Assigned Sections', subject: 'Classroom Punctuality & Absence Audit', semester: '1st Semester, A.Y. 2026-2027', instructor: 'Faculty Instructor', remarks: 'Official Attendance Discrepancy Ledger in Compliance with CHED Standards' } })" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 hover:text-[#0030c2] hover:border-[#0030c2] rounded-lg transition-colors shadow-xs cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                 </svg>
-                Export CSV
+                <span>Export</span>
               </button>
             </div>
           </div>
@@ -460,6 +449,7 @@
   <!-- Scripts -->
   <script src="../../assets/js/common/sidebar.js"></script>
   <script src="../../assets/js/teacher/tardy-and-absence.js"></script>
+  <script type="module" src="../../assets/js/common/export-modal.js"></script>
 </body>
 
 </html>
