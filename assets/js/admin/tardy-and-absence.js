@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('Admin Tardy & Absence module initialized');
   initLogsTable();
   setupSearchAndFilters();
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabParam = urlParams.get('tab');
+  if (tabParam && ['tardy', 'absence', 'all'].includes(tabParam)) {
+    switchTab(tabParam);
+  }
 });
 
 let currentTab = 'all';

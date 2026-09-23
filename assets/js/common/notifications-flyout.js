@@ -121,7 +121,7 @@
         relativeTime: '1 hr ago',
         unread: true,
         iconType: 'approved',
-        targetUrl: 'excuse-slip/pending-requests.html'
+        targetUrl: 'excuse-management.html'
       },
       {
         id: 'admin-notif-4',

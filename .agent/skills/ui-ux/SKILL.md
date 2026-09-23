@@ -285,4 +285,80 @@ Whenever making modifications, improvements, or refinements to UI/UX components 
 1. **Always Update Related Agent Skill Specs:** Immediately update `.agent/skills/ui-ux/SKILL.md`, `.agent/skills/analytics-reporting/SKILL.md`, or other relevant skills to reflect the new visual tokens, container bounds, SVG viewBox scales, and interactive behaviors.
 2. **Preserve Visual Continuity:** Ensure all subsequent tasks align with the updated specifications to prevent accidental regressions to legacy templates or outdated layouts.
 
+---
 
+## 11. Admin Dashboard Truancy by Category Radial Chart Widget
+
+The Admin Dashboard (`admin/dashboard.html`) bottom row pairs the **Recent Attendance** table (`col-span-2`) with the **Truancy by Category Radial Chart** (`col-span-1`), replacing the legacy Quick Actions card:
+
+1. **Purpose**: Real-time administrative surveillance and breakdown of chronic absenteeism and habitual tardiness categorized toward CHED compliance. Modeled after the Alerts by Type card in `admin/parent-alerts.html`.
+2. **Component Anatomy**:
+   * **Header**: Contains title `Truancy by Category` and `View All` navigation pill linking to `admin/tardy-and-absence/habitual-offender.html`.
+   * **Radial / Donut Chart**: Pure SVG radial chart with background track and four color-coded category slices (`#sliceChronicAbs`, `#sliceHabitualLate`, `#sliceSevereBoth`, `#sliceAdvisory`) centered around the total cases count.
+   * **Category Legend**: 4-item breakdown showing dot indicator, category name, count, and percentage:
+     - Chronic Absences (>5) - Red (`#ef4444`)
+     - Habitual Late (>5) - Orange (`#f97316`)
+     - Severe (Exceeds Both) - Purple (`#8b5cf6`)
+     - Advisory Warning - Blue (`#0030c2`)
+   * **Footer**: CHED 20% Threshold Warning note with deep link `Manage Offenders →`.
+3. **Dynamic Controller**: Driven by `renderAtRiskRadar(logs)` in `assets/js/admin/dashboard.js`, dynamically aggregating attendance logs to calculate slice dasharrays, offsets, and legend percentages.
+
+---
+
+## 12. shadcn/ui Button Component Standard (Pure CSS & Tailwind Compliant)
+
+Reference: `shadcnComponents/buttons.md`
+
+All button and button-like interactive triggers follow the official shadcn/ui button architecture implemented via clean CSS utility classes in `assets/css/style.css`:
+
+1. **Global Cursor Rule**:
+   ```css
+   button:not(:disabled),
+   [role="button"]:not(:disabled) {
+     cursor: pointer;
+   }
+   ```
+2. **Base Button (`.btn-shadcn`)**:
+   * Shared styling: inline-flex, center alignment, gap-2, rounded-lg (or rounded-md for xs), text-sm, font-medium, focus-visible ring, active scale (`active:scale-[0.98]`), and disabled states.
+3. **Variants**:
+   * **Default (`.btn-shadcn-default`)**: Solid institutional blue (`#0030c2`), hover `#00259e`, white text, shadow-2xs.
+   * **Outline (`.btn-shadcn-outline`)**: White background, subtle border (`#e5e7eb`), hover `#f9fafb` with `#d1d5db` border, dark text (`#111827`).
+   * **Secondary (`.btn-shadcn-secondary`)**: Soft blue background (`#eff6ff`), blue border (`#bfdbfe`), blue text (`#0030c2`), font-semibold, hover `#dbeafe`.
+   * **Ghost (`.btn-shadcn-ghost`)**: Transparent background, text `#6b7280`, hover background `#f3f4f6`, hover text `#111827`.
+   * **Destructive (`.btn-shadcn-destructive`)**: Red (`#dc2626`), hover `#b91c1c`, white text.
+4. **Sizes**:
+   * **`sm` (`.btn-shadcn-sm`)**: Height 32px (`h-8`), px-3, text-xs.
+   * **`xs` (`.btn-shadcn-xs`)**: Height 28px (`h-7`), px-2, text-xs.
+   * **`lg` (`.btn-shadcn-lg`)**: Height 40px (`h-10`), px-5, text-sm.
+   * **`icon` (`.btn-shadcn-icon`)**: 36px x 36px (`h-9 w-9`), p-0, centered icon.
+   * **`icon-sm` (`.btn-shadcn-icon-sm`)**: 32px x 32px (`h-8 w-8`), p-0, centered icon.
+   * **`icon-xs` (`.btn-shadcn-icon-xs`)**: 28px x 28px (`h-7 w-7`), p-0, centered icon.
+5. **Semantic Links as Buttons**:
+   * Use plain `<a>` tags with `class="btn-shadcn btn-shadcn-secondary btn-shadcn-sm"` (avoiding nested buttons or improper roles).
+
+---
+
+## 13. shadcn/ui Chart Tooltip Standard (indicator="line")
+
+Reference: `shadcnComponents/chartTooltip.md`
+
+All analytical charts (such as Attendance Trend spline charts and Truancy Radial/Donut charts) utilize the official shadcn/ui chart tooltip architecture with line indicator:
+
+1. **Card Container (Dark Surface Palette)**:
+   * Black glassmorphic surface: `background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.35); rounded-lg px-3 py-2 text-xs min-w-[145px]`.
+   * Floating overlay with smooth transitions: `absolute opacity-0 pointer-events-none z-30 transition-opacity duration-150`.
+   * Strictly contained: Position calculated using `clientX`/`clientY` clamped inside the parent card wrapper bounds to prevent spillover.
+2. **Header Title**:
+   * Date or category title: `font-semibold text-xs text-white pb-1 mb-1.5 border-b border-white/10`.
+3. **Metric Item with Line Indicator (`indicator="line"`)**:
+   * Colored vertical line: `w-1 h-3.5 rounded-full shrink-0` styled with the corresponding series/slice color (e.g. Cyan/Blue `#60a5fa` / `#3b82f6`, Red `#ef4444`, Orange `#f97316`, Purple `#8b5cf6`).
+   * Metric label: `text-gray-300 text-xs font-normal`.
+   * Metric value: `ml-auto font-mono font-bold text-white`.
+4. **Radial / Donut Hover Dynamics**:
+   * Hovering a slice or legend item:
+     - Expands the hovered slice stroke (`stroke-width="15"` from `12`).
+     - Dims non-hovered slices (`opacity: 0.45`).
+     - Positions the tooltip with line indicator, category title, case count, and percentage share.
+   * Mouseleave:
+     - Resets stroke-width to `12` and opacity to `1`.
+     - Hides tooltip.

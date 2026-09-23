@@ -80,11 +80,7 @@ SMS1-AMS/
 │   │   ├── absence-list.html
 │   │   └── habitual-offender.html
 │   ├── teacher-attendance.html         # Submodule 4: Teacher Attendance & HR DTR Audit
-│   ├── excuse-slip/                    # Submodule 5: Excuse Slip Submission & Review
-│   │   ├── pending-requests.html
-│   │   ├── approved-requests.html
-│   │   ├── rejected-requests.html
-│   │   └── excuse-history.html
+│   ├── excuse-management.html          # Submodule 5: Excuse Management (Unified Module with Pending, Approved, Rejected, & History)
 │   ├── attendance-calendar.html        # Submodule 6: Attendance Calendar
 │   ├── parent-alerts.html              # Submodule 7: Alerts to Parents (SMS Log)
 │   ├── perfect-attendance.html         # Submodule 9: Perfect Attendance Award Tool

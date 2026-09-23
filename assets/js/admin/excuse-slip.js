@@ -1,7 +1,7 @@
 // assets/js/excuse-slip.js
 // Interactive features for Excuse Slip Management
 
-let currentExcuseTab = 'pending';
+let currentExcuseTab = 'history';
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Excuse Slip Management module initialized');
@@ -11,30 +11,29 @@ document.addEventListener('DOMContentLoaded', function() {
   initTableSearch('approvedSearch', 'approvedTable');
   initTableSearch('rejectedSearch', 'rejectedTable');
   initTableSearch('historySearch', 'historyTable');
-  initTableSearch('excuseSearchInput', 'pendingTable');
+  initTableSearch('excuseSearchInput', 'historyTable');
 });
 
 // Tab switching handler
 function switchExcuseTab(tabName) {
   currentExcuseTab = tabName;
-  const tabs = ['pending', 'approved', 'rejected', 'history'];
+  const tabs = ['history', 'pending', 'approved', 'rejected'];
   const titles = {
+    history: 'All Excuse History',
     pending: 'Pending Requests',
     approved: 'Approved Requests',
-    rejected: 'Rejected Requests',
-    history: 'All Excuse History'
+    rejected: 'Rejected Requests'
   };
   const counts = {
+    history: '67',
     pending: '12',
     approved: '48',
-    rejected: '7',
-    history: '67'
+    rejected: '7'
   };
 
   tabs.forEach(t => {
     const pane = document.getElementById(`pane-${t}`);
     const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
-    const card = document.getElementById(`statCard${t.charAt(0).toUpperCase() + t.slice(1)}`);
 
     if (pane) {
       if (t === tabName) {
@@ -48,19 +47,9 @@ function switchExcuseTab(tabName) {
 
     if (btn) {
       if (t === tabName) {
-        btn.className = 'px-4 py-2.5 text-xs font-bold border-b-2 border-[#0030c2] text-[#0030c2] flex items-center gap-2 cursor-pointer transition-colors';
+        btn.className = 'px-4 py-2.5 text-xs font-bold border-b-2 border-[#0030c2] text-[#0030c2] flex items-center gap-2 cursor-pointer transition-colors focus:outline-none';
       } else {
-        btn.className = 'px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors';
-      }
-    }
-
-    if (card) {
-      if (t === tabName) {
-        card.classList.add('border-2', 'border-[#0030c2]', 'ring-2', 'ring-[#0030c2]/20');
-        card.classList.remove('border-[#e5e7eb]');
-      } else {
-        card.classList.remove('border-2', 'border-[#0030c2]', 'ring-2', 'ring-[#0030c2]/20');
-        card.classList.add('border-[#e5e7eb]');
+        btn.className = 'px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors focus:outline-none';
       }
     }
   });
@@ -85,7 +74,7 @@ function handleExcuseSearch(term) {
     rejected: 'rejectedTable',
     history: 'historyTable'
   };
-  const tableId = tableMap[currentExcuseTab] || 'pendingTable';
+  const tableId = tableMap[currentExcuseTab] || 'historyTable';
   const table = document.getElementById(tableId);
   if (!table) return;
 

@@ -4,15 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendance System · Pending Excuse Slips</title>
+  <title>Attendance System · Excuse Management</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../../assets/css/output.css">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <meta http-equiv="refresh" content="0; url=../excuse-management.html">
-  <script>window.location.replace('../excuse-management.html');</script>
+  <link rel="stylesheet" href="../assets/css/output.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body class="bg-[#f8fafc] text-[#111827]">
@@ -38,7 +36,7 @@
       <!-- Navigation -->
       <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
         <!-- Dashboard -->
-        <a href="../dashboard.html"
+        <a href="dashboard.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,7 +46,7 @@
         </a>
 
         <!-- Attendance Monitoring -->
-        <a href="../attendance.html"
+        <a href="attendance.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -75,15 +73,15 @@
           </button>
 
           <div class="dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
-            <a href="../rfid-and-qr/rfid-registry.html"
+            <a href="rfid-and-qr/rfid-registry.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               RFID Registry
             </a>
-            <a href="../rfid-and-qr/qr-management.html"
+            <a href="rfid-and-qr/qr-management.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               QR Code Management
             </a>
-            <a href="../rfid-and-qr/scan-logs.html"
+            <a href="rfid-and-qr/scan-logs.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Scan Logs
             </a>
@@ -108,15 +106,15 @@
           </button>
 
           <div class="tardy-dropdown-menu mt-0.5 space-y-0.5 pl-2 hidden">
-            <a href="../tardy-and-absence/tardy-and-absence.html"
+            <a href="tardy-and-absence/tardy-and-absence.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Tardy List
             </a>
-            <a href="../tardy-and-absence/tardy-and-absence.html"
+            <a href="tardy-and-absence/tardy-and-absence.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Absence List
             </a>
-            <a href="../tardy-and-absence/habitual-offender.html"
+            <a href="tardy-and-absence/habitual-offender.html"
               class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium pl-9 transition-colors">
               Habitual Offender
             </a>
@@ -124,7 +122,7 @@
         </div>
 
         <!-- Teacher Attendance -->
-        <a href="../teacher-attendance.html"
+        <a href="teacher-attendance.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -133,32 +131,18 @@
           <span>Teacher Attendance</span>
         </a>
 
-        <div class="relative">
-          <button onclick="toggleExcuseDropdown()"
-            class="excuse-dropdown-toggle flex items-center justify-between w-full px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
-            <div class="flex items-center gap-2.5">
-              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-              </svg>
-              Excuse Management
-            </div>
-            <svg class="excuse-dropdown-arrow w-3.5 h-3.5 transition-transform duration-200 text-[#6b7280]" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-
-          <div class="excuse-dropdown-menu mt-0.5 space-y-0.5 pl-2">
-            <a href="pending-requests.html"
-              class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm pl-9 transition-colors">
-              Excuse Slips
-            </a>
-          </div>
-        </div>
+        <!-- Excuse Management -->
+        <a href="excuse-management.html"
+          class="nav-active flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#eff6ff] text-[#0030c2] font-semibold text-sm transition-colors">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+          </svg>
+          Excuse Management
+        </a>
 
         <!-- Attendance Calendar -->
-        <a href="../attendance-calendar.html"
+        <a href="attendance-calendar.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -168,7 +152,7 @@
         </a>
 
         <!-- Parent Alerts -->
-        <a href="../parent-alerts.html"
+        <a href="parent-alerts.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -178,7 +162,7 @@
         </a>
 
         <!-- Performance Analytics -->
-        <a href="../performance-analytics.html"
+        <a href="performance-analytics.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -188,7 +172,7 @@
         </a>
 
         <!-- Perfect Attendance Award -->
-        <a href="../perfect-attendance.html"
+        <a href="perfect-attendance.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -199,7 +183,7 @@
 
 
         <!-- User Management -->
-        <a href="../user-management.html"
+        <a href="user-management.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -222,7 +206,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          <h1 class="text-base font-bold text-[#111827]">Excuse Slips</h1>
+          <h1 class="text-base font-bold text-[#111827]">Excuse Management</h1>
         </div>
 
         <div class="flex items-center gap-4">
@@ -256,7 +240,7 @@
             <!-- Dropdown Menu -->
             <div id="topbarProfileMenu"
               class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
-              <a href="../profile.html"
+              <a href="profile.html"
                 class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
                 <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -264,7 +248,7 @@
                 </svg>
                 <span>My Profile</span>
               </a>
-              <a href="../settings.html"
+              <a href="settings.html"
                 class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
                 <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -293,7 +277,7 @@
         <!-- Page Header -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Excuse Slips Management</h2>
+            <h2 class="text-2xl font-bold text-[#111827] tracking-tight">Excuse Management</h2>
             <p class="text-sm text-[#6b7280]">Manage, review, and track all student excuse slip requests and verification history.</p>
           </div>
           <button id="currentDateDisplay"
@@ -309,9 +293,29 @@
 
         <!-- Statistics Cards (4 Cards Grid) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Total Requests -->
+          <div id="statCardHistory" onclick="switchExcuseTab('history')"
+            class="stat-card stat-card-history cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-xs">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
+                <svg class="w-6 h-6 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.75">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#6b7280]">Total Requests</p>
+                <p class="text-2xl font-extrabold text-[#111827]">67</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#6b7280] font-medium mt-2">This month</p>
+          </div>
+
           <!-- Pending Requests -->
           <div id="statCardPending" onclick="switchExcuseTab('pending')"
-            class="stat-card cursor-pointer bg-white rounded-xl border-2 border-[#0030c2] p-4 shadow-sm hover:border-[#0030c2] transition-all bg-[#eff6ff]/30">
+            class="stat-card stat-card-pending cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-xs">
             <div class="flex items-center gap-3.5">
               <div
                 class="w-11 h-11 rounded-xl bg-[#fff7ed] flex items-center justify-center shrink-0 border border-[#fed7aa]/50">
@@ -331,7 +335,7 @@
 
           <!-- Approved Requests -->
           <div id="statCardApproved" onclick="switchExcuseTab('approved')"
-            class="stat-card cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#16a34a]/50 transition-all">
+            class="stat-card stat-card-approved cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-xs">
             <div class="flex items-center gap-3.5">
               <div
                 class="w-11 h-11 rounded-xl bg-[#f0fdf4] flex items-center justify-center shrink-0 border border-[#bbf7d0]/50">
@@ -351,7 +355,7 @@
 
           <!-- Rejected Requests -->
           <div id="statCardRejected" onclick="switchExcuseTab('rejected')"
-            class="stat-card cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#dc2626]/50 transition-all">
+            class="stat-card stat-card-rejected cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-xs">
             <div class="flex items-center gap-3.5">
               <div
                 class="w-11 h-11 rounded-xl bg-[#fef2f2] flex items-center justify-center shrink-0 border border-[#fecaca]/50">
@@ -368,26 +372,6 @@
             </div>
             <p class="text-[11px] text-[#6b7280] font-medium mt-2">This month</p>
           </div>
-
-          <!-- Total Requests -->
-          <div id="statCardHistory" onclick="switchExcuseTab('history')"
-            class="stat-card cursor-pointer bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm hover:border-[#2563eb]/50 transition-all">
-            <div class="flex items-center gap-3.5">
-              <div
-                class="w-11 h-11 rounded-xl bg-[#eff6ff] flex items-center justify-center shrink-0 border border-[#bfdbfe]/50">
-                <svg class="w-6 h-6 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="1.75">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-xs font-semibold text-[#6b7280]">Total Requests</p>
-                <p class="text-2xl font-extrabold text-[#111827]">67</p>
-              </div>
-            </div>
-            <p class="text-[11px] text-[#6b7280] font-medium mt-2">This month</p>
-          </div>
         </div>
 
         <!-- ===== EXCUSE SLIPS CONSOLIDATED MODULE ===== -->
@@ -395,25 +379,25 @@
 
           <!-- Filter Tabs Bar -->
           <div class="border-b border-[#e5e7eb] px-4 pt-3 flex items-center gap-1 sm:gap-2 bg-[#f9fafb]">
+            <button id="tabBtnHistory" onclick="switchExcuseTab('history')"
+              class="px-4 py-2.5 text-xs font-bold border-b-2 border-[#0030c2] text-[#0030c2] flex items-center gap-2 cursor-pointer transition-colors focus:outline-none">
+              <span>All History</span>
+              <span id="badgeHistory" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe]">67</span>
+            </button>
             <button id="tabBtnPending" onclick="switchExcuseTab('pending')"
-              class="px-4 py-2.5 text-xs font-bold border-b-2 border-[#0030c2] text-[#0030c2] flex items-center gap-2 cursor-pointer transition-colors">
-              <span>Pending Requests</span>
+              class="px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors focus:outline-none">
+              <span>Pending</span>
               <span id="badgePending" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#fff7ed] text-[#f97316] border border-[#fed7aa]">12</span>
             </button>
             <button id="tabBtnApproved" onclick="switchExcuseTab('approved')"
-              class="px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors">
+              class="px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors focus:outline-none">
               <span>Approved</span>
               <span id="badgeApproved" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#f0fdf4] text-[#16a34a] border border-[#bbf7d0]">48</span>
             </button>
             <button id="tabBtnRejected" onclick="switchExcuseTab('rejected')"
-              class="px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors">
+              class="px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors focus:outline-none">
               <span>Rejected</span>
               <span id="badgeRejected" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#fef2f2] text-[#dc2626] border border-[#fecaca]">7</span>
-            </button>
-            <button id="tabBtnHistory" onclick="switchExcuseTab('history')"
-              class="px-4 py-2.5 text-xs font-semibold text-[#6b7280] hover:text-[#111827] border-b-2 border-transparent flex items-center gap-2 cursor-pointer transition-colors">
-              <span>All History</span>
-              <span id="badgeHistory" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe]">67</span>
             </button>
           </div>
 
@@ -421,9 +405,9 @@
           <div
             class="p-4 border-b border-[#e5e7eb] flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
             <div class="flex items-center gap-2.5">
-              <h3 id="tableSectionTitle" class="text-base font-bold text-[#111827]">Pending Requests</h3>
+              <h3 id="tableSectionTitle" class="text-base font-bold text-[#111827]">All Excuse History</h3>
               <span id="tableSectionCountBadge"
-                class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#f3e8ff] text-[#7e22ce]">12</span>
+                class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#eff6ff] text-[#2563eb]">67</span>
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5">
@@ -449,7 +433,7 @@
               </button>
 
               <!-- Export Button (CHED Compliant Multi-Format Modal) -->
-              <button onclick="openExportModal({ tableId: 'pendingTable', title: 'Student Excuse Slip Ledger', filename: 'BCP_Excuse_Slips_Ledger', chedMetadata: { department: 'College of Computer Studies', course: 'BS Information Technology', section: 'All Sections', subject: 'Excused Absences & Clinic Visit Verifications', semester: '1st Semester, A.Y. 2026-2027', instructor: 'Dean / Academic Directorate', remarks: 'Official Medical and Institutional Excuse Slip Ledger in Compliance with CHED CMO' } })"
+              <button onclick="openExportModal({ tableId: 'historyTable', title: 'Student Excuse Slip Ledger', filename: 'BCP_Excuse_Slips_Ledger', chedMetadata: { department: 'College of Computer Studies', course: 'BS Information Technology', section: 'All Sections', subject: 'Excused Absences & Clinic Visit Verifications', semester: '1st Semester, A.Y. 2026-2027', instructor: 'Dean / Academic Directorate', remarks: 'Official Medical and Institutional Excuse Slip Ledger in Compliance with CHED CMO' } })"
                 class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg transition-colors cursor-pointer shadow-sm">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -461,7 +445,7 @@
           </div>
 
           <!-- Tab Panes -->
-          <div id="pane-pending" class="tab-pane block">
+          <div id="pane-pending" class="tab-pane hidden">
             <div class="overflow-x-auto">
             <table id="pendingTable" class="w-full text-left border-collapse">
               <thead>
@@ -1335,7 +1319,7 @@
           </div>
           </div>
 
-          <div id="pane-history" class="tab-pane hidden">
+          <div id="pane-history" class="tab-pane block">
             <div class="overflow-x-auto">
             <table id="historyTable" class="w-full text-left border-collapse">
               <thead>
@@ -1802,12 +1786,12 @@
 
   
 
-  <script src="../../assets/js/common/main.js"></script>
-  <script src="../../assets/js/common/sidebar.js"></script>
-  <script src="../../assets/js/common/notifications-flyout.js"></script>
-  <script src="../../assets/js/common/table-pagination.js"></script>
-  <script type="module" src="../../assets/js/common/export-modal.js"></script>
-  <script src="../../assets/js/admin/excuse-slip.js"></script>
+  <script src="../assets/js/common/main.js"></script>
+  <script src="../assets/js/common/sidebar.js"></script>
+  <script src="../assets/js/common/notifications-flyout.js"></script>
+  <script src="../assets/js/common/table-pagination.js"></script>
+  <script type="module" src="../assets/js/common/export-modal.js"></script>
+  <script src="../assets/js/admin/excuse-slip.js"></script>
 </body>
 
 </html>
