@@ -56,13 +56,13 @@ All sidebars across all 3 portals strictly follow the **9 Core Submodules** stru
 3. **RFID & QR Management** (`admin/rfid-and-qr/rfid-registry.html`, `qr-management.html`, `scan-logs.html`)
 4. **Tardy & Absence Logs** (`admin/tardy-and-absence/tardy-and-absence.html`, `habitual-offender.html`)
 5. **Teacher Attendance** (`admin/teacher-attendance.html`)
-6. **Excuse Slip Management** (`admin/excuse-slip/pending-requests.html`)
+6. **Excuse Management** (`admin/excuse-management.html`)
 7. **Attendance Calendar** (`admin/attendance-calendar.html`)
 8. **Parent Alerts** (`admin/parent-alerts.html`)
 9. **Perfect Attendance** (`admin/perfect-attendance.html`)
 *Footer Item:* **User Management** (`admin/user-management.html`)
 
-*(Rule: `academic-management.html` is strictly omitted from the navigation menu as academic curriculum belongs to the upstream SMS 1 Academic Module. The standalone `reports-export.html` module is retired in favor of universal table-level export modals).*
+*(Rule: `academic-management.html` is strictly omitted from the navigation menu as academic curriculum belongs to the upstream SMS 1 Academic Module. The standalone `reports-export.html` module is retired in favor of universal table-level export modals. Dropdown submenus must include `.rotate-90` smooth chevron transitions and proper parent highlight state synchronization).*
 
 ### Teacher Portal Navigation Menu
 1. **Class Analytics** (`teacher/dashboard.html` / `class-analytics.html`)
@@ -92,6 +92,17 @@ To ensure intuitive accessibility, consistent data extraction, and institutional
 
 1. **Contextual Table-Level Export Buttons**:
    * Every operational table across Admin, Teacher, and Student portals features an **Export** button in its control header right alongside Search and Filter controls.
+   * **Benchmark Style**: Solid primary blue button matching `admin/excuse-management.html`:
+     ```html
+     <button onclick="openExportModal({ ... })"
+       class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg transition-colors cursor-pointer shadow-sm">
+       <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round"
+           d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+       </svg>
+       <span>Export</span>
+     </button>
+     ```
    * Clicking the button invokes `openExportModal(options)` with module-specific metadata (table ID, document title, default filename, and CHED compliance attributes).
 2. **Interactive Multi-Format Modal Selector**:
    * Standard modal dialog rendered dynamically via `assets/js/common/export-modal.js` (`#bcpUniversalExportModal`).
@@ -246,6 +257,26 @@ All interfaces follow the Bestlink College of the Philippines institutional desi
 </body>
 ```
 
+### 7.1 Header Date Display & Anti-Flicker Standard
+
+To prevent page-refresh flickering and flash-of-unstyled-date (where stale dates like `May 27, 2025` momentarily appear before being replaced):
+1. **Synchronous Immediate Initialization**:
+   * Header date displays use `<span id="currentDateLabel">Loading date...</span>` immediately followed by an inline synchronous script that writes the live system date during DOM parsing before the browser's first paint:
+   ```html
+   <button id="currentDateDisplay" class="flex items-center gap-2 ...">
+     <svg class="w-4 h-4 text-[#6b7280] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+       <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+     </svg>
+     <span id="currentDateLabel">Loading date...</span><script>(function(){try{var d=new Date(),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],months=['January','February','March','April','May','June','July','August','September','October','November','December'],el=document.currentScript?document.currentScript.previousElementSibling:document.getElementById('currentDateLabel');if(el)el.textContent=months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' ('+days[d.getDay()]+')';}catch(e){}})();</script>
+   </button>
+   ```
+2. **Centralized Safe Date Sync (`sidebar.js`)**:
+   * `assets/js/common/sidebar.js` specifically targets `#currentDateLabel` and `#currentDateDisplay`. It does NOT execute broad, sweeping text scrapers across arbitrary document elements.
+3. **Table Pagination Anti-Flicker (`table-pagination.js`)**:
+   * `TablePagination.init()` initializes immediately upon evaluation as well as on `DOMContentLoaded` so that rows beyond the first page are hidden before layout paint, preventing rows 6+ from flashing into view and disappearing.
+4. **Dashboard Stat Persistence (`dashboard.js`)**:
+   * `dashboard.js` hydrates from `sessionStorage` (`bcp_admin_dashboard_cache`) on reload to preserve KPI card metrics and summary counters smoothly while asynchronous Supabase queries resolve in the background.
+
 ---
 
 ## 8. UI/UX Modernization Standard (`--preset b1Z5bagIi`)
@@ -362,3 +393,64 @@ All analytical charts (such as Attendance Trend spline charts and Truancy Radial
    * Mouseleave:
      - Resets stroke-width to `12` and opacity to `1`.
      - Hides tooltip.
+
+---
+
+## 14. Summary & KPI Stat Card Hover Interaction Standard
+
+All summary and metric KPI cards across the entire application (**Admin, Teacher, and Student portals**) adhere to the unified 3D elevation and ambient glow hover interaction system defined in `assets/css/style.css`:
+
+1. **Card Container Anatomy**:
+   * Class hierarchy: `stat-card stat-card-<type> bg-white rounded-xl border border-[#e5e7eb] p-4 shadow-sm block group transition-all`
+   * Cursor: `cursor: pointer` uniformly applied.
+   * Motion timing: `transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease`.
+2. **Universal Icon Micro-Interaction**:
+   * Icon badge wrappers automatically scale upon hover via `.stat-card:hover .group-hover\:scale-105`, `.stat-card:hover .shrink-0[class*="rounded-"]`, and `.stat-card:hover > div > div:first-child[class*="rounded-"]` to create subtle depth and reactive feedback (`transform: scale(1.05)`).
+3. **Semantic Color & Shadow Matrix on Hover**:
+   * **Total / History / Excused / Registered (`.stat-card-total`, `.stat-card-history`, `.stat-card-excused`, `.stat-card-blue`, `[class*="hover:border-[#0030c2]"]`, `[class*="hover:border-[#2563eb]"]`)**:
+     - Border: `border-color: #0030c2 !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(0, 48, 194, 0.16), 0 4px 6px -2px rgba(0, 48, 194, 0.08) !important;`
+   * **Present / Approved / Active (`.stat-card-present`, `.stat-card-approved`, `.stat-card-green`, `[class*="hover:border-[#16a34a]"]`)**:
+     - Border: `border-color: #16a34a !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(22, 163, 74, 0.16), 0 4px 6px -2px rgba(22, 163, 74, 0.08) !important;`
+   * **Late / Pending / Warning (`.stat-card-late`, `.stat-card-pending`, `.stat-card-orange`, `[class*="hover:border-[#f97316]"]`)**:
+     - Border: `border-color: #f97316 !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(249, 115, 22, 0.22), 0 4px 6px -2px rgba(249, 115, 22, 0.1) !important;`
+   * **Absent / Rejected / Risk (`.stat-card-absent`, `.stat-card-rejected`, `.stat-card-red`, `[class*="hover:border-[#dc2626]"]`)**:
+     - Border: `border-color: #dc2626 !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(220, 38, 38, 0.16), 0 4px 6px -2px rgba(220, 38, 38, 0.08) !important;`
+   * **Violet / Purple Analytics (`.stat-card-purple`, `[class*="hover:border-[#7c3aed]"]`, `[class*="hover:border-[#8b5cf6]"]`, `[class*="hover:border-[#9333ea]"]`)**:
+     - Border: `border-color: #8b5cf6 !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(139, 92, 246, 0.18), 0 4px 6px -2px rgba(139, 92, 246, 0.08) !important;`
+   * **Sky Blue / Devices (`.stat-card-sky`, `[class*="hover:border-[#0284c7]"]`)**:
+     - Border: `border-color: #0284c7 !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(2, 132, 199, 0.18), 0 4px 6px -2px rgba(2, 132, 199, 0.08) !important;`
+   * **Indigo Academic Batches (`.stat-card-indigo`, `[class*="hover:border-[#4f46e5]"]`)**:
+     - Border: `border-color: #4f46e5 !important`
+     - Elevation & Glow: `transform: translateY(-2px) !important; box-shadow: 0 10px 20px -3px rgba(79, 70, 229, 0.18), 0 4px 6px -2px rgba(79, 70, 229, 0.08) !important;`
+
+---
+
+## 15. Topbar Notification Bell Component Standard
+
+All views across Admin, Teacher, and Student portals adhere to the unified topbar notification bell architecture:
+
+1. **Button Anatomy**:
+   ```html
+   <button id="{adminNotifBtn|teacherNotifBtn|studentNotifBtn}" onclick="toggleNotificationDropdown(event)"
+     class="cursor-pointer relative text-[#6b7280] hover:text-[#111827] transition-colors"
+     title="Notifications" aria-label="Notifications">
+     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+       <path stroke-linecap="round" stroke-linejoin="round"
+         d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+     </svg>
+     <span class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+   </button>
+   ```
+2. **Container Sibling Spacing**:
+   * Sibling topbar controls wrapper must maintain `flex items-center gap-4` for comfortable breathing room between notification trigger and user profile menu.
+3. **Badge Alignment**:
+   * Badges must strictly use `absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4` to sit perfectly on the upper-right corner of the bell.
+   * `btn-shadcn`, `p-1`, `top-0 right-0`, and `top-1 right-1` deviations are strictly prohibited.
+4. **Behavioral Integration**:
+   * Fully coordinated with `assets/js/common/notifications-flyout.js` for role-specific unread badge counting, flyout toggling, and storage sync.

@@ -17,7 +17,7 @@
 
   <div class="flex h-screen overflow-hidden">
 
-    <!-- ===== SIDEBAR ===== -->
+        <!-- ===== SIDEBAR ===== -->
     <aside class="w-64 bg-white border-r border-[#e5e7eb] flex flex-col shrink-0 h-full overflow-y-auto sidebar-fixed">
 
       <!-- Logo -->
@@ -35,9 +35,9 @@
 
       <!-- Navigation -->
       <nav class="flex-1 overflow-y-auto py-2 px-2.5 space-y-0.5">
-        <!-- Dashboard (Active) -->
+        <!-- Dashboard -->
         <a href="dashboard.html"
-          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors">
+          class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-[#e7edff] text-[#0030c2] font-semibold text-sm transition-colors nav-active">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
@@ -124,7 +124,7 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
           </svg>
-          <span>Teacher Attendance</span>
+          Teacher Attendance
         </a>
 
         <!-- Excuse Management -->
@@ -147,7 +147,7 @@
           Attendance Calendar
         </a>
 
-        <!-- Parent Alerts -->
+        <!-- Parent Alerts Monitoring -->
         <a href="parent-alerts.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
@@ -177,7 +177,6 @@
           Perfect Attendance Award
         </a>
 
-
         <!-- User Management -->
         <a href="user-management.html"
           class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[#6b7280] hover:bg-[#e7edff] hover:text-[#0030c2] text-sm font-medium transition-colors">
@@ -206,35 +205,31 @@
           <h1 class="text-base font-bold text-[#111827]">Dashboard</h1>
         </div>
 
-        <div class="flex items-center gap-3">
-          <button id="adminNotifBtn" onclick="toggleNotificationDropdown(event)"
-            class="btn-shadcn btn-shadcn-ghost btn-shadcn-icon relative" title="Notifications"
-            aria-label="Notifications">
+        <div class="flex items-center gap-4">
+          <button id="adminNotifBtn" onclick="toggleNotificationDropdown(event)" class="cursor-pointer relative text-[#6b7280] hover:text-[#111827] transition-colors" title="Notifications" aria-label="Notifications">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
             <span
-              class="absolute top-1 right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
+              class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
           </button>
 
           <!-- Admin Profile Dropdown Container -->
           <div class="relative">
             <button id="topbarProfileBtn" onclick="toggleProfileDropdown(event)"
-              class="btn-shadcn btn-shadcn-outline flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-left h-auto">
-              <div class="w-7 h-7 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
-                <svg class="w-4.5 h-4.5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
+              class="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-xl transition-colors border border-transparent hover:border-[#e5e7eb] focus:outline-none">
+              <div class="w-8 h-8 rounded-full bg-[#e5e7eb] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zM4 20.5c0-3.59 3.58-6.5 8-6.5s8 2.91 8 6.5V21H4v-.5z" />
                 </svg>
               </div>
               <div class="text-left">
                 <p class="text-xs font-bold text-[#111827] leading-tight">Admin User</p>
                 <p class="text-[10px] text-[#6b7280] leading-tight">System Administrator</p>
               </div>
-              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              <svg id="topbarProfileChevron" class="topbar-profile-chevron w-3.5 h-3.5 text-[#6b7280] transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </button>
 
@@ -243,8 +238,7 @@
               class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-xl border border-[#e5e7eb] shadow-lg py-1.5 z-50">
               <a href="profile.html"
                 class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
-                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="1.75">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
@@ -252,8 +246,7 @@
               </a>
               <a href="settings.html"
                 class="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-[#374151] hover:bg-[#e7edff] hover:text-[#0030c2] transition-colors">
-                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="1.75">
+                <svg class="w-4 h-4 shrink-0 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -262,9 +255,8 @@
               </a>
               <div class="my-1 border-t border-[#f1f5f9]"></div>
               <button onclick="handleLogout()"
-                class="btn-shadcn btn-shadcn-ghost w-full justify-start gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 hover:text-red-700">
-                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
+                class="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                 </svg>
@@ -291,7 +283,7 @@
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
             </svg>
-            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
+            <span id="currentDateLabel">Loading date...</span><script>(function(){try{var d=new Date(),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],months=['January','February','March','April','May','June','July','August','September','October','November','December'],el=document.currentScript?document.currentScript.previousElementSibling:document.getElementById('currentDateLabel');if(el)el.textContent=months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' ('+days[d.getDay()]+')';}catch(e){}})();</script>
           </button>
         </div>
 
@@ -402,7 +394,7 @@
                   <svg id="trendDropdownChevron" class="w-3.5 h-3.5 text-[#6b7280]"
                     style="transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: center;"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                   </svg>
                 </button>
 
@@ -710,7 +702,7 @@
                   <div
                     class="radial-legend-item flex items-center gap-2.5 cursor-pointer hover:bg-gray-50/80 p-1.5 rounded-lg -mx-1.5 transition-colors"
                     data-category="chronicAbs">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444] shrink-0"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444] shrink-0" style="background-color: #ef4444;"></span>
                     <div>
                       <span class="font-medium text-[#111827]">Chronic Absences (&gt;5)</span>
                       <span id="legendChronicAbs" class="text-[#6b7280] block text-[11px]">12 (37.5%)</span>
@@ -720,7 +712,7 @@
                   <div
                     class="radial-legend-item flex items-center gap-2.5 cursor-pointer hover:bg-gray-50/80 p-1.5 rounded-lg -mx-1.5 transition-colors"
                     data-category="habitualLate">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#f97316] shrink-0"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#f97316] shrink-0" style="background-color: #f97316;"></span>
                     <div>
                       <span class="font-medium text-[#111827]">Habitual Late (&gt;5)</span>
                       <span id="legendHabitualLate" class="text-[#6b7280] block text-[11px]">9 (28.1%)</span>
@@ -730,7 +722,7 @@
                   <div
                     class="radial-legend-item flex items-center gap-2.5 cursor-pointer hover:bg-gray-50/80 p-1.5 rounded-lg -mx-1.5 transition-colors"
                     data-category="severeBoth">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#8b5cf6] shrink-0"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#8b5cf6] shrink-0" style="background-color: #8b5cf6;"></span>
                     <div>
                       <span class="font-medium text-[#111827]">Severe (Exceeds Both)</span>
                       <span id="legendSevereBoth" class="text-[#6b7280] block text-[11px]">6 (18.8%)</span>
@@ -740,7 +732,7 @@
                   <div
                     class="radial-legend-item flex items-center gap-2.5 cursor-pointer hover:bg-gray-50/80 p-1.5 rounded-lg -mx-1.5 transition-colors"
                     data-category="advisory">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#0030c2] shrink-0"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#0030c2] shrink-0" style="background-color: #0030c2;"></span>
                     <div>
                       <span class="font-medium text-[#111827]">Advisory Warning</span>
                       <span id="legendAdvisory" class="text-[#6b7280] block text-[11px]">5 (15.6%)</span>

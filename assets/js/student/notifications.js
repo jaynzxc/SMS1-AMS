@@ -871,19 +871,30 @@ function setupEventListeners() {
  */
 window.toggleProfileDropdown = function (event) {
   if (event) event.stopPropagation();
-  const dropdown = document.getElementById('studentProfileMenu');
+  const dropdown = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
+  const btn = document.getElementById('topbarProfileBtn');
+  const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
   if (dropdown) {
-    dropdown.classList.toggle('hidden');
+    const isHidden = dropdown.classList.toggle('hidden');
+    if (chevron) {
+      if (isHidden) {
+        chevron.classList.remove('rotate-90');
+      } else {
+        chevron.classList.add('rotate-90');
+      }
+    }
   }
 };
 
 // Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
-  const dropdown = document.getElementById('studentProfileMenu');
+  const dropdown = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
   const btn = document.getElementById('topbarProfileBtn');
   if (dropdown && !dropdown.classList.contains('hidden')) {
     if (!btn || !btn.contains(e.target)) {
       dropdown.classList.add('hidden');
+      const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+      if (chevron) chevron.classList.remove('rotate-90');
     }
   }
 });

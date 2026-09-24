@@ -3,13 +3,52 @@
 
 import { supabase } from '../config/supabaseClient.js';
 
+const DASHBOARD_CACHE_KEY = 'bcp_admin_dashboard_cache';
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Admin Dashboard Module Initialized');
   initCurrentDate();
+  hydrateFromCache();
   loadDashboardData();
   initTrendChartFilter();
   initTruancyRadialTooltip();
 });
+
+/**
+ * Hydrate dashboard KPI cards and summary from sessionStorage on refresh
+ */
+function hydrateFromCache() {
+  try {
+    const raw = sessionStorage.getItem(DASHBOARD_CACHE_KEY);
+    if (!raw) return;
+    const cache = JSON.parse(raw);
+    if (!cache) return;
+
+    if (cache.kpi) {
+      updateText('statTotalStudents', cache.kpi.totalStudents);
+      updateText('statPresentToday', cache.kpi.presentToday);
+      updateText('statPresentPercentage', cache.kpi.presentPercentage);
+      updateText('statLateToday', cache.kpi.lateToday);
+      updateText('statLatePercentage', cache.kpi.latePercentage);
+      updateText('statAbsentToday', cache.kpi.absentToday);
+      updateText('statAbsentPercentage', cache.kpi.absentPercentage);
+    }
+
+    if (cache.summary) {
+      updateText('summaryPresent', cache.summary.present);
+      updateText('summaryLate', cache.summary.late);
+      updateText('summaryAbsent', cache.summary.absent);
+      updateText('summaryOverallRate', cache.summary.rate);
+      updateText('summaryTotalEnrolled', cache.summary.total);
+    }
+
+    if (cache.recentLogs && cache.recentLogs.length > 0) {
+      renderRecentAttendance(cache.recentLogs);
+    }
+  } catch (e) {
+    console.warn('Failed to hydrate dashboard from cache:', e);
+  }
+}
 
 /**
  * Display formatted current date in top bar
@@ -93,6 +132,31 @@ async function loadDashboardData() {
 
     // Update At-Risk Truancy Radar
     renderAtRiskRadar(logs);
+
+    // Cache computed snapshot to eliminate refresh flickering
+    try {
+      sessionStorage.setItem(DASHBOARD_CACHE_KEY, JSON.stringify({
+        kpi: {
+          totalStudents: totalEnrolled.toLocaleString(),
+          presentToday: presentCount.toLocaleString(),
+          presentPercentage: `${presentPct}% of total`,
+          lateToday: lateCount.toLocaleString(),
+          latePercentage: `${latePct}% of total`,
+          absentToday: absentCount.toLocaleString(),
+          absentPercentage: `${absentPct}% of total`
+        },
+        summary: {
+          present: `${presentCount.toLocaleString()} (${presentPct}%)`,
+          late: `${lateCount.toLocaleString()} (${latePct}%)`,
+          absent: `${absentCount.toLocaleString()} (${absentPct}%)`,
+          rate: `${overallRate}%`,
+          total: totalEnrolled.toLocaleString()
+        },
+        recentLogs: logs.slice(0, 5)
+      }));
+    } catch (e) {
+      // ignore
+    }
 
   } catch (err) {
     console.error('Failed to load dashboard data:', err);
@@ -482,7 +546,7 @@ function initTrendChartFilter() {
       dropdownMenu.classList.remove('opacity-0', 'scale-95');
       dropdownMenu.classList.add('opacity-100', 'scale-100');
     });
-    if (dropdownChevron) dropdownChevron.style.transform = 'rotate(180deg)';
+    if (dropdownChevron) dropdownChevron.style.transform = 'rotate(90deg)';
     if (dropdownBtn) dropdownBtn.setAttribute('aria-expanded', 'true');
   }
 

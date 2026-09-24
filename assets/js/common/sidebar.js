@@ -231,22 +231,26 @@ function setActiveNavItem() {
     const currentPath = window.location.pathname;
     const currentFile = currentPath.split('/').pop().toLowerCase();
     
-    // Get all nav links (excluding dropdown items)
-    const navLinks = document.querySelectorAll('nav a:not(.dropdown-menu a):not(.tardy-dropdown-menu a):not(.excuse-dropdown-menu a)');
-    const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
-    const tardyDropdownLinks = document.querySelectorAll('.tardy-dropdown-menu a');
-    const excuseDropdownLinks = document.querySelectorAll('.excuse-dropdown-menu a');
-    
-    // Remove all active states first
-    document.querySelectorAll('.nav-active').forEach(el => {
-        el.classList.remove('nav-active');
-        el.classList.remove('bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
-        el.classList.add('text-[#6b7280]');
+    // Reset all nav links and dropdown sub-items
+    const allLinks = document.querySelectorAll('nav a');
+    allLinks.forEach(el => {
+        el.classList.remove('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
+        if (!el.classList.contains('text-[#6b7280]')) {
+            el.classList.add('text-[#6b7280]');
+        }
+    });
+
+    // Reset all dropdown toggle buttons
+    const allToggles = document.querySelectorAll('.dropdown-toggle, .tardy-dropdown-toggle, .excuse-dropdown-toggle');
+    allToggles.forEach(toggle => {
+        toggle.classList.remove('text-[#0030c2]', 'font-semibold');
+        if (!toggle.classList.contains('text-[#6b7280]')) {
+            toggle.classList.add('text-[#6b7280]');
+        }
     });
     
-    // =============================================================
-    // 1. CHECK MAIN NAV LINKS
-    // =============================================================
+    // 1. Main Nav Links
+    const navLinks = document.querySelectorAll('nav a:not(.dropdown-menu a):not(.tardy-dropdown-menu a):not(.excuse-dropdown-menu a)');
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && href !== '#') {
@@ -258,9 +262,8 @@ function setActiveNavItem() {
         }
     });
     
-    // =============================================================
-    // 2. CHECK RFID DROPDOWN LINKS
-    // =============================================================
+    // 2. RFID Dropdown Links
+    const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
     dropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && href !== '#') {
@@ -268,22 +271,24 @@ function setActiveNavItem() {
             if (currentFile === hrefFile) {
                 link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
                 link.classList.remove('text-[#6b7280]');
-                // Activate parent toggle
                 const parent = link.closest('.relative');
                 if (parent) {
                     const toggleBtn = parent.querySelector('.dropdown-toggle');
+                    const arrow = parent.querySelector('.dropdown-arrow');
+                    const menu = parent.querySelector('.dropdown-menu');
                     if (toggleBtn) {
                         toggleBtn.classList.add('text-[#0030c2]', 'font-semibold');
                         toggleBtn.classList.remove('text-[#6b7280]');
                     }
+                    if (menu) menu.classList.remove('hidden');
+                    if (arrow) arrow.classList.add('rotate-90');
                 }
             }
         }
     });
 
-    // =============================================================
-    // 3. CHECK TARDY DROPDOWN LINKS
-    // =============================================================
+    // 3. Tardy Dropdown Links
+    const tardyDropdownLinks = document.querySelectorAll('.tardy-dropdown-menu a');
     tardyDropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && href !== '#') {
@@ -291,22 +296,24 @@ function setActiveNavItem() {
             if (currentFile === hrefFile) {
                 link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
                 link.classList.remove('text-[#6b7280]');
-                // Activate parent toggle
                 const parent = link.closest('.relative');
                 if (parent) {
                     const toggleBtn = parent.querySelector('.tardy-dropdown-toggle');
+                    const arrow = parent.querySelector('.tardy-dropdown-arrow');
+                    const menu = parent.querySelector('.tardy-dropdown-menu');
                     if (toggleBtn) {
                         toggleBtn.classList.add('text-[#0030c2]', 'font-semibold');
                         toggleBtn.classList.remove('text-[#6b7280]');
                     }
+                    if (menu) menu.classList.remove('hidden');
+                    if (arrow) arrow.classList.add('rotate-90');
                 }
             }
         }
     });
 
-    // =============================================================
-    // 4. CHECK EXCUSE SLIP DROPDOWN LINKS
-    // =============================================================
+    // 4. Excuse Slip Dropdown Links (if present)
+    const excuseDropdownLinks = document.querySelectorAll('.excuse-dropdown-menu a');
     excuseDropdownLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href && href !== '#') {
@@ -314,14 +321,17 @@ function setActiveNavItem() {
             if (currentFile === hrefFile) {
                 link.classList.add('nav-active', 'bg-[#e7edff]', 'text-[#0030c2]', 'font-semibold');
                 link.classList.remove('text-[#6b7280]');
-                // Activate parent toggle
                 const parent = link.closest('.relative');
                 if (parent) {
                     const toggleBtn = parent.querySelector('.excuse-dropdown-toggle');
+                    const arrow = parent.querySelector('.excuse-dropdown-arrow');
+                    const menu = parent.querySelector('.excuse-dropdown-menu');
                     if (toggleBtn) {
                         toggleBtn.classList.add('text-[#0030c2]', 'font-semibold');
                         toggleBtn.classList.remove('text-[#6b7280]');
                     }
+                    if (menu) menu.classList.remove('hidden');
+                    if (arrow) arrow.classList.add('rotate-90');
                 }
             }
         }
@@ -426,9 +436,14 @@ document.addEventListener('keydown', function(e) {
             if (arrow) arrow.classList.remove('rotate-90');
         }
 
-        const profileMenu = document.getElementById('topbarProfileMenu');
+        const profileMenu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileDropdown');
         if (profileMenu && !profileMenu.classList.contains('hidden')) {
             profileMenu.classList.add('hidden');
+            const btn = document.getElementById('topbarProfileBtn');
+            const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+            if (chevron) {
+                chevron.classList.remove('rotate-90');
+            }
         }
     }
 });
@@ -441,9 +456,19 @@ function toggleProfileDropdown(e) {
     if (e && e.stopPropagation) {
         e.stopPropagation();
     }
-    const menu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu');
+    const menu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileDropdown');
+    const btn = document.getElementById('topbarProfileBtn');
+    const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+
     if (menu) {
-        menu.classList.toggle('hidden');
+        const isHidden = menu.classList.toggle('hidden');
+        if (chevron) {
+            if (isHidden) {
+                chevron.classList.remove('rotate-90');
+            } else {
+                chevron.classList.add('rotate-90');
+            }
+        }
     }
 }
 
@@ -472,11 +497,15 @@ window.handleLogout = handleLogout;
 // Close profile dropdown when clicking outside
 document.addEventListener('click', function(e) {
     const profileBtn = document.getElementById('topbarProfileBtn');
-    const profileMenu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu');
+    const profileMenu = document.getElementById('topbarProfileMenu') || document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileDropdown');
     if (profileMenu && !profileMenu.classList.contains('hidden')) {
         if (profileBtn && profileBtn.contains(e.target)) return;
         if (profileMenu.contains(e.target)) return;
         profileMenu.classList.add('hidden');
+        const chevron = document.getElementById('topbarProfileChevron') || (profileBtn ? profileBtn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+        if (chevron) {
+            chevron.classList.remove('rotate-90');
+        }
     }
 });
 
@@ -498,42 +527,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 2. Sync Real-time Day & Date Display (Dashboard Design Pattern: "Month Day, Year (Weekday)")
-    try {
-        const now = new Date();
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const formattedDate = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} (${days[now.getDay()]})`;
+    function syncHeaderDate() {
+        try {
+            const now = new Date();
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const formattedDate = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} (${days[now.getDay()]})`;
 
-        // Update all elements with id="currentDateLabel"
-        document.querySelectorAll('#currentDateLabel').forEach(el => {
-            el.textContent = formattedDate;
-        });
-
-        // Update any currentDateDisplay button containers
-        document.querySelectorAll('#currentDateDisplay').forEach(btn => {
-            const label = btn.querySelector('#currentDateLabel') || btn.querySelector('span');
-            if (label) {
-                label.textContent = formattedDate;
-            } else {
-                const svg = btn.querySelector('svg');
-                btn.innerHTML = '';
-                if (svg) btn.appendChild(svg);
-                const span = document.createElement('span');
-                span.id = 'currentDateLabel';
-                span.textContent = formattedDate;
-                btn.appendChild(span);
-            }
-        });
-
-        // Find any header buttons containing calendar icons and hardcoded date strings
-        document.querySelectorAll('button, div, span').forEach(el => {
-            if (el.children.length === 0 && (el.textContent.includes('July 25, 2026') || el.textContent.includes('Loading date...'))) {
+            // Update all elements with id="currentDateLabel"
+            document.querySelectorAll('#currentDateLabel').forEach(el => {
                 el.textContent = formattedDate;
-            }
-        });
-    } catch (e) {
-        console.error('Error syncing date display:', e);
+            });
+
+            // Update any currentDateDisplay button containers
+            document.querySelectorAll('#currentDateDisplay').forEach(btn => {
+                const label = btn.querySelector('#currentDateLabel') || btn.querySelector('span');
+                if (label) {
+                    label.textContent = formattedDate;
+                } else {
+                    const svg = btn.querySelector('svg');
+                    btn.innerHTML = '';
+                    if (svg) btn.appendChild(svg);
+                    const span = document.createElement('span');
+                    span.id = 'currentDateLabel';
+                    span.textContent = formattedDate;
+                    btn.appendChild(span);
+                }
+            });
+        } catch (e) {
+            console.error('Error syncing date display:', e);
+        }
     }
+    syncHeaderDate();
 });
 
 console.log('Sidebar.js loaded successfully with Profile Dropdown and Date Sync support');

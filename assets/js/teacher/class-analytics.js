@@ -368,9 +368,18 @@ function toggleProfileDropdown(event) {
   if (event && event.stopPropagation) {
     event.stopPropagation();
   }
-  const dropdown = document.getElementById('topbarProfileMenu') || document.getElementById('topbarProfileDropdown');
+  const dropdown = document.getElementById('topbarProfileMenu') || document.getElementById('topbarProfileDropdown') || document.getElementById('studentProfileMenu');
+  const btn = document.getElementById('topbarProfileBtn');
+  const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
   if (dropdown) {
-    dropdown.classList.toggle('hidden');
+    const isHidden = dropdown.classList.toggle('hidden');
+    if (chevron) {
+      if (isHidden) {
+        chevron.classList.remove('rotate-90');
+      } else {
+        chevron.classList.add('rotate-90');
+      }
+    }
   }
 }
 

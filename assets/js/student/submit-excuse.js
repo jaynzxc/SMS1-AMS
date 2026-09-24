@@ -27,13 +27,9 @@ function initCurrentDate() {
   const dateEl = document.getElementById('currentDateLabel');
   if (dateEl) {
     const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-    const dateParts = today.toLocaleDateString('en-US', options).split(', ');
-    if (dateParts.length >= 3) {
-      dateEl.textContent = `${dateParts[1]}, ${dateParts[2]} (${dateParts[0]})`;
-    } else {
-      dateEl.textContent = 'May 27, 2025 (Tuesday)';
-    }
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    dateEl.textContent = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} (${days[today.getDay()]})`;
   }
 
   // Set max date for date picker to today
@@ -452,9 +448,18 @@ function resetExcuseForm() {
  */
 function toggleProfileDropdown(event) {
   if (event) event.stopPropagation();
-  const menu = document.getElementById('studentProfileMenu');
+  const menu = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
+  const btn = document.getElementById('topbarProfileBtn');
+  const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
   if (menu) {
-    menu.classList.toggle('hidden');
+    const isHidden = menu.classList.toggle('hidden');
+    if (chevron) {
+      if (isHidden) {
+        chevron.classList.remove('rotate-90');
+      } else {
+        chevron.classList.add('rotate-90');
+      }
+    }
   }
 }
 
@@ -467,18 +472,23 @@ function handleLogout() {
 function initProfileDropdown() {
   document.addEventListener('click', (e) => {
     const profileBtn = document.getElementById('topbarProfileBtn');
-    const profileMenu = document.getElementById('studentProfileMenu');
+    const profileMenu = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
     if (profileMenu && !profileMenu.classList.contains('hidden')) {
       if (!profileBtn?.contains(e.target) && !profileMenu.contains(e.target)) {
         profileMenu.classList.add('hidden');
+        const chevron = document.getElementById('topbarProfileChevron') || (profileBtn ? profileBtn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+        if (chevron) chevron.classList.remove('rotate-90');
       }
     }
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      const profileMenu = document.getElementById('studentProfileMenu');
+      const profileMenu = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
       if (profileMenu) profileMenu.classList.add('hidden');
+      const profileBtn = document.getElementById('topbarProfileBtn');
+      const chevron = document.getElementById('topbarProfileChevron') || (profileBtn ? profileBtn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+      if (chevron) chevron.classList.remove('rotate-90');
     }
   });
 }

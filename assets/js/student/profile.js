@@ -367,14 +367,30 @@ function handleRevokeOtherSessions() {
  */
 window.toggleProfileDropdown = function (e) {
   if (e) e.stopPropagation();
-  const menu = document.getElementById('studentProfileMenu');
-  if (menu) menu.classList.toggle('hidden');
+  const menu = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
+  const btn = document.getElementById('topbarProfileBtn');
+  const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
+  if (menu) {
+    const isHidden = menu.classList.toggle('hidden');
+    if (chevron) {
+      if (isHidden) {
+        chevron.classList.remove('rotate-90');
+      } else {
+        chevron.classList.add('rotate-90');
+      }
+    }
+  }
 };
 
 window.closeProfileDropdown = function () {
-  const menu = document.getElementById('studentProfileMenu');
+  const menu = document.getElementById('studentProfileMenu') || document.getElementById('topbarProfileMenu');
+  const btn = document.getElementById('topbarProfileBtn');
+  const chevron = document.getElementById('topbarProfileChevron') || (btn ? btn.querySelector('.topbar-profile-chevron, svg:last-of-type') : null);
   if (menu && !menu.classList.contains('hidden')) {
     menu.classList.add('hidden');
+    if (chevron) {
+      chevron.classList.remove('rotate-90');
+    }
   }
 };
 

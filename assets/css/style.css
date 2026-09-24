@@ -80,6 +80,7 @@ aside {
   background: #f3f4f6;
 }
 
+
 /* Main Content Scrollbar */
 .main-scroll::-webkit-scrollbar {
   width: 4px;
@@ -783,63 +784,109 @@ tr.row-selected {
    STAT CARD HOVER INTERACTIONS
    ============================================================= */
 .stat-card {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease !important;
-}
-
-#statCardHistory,
-#statCardPending,
-#statCardApproved,
-#statCardRejected,
-#statCardTotalStudents,
-#statCardPresentToday,
-#statCardLateToday,
-#statCardAbsentToday,
-.stat-card-history,
-.stat-card-pending,
-.stat-card-approved,
-.stat-card-rejected,
-.stat-card-total,
-.stat-card-present,
-.stat-card-late,
-.stat-card-absent {
   cursor: pointer !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease !important;
 }
 
+/* Base Stat Card Hover Elevation & Default Ambient Glow */
+.stat-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: #0030c2 !important;
+  box-shadow: 0 10px 20px -3px rgba(0, 48, 194, 0.16), 0 4px 6px -2px rgba(0, 48, 194, 0.08) !important;
+}
+
+/* Primary Blue: Total, History, Excused, Registered Credentials */
 #statCardHistory:hover,
 #statCardTotalStudents:hover,
+#statCardTotalRecords:hover,
+#statCardExcused:hover,
 .stat-card-history:hover,
-.stat-card-total:hover {
+.stat-card-total:hover,
+.stat-card-excused:hover,
+.stat-card-blue:hover,
+.stat-card[class*="hover:border-[#0030c2]"]:hover,
+.stat-card[class*="hover:border-[#2563eb]"]:hover {
   border-color: #0030c2 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 10px 20px -3px rgba(0, 48, 194, 0.16), 0 4px 6px -2px rgba(0, 48, 194, 0.08) !important;
 }
 
+/* Amber Orange: Late, Pending, Warning */
 #statCardPending:hover,
 #statCardLateToday:hover,
+#statCardLate:hover,
 .stat-card-pending:hover,
-.stat-card-late:hover {
+.stat-card-late:hover,
+.stat-card-orange:hover,
+.stat-card[class*="hover:border-[#f97316]"]:hover {
   border-color: #f97316 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 10px 20px -3px rgba(249, 115, 22, 0.22), 0 4px 6px -2px rgba(249, 115, 22, 0.1) !important;
 }
 
+/* Emerald Green: Present, Approved, Perfect Attendance, Active */
 #statCardApproved:hover,
 #statCardPresentToday:hover,
+#statCardPresent:hover,
 .stat-card-approved:hover,
-.stat-card-present:hover {
+.stat-card-present:hover,
+.stat-card-green:hover,
+.stat-card[class*="hover:border-[#16a34a]"]:hover {
   border-color: #16a34a !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 10px 20px -3px rgba(22, 163, 74, 0.16), 0 4px 6px -2px rgba(22, 163, 74, 0.08) !important;
 }
 
+/* Crimson Red: Absent, Rejected, Critical Risk, Danger */
 #statCardRejected:hover,
 #statCardAbsentToday:hover,
+#statCardAbsent:hover,
 .stat-card-rejected:hover,
-.stat-card-absent:hover {
+.stat-card-absent:hover,
+.stat-card-red:hover,
+.stat-card[class*="hover:border-[#dc2626]"]:hover {
   border-color: #dc2626 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 10px 20px -3px rgba(220, 38, 38, 0.16), 0 4px 6px -2px rgba(220, 38, 38, 0.08) !important;
+}
+
+/* Violet & Purple: Analytics, Performance Rates */
+.stat-card-purple:hover,
+.stat-card-violet:hover,
+.stat-card[class*="hover:border-[#7c3aed]"]:hover,
+.stat-card[class*="hover:border-[#8b5cf6]"]:hover,
+.stat-card[class*="hover:border-[#9333ea]"]:hover {
+  border-color: #8b5cf6 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px -3px rgba(139, 92, 246, 0.18), 0 4px 6px -2px rgba(139, 92, 246, 0.08) !important;
+}
+
+/* Sky Blue: Informational, Device Stats, Auxiliary */
+.stat-card-sky:hover,
+.stat-card[class*="hover:border-[#0284c7]"]:hover {
+  border-color: #0284c7 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px -3px rgba(2, 132, 199, 0.18), 0 4px 6px -2px rgba(2, 132, 199, 0.08) !important;
+}
+
+/* Indigo: Curriculum, Batches, Secondary Academic Metrics */
+.stat-card-indigo:hover,
+.stat-card[class*="hover:border-[#4f46e5]"]:hover {
+  border-color: #4f46e5 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px -3px rgba(79, 70, 229, 0.18), 0 4px 6px -2px rgba(79, 70, 229, 0.08) !important;
+}
+
+/* Universal Card Icon Badge Micro-Interaction on Hover */
+.stat-card .group-hover\:scale-105,
+.stat-card .shrink-0[class*="rounded-"],
+.stat-card > div > div:first-child[class*="rounded-"] {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.stat-card:hover .group-hover\:scale-105,
+.stat-card:hover .shrink-0[class*="rounded-"],
+.stat-card:hover > div > div:first-child[class*="rounded-"] {
+  transform: scale(1.05) !important;
 }
 
 /* =============================================================
@@ -987,4 +1034,9 @@ button:not(:disabled),
   width: 1.75rem;
   padding: 0;
   border-radius: 0.375rem;
+}
+
+/* Truancy Radial Chart Utilities */
+.bg-\[\#8b5cf6\] {
+  background-color: #8b5cf6 !important;
 }

@@ -130,13 +130,12 @@
 
         <div class="flex items-center gap-4">
           <!-- Notification Bell with Active Badge -->
-          <button id="studentNotifBtn" onclick="toggleNotificationDropdown(event)"
-            class="relative text-[#6b7280] hover:text-[#111827] p-1 rounded-lg transition-colors">
+          <button id="studentNotifBtn" onclick="toggleNotificationDropdown(event)" class="cursor-pointer relative text-[#6b7280] hover:text-[#111827] transition-colors" title="Notifications" aria-label="Notifications">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
-            <span
+            <span id="topbarNotifBadge"
               class="absolute -top-1 -right-1 w-4 h-4 min-w-4 min-h-4 bg-[#0030c2] text-white text-[9px] font-semibold rounded-full flex items-center justify-center">3</span>
           </button>
 
@@ -155,9 +154,8 @@
                 <p class="text-xs font-bold text-[#111827] leading-tight">Juan Dela Cruz</p>
                 <p class="text-[10px] text-[#6b7280] leading-tight mt-0.5">Student · BSIT 3A</p>
               </div>
-              <svg class="w-3.5 h-3.5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              <svg id="topbarProfileChevron" class="topbar-profile-chevron w-3.5 h-3.5 text-[#6b7280] transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </div>
 
@@ -204,7 +202,7 @@
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
             </svg>
-            <span id="currentDateLabel">May 27, 2025 (Tuesday)</span>
+            <span id="currentDateLabel">Loading date...</span><script>(function(){try{var d=new Date(),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],months=['January','February','March','April','May','June','July','August','September','October','November','December'],el=document.currentScript?document.currentScript.previousElementSibling:document.getElementById('currentDateLabel');if(el)el.textContent=months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' ('+days[d.getDay()]+')';}catch(e){}})();</script>
           </button>
         </div>
 
@@ -367,9 +365,11 @@
               </button>
 
               <!-- Export Button (CHED Compliant Multi-Format Modal) -->
-              <button onclick="openExportModal({ tableId: 'attendanceTable', title: 'Personal Student Attendance Transcript', filename: 'BCP_My_Attendance_Transcript', chedMetadata: { department: 'College of Computer Studies', course: 'BS Information Technology', section: 'Student Record', subject: 'Personal Enrolled Subjects Attendance', semester: '1st Semester, A.Y. 2026-2027', instructor: 'Student Self-Service', remarks: 'Personal Attendance Verification Copy for Academic Advising' } })" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#374151] bg-white border border-[#e5e7eb] hover:bg-gray-50 hover:text-[#0030c2] hover:border-[#0030c2] rounded-lg transition-colors shadow-xs cursor-pointer">
-                <svg class="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              <button onclick="openExportModal({ tableId: 'attendanceTable', title: 'Personal Student Attendance Transcript', filename: 'BCP_My_Attendance_Transcript', chedMetadata: { department: 'College of Computer Studies', course: 'BS Information Technology', section: 'Student Record', subject: 'Personal Enrolled Subjects Attendance', semester: '1st Semester, A.Y. 2026-2027', instructor: 'Student Self-Service', remarks: 'Personal Attendance Verification Copy for Academic Advising' } })"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#0030c2] hover:bg-[#002699] rounded-lg transition-colors cursor-pointer shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
                 <span>Export</span>
               </button>

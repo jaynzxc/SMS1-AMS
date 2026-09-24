@@ -358,7 +358,13 @@
     }
   };
 
-  // Auto initialize on DOM ready
+  // Auto initialize immediately if tables exist in DOM, and again on DOMContentLoaded
+  try {
+    window.TablePagination.init();
+  } catch (e) {
+    // ignore
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       window.TablePagination.init();
@@ -367,3 +373,4 @@
     window.TablePagination.init();
   }
 })();
+
